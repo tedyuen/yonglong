@@ -1,0 +1,10 @@
+node_modules
+dist
+app/build/css
+app/build/js
+app/build/fonts
+.idea
+.tmp
+bower_components
+test/bower_components
+*.iml
