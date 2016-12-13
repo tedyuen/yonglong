@@ -13,7 +13,9 @@ require('jquery-toast-plugin');
 require('bootstrap-datepicker');
 require('./utils/bootstrap-datepicker');
 
-
+require('angular');
+require('angular-ui-router');
+var yonglongApp = angular.module("myApp",['ui.router']);
 
 
 

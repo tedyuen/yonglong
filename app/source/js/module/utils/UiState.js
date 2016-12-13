@@ -159,12 +159,6 @@ UiState.prototype.ready = function () {
     $("ul.theme_color").toggleClass("theme_block");
   });
 
-  jQuery('.mydatepicker').datepicker({
-    language: 'zh-CN',
-    autoclose: true,
-    format: "yyyy年mm月dd日",
-    todayHighlight: true
-  });
 
 
 
@@ -174,24 +168,24 @@ UiState.prototype.ready = function () {
   });
   // Sidebar
   try{
-    // $('.slimscrollright').slimScroll({
-    //   height: '100%'
-    //   , position: 'right'
-    //   , size: "5px"
-    //   , color: '#dcdcdc'
-    //   , });
+    $('.slimscrollright').slimScroll({
+      height: '100%'
+      , position: 'right'
+      , size: "5px"
+      , color: '#dcdcdc'
+      , });
     $('.slimscrollsidebar').slimScroll({
       height: '100%'
       , position: 'right'
       , size: "0px"
       , color: '#dcdcdc'
       , });
-    // $('.chat-list').slimScroll({
-    //   height: '100%'
-    //   , position: 'right'
-    //   , size: "0px"
-    //   , color: '#dcdcdc'
-    //   , });
+    $('.chat-list').slimScroll({
+      height: '100%'
+      , position: 'right'
+      , size: "0px"
+      , color: '#dcdcdc'
+      , });
   }catch(e){
 
   }

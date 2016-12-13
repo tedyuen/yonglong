@@ -1,54 +1,42 @@
 /**
  * Created by tedyuen on 16-12-8.
  */
-require('angular');
-require('angular-ui-router');
-var myApp = angular.module("myApp",['ui.router']);
-
-
-myApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
-  $urlRouterProvider.when('','/main/inner/customer_order').otherwise('/main/inner/customer_order');
+yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
+  $urlRouterProvider.when('','/main/inner').otherwise('/main/inner');
   $stateProvider
-    .state('login',{
+    .state('login',{//登录页
       url:'/login',
       templateUrl:'template/login.html'
     })
-    .state('main',{
+    .state('main',{//主页
       url:'/main',
       templateUrl:'template/main.html',
     })
-    .state('main.inner',{
+    .state('main.inner',{//主页
       url:'/inner',
       views:{
         'nav': {
           templateUrl: 'template/nav.html'
         },
         'sidebar': {
-          templateUrl: 'template/sidebar.html'
+          templateUrl: 'template/sidebar.html',
+          controller: 'mainController'
         },
         'footer': {
-          templateUrl: 'template/footer.html',
-          controller: 'indexControler'
+          templateUrl: 'template/footer.html'
         }
       }
     })
-    .state('main.inner.customer_order',{
+    .state('main.inner.customer_order',{//客户下单
       url:'/customer_order',
       views: {
         'content@main': {
-          templateUrl: 'template/inner/customer_order.html'
+          templateUrl: 'template/inner/customer_order.html',
+          controller: 'customerOrderController'
         }
       }
     })
-
 }]);
 
-myApp.controller("indexControler",function () {
-  var UiState = require('./utils/UiState');
-  var uiState = new UiState();
-  uiState.ready();
-});
 
-myApp.controller('customerOrderControler',function () {
-  console.log('customerOrderControler');
-});
+
