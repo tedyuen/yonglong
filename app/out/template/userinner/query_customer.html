@@ -1,0 +1,474 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">客户查询</h4>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="#">客户信息管理</a></li>
+          <li class="active">客户查询</li>
+        </ol>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="white-box">
+          <!-- 顶部输入框 -->
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="form-group">
+                <label for="username" class="control-label">用户姓名</label>
+                <input type="text" class="form-control" id="username" placeholder="输入用户姓名...">
+                <div class="help-block with-errors"></div><!-- 表单验证错误,form-group标签中添加has-error -->
+              </div>
+            </div>
+            <div class="col-sm-7">
+              <div class="form-group">
+                <label for="userphone" class="control-label">联系电话</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="userphone" placeholder="输入联系电话...">
+                  <span class="input-group-btn">
+                      <button type="button" class="btn waves-effect waves-light btn-danger" alt="default">查询</button>
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 顶部输入框 -->
+
+          <!-- 筛选tab -->
+          <ul class="nav customtab nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs">全部</span></a></li>
+            <li role="presentation" class=""><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-user"></i></span> <span class="hidden-xs">首付款已付</span></a></li>
+            <li role="presentation" class=""><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-email"></i></span> <span class="hidden-xs">装修中</span></a></li>
+            <li role="presentation" class=""><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-settings"></i></span> <span class="hidden-xs">尾款已付</span></a></li>
+            <li role="presentation" class=""><a href="#tab5" aria-controls="tab5" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-signal"></i></span> <span class="hidden-xs">未签约</span></a></li>
+          </ul>
+          <!-- 筛选tab -->
+          <div class="tab-content table-responsive m-t-15">
+            <div id="tab1" class="tab-pane active" role="tabpanel">
+              <table class="table color-table primary-table table-hover table-bordered">
+                <thead>
+                <tr>
+                  <th>客户名称</th>
+                  <th>手机号</th>
+                  <th>城市</th>
+                  <th>房型</th>
+                  <th>合同签订日期</th>
+                  <th>销售</th>
+                  <th>合同状态</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;徐爱红</td>
+                  <td>18938276333</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>新签</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;李红</td>
+                  <td>18738948372</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>首付已付</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;张一山</td>
+                  <td>13524498337</td>
+                  <td>上海</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-10-05</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;钱学森</td>
+                  <td>13524498337</td>
+                  <td>杭州</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-09-28</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;张德江</td>
+                  <td>13524498337</td>
+                  <td>上海</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-09-25</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;董明珠</td>
+                  <td>17717536253</td>
+                  <td>上海</td>
+                  <td>叠加两层</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-09-02</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- 测试数据 -->
+            <div id="tab2" class="tab-pane" role="tabpanel">
+              <table class="table color-table primary-table table-hover table-bordered">
+                <thead>
+                <tr>
+                  <th>客户名称</th>
+                  <th>手机号</th>
+                  <th>城市</th>
+                  <th>房型</th>
+                  <th>合同签订日期</th>
+                  <th>销售</th>
+                  <th>合同状态</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;徐爱红</td>
+                  <td>18938276333</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>新签</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;李红</td>
+                  <td>18738948372</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>首付已付</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;张一山</td>
+                  <td>13524498337</td>
+                  <td>上海</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-10-05</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;钱学森</td>
+                  <td>13524498337</td>
+                  <td>杭州</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-09-28</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="tab3" class="tab-pane" role="tabpanel">
+              <table class="table color-table primary-table table-hover table-bordered">
+                <thead>
+                <tr>
+                  <th>客户名称</th>
+                  <th>手机号</th>
+                  <th>城市</th>
+                  <th>房型</th>
+                  <th>合同签订日期</th>
+                  <th>销售</th>
+                  <th>合同状态</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;徐爱红</td>
+                  <td>18938276333</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>新签</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;李红</td>
+                  <td>18738948372</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>首付已付</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;张一山</td>
+                  <td>13524498337</td>
+                  <td>上海</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-10-05</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;张德江</td>
+                  <td>13524498337</td>
+                  <td>上海</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-09-25</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;董明珠</td>
+                  <td>17717536253</td>
+                  <td>上海</td>
+                  <td>叠加两层</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-09-02</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="tab4" class="tab-pane" role="tabpanel">
+              <table class="table color-table primary-table table-hover table-bordered">
+                <thead>
+                <tr>
+                  <th>客户名称</th>
+                  <th>手机号</th>
+                  <th>城市</th>
+                  <th>房型</th>
+                  <th>合同签订日期</th>
+                  <th>销售</th>
+                  <th>合同状态</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;徐爱红</td>
+                  <td>18938276333</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>新签</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;李红</td>
+                  <td>18738948372</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>首付已付</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;张一山</td>
+                  <td>13524498337</td>
+                  <td>上海</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-10-05</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;钱学森</td>
+                  <td>13524498337</td>
+                  <td>杭州</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-09-28</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;张德江</td>
+                  <td>13524498337</td>
+                  <td>上海</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-09-25</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;董明珠</td>
+                  <td>17717536253</td>
+                  <td>上海</td>
+                  <td>叠加两层</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-09-02</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;徐爱红</td>
+                  <td>18938276333</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>新签</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;李红</td>
+                  <td>18738948372</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>首付已付</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;张一山</td>
+                  <td>13524498337</td>
+                  <td>上海</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-10-05</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="tab5" class="tab-pane" role="tabpanel">
+              <table class="table color-table primary-table table-hover table-bordered">
+                <thead>
+                <tr>
+                  <th>客户名称</th>
+                  <th>手机号</th>
+                  <th>城市</th>
+                  <th>房型</th>
+                  <th>合同签订日期</th>
+                  <th>销售</th>
+                  <th>合同状态</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;徐爱红</td>
+                  <td>18938276333</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>新签</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;李红</td>
+                  <td>18738948372</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>首付已付</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;钱学森</td>
+                  <td>13524498337</td>
+                  <td>杭州</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-09-28</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;董明珠</td>
+                  <td>17717536253</td>
+                  <td>上海</td>
+                  <td>叠加两层</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-09-02</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;徐爱红</td>
+                  <td>18938276333</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>新签</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;李红</td>
+                  <td>18738948372</td>
+                  <td>上海</td>
+                  <td>两室一厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td>张兰</td>
+                  <td>首付已付</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;张一山</td>
+                  <td>13524498337</td>
+                  <td>上海</td>
+                  <td>三室两厅</td>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-10-05</td>
+                  <td>张兰</td>
+                  <td>装修中</td>
+                  <td><button type="button" class="btn btn-info btn-xs">销售进度</button> <button type="button" class="btn btn-success btn-xs">查看合同</button></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- 测试数据 -->
+
+
+          </div>
+          <ul class="pagination m-b-0">
+            <li> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
+            <li> <a href="#">1</a> </li>
+            <li class="active"> <a href="#">2</a> </li>
+            <li> <a href="#">3</a> </li>
+            <li> <a href="#">4</a> </li>
+            <li> <a href="#">5</a> </li>
+            <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--row -->
+
+</div>
