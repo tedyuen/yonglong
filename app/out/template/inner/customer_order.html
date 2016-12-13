@@ -1,0 +1,144 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">客户下单</h4>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="#">销售工具</a></li>
+          <li class="active">客户下单</li>
+        </ol>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="white-box">
+          <div class="row">
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label for="username" class="control-label">用户姓名</label>
+                <input type="text" class="form-control" id="username" placeholder="输入用户姓名...">
+                <div class="help-block with-errors"></div><!-- 表单验证错误,form-group标签中添加has-error -->
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label for="userphone" class="control-label">联系电话</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="userphone" placeholder="输入联系电话...">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn waves-effect waves-light btn-danger" alt="default" data-toggle="modal" data-target=".bs-example-modal-sm">检测手机</button>
+                    </span>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label>性别</label>
+                <select class="form-control">
+                  <option>男</option>
+                  <option>女</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label for="createname" class="control-label">创建人</label>
+                <input type="text" class="form-control" id="createname" placeholder="输入创建人姓名...">
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label for="designer" class="control-label">设计师</label>
+                <input type="text" class="form-control" id="designer" placeholder="输入设计师姓名...">
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label>客户级别</label>
+                <select class="form-control">
+                  <option>一般客户</option>
+                  <option>内部客户</option>
+                  <option>VIP</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label>房型</label>
+                <select class="form-control">
+                  <option>两室一厅</option>
+                  <option>三室两厅</option>
+                  <option>叠加两层</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label for="buildingname" class="control-label">楼盘名称</label>
+                <input type="text" class="form-control" id="buildingname" placeholder="输入楼盘名称...">
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label for="buildingaddress" class="control-label">楼盘地址</label>
+                <input type="text" class="form-control" id="buildingaddress" placeholder="输入楼盘地址...">
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label>签订日期</label>
+                <div class="input-group">
+                  <input type="text" class="form-control mydatepicker" placeholder="yyyy年mm月dd日">
+                  <span class="input-group-addon"><i class="icon-calender"></i></span> </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label for="areameasure" class="control-label">套内面积</label>
+                <input type="text" class="form-control" id="areameasure" placeholder="输入楼盘地址...">
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                <label>套餐选择</label>
+                <select class="form-control">
+                  <option>A套餐</option>
+                  <option>B套餐</option>
+                  <option>C套餐</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+          <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">提交</button>
+          <button type="submit" class="btn btn-inverse waves-effect waves-light">取消</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--row -->
+
+  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="mySmallModalLabel">检测结果</h4>
+        </div>
+        <div class="modal-body"> 输入的手机号未查询到匹配用户 </div>
+      </div>
+    </div>
+  </div>
+</div>

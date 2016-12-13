@@ -21,9 +21,9 @@ var cssArr = [
 
 var jsArr = [
   './app/source/js/module/main.js',
-  './app/source/js/module/route.js',
   './app/source/js/module/custom.js',
-  './app/source/js/module/waves.js'
+  './app/source/js/module/waves.js',
+  './app/source/js/module/route.js',
 ];
 
 // css
