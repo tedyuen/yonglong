@@ -15,7 +15,10 @@ require('./utils/bootstrap-datepicker');
 
 require('angular');
 require('angular-ui-router');
-var yonglongApp = angular.module("myApp",['ui.router']);
+
+require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
+
+var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
 
 
 
@@ -32,9 +35,45 @@ $(document).ready(function () {
 /**
  * Created by tedyuen on 16-12-13.
  */
-yonglongApp.controller('customerOrderController',['showDatePickerProvider',function (showDatePickerProvider) {
-  console.log('customerOrderController');
+yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePickerProvider',
+  function ($scope,$timeout,showDatePickerProvider) {
+
+  console.log('createOrderController');
   showDatePickerProvider.showDatePicker();
+
+  $scope.offlineOpts = {retryInterval: 5000};
+
+  var longitude = 121.506191;
+  var latitude = 31.245554;
+  $scope.mapOptions = {
+    center: {
+      longitude: longitude,
+      latitude: latitude
+    },
+    zoom: 17,
+    city: 'ShangHai',
+    markers: [{
+      longitude: longitude,
+      latitude: latitude,
+      icon: 'img/mappiont.png',
+      width: 49,
+      height: 60,
+      title: 'Where',
+      content: 'Put description here'
+    }]
+  };
+
+  $scope.mapLoaded = function(map) {
+    console.log(map);
+  };
+
+  $timeout(function() {
+    $scope.mapOptions.center.longitude = 121.500885;
+    $scope.mapOptions.center.latitude = 31.190032;
+    $scope.mapOptions.markers[0].longitude = 121.500885;
+    $scope.mapOptions.markers[0].latitude = 31.190032;
+  }, 5000);
+
 }]);
 
 /**
@@ -133,12 +172,12 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
-    .state('main.companyinner.customer_order',{//客户下单
-      url:'/customer_order',
+    .state('main.companyinner.create_order',{//创建订单
+      url:'/create_order',
       views: {
         'content@main': {
-          templateUrl: 'template/companyinner/customer_order.html',
-          controller: 'customerOrderController'
+          templateUrl: 'template/companyinner/create_order.html',
+          controller: 'createOrderController'
         }
       }
     })

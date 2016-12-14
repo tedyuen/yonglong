@@ -15,7 +15,10 @@ require('./utils/bootstrap-datepicker');
 
 require('angular');
 require('angular-ui-router');
-var yonglongApp = angular.module("myApp",['ui.router']);
+
+require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
+
+var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
 
 
 

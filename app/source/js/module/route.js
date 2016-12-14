@@ -58,12 +58,12 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
-    .state('main.companyinner.customer_order',{//客户下单
-      url:'/customer_order',
+    .state('main.companyinner.create_order',{//创建订单
+      url:'/create_order',
       views: {
         'content@main': {
-          templateUrl: 'template/companyinner/customer_order.html',
-          controller: 'customerOrderController'
+          templateUrl: 'template/companyinner/create_order.html',
+          controller: 'createOrderController'
         }
       }
     })

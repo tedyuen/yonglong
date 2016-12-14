@@ -1,0 +1,53 @@
+<!--<link href="../../../source/css/node/bootstrap.min.css" rel="stylesheet">-->
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">创建订单</h4>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="#">订单管理</a></li>
+          <li class="active">创建订单</li>
+        </ol>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="white-box">
+          <div class="row">
+
+            <div class="col-md-6 col-lg-4 col-sm-12">
+              <div class="form-group">
+                <label for="shipname" class="control-label">船名行次</label>
+                <input type="text" class="form-control" id="shipname" placeholder="输入船名行次...">
+                <div class="help-block with-errors">必填项</div><!-- 表单验证错误,form-group标签中添加has-error -->
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-sm-12">
+              <div class="form-group">
+                <label>装箱日期</label>
+                <div class="input-group">
+                  <input type="text" class="form-control mydatepicker" placeholder="yyyy年mm月dd日">
+                  <span class="input-group-addon"><i class="icon-calender"></i></span> </div>
+              </div>
+            </div>
+
+            <div>
+              <baidu-map options="mapOptions" ak="gd0GyxGUxSCoAbmdyQBhyhrZ" offline="offlineOpts" style="width: 500px; height: 500px;display: block;" on-map-loaded="mapLoaded(map)"></baidu-map>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+
+  </div>
+</div>
