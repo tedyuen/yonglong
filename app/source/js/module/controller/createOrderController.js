@@ -3,8 +3,6 @@
  */
 yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePickerProvider',
   function ($scope,$timeout,showDatePickerProvider) {
-
-  console.log('createOrderController');
   showDatePickerProvider.showDatePicker();
 
   $scope.offlineOpts = {retryInterval: 5000};

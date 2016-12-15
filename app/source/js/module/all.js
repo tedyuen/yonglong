@@ -37,8 +37,6 @@ $(document).ready(function () {
  */
 yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePickerProvider',
   function ($scope,$timeout,showDatePickerProvider) {
-
-  console.log('createOrderController');
   showDatePickerProvider.showDatePicker();
 
   $scope.offlineOpts = {retryInterval: 5000};
@@ -77,6 +75,16 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePic
 }]);
 
 /**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePickerProvider',
+  function ($scope,$timeout,showDatePickerProvider) {
+    showDatePickerProvider.showDatePicker();
+
+
+}]);
+
+/**
  * Created by tedyuen on 16-12-13.
  */
 yonglongApp.controller("mainController",['$rootScope','$timeout',function ($rootScope,$timeout) {
@@ -91,6 +99,26 @@ yonglongApp.controller("mainController",['$rootScope','$timeout',function ($root
     var uiState = new UiState();
     uiState.ready()
   },50);
+}]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.controller('queryOrderController',['$scope','$timeout','showDatePickerProvider',
+  function ($scope,$timeout,showDatePickerProvider) {
+    showDatePickerProvider.showDatePicker();
+
+
+}]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePickerProvider',
+  function ($scope,$timeout,showDatePickerProvider) {
+    showDatePickerProvider.showDatePicker();
+
+
 }]);
 
 /**
@@ -181,6 +209,36 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.companyinner.query_order',{//订单查询
+      url:'/query_order',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/query_order.html',
+          controller: 'queryOrderController'
+        }
+      }
+    })
+    .state('main.companyinner.wanner_order',{//我要接单
+      url:'/wanner_order',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/wanner_order.html',
+          controller: 'wannerOrderController'
+        }
+      }
+    })
+    .state('main.companyinner.hasget_order',{//已接订单
+      url:'/hasget_order',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/hasget_order.html',
+          controller: 'hasgetOrderController'
+        }
+      }
+    })
+
+
+
 }]);
 
 

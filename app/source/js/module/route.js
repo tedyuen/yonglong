@@ -67,6 +67,36 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.companyinner.query_order',{//订单查询
+      url:'/query_order',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/query_order.html',
+          controller: 'queryOrderController'
+        }
+      }
+    })
+    .state('main.companyinner.wanner_order',{//我要接单
+      url:'/wanner_order',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/wanner_order.html',
+          controller: 'wannerOrderController'
+        }
+      }
+    })
+    .state('main.companyinner.hasget_order',{//已接订单
+      url:'/hasget_order',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/hasget_order.html',
+          controller: 'hasgetOrderController'
+        }
+      }
+    })
+
+
+
 }]);
 
 

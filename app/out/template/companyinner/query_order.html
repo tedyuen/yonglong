@@ -1,0 +1,165 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">订单查询</h4>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="#">订单管理</a></li>
+          <li class="active">订单查询</li>
+        </ol>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="white-box">
+          <div class="row">
+
+            <div class="col-md-6 col-lg-4 col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">装箱日期</span>
+                  <input type="text" class="form-control mydatepicker" placeholder="yyyy年mm月dd日">
+                  <span class="input-group-addon"><i class="icon-calender"></i></span>
+                </div>
+              </div>
+              <div class="help-block with-errors"></div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">装货地</span>
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="help-block with-errors"></div><!-- 表单验证错误,form-group标签中添加has-error -->
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">类别</span>
+                  <select class="form-control">
+                    <option>进口</option>
+                    <option>出口</option>
+                    <option>拖柜进洋山</option>
+                  </select>
+                </div>
+              </div>
+              <div class="help-block with-errors"></div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon" style="text-indent: 1em">发货方</span>
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="help-block with-errors"></div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">接单方</span>
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="help-block with-errors"></div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">箱型</span>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <select class="form-control">
+                        <option>20</option>
+                        <option>40</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-6">
+                      <select class="form-control">
+                        <option>GP</option>
+                        <option>HC</option>
+                        <option>OT(开顶箱)</option>
+                        <option>HT(挂衣箱)</option>
+                        <option>RF(冷冻箱)</option>
+                        <option>RH(l冷冻高箱)</option>
+                        <option>TK(油罐箱)</option>
+                        <option>TR(框架箱)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="help-block with-errors"></div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">查询</button>
+
+          </div>
+      </div>
+
+
+      <div class="col-sm-12">
+        <div class="white-box">
+          <div class="row">
+            <table class="table color-table primary-table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>装箱日期</th>
+                  <th>发货人</th>
+                  <th>评级</th>
+                  <th>装货地</th>
+                  <th>还箱地</th>
+                  <th>箱型箱量</th>
+                  <th>重量</th>
+                  <th>费用</th>
+                  <th>订单状态</th>
+                  <th>结算状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;李可强</td>
+                  <td>A</td>
+                  <td>上海</td>
+                  <td>北京</td>
+                  <td>50</td>
+                  <td>100KG</td>
+                  <td>10,000$</td>
+                  <td>完成</td>
+                  <td>已结算</td>
+                  <td><button type="button" class="btn btn-info btn-xs">查看进度</button> <button type="button" class="btn btn-success btn-xs">进入详情</button></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <ul class="pagination m-b-0">
+              <li> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
+              <li> <a href="#">1</a> </li>
+              <li class="active"> <a href="#">2</a> </li>
+              <li> <a href="#">3</a> </li>
+              <li> <a href="#">4</a> </li>
+              <li> <a href="#">5</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    <!-- /.row -->
+
+    </div>
+  </div>
+</div>
