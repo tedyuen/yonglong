@@ -130,6 +130,26 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.companyinner.account_info',{//账户信息
+      url:'/account_info',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/account_info.html',
+          controller: 'accountInfoController'
+        }
+      }
+    })
+    .state('main.companyinner.withdraw_manage',{//提现账户管理
+      url:'/withdraw_manage',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/withdraw_manage.html',
+          controller: 'withdrawManageController'
+        }
+      }
+    })
+
+
 
 
 

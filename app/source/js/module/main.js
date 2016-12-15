@@ -13,6 +13,8 @@ require('dropify');
 
 require('bootstrap-datepicker');
 require('./utils/bootstrap-datepicker');
+require('./utils/jquery.waypoints.min');
+require('./utils/jquery.counterup.min');
 
 require('angular');
 require('angular-ui-router');
