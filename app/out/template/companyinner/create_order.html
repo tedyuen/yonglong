@@ -22,16 +22,18 @@
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="shipname" class="control-label">船名行次</label>
-                <input type="text" class="form-control" id="shipname" placeholder="输入船名行次...">
+                <div class="input-group">
+                  <span class="input-group-addon">船名行次</span>
+                  <input type="text" class="form-control" id="shipname" placeholder="输入船名行次...">
+                </div>
                 <div class="help-block with-errors"></div><!-- 表单验证错误,form-group标签中添加has-error -->
               </div>
             </div>
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label>装箱日期</label>
                 <div class="input-group">
+                  <span class="input-group-addon">装箱日期</span>
                   <input type="text" class="form-control mydatepicker" placeholder="yyyy年mm月dd日">
                   <span class="input-group-addon"><i class="icon-calender"></i></span> </div>
               </div>
@@ -42,11 +44,11 @@
             <!--</div>-->
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="startaddress" class="control-label">起始地</label>
                 <div class="input-group">
+                  <span class="input-group-addon">起始地</span>
                   <input type="text" class="form-control" id="startaddress" placeholder="输入起始地址...">
                   <span class="input-group-btn">
-                    <button type="button" class="btn waves-effect waves-light btn-primary" alt="default" data-toggle="modal" data-target=".bs-example-modal-sm">选择地址</button>
+                    <button type="button" class="btn waves-effect waves-light btn-primary" alt="default">选择地址</button>
                     </span>
                 </div>
                 <div class="help-block with-errors"></div>
@@ -55,11 +57,11 @@
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="loadaddress" class="control-label">装货地</label>
                 <div class="input-group">
+                  <span class="input-group-addon">装货地</span>
                   <input type="text" class="form-control" id="loadaddress" placeholder="输入装货地址...">
                   <span class="input-group-btn">
-                    <button type="button" class="btn waves-effect waves-light btn-primary" alt="default" data-toggle="modal" data-target=".bs-example-modal-sm">选择地址</button>
+                    <button type="button" class="btn waves-effect waves-light btn-primary" alt="default">选择地址</button>
                     </span>
                 </div>
                 <div class="help-block with-errors"></div>
@@ -68,11 +70,11 @@
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="returnaddress" class="control-label">还箱地</label>
                 <div class="input-group">
+                  <span class="input-group-addon">还箱地</span>
                   <input type="text" class="form-control" id="returnaddress" placeholder="输入还箱地址...">
                   <span class="input-group-btn">
-                    <button type="button" class="btn waves-effect waves-light btn-primary" alt="default" data-toggle="modal" data-target=".bs-example-modal-sm">选择地址</button>
+                    <button type="button" class="btn waves-effect waves-light btn-primary" alt="default">选择地址</button>
                     </span>
                 </div>
                 <div class="help-block with-errors"></div>
@@ -81,52 +83,60 @@
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="transitport" class="control-label">中转港/卸港</label>
-                <input type="text" class="form-control" id="transitport" placeholder="输入中转港/卸港...">
+                <div class="input-group">
+                  <span class="input-group-addon">中转港/卸港</span>
+                  <input type="text" class="form-control" id="transitport" placeholder="输入中转港/卸港...">
+                </div>
                 <div class="help-block with-errors"></div>
               </div>
             </div>
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="targetport" class="control-label">目的港/交货地</label>
-                <input type="text" class="form-control" id="targetport" placeholder="输入中转港/卸港...">
+                <div class="input-group">
+                  <span class="input-group-addon">目的港/交货地</span>
+                  <input type="text" class="form-control" id="targetport" placeholder="输入中转港/卸港...">
+                </div>
                 <div class="help-block with-errors"></div>
               </div>
             </div>
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label>类别</label>
-                <select class="form-control">
-                  <option>进口</option>
-                  <option>出口</option>
-                  <option>拖柜进洋山</option>
-                </select>
+                <div class="input-group">
+                  <span class="input-group-addon">类别</span>
+                  <select class="form-control">
+                    <option>进口</option>
+                    <option>出口</option>
+                    <option>拖柜进洋山</option>
+                  </select>
+                </div>
               </div>
             </div>
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label>箱型</label>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <select class="form-control">
-                      <option>20</option>
-                      <option>40</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-6">
-                    <select class="form-control">
-                      <option>GP</option>
-                      <option>HC</option>
-                      <option>OT(开顶箱)</option>
-                      <option>HT(挂衣箱)</option>
-                      <option>RF(冷冻箱)</option>
-                      <option>RH(l冷冻高箱)</option>
-                      <option>TK(油罐箱)</option>
-                      <option>TR(框架箱)</option>
-                    </select>
+                <div class="input-group">
+                  <span class="input-group-addon">箱型</span>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <select class="form-control">
+                        <option>20</option>
+                        <option>40</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-6">
+                      <select class="form-control">
+                        <option>GP</option>
+                        <option>HC</option>
+                        <option>OT(开顶箱)</option>
+                        <option>HT(挂衣箱)</option>
+                        <option>RF(冷冻箱)</option>
+                        <option>RH(l冷冻高箱)</option>
+                        <option>TK(油罐箱)</option>
+                        <option>TR(框架箱)</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -134,16 +144,18 @@
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="boxcapacity" class="control-label">箱量</label>
-                <input type="text" class="form-control" id="boxcapacity" placeholder="输入箱量...">
+                <div class="input-group">
+                  <span class="input-group-addon">箱量</span>
+                  <input type="text" class="form-control" id="boxcapacity" placeholder="输入箱量...">
+                </div>
                 <div class="help-block with-errors"></div>
               </div>
             </div>
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="cargoweight" class="control-label">货重</label>
                 <div class="input-group">
+                  <span class="input-group-addon">货重</span>
                   <input type="number" class="form-control" id="cargoweight" placeholder="输入货物重量...">
                   <span class="input-group-addon">KG</span>
                 </div>
@@ -153,41 +165,56 @@
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="remarks" class="control-label">备注</label>
-                <input type="text" class="form-control" id="remarks" placeholder="输入备注...">
+                <div class="input-group">
+                  <span class="input-group-addon">备注</span>
+                  <input type="text" class="form-control" id="remarks" placeholder="输入备注...">
+                </div>
                 <div class="help-block with-errors"></div>
               </div>
             </div>
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="freight" class="control-label">运费</label>
-                <span style="color:red;font-size: 11px;">&nbsp;该运费视作不包含提箱费，如有提箱费，请在额外费用中输入金额</span>
-                <input type="text" class="form-control" id="freight" placeholder="输入运费...">
-                <!--<div class="help-block with-errors">提示:该运费视作不包含提箱费，如有提箱费，请在额外费用中输入金额</div>-->
+                <div class="input-group">
+                  <span class="input-group-addon">运费</span>
+                  <input type="text" class="form-control" id="freight" placeholder="输入运费...">
+                </div>
+                <div class="help-block with-errors">
+                  <span style="color:red;font-size: 12px;">&nbsp;注：该运费视作不包含提箱费，如有提箱费，请在额外费用中输入金额</span>
+                </div>
               </div>
             </div>
 
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="additionalcost" class="control-label">额外费用</label>
-                <input type="text" class="form-control" id="additionalcost" placeholder="输入额外费用...">
+                <div class="input-group">
+                  <span class="input-group-addon">额外费用</span>
+                  <input type="text" class="form-control" id="additionalcost" placeholder="输入额外费用...">
+                </div>
                 <div class="help-block with-errors"></div>
               </div>
             </div>
 
+            <div class="clearfix visible-md-block"></div>
+
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="referencerate" class="control-label">参考运价</label>
-                <input type="text" class="form-control" id="referencerate" placeholder="输入参考运价...">
+                <div class="input-group">
+                  <span class="input-group-addon">参考运价</span>
+                  <input type="text" class="form-control" id="referencerate" placeholder="输入参考运价...">
+                </div>
                 <div class="help-block with-errors"></div>
               </div>
             </div>
 
+            <div class="clearfix visible-lg-block"></div>
+
             <div class="col-md-6 col-lg-4 col-sm-12">
               <div class="form-group">
-                <label for="billoflading" class="control-label">提单号</label>
-                <input type="text" class="form-control" id="billoflading" placeholder="输入提单号...">
+                <div class="input-group">
+                  <span class="input-group-addon">提单号</span>
+                  <input type="text" class="form-control" id="billoflading" placeholder="输入提单号...">
+                </div>
                 <div class="help-block with-errors"></div>
               </div>
             </div>

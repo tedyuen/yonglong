@@ -77,6 +77,15 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePic
 /**
  * Created by tedyuen on 16-12-15.
  */
+yonglongApp.controller('friendManageController',['$scope',
+  function ($scope) {
+
+
+}]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
 yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePickerProvider',
   function ($scope,$timeout,showDatePickerProvider) {
     showDatePickerProvider.showDatePicker();
@@ -105,6 +114,26 @@ yonglongApp.controller("mainController",['$rootScope','$timeout',function ($root
  * Created by tedyuen on 16-12-15.
  */
 yonglongApp.controller('queryOrderController',['$scope','$timeout','showDatePickerProvider',
+  function ($scope,$timeout,showDatePickerProvider) {
+    showDatePickerProvider.showDatePicker();
+
+
+}]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.controller('receiveReportController',['$scope','$timeout','showDatePickerProvider',
+  function ($scope,$timeout,showDatePickerProvider) {
+    showDatePickerProvider.showDatePicker();
+
+
+}]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePickerProvider',
   function ($scope,$timeout,showDatePickerProvider) {
     showDatePickerProvider.showDatePicker();
 
@@ -236,6 +265,36 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.companyinner.send_report',{//外发订单
+      url:'/send_report',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/send_report.html',
+          controller: 'sendReportController'
+        }
+      }
+    })
+    .state('main.companyinner.receive_report',{//外发订单
+      url:'/receive_report',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/receive_report.html',
+          controller: 'receiveReportController'
+        }
+      }
+    })
+    .state('main.companyinner.friend_manage',{//外发订单
+      url:'/friend_manage',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/friend_manage.html',
+          controller: 'friendManageController'
+        }
+      }
+    })
+
+
+
 
 
 
