@@ -17,6 +17,7 @@ var cssArr = [
   './app/source/css/pixel/spinners.css',
   './app/source/css/pixel/colors/default.css',
   './app/source/css/node/bootstrap-datepicker.min.css',
+  './app/source/css/node/dropify.min.css',
 ];
 
 var jsArr = [
@@ -76,6 +77,13 @@ gulp.task('nodeModule',function(){
   gulp.src('./node_modules/metismenu/dist/metisMenu.min.css')
     .pipe(gulp.dest('./app/source/css/node'));
   // metisMenu
+
+  // dropify
+  gulp.src('./node_modules/dropify/dist/css/dropify.min.css')
+    .pipe(gulp.dest('./app/source/css/node'));
+  // dropify
+
+
 
 });
 

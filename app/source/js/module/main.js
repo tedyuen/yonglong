@@ -6,6 +6,7 @@ require('bootstrap');
 require('metismenu');
 require('jquery-slimscroll');
 require('jquery-toast-plugin');
+require('dropify');
 
 // var LogUtil = require('./utils/LogUtil');
 // var log = new LogUtil(true);//Set can out log.

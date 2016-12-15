@@ -6,6 +6,7 @@ require('bootstrap');
 require('metismenu');
 require('jquery-slimscroll');
 require('jquery-toast-plugin');
+require('dropify');
 
 // var LogUtil = require('./utils/LogUtil');
 // var log = new LogUtil(true);//Set can out log.
@@ -143,12 +144,58 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePick
 /**
  * Created by tedyuen on 16-12-15.
  */
+yonglongApp.controller('updateInfoController',['$scope','dropifyProvider',
+  function ($scope,dropifyProvider) {
+    dropifyProvider.dropify();
+  }
+]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
 yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePickerProvider',
   function ($scope,$timeout,showDatePickerProvider) {
     showDatePickerProvider.showDatePicker();
 
 
 }]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.provider('dropifyProvider',function () {
+  this.$get = function () {
+    return {
+      dropify:function () {
+        console.log('dropify');
+        var drEvent = jQuery('.dropify').dropify({
+          messages: {
+            default: '拖拽图片或点击添加',
+            replace: '拖拽图片或点击替换',
+            remove:  '删除',
+            error: {
+              'fileSize': '文件不能大于{{ value }}',
+              'imageFormat': '文件格式不正确'
+            }
+          }
+        });
+
+        drEvent.on('dropify.beforeClear', function(event, element){
+          return confirm("确定要删除 \"" + element.file.name + "\" 吗?");
+        });
+
+        drEvent.on('dropify.afterClear', function(event, element){
+          alert('删除成功');
+        });
+
+        drEvent.on('dropify.errors', function(event, element){
+          console.log('出错了！');
+        });
+
+      }
+    }
+  }
+});
 
 /**
  * Created by tedyuen on 16-12-13.
@@ -292,6 +339,16 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.companyinner.update_info',{//更新资料
+      url:'/update_info',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/update_info.html',
+          controller: 'updateInfoController'
+        }
+      }
+    })
+
 
 
 

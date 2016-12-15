@@ -121,6 +121,16 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.companyinner.update_info',{//更新资料
+      url:'/update_info',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/update_info.html',
+          controller: 'updateInfoController'
+        }
+      }
+    })
+
 
 
 
