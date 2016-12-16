@@ -148,6 +148,27 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.companyinner.create_withdraw',{//创建提现工单
+      url:'/create_withdraw',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/create_withdraw.html',
+          controller: 'createWithdrawController'
+        }
+      }
+    })
+    .state('main.companyinner.withdraw_list',{//提现列表
+      url:'/withdraw_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/withdraw_list.html',
+          controller: 'withdrawListController'
+        }
+      }
+    })
+
+
+
 
 
 

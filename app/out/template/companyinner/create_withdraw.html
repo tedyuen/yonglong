@@ -1,0 +1,124 @@
+<!-- 创建提现工单 -->
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">创建提现工单</h4>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="#">我的账户</a></li>
+          <li class="active">创建提现工单</li>
+        </ol>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="white-box">
+          <div class="row">
+
+            <div class="col-md-6 col-lg-6 col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">提现帐号</span>
+                  <select class="form-control">
+                    <option>abc</option>
+                    <option>eee</option>
+                    <option>3341</option>
+                  </select>
+                </div>
+              </div>
+              <div class="help-block with-errors"></div>
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">可提现金额</span>
+                  <input type="number" class="form-control">
+                </div>
+              </div>
+              <div class="help-block with-errors"></div>
+            </div>
+
+          </div>
+          <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10" data-toggle="modal" data-target="#exampleModal">提现</button>
+
+        </div>
+      </div>
+
+
+      <div class="col-sm-12">
+        <div class="white-box">
+          <div class="row">
+            <h1>请选择需要提现的订单</h1>
+            <table class="table color-table primary-table table-hover table-bordered m-t-20">
+              <thead>
+              <tr>
+                <th>选择</th>
+                <th>创建日期</th>
+                <th>发货人</th>
+                <th>费用</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>A</td>
+                <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
+                <td><i class="fa fa-female"></i>&nbsp;&nbsp;李可强</td>
+                <td>10,000$</td>
+                <td><button type="button" class="btn btn-info btn-xs">操作</button></td>
+              </tr>
+              </tbody>
+            </table>
+
+            <ul class="pagination m-b-0">
+              <li> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
+              <li> <a href="#">1</a> </li>
+              <li class="active"> <a href="#">2</a> </li>
+              <li> <a href="#">3</a> </li>
+              <li> <a href="#">4</a> </li>
+              <li> <a href="#">5</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel1">添加提现账户</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" class="form-control" id="username" placeholder="输入电话...">
+                <span class="input-group-btn">
+                  <button type="button" class="btn waves-effect waves-light btn-success" alt="default">通过电话搜索</button>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary">确认添加</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

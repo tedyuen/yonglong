@@ -90,6 +90,16 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePic
 /**
  * Created by tedyuen on 16-12-15.
  */
+yonglongApp.controller('createWithdrawController',['$scope','$timeout','showDatePickerProvider',
+  function ($scope,$timeout,showDatePickerProvider) {
+    showDatePickerProvider.showDatePicker();
+
+
+}]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
 yonglongApp.controller('friendManageController',['$scope',
   function ($scope) {
 
@@ -166,6 +176,16 @@ yonglongApp.controller('updateInfoController',['$scope','dropifyProvider',
  * Created by tedyuen on 16-12-15.
  */
 yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePickerProvider',
+  function ($scope,$timeout,showDatePickerProvider) {
+    showDatePickerProvider.showDatePicker();
+
+
+}]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.controller('withdrawListController',['$scope','$timeout','showDatePickerProvider',
   function ($scope,$timeout,showDatePickerProvider) {
     showDatePickerProvider.showDatePicker();
 
@@ -401,6 +421,27 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.companyinner.create_withdraw',{//创建提现工单
+      url:'/create_withdraw',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/create_withdraw.html',
+          controller: 'createWithdrawController'
+        }
+      }
+    })
+    .state('main.companyinner.withdraw_list',{//提现列表
+      url:'/withdraw_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/withdraw_list.html',
+          controller: 'withdrawListController'
+        }
+      }
+    })
+
+
+
 
 
 
