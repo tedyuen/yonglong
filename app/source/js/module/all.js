@@ -275,6 +275,7 @@ yonglongApp.provider('showDatePickerProvider',function () {
  * Created by tedyuen on 16-12-8.
  */
 yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
+  console.log("show token:"+eluser.token);
   $urlRouterProvider.when('','/login').otherwise('/login');
   $stateProvider
     .state('login',{//登录页

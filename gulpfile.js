@@ -10,6 +10,7 @@ var obfuscate = require('gulp-obfuscate');
 
 
 var cssArr = [
+  './app/source/css/node/bootstrap.min.css',
   './app/source/css/node/jquery.toast.min.css',
   './app/source/css/node/metisMenu.min.css',
   './app/source/css/pixel/animate.css',
@@ -24,6 +25,7 @@ var jsArr = [
   './app/source/js/module/main.js',
   './app/source/js/module/custom.js',
   './app/source/js/module/waves.js',
+  './app/source/js/module/app/*.js',
   './app/source/js/module/controller/*.js',
   './app/source/js/module/provider/*.js',
   './app/source/js/module/route.js',
@@ -49,7 +51,7 @@ gulp.task('js',function(){
     .pipe(gulp.dest('./app/source/js/module'))
     .pipe(rename({suffix: '.min'}))
     .pipe(browserify())
-    // .pipe(uglify({ mangle: false, compress:true, output: { beautify: false } }))
+    .pipe(uglify({ mangle: false, compress:true, output: { beautify: false } }))
     //.pipe(obfuscate())
     .pipe(gulp.dest('./app/out/js'));
 });
