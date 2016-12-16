@@ -3,12 +3,12 @@
   <div class="container-fluid">
     <div class="row bg-title">
       <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">提现列表</h4>
+        <h4 class="page-title">提现账户管理</h4>
       </div>
       <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
           <li><a href="#">我的账户</a></li>
-          <li class="active">提现列表</li>
+          <li class="active">提现账户管理</li>
         </ol>
       </div>
       <!-- /.col-lg-12 -->
@@ -19,28 +19,24 @@
       <div class="col-sm-12">
         <div class="white-box">
           <div class="row">
-            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10" ui-sref="main.companyinner.create_withdraw">创建工单</button>
+            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10" data-toggle="modal" data-target="#exampleModal">添加提现账户</button>
 
             <div class="table-responsive m-t-20">
               <table class="table color-table primary-table table-hover table-bordered">
                 <thead>
                 <tr>
-                  <th><nobr>日期</nobr></th>
                   <th><nobr>持卡人</nobr></th>
                   <th><nobr>开户行</nobr></th>
-                  <th><nobr>卡号</nobr></th>
-                  <th><nobr>金额</nobr></th>
-                  <th><nobr>状态</nobr></th>
+                  <th><nobr>银行卡号</nobr></th>
+                  <th><nobr>操作</nobr></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                  <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</nobr></td>
                   <td><nobr><i class="fa fa-female"></i>&nbsp;&nbsp;张二红</nobr></td>
                   <td><nobr>建设银行</nobr></td>
                   <td><nobr>7663 2837 2837 2837 328</nobr></td>
-                  <td><nobr>100,000$</nobr></td>
-                  <td><nobr>审核通过</nobr></td>
+                  <td><button type="button" class="btn btn-danger btn-xs">删除账户</button></td>
                 </tr>
                 </tbody>
               </table>
@@ -59,6 +55,33 @@
       </div>
       <!-- /.row -->
 
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel1">添加提现账户</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" class="form-control" id="username" placeholder="输入电话...">
+                <span class="input-group-btn">
+                  <button type="button" class="btn waves-effect waves-light btn-success" alt="default">通过电话搜索</button>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary">确认添加</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
