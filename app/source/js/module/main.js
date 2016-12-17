@@ -23,5 +23,6 @@ require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
 
 var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
 
+var Mock = require('mockjs');
 
 

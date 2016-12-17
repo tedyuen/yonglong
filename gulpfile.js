@@ -26,6 +26,7 @@ var jsArr = [
   './app/source/js/module/custom.js',
   './app/source/js/module/waves.js',
   './app/source/js/module/app/*.js',
+  './app/source/js/module/test/mockjs.js',
   './app/source/js/module/controller/*.js',
   './app/source/js/module/provider/*.js',
   './app/source/js/module/route.js',
@@ -51,7 +52,7 @@ gulp.task('js',function(){
     .pipe(gulp.dest('./app/source/js/module'))
     .pipe(rename({suffix: '.min'}))
     .pipe(browserify())
-    .pipe(uglify({ mangle: false, compress:true, output: { beautify: false } }))
+    // .pipe(uglify({ mangle: false, compress:true, output: { beautify: false } }))
     //.pipe(obfuscate())
     .pipe(gulp.dest('./app/out/js'));
 });

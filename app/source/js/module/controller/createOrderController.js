@@ -1,9 +1,52 @@
 /**
  * Created by tedyuen on 16-12-13.
  */
-yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePickerProvider',
-  function ($scope,$timeout,showDatePickerProvider) {
-  showDatePickerProvider.showDatePicker();
+yonglongApp.controller('createOrderController',['$scope','$http','$timeout','showDatePickerProvider','URL_CONS','diyData',
+  function ($scope,$http,$timeout,showDatePickerProvider,URL_CONS,diyData) {
+    showDatePickerProvider.showDatePicker();
+    $scope.orderType = diyData.orderType;
+    $scope.containerVType = diyData.boxVol;
+    $scope.containerSType = diyData.boxType;
+    $scope.orderDetail ={
+      shippingName:'',
+      shippingDate:'',
+      originPort:'',
+      loadingPort:'',
+      returnPort:'',
+      transitPort:'',
+      destPort:'',
+      orderType:'0',
+      containerVType:'0',
+      containerSType:'0',
+      containerVol:'',
+      grossWeight:'',
+      note:'',
+      shippingFee:'',
+      extraFee:'',
+      referenceShippingFee:'',
+      shippingSn:''
+    }
+
+    $scope.onSubmit = function($valid){
+      if($valid){
+        console.log("url:"+URL_CONS.createOrder);
+
+        $http.post(URL_CONS.createOrder,$scope.orderDetail)
+          .then(function onSuccess(response) {
+            // Handle success
+            console.log(
+              JSON.stringify(response, null, 4)
+            )
+          })
+          .catch(function onError(response) {
+            // Handle error
+          });
+      }else{
+        console.log("$valid:"+$valid);
+      }
+    };
+
+
 
   $scope.offlineOpts = {retryInterval: 5000};
 
