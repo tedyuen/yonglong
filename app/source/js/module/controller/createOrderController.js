@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-13.
  */
-yonglongApp.controller('createOrderController',['$scope','$http','$timeout','showDatePickerProvider','URL_CONS','diyData',
-  function ($scope,$http,$timeout,showDatePickerProvider,URL_CONS,diyData) {
+yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePickerProvider','URL_CONS','diyData','interfaceService',
+  function ($scope,$timeout,showDatePickerProvider,URL_CONS,diyData,interfaceService) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = diyData.orderType;
     $scope.containerVType = diyData.boxVol;
@@ -27,27 +27,21 @@ yonglongApp.controller('createOrderController',['$scope','$http','$timeout','sho
       shippingSn:''
     }
 
+    //提交表单
     $scope.onSubmit = function($valid){
       if($valid){
         console.log("url:"+URL_CONS.createOrder);
-
-        $http.post(URL_CONS.createOrder,$scope.orderDetail)
-          .then(function onSuccess(response) {
-            // Handle success
-            console.log(
-              JSON.stringify(response, null, 4)
-            )
-          })
-          .catch(function onError(response) {
-            // Handle error
-          });
+        interfaceService.createOrder($scope.orderDetail,function (data,headers,config) {
+          console.log("==> "+data);
+          console.log("==> "+config);
+        });
       }else{
         console.log("$valid:"+$valid);
       }
     };
 
 
-
+    //百度地图
   $scope.offlineOpts = {retryInterval: 5000};
 
   var longitude = 121.506191;
