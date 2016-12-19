@@ -1,0 +1,6 @@
+.modal-dialog.order-detail {
+  width: 90%;
+  left: 5%; }
+  .modal-dialog.order-detail .modal-body {
+    padding: 20px;
+    overflow: hidden; }

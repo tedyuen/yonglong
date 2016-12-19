@@ -7,6 +7,7 @@ var cleanCSS = require('gulp-clean-css');
 var rename = require('gulp-rename');
 var del = require('del');
 var obfuscate = require('gulp-obfuscate');
+var sass = require('gulp-sass');
 
 
 var cssArr = [
@@ -19,6 +20,7 @@ var cssArr = [
   './app/source/css/pixel/colors/default.css',
   './app/source/css/node/bootstrap-datepicker.min.css',
   './app/source/css/node/dropify.min.css',
+  './app/source/sass/css/*.css'
 ];
 
 var jsArr = [
@@ -29,21 +31,42 @@ var jsArr = [
   // './app/source/js/module/test/mockjs.js',
   './app/source/js/module/controller/*.js',
   './app/source/js/module/provider/*.js',
+  './app/source/js/module/directive/*.js',
   './app/source/js/module/route.js',
 ];
 
 // css
-gulp.task('concatcss',['nodeModule'],function(){
+gulp.task('concatcss',['nodeModule','sass'],function(){
   return gulp.src(cssArr)    //- 需要处理的css文件，放到一个字符串数组里
     .pipe(concat('all.min.css'))
     .pipe(gulp.dest('./app/source/css'));
 });
+
+// sass
+//--del
+gulp.task('delCss',function(){
+  del([
+    './app/source/sass/css/*.*'
+  ]);
+});
+//--del
+gulp.task('sass',['delCss'], function () {
+  return gulp.src('./app/source/sass/**/*.scss')
+    .pipe(sass.sync().on('error', sass.logError))
+    .pipe(gulp.dest('./app/source/sass/css'));
+  gulp.run('concatcss');
+  gulp.run('minify-css');
+});
+
+// sass
 
 gulp.task('css',['concatcss'], function() {
   return gulp.src('./app/source/css/all.min.css')
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest('./app/out/css'));
 });
+
+
 // css
 
 gulp.task('js',function(){
