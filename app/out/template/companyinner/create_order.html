@@ -135,7 +135,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">箱量</span>
-                    <input type="text" class="form-control" ng-model="orderDetail.containerVol">
+                    <input type="number" class="form-control" ng-model="orderDetail.containerVol">
                   </div>
                   <div class="help-block with-errors"></div>
                 </div>
@@ -209,8 +209,8 @@
               </div>
 
             </div>
-            <button type="submit" ng-disabled="!theForm.$valid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':!theForm.$valid}" class="btn waves-effect waves-light m-r-10">
-              <span ng-if="!theForm.$valid">请先完成表单</span>
+            <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" class="btn waves-effect waves-light m-r-10">
+              <span ng-if="theForm.$invalid">请先完成表单</span>
               <span ng-if="theForm.$valid">创建订单</span>
             </button>
           </div>

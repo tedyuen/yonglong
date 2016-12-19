@@ -43,7 +43,8 @@ sudo npm install --save angular jquery bootstrap angular-route angular-ui-router
 npm config set registry http://registry.npm.taobao.org
 ```
 
-
+8. 接口文档
+http://120.26.65.65:8280/admin/doc/index.html
 
 
 

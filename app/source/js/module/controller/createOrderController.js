@@ -32,8 +32,9 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePic
       if($valid){
         console.log("url:"+URL_CONS.createOrder);
         interfaceService.createOrder($scope.orderDetail,function (data,headers,config) {
-          console.log("==> "+data);
-          console.log("==> "+config);
+          console.log(JSON.stringify(data));
+          console.log(JSON.stringify(config));
+
         });
       }else{
         console.log("$valid:"+$valid);

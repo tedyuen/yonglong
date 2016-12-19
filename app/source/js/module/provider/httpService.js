@@ -59,7 +59,11 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $ti
       method: opts.method,
       url: opts.url,
       params: opts.params,
-      data: opts.data
+      data: opts.data,
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      transformRequest: function (data) {
+        return jQuery.param(data);
+      }
     }).then(function onSuccess(response) {
       // 权限，超时等控制
       if( opts.checkCode && !_responseError(response.data, opts) ) {

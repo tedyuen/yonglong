@@ -75,7 +75,8 @@ yonglongApp.value('diyData',
  * Created by tedyuen on 16-12-17.
  */
 yonglongApp.constant('URL_CONS', {
-  createOrder: 'test.createorder',
+  serverUrl:'http://192.168.0.25:8080/admin/api/data',
+  createOrder: 'company_create_order',
 })
 
 /**
@@ -91,12 +92,65 @@ yonglongApp.constant('USER_ROLES', {
 /**
  * Created by tedyuen on 16-12-17.
  */
-Mock.mock('test.createorder', {
-  'name'     : '@name',
-  'age|1-100': 100,
-  'color'    : '@color'
+Mock.mock('http://192.168.0.25:8080/admin/api/data/company_create_order', {
+  "data": {
+    "bargainTime": 0,
+    "bargainTimeStr": "",
+    "busMemberId": 0,
+    "busMemberMobile": "",
+    "busMemberName": "",
+    "busMemberType": 0,
+    "confirmTime": 0,
+    "confirmTimeStr": "",
+    "containerNo": "",
+    "containerSType": 2,
+    "containerVType": 1,
+    "containerVol": 100,
+    "createTime": 1482113080499,
+    "createTimeStr": "2016-12-19 10:04:40",
+    "destPort": "Prince",
+    "extraFee": 400,
+    "goodsDesc": "",
+    "goodsMemberId": 0,
+    "goodsMemberMobile": "",
+    "goodsMemberName": "",
+    "goodsMemberType": 0,
+    "goodsPackage": "",
+    "grossWeight": 200,
+    "id": 1192,
+    "isOpen": 1,
+    "items": 0,
+    "lastAccess": 1482113080499,
+    "loadingPort": "Gomez",
+    "mark": "",
+    "moneyPaid": 0,
+    "netWeight": 0,
+    "note": "Garner",
+    "orderAmount": 0,
+    "orderCreditRank": 0,
+    "orderFlag": 0,
+    "orderSn": "20161219100436165",
+    "orderStatus": 1,
+    "orderType": 0,
+    "originPort": "Simon",
+    "payStatus": 0,
+    "referenceShippingFee": 500,
+    "returnPort": "Henderson",
+    "sealNo": "",
+    "shippingDate": 1612886400000,
+    "shippingDateStr": "2021-02-10",
+    "shippingFee": 300,
+    "shippingName": "Workman",
+    "shippingSn": "Huffman",
+    "shippingStatus": 0,
+    "sizeDesc": "",
+    "transitPort": "Vincent",
+    "version": 1
+  },
+  "method": "company_create_order",
+  "rescode": "0000",
+  "resdesc": "正确返回"
 });
-
 
 /**
  * Created by tedyuen on 16-12-15.
@@ -137,12 +191,14 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePic
       shippingSn:''
     }
 
+    //提交表单
     $scope.onSubmit = function($valid){
       if($valid){
         console.log("url:"+URL_CONS.createOrder);
         interfaceService.createOrder($scope.orderDetail,function (data,headers,config) {
-          console.log("==> "+data);
-          console.log("==> "+config);
+          console.log(JSON.stringify(data));
+          console.log(JSON.stringify(config));
+
         });
       }else{
         console.log("$valid:"+$valid);
@@ -150,6 +206,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePic
     };
 
 
+    //百度地图
   $scope.offlineOpts = {retryInterval: 5000};
 
   var longitude = 121.506191;
@@ -411,7 +468,11 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $ti
       method: opts.method,
       url: opts.url,
       params: opts.params,
-      data: opts.data
+      data: opts.data,
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      transformRequest: function (data) {
+        return jQuery.param(data);
+      }
     }).then(function onSuccess(response) {
       // 权限，超时等控制
       if( opts.checkCode && !_responseError(response.data, opts) ) {
@@ -537,12 +598,19 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $ti
   };
 }]);
 
-yonglongApp.service('interfaceService',['httpService','URL_CONS',function (httpService,URL_CONS) {
-  this.createOrder = function (data,success,error) {
+yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService',function (httpService,URL_CONS,sessionService) {
+  this.doHttp = function (sub,data,success,error) {
+    var base = {
+      token:sessionService.getSession().token
+    }
+    jQuery.extend(data,sub);
+    jQuery.extend(data,base);
+    console.log(JSON.stringify(data));
     var _opts = jQuery.extend({
       timeout : 'getError404Timeout'
     },null);
-    _opts.url = URL_CONS.createOrder;
+    _opts.url = URL_CONS.serverUrl+"/"+sub.method;
+    _opts.method = 'POST';
     _opts.data = data;
     _opts.success = function (data,headers,config,status) {
       if(success){
@@ -556,7 +624,28 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS',function (httpS
     };
     httpService.http(_opts);
   }
+
+  // 创建订单
+  this.createOrder = function (data,success,error) {
+    var sub = {
+      method:URL_CONS.createOrder,
+      orderStatus:1,
+      orderCreditRank:5
+    };
+    // console.log(JSON.stringify(data));
+    this.doHttp(sub,data,success,error);
+  }
 }]);
+
+yonglongApp.service('sessionService',function () {
+  this.getSession = function () {
+    console.log("show token:"+eluser.token);
+    var session = {
+      token:eluser.token
+    }
+    return session;
+  }
+});
 
 /**
  * Created by tedyuen on 16-12-13.
@@ -581,7 +670,6 @@ yonglongApp.provider('showDatePickerProvider',function () {
  * Created by tedyuen on 16-12-8.
  */
 yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
-  console.log("show token:"+eluser.token);
   $urlRouterProvider.when('','/login').otherwise('/login');
   $stateProvider
     .state('login',{//登录页
