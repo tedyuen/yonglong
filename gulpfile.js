@@ -29,6 +29,7 @@ var jsArr = [
   './app/source/js/module/waves.js',
   './app/source/js/module/app/*.js',
   // './app/source/js/module/test/mockjs.js',
+  './app/source/js/module/filter/*.js',
   './app/source/js/module/controller/*.js',
   './app/source/js/module/provider/*.js',
   './app/source/js/module/directive/*.js',

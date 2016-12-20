@@ -16,96 +16,86 @@
     <!-- /.row -->
     <div class="row">
       <div class="col-sm-12">
-        <div class="white-box">
-          <div class="row">
+        <form ng-submit="queryList(theForm.$valid)" novalidate="novalidate" name="theForm">
+          <div class="white-box">
+            <div class="row">
 
-            <div class="col-md-6 col-lg-4 col-sm-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">装箱日期</span>
-                  <input type="text" class="form-control mydatepicker" placeholder="yyyy年mm月dd日">
-                  <span class="input-group-addon"><i class="icon-calender"></i></span>
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">装箱日期</span>
+                    <input type="text" class="form-control mydatepicker" placeholder="yyyy年mm月dd日" ng-model="queryData.shippingDate">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                  </div>
                 </div>
+                <div class="help-block with-errors"></div>
               </div>
-              <div class="help-block with-errors"></div>
-            </div>
 
-            <div class="col-md-6 col-lg-4 col-sm-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">装货地</span>
-                  <input type="text" class="form-control">
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">装货地</span>
+                    <input type="text" class="form-control" ng-model="queryData.loadingPort">
+                  </div>
                 </div>
+                <div class="help-block with-errors"></div>
               </div>
-              <div class="help-block with-errors"></div><!-- 表单验证错误,form-group标签中添加has-error -->
-            </div>
 
-            <div class="col-md-6 col-lg-4 col-sm-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">类别</span>
-                  <select class="form-control">
-                    <option>进口</option>
-                    <option>出口</option>
-                    <option>拖柜进洋山</option>
-                  </select>
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">类别</span>
+                    <select class="form-control" ng-model="queryData.orderType" ng-options="o.id as o.name for o in orderType">
+                    </select>
+                  </div>
                 </div>
+                <div class="help-block with-errors"></div>
               </div>
-              <div class="help-block with-errors"></div>
-            </div>
 
-            <div class="col-md-6 col-lg-4 col-sm-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon" style="text-indent: 1em">发货方</span>
-                  <input type="text" class="form-control">
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon" style="text-indent: 1em">发货方</span>
+                    <input type="text" class="form-control" ng-model="queryData.goodsMemberName">
+                  </div>
                 </div>
+                <div class="help-block with-errors"></div>
               </div>
-              <div class="help-block with-errors"></div>
-            </div>
 
-            <div class="col-md-6 col-lg-4 col-sm-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">接单方</span>
-                  <input type="text" class="form-control">
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">接单方</span>
+                    <input type="text" class="form-control" ng-model="queryData.busMemberName">
+                  </div>
                 </div>
+                <div class="help-block with-errors"></div>
               </div>
-              <div class="help-block with-errors"></div>
-            </div>
 
-            <div class="col-md-6 col-lg-4 col-sm-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">箱型</span>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <select class="form-control">
-                        <option>20</option>
-                        <option>40</option>
-                      </select>
-                    </div>
-                    <div class="col-sm-6">
-                      <select class="form-control">
-                        <option>GP</option>
-                        <option>HC</option>
-                        <option>OT(开顶箱)</option>
-                        <option>HT(挂衣箱)</option>
-                        <option>RF(冷冻箱)</option>
-                        <option>RH(l冷冻高箱)</option>
-                        <option>TK(油罐箱)</option>
-                        <option>TR(框架箱)</option>
-                      </select>
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">箱型</span>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <select class="form-control" ng-model="queryData.containerVType" ng-options="c.id as c.name for c in containerVType">
+
+                        </select>
+                      </div>
+                      <div class="col-sm-6">
+                        <select class="form-control" ng-model="queryData.containerSType" ng-options="c.id as c.name for c in containerSType">
+
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <div class="help-block with-errors"></div>
               </div>
-              <div class="help-block with-errors"></div>
             </div>
+            <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">查询</button>
           </div>
-          <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">查询</button>
-
-          </div>
+        </form>
       </div>
 
 
@@ -129,17 +119,18 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
-                  <td><i class="fa fa-female"></i>&nbsp;&nbsp;李可强</td>
-                  <td>A</td>
-                  <td>上海</td>
-                  <td>北京</td>
-                  <td>50</td>
-                  <td>100KG</td>
-                  <td>10,000$</td>
-                  <td>完成</td>
-                  <td>已结算</td>
+                <tr ng-repeat="result in results.pageData">
+                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}</td>
+                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</td>
+                  <td><div credit-rank=""></div></td>
+                  <td>{{result.loadingPort}}</td>
+                  <td>{{result.returnPort}}</td>
+                  <td>{{result.containerVType}}</td>
+                  <td>{{result.grossWeight}}</td>
+                  <td>{{result.shippingFee}}</td>
+                  <td ng-if="result.payStatus==1">完成</td>
+                  <td ng-if="result.payStatus!=1">{{result.orderStatus | orderStatusText}}</td>
+                  <td>{{result.payStatus | payStatusText}}</td>
                   <td><button type="button" class="btn btn-info btn-xs">查看进度</button> <button type="button" class="btn btn-success btn-xs">进入详情</button></td>
                 </tr>
               </tbody>
@@ -159,7 +150,7 @@
         </div>
       </div>
     <!-- /.row -->
-
+    <pre>{{results|json}}</pre>
     </div>
   </div>
 </div>

@@ -31,13 +31,20 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   }
 
   // 创建订单
-  this.createOrder = function (params,success,error) {
+  this.companyCreateOrder = function (params,success,error) {
     var sub = {
       method:URL_CONS.createOrder,
       orderStatus:1,
       orderCreditRank:5
     };
     // console.log(JSON.stringify(data));
+    this.doHttp(sub,params,success,error);
+  }
+
+  this.companyOrderList = function (params,success,error) {
+    var sub = {
+      method:URL_CONS.companyOrderList,
+    };
     this.doHttp(sub,params,success,error);
   }
 

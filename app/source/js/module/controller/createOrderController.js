@@ -1,12 +1,12 @@
 /**
  * Created by tedyuen on 16-12-13.
  */
-yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePickerProvider','URL_CONS','diyData','interfaceService',
-  function ($scope,$timeout,showDatePickerProvider,URL_CONS,diyData,interfaceService) {
+yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePickerProvider','URL_CONS','baseDataService','interfaceService',
+  function ($scope,$timeout,showDatePickerProvider,URL_CONS,baseDataService,interfaceService) {
     showDatePickerProvider.showDatePicker();
-    $scope.orderType = diyData.orderType;
-    $scope.containerVType = diyData.boxVol;
-    $scope.containerSType = diyData.boxType;
+    $scope.orderType = baseDataService.getOrderType();
+    $scope.containerVType = baseDataService.getBoxVol();
+    $scope.containerSType = baseDataService.getBoxType();
     $scope.orderDetail ={
       shippingName:'awef',
       shippingDate:'2016年12月08日',
@@ -37,11 +37,11 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePic
 
 
         console.log("url:"+URL_CONS.createOrder);
-        // interfaceService.createOrder($scope.orderDetail,function (data,headers,config) {
-        //   console.log(JSON.stringify(data));
-        //   console.log(JSON.stringify(config));
-        //
-        // });
+        interfaceService.companyCreateOrder($scope.orderDetail,function (data,headers,config) {
+          console.log(JSON.stringify(data));
+          console.log(JSON.stringify(config));
+
+        });
       }else{
         console.log("$valid:"+$valid);
       }
