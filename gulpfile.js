@@ -51,7 +51,7 @@ gulp.task('delCss',function(){
 });
 //--del
 gulp.task('sass',['delCss'], function () {
-  return gulp.src('./app/source/sass/**/*.scss')
+  return gulp.src('./app/source/sass/*.scss')
     .pipe(sass.sync().on('error', sass.logError))
     .pipe(gulp.dest('./app/source/sass/css'));
   gulp.run('concatcss');
@@ -109,10 +109,58 @@ gulp.task('nodeModule',function(){
     .pipe(gulp.dest('./app/source/css/node'));
   // dropify
 
-
-
 });
 
 gulp.task('default',['js','css']);
+var indexCssArr = [
+  './app/source/css/node/bootstrap.min.css',
+  './app/source/sass/index/css/*.css'
+];
+
+// index news about css
+gulp.task('indexconcatcss',['nodeModule','indexsass'],function(){
+  return gulp.src(indexCssArr)    //- 需要处理的css文件，放到一个字符串数组里
+    .pipe(concat('index.min.css'))
+    .pipe(gulp.dest('./app/source/css'));
+});
+
+// sass
+//--del
+gulp.task('indexdelCss',function(){
+  del([
+    './app/source/sass/index/css/*.*'
+  ]);
+});
+//--del
+gulp.task('indexsass',['indexdelCss'], function () {
+  return gulp.src('./app/source/sass/index/*.scss')
+    .pipe(sass.sync().on('error', sass.logError))
+    .pipe(gulp.dest('./app/source/sass/index/css'));
+  gulp.run('indexconcatcss');
+  gulp.run('minify-css');
+});
+
+// sass
+
+gulp.task('indexcss',['indexconcatcss'], function() {
+  return gulp.src('./app/source/css/index.min.css')
+    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(gulp.dest('./app/out/css'));
+});
+
+// index js
+
+var indexJsArr = [
+  './app/source/js/index/index.js',
+];
+gulp.task('indexJs',function(){
+  gulp.src(indexJsArr)
+    .pipe(concat('indexcon.js'))
+    .pipe(gulp.dest('./app/source/js/index'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(browserify())
+    .pipe(uglify({ mangle: false, compress:true, output: { beautify: false } }))
+    .pipe(gulp.dest('./app/out/js'));
+});
 
 
