@@ -332,7 +332,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
 
         interfaceService.companyOrderList($scope.queryData,function (data,headers,config) {
           console.log("response:"+JSON.stringify(data));
-          $scope.results = JSON.parse(data.data);
+          $scope.results = data.data;
 
         });
 

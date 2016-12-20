@@ -131,7 +131,20 @@
                   <td ng-if="result.payStatus==1">完成</td>
                   <td ng-if="result.payStatus!=1">{{result.orderStatus | orderStatusText}}</td>
                   <td>{{result.payStatus | payStatusText}}</td>
-                  <td><button type="button" class="btn btn-info btn-xs">查看进度</button> <button type="button" class="btn btn-success btn-xs">进入详情</button></td>
+                  <td>
+                    <button type="button" class="btn btn-primary btn-xs"
+                            ng-click="detail(result.id)">详情</button>
+                    <button type="button" class="btn btn-primary btn-xs"
+                            ng-if="result.orderStatus=='9'" ng-click="alipay(result)">付款</button>
+                    <button type="button" class="btn btn-danger btn-xs"
+                            ng-if="result.orderStatus=='1' && result.payStatus=='0'" ng-click="delete(result.id)">删除订单</button>
+                    <button type="button" class="btn btn-success btn-xs"
+                            ng-if="result.orderStatus!='1' && result.busMemberType==1">承运方详情</button>
+                    <button type="button" class="btn btn-success btn-xs"
+                            ng-if="result.orderStatus!='1' && result.busMemberType==0">接单方详情</button>
+                    <button type="button" class="btn btn-success btn-xs"
+                            ng-if="result.orderStatus!='1' && result.busMemberType==0 && result.shippingStatus==1002">接单方详情</button>
+                  </td>
                 </tr>
               </tbody>
             </table>
