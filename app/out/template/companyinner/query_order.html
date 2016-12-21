@@ -98,8 +98,7 @@
         </form>
       </div>
 
-
-      <div class="col-sm-12">
+      <div class="col-sm-12" ng-show="results.totalPages!=null && results.totalPages!=0">
         <div class="white-box">
           <div class="row">
             <table class="table color-table primary-table table-hover table-bordered">
@@ -122,7 +121,7 @@
                 <tr ng-repeat="result in results.pageData">
                   <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}</td>
                   <td><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</td>
-                  <td><div credit-rank=""></div></td>
+                  <td><div credit-rank="" for-star="{{result.orderCreditRank}}"></div></td>
                   <td>{{result.loadingPort}}</td>
                   <td>{{result.returnPort}}</td>
                   <td>{{result.containerVType}}</td>
@@ -148,22 +147,19 @@
                 </tr>
               </tbody>
             </table>
-
-            <ul class="pagination m-b-0">
-              <li> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
-              <li> <a href="#">1</a> </li>
-              <li class="active"> <a href="#">2</a> </li>
-              <li> <a href="#">3</a> </li>
-              <li> <a href="#">4</a> </li>
-              <li> <a href="#">5</a> </li>
-              <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
-            </ul>
+            <pagination page-size="results.pageSize"
+                        total-pages="results.totalPages"
+                        curr-page="results.currPageNum"
+                        show-count="50"
+                        switch-page="switchPage"
+            >
+            </pagination>
 
           </div>
         </div>
       </div>
     <!-- /.row -->
-    <pre>{{results|json}}</pre>
+    <!--<pre>{{results|json}}</pre>-->
     </div>
   </div>
 </div>

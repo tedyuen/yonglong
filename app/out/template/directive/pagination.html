@@ -1,0 +1,14 @@
+<ul class="pagination m-b-0">
+  <li ng-show="currPage!=1"> <a href="" ng-click="switchPage(currPage-1)"><i class="fa fa-angle-left"></i></a> </li>
+  <li ng-show="currPage==1" class="disabled"> <a href=""><i class="fa fa-angle-left"></i></a> </li>
+  <li ng-repeat="item in pageArray" ng-class="{'active':item.isCurrent}">
+    <a ng-show="item.canClick"
+       ng-click="switchPage(item.pageNum)">
+      {{item.pageNum}}
+    </a>
+    <a ng-show="!item.canClick">{{item.pageNum}}</a>
+  </li>
+
+  <li ng-show="currPage!=totalPages"> <a href="" ng-click="switchPage(currPage+1)"><i class="fa fa-angle-right"></i></a> </li>
+  <li ng-show="currPage==totalPages" class="disabled"> <a href=""><i class="fa fa-angle-right"></i></a> </li>
+</ul>

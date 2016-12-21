@@ -55,6 +55,8 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $ti
   // http 请求执行过程封装    deferred ：http 链式请求延迟对象
   var _httpMin = function (opts, deferred) {
     _httpBefore(opts);
+    console.log(opts.params);
+    console.log(JSON.stringify(opts.params));
     $http({
       method: opts.method,
       url: opts.url,
@@ -62,7 +64,12 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $ti
       data: opts.data,
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       transformRequest: function (data) {
-        return jQuery.param(data);
+        var tr = jQuery.param(data);
+        console.log("before: "+tr);
+        // tr = encodeURI(jQuery.param(data));
+        // console.log("after: "+tr);
+
+        return tr;
       }
     }).then(function onSuccess(response) {
       // 权限，超时等控制

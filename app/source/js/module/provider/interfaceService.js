@@ -5,7 +5,7 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     }
     jQuery.extend(params,sub);
     jQuery.extend(params,base);
-    console.log(JSON.stringify(params));
+    // console.log(JSON.stringify(params));
     var request = {
       json:params
     }

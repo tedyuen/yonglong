@@ -5,7 +5,7 @@ yonglongApp.provider('showDatePickerProvider',function () {
   this.$get = function () {
     return {
       showDatePicker:function () {
-        console.log('showdatepicker');
+        // console.log('showdatepicker');
         jQuery('.mydatepicker').datepicker({
           language: 'zh-CN',
           autoclose: true,

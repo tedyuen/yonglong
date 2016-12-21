@@ -17,7 +17,8 @@ var cssArr = [
   './app/source/css/pixel/animate.css',
   './app/source/css/pixel/style.css',
   './app/source/css/pixel/spinners.css',
-  './app/source/css/pixel/colors/default.css',
+  // './app/source/css/pixel/colors/default.css',
+  './app/source/css/pixel/colors/purple.css',
   './app/source/css/node/bootstrap-datepicker.min.css',
   './app/source/css/node/dropify.min.css',
   './app/source/sass/css/*.css'
