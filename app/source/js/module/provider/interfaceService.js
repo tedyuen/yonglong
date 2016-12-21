@@ -29,7 +29,12 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     };
     httpService.http(_opts);
   }
-
+  this.doHttpMethod = function (method,params,success,error) {
+    var sub = {
+      method:method,
+    };
+    this.doHttp(sub,params,success,error);
+  }
   // 创建订单
   this.companyCreateOrder = function (params,success,error) {
     var sub = {
@@ -41,11 +46,18 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttp(sub,params,success,error);
   }
 
+  // 1.2 订单列表
   this.companyOrderList = function (params,success,error) {
-    var sub = {
-      method:URL_CONS.companyOrderList,
-    };
-    this.doHttp(sub,params,success,error);
+    this.doHttpMethod(URL_CONS.companyOrderList,params,success,error);
+  }
+
+  // 2.2 查看个人信息
+  this.companyUserinfo = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyUserinfo,params,success,error);
+  }
+  // 2.3 更新用户信息
+  this.companyUpdateinfo = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyUpdateinfo,params,success,error);
   }
 
 

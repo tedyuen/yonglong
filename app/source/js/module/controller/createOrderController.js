@@ -31,8 +31,8 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePic
     $scope.onSubmit = function($valid){
       if($valid){
 
-        $('#table-preview').modal('show');
-        $(".modal-content").css("width","80%")
+        // $('#table-preview').modal('show');
+        // $(".modal-content").css("width","80%")
 
 
 
