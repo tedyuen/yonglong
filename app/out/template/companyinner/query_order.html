@@ -16,10 +16,10 @@
     <!-- /.row -->
     <div class="row">
       <div class="col-sm-12">
+
         <form ng-submit="queryList(theForm.$valid)" novalidate="novalidate" name="theForm">
           <div class="white-box">
             <div class="row">
-
               <div class="col-md-6 col-lg-4 col-sm-12">
                 <div class="form-group">
                   <div class="input-group">
@@ -79,12 +79,10 @@
                     <div class="row">
                       <div class="col-sm-6">
                         <select class="form-control" ng-model="queryData.containerVType" ng-options="c.id as c.name for c in containerVType">
-
                         </select>
                       </div>
                       <div class="col-sm-6">
                         <select class="form-control" ng-model="queryData.containerSType" ng-options="c.id as c.name for c in containerSType">
-
                         </select>
                       </div>
                     </div>
@@ -96,6 +94,17 @@
             <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">查询</button>
           </div>
         </form>
+      </div>
+
+      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+        <div class="white-box">
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="col-sm-12" ng-show="results.totalPages!=null && results.totalPages!=0">

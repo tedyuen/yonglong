@@ -5,8 +5,8 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
   function ($scope,showDatePickerProvider,baseDataService,interfaceService) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderType();
-    $scope.containerVType = baseDataService.getBoxVol();
-    $scope.containerSType = baseDataService.getBoxType();
+    $scope.containerVType = baseDataService.getBoxVolN();
+    $scope.containerSType = baseDataService.getBoxTypeN();
     $scope.queryData = {
       goodsMemberId: 67,
       startTime:'',
