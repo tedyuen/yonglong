@@ -7,8 +7,210 @@
 .test-about {
   color: blue; }
 
-.index-test {
-  color: red; }
+#index {
+  background-color: #F5F6FA; }
+  #index .btn-icon {
+    width: 6px;
+    height: 20px;
+    margin-left: 10px;
+    background-color: yellowgreen;
+    float: right; }
+  #index .btn-icon-img {
+    background: url("../images/index/arrow-right.png") no-repeat center;
+    background-size: 6px 11px; }
+  #index .navbar {
+    margin-bottom: 0; }
+    #index .navbar .navbar-brand {
+      height: 90px; }
+    #index .navbar ul li {
+      overflow: hidden;
+      margin-left: 20px; }
+    #index .navbar ul .bottom-line {
+      position: absolute;
+      bottom: 20px;
+      height: 3px;
+      border-radius: 2px;
+      width: 100%;
+      background: white;
+      left: -100%;
+      overflow: hidden; }
+    #index .navbar ul a {
+      padding: 35px;
+      font-size: 18px;
+      color: white;
+      background: none; }
+    #index .navbar ul a:hover {
+      background: none; }
+  #index .carousel .container .thumbnail {
+    background: none;
+    color: white;
+    text-align: center; }
+    #index .carousel .container .thumbnail .caption {
+      padding: 30px 0 15px 0; }
+    #index .carousel .container .thumbnail .thumbnail-content {
+      color: white;
+      line-height: 30px;
+      margin-bottom: 20px;
+      padding: 0 70px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical; }
+  #index .carousel .container .caption a {
+    background: none;
+    border: 1px solid white;
+    color: white; }
+  #index .carousel .container .box-num {
+    border: 1px solid white;
+    border-radius: 150px;
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+    font-size: 65px;
+    margin: auto; }
+  #index .carousel .container #login-container {
+    background: white;
+    padding: 0;
+    width: 260px;
+    float: right; }
+    #index .carousel .container #login-container .nav-tabs {
+      margin: 0;
+      padding: 0;
+      border: 0; }
+      #index .carousel .container #login-container .nav-tabs li {
+        width: 50%;
+        text-align: center; }
+        #index .carousel .container #login-container .nav-tabs li .login-container-icon {
+          width: 40px;
+          height: 40px;
+          margin: 10px;
+          background-color: yellowgreen;
+          float: left; }
+        #index .carousel .container #login-container .nav-tabs li .fh-icon {
+          background: url("../images/index/user.png") no-repeat center;
+          background-size: 18px 22px; }
+        #index .carousel .container #login-container .nav-tabs li .cy-icon {
+          background: url("../images/index/cy-icon.png") no-repeat center;
+          background-size: 32px 18px; }
+        #index .carousel .container #login-container .nav-tabs li a {
+          border: 0;
+          margin: 0;
+          border-radius: 0;
+          background: #65717a;
+          height: 60px;
+          line-height: 60px;
+          padding: 0;
+          text-align: left;
+          color: white; }
+    #index .carousel .container #login-container .tab-content {
+      padding: 15px;
+      margin-top: 25px; }
+      #index .carousel .container #login-container .tab-content form .form-group .input-icon {
+        width: 35px;
+        height: 35px;
+        position: absolute; }
+      #index .carousel .container #login-container .tab-content form .form-group .user-icon {
+        background: url("../images/index/user-icon-gray.png") no-repeat center;
+        background-size: 11px 13px; }
+      #index .carousel .container #login-container .tab-content form .form-group .pwd-icon {
+        background: url("../images/index/pwd-icon.png") no-repeat center;
+        background-size: 11px 13px; }
+      #index .carousel .container #login-container .tab-content form .form-group .form-control {
+        padding-left: 35px; }
+      #index .carousel .container #login-container .tab-content .checkbox {
+        color: #ababab; }
+  #index .carousel .container #logged-container {
+    background: white;
+    padding: 0;
+    width: 260px;
+    margin: auto; }
+    #index .carousel .container #logged-container .nav-tabs {
+      margin: 0;
+      padding: 0;
+      border: 0; }
+      #index .carousel .container #logged-container .nav-tabs li {
+        width: 50%;
+        text-align: center; }
+        #index .carousel .container #logged-container .nav-tabs li a {
+          border: 0;
+          margin: 0;
+          border-radius: 0;
+          background: #65717a;
+          color: white; }
+    #index .carousel .container #logged-container .container-fluid {
+      background-color: #303C49;
+      color: white;
+      padding: 15px; }
+      #index .carousel .container #logged-container .container-fluid .user-name {
+        line-height: 35px;
+        margin-left: 15px;
+        font-size: 16px; }
+    #index .carousel .container #logged-container .tab-content {
+      padding: 15px;
+      margin-top: 25px; }
+      #index .carousel .container #logged-container .tab-content .tab-pane .list-group .list-group-item:first-child {
+        border-top: 0; }
+      #index .carousel .container #logged-container .tab-content .tab-pane .list-group .list-group-item {
+        padding-left: 0;
+        padding-right: 0;
+        color: #ababab;
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical; }
+    #index .carousel .container #logged-container #logout a {
+      width: 100%;
+      background: #65717a;
+      border-radius: 0;
+      border: 0;
+      color: white; }
+  #index .container #moreBtn {
+    border: 0;
+    box-shadow: 0 0 10px #d7d8db;
+    border-radius: 0;
+    padding: 5px 20px; }
+  #index .container .row .col-sm-6 {
+    padding: 1px; }
+  #index .container .thumbnail {
+    border: 0;
+    padding: 0;
+    border-radius: 0; }
+    #index .container .thumbnail .caption {
+      padding: 30px 15px 15px 15px; }
+      #index .container .thumbnail .caption hr {
+        width: 35px;
+        background-color: #edede9;
+        margin-left: 0;
+        margin-top: 20px;
+        margin-bottom: 20px; }
+    #index .container .thumbnail h6 {
+      color: #cacaca;
+      font-weight: normal; }
+    #index .container .thumbnail .p-title {
+      color: #333333;
+      font-size: 16px; }
+    #index .container .thumbnail .p-content {
+      color: #666666;
+      font-size: 14px;
+      line-height: 30px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical; }
+    #index .container .thumbnail .text-right {
+      margin-top: 30px;
+      margin-bottom: 0; }
+      #index .container .thumbnail .text-right a {
+        color: black;
+        font-size: 14px; }
+      #index .container .thumbnail .text-right a:hover {
+        text-decoration: none; }
 
 .test-news {
   color: green; }

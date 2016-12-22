@@ -18,8 +18,286 @@
   <![endif]-->
 
 </head>
-<body>
-  <div id="abc">hello world</div>
+<body id="index">
+
+<div class="carousel slide" data-ride="carousel">
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+
+    <div class="item active">
+      <!--<img src="images/index/banner.png" style="position: absolute;">-->
+
+      <!--<div class="carousel-caption">-->
+      <div class="container-fluid" style="padding: 0; background: url('images/index/banner.png') no-repeat center; background-size: cover;">
+
+        <!--<nav class="navbar navbar-fixed-top" role="navigation">-->
+        <nav class="navbar navbar-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">-->
+              <!--<span class="sr-only">切换导航</span>-->
+              <!--<span class="icon-bar"></span>-->
+              <!--<span class="icon-bar"></span>-->
+              <!--<span class="icon-bar"></span>-->
+              <!--</button>-->
+              <!--<a class="navbar-brand" href="#">Brand</a>-->
+              <img class="navbar-brand" src="images/index/logo.png">
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li class="active">
+                  <a href="#">首页</a>
+                  <div class="bottom-line" style="left: 0;"></div>
+                </li>
+                <li>
+                  <a href="#">新闻动态</a>
+                  <div class="bottom-line"></div>
+                </li>
+                <li>
+                  <a href="#">关于我们</a>
+                  <div class="bottom-line"></div>
+                </li>
+                <li>
+                  <a href="#"><img src="images/index/user.png" class=""/></a>
+                  <!--<div class="bottom-line"></div>-->
+                </li>
+              </ul>
+              <!--<ul class="nav nav-pills navbar-right">-->
+              <!--<li><a href="#">首页</a></li>-->
+              <!--<li><a href="#">新闻动态</a></li>-->
+              <!--<li><a href="#">关于我们</a></li>-->
+              <!--<li><a href="#"><img src="images/index/user.png" class=""/></a></li>-->
+              <!--</ul>-->
+            </div>
+          </div>
+        </nav>
+
+
+        <div class="container" style="margin-top: 100px;">
+          <div class="col-md-3 visible-lg-3">
+            <div class="thumbnail">
+              <!--<div class="col-md-12 box-num">301</div>-->
+              <div class="box-num text-center">89</div>
+              <div class="caption">
+                <p class="thumbnail-content">你用平台我奖励活动正在火热进行,已经发放奖金30000元</p>
+                <a href="#" class="btn btn-default" role="button">立即注册
+                  <span class="btn-icon btn-icon-img"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="thumbnail">
+              <!--<div class="col-md-12 box-num">301</div>-->
+              <div class="box-num text-center">41</div>
+              <div class="caption">
+                <p class="thumbnail-content">你用平台我奖励活动正在火热进行,已经发放奖金30000元</p>
+                <a href="#" class="btn btn-default" role="button">马上领取
+                  <span class="btn-icon btn-icon-img"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="thumbnail">
+              <!--<div class="col-md-12 box-num">301</div>-->
+              <div class="box-num text-center" style="font-size: 45px;">30001</div>
+              <div class="caption">
+                <p class="thumbnail-content">你用平台我奖励活动正在火热进行,已经发放奖金30000元</p>
+                <a href="#" class="btn btn-default" role="button">了解详情
+                  <span class="btn-icon btn-icon-img"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!--未登录 start -->
+          <div class="col-md-3" id="login-container">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#home" role="tab" data-toggle="tab">
+                  <span class="login-container-icon fh-icon"></span>发货方
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#profile" role="tab" data-toggle="tab">
+                  <span class="login-container-icon cy-icon"></span>承运方
+                </a>
+              </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="home">
+
+                <form role="form">
+                  <div class="form-group">
+                    <div class="input-icon user-icon"></div>
+                    <input type="email" class="form-control" placeholder="邮箱帐号或手机号">
+                  </div>
+                  <div class="form-group">
+                    <div class="input-icon pwd-icon"></div>
+                    <input type="email" class="form-control" placeholder="密码">
+                  </div>
+
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> 记住我的密码
+                    </label>
+
+                    <label class="pull-right" style="padding: 0;">忘记密码</label>
+                  </div>
+                  <img src="images/index/btn-login.png" class="img-rounded" style="margin-left: -5px;"/>
+                  <img src="images/index/btn-register.png" class="img-rounded pull-right" style="margin-right: -5px;" />
+                  <!--<button type="submit" class="btn btn-default">Submit</button>-->
+                </form>
+
+              </div>
+              <div role="tabpanel" class="tab-pane" id="profile">
+                承运方
+              </div>
+            </div>
+          </div>
+          <!--未登录 end -->
+
+          <!--已登录 start-->
+          <!--<div class="col-md-3" id="logged-container">-->
+            <!--<div class="container-fluid">-->
+              <!--<img id="user-avater" class="pull-left" src="images/index/user.png" width="35" height="35">-->
+              <!--<div class="user-name pull-left">恭喜发财</div>-->
+            <!--</div>-->
+            <!--<ul class="nav nav-tabs" role="tablist">-->
+              <!--<li role="presentation" class="active"><a href="#home2" role="tab" data-toggle="tab" style="border-radius: 0;">发货方2</a></li>-->
+              <!--<li role="presentation"><a href="#profile2" role="tab" data-toggle="tab">承运方2</a></li>-->
+            <!--</ul>-->
+
+            <!--&lt;!&ndash; Tab panes &ndash;&gt;-->
+            <!--<div class="tab-content">-->
+              <!--<div role="tabpanel" class="tab-pane active" id="home2">-->
+                <!--<ul class="list-group">-->
+                  <!--<li class="list-group-item">"你用平台我奖励"活动正在火热进行中活动正在火热进行中</li>-->
+                  <!--<li class="list-group-item">您是第302位注册用户</li>-->
+                <!--</ul>-->
+              <!--</div>-->
+              <!--<div role="tabpanel" class="tab-pane" id="profile2">承运方2</div>-->
+            <!--</div>-->
+            <!--<div class="container-fluid" id="logout" style="padding: 0">-->
+              <!--<a href="#" class="btn btn-default" role="button">退出登录</a>-->
+            <!--</div>-->
+          </div>
+          <!--已登录 end -->
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-bottom: 50px;">
+
+  <div class="row" style="text-align: right; padding: 20px 0;">
+    <button id="moreBtn" type="button" class="btn btn-default">更多
+      <span class="btn-icon btn-icon-img"></span>
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-3">
+      <div class="thumbnail">
+        <img src="images/index/big01.png" />
+        <div class="caption">
+          <h6>2016-09-23</h6>
+          <p class="p-title">万海一集装箱船航行途中发生危险货物爆炸</p>
+          <hr />
+          <p class="p-content">9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运</p>
+          <p class="text-right"><a href="#" role="button">详情<span class="btn-icon btn-icon-img"></span></a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-md-3">
+      <div class="thumbnail">
+        <img src="images/index/big02.png" />
+        <div class="caption">
+          <h6>2016-09-23</h6>
+          <p class="p-title">万海一集装箱船航行途中发生危险货物爆炸</p>
+          <hr />
+          <p class="p-content">9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运</p>
+          <p class="text-right"><a href="#" role="button">详情<span class="btn-icon btn-icon-img"></span></a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-md-3">
+      <div class="thumbnail">
+        <img src="images/index/big03.png" />
+        <div class="caption">
+          <h6>2016-09-23</h6>
+          <p class="p-title">万海一集装箱船航行途中发生危险货物爆炸</p>
+          <hr />
+          <p class="p-content">9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运</p>
+          <p class="text-right"><a href="#" role="button">详情<span class="btn-icon btn-icon-img"></span></a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-md-3">
+      <div class="thumbnail">
+        <img src="images/index/big04.png" />
+        <div class="caption">
+          <h6>2016-09-23</h6>
+          <p class="p-title">万海一集装箱船航行途中发生危险货物爆炸</p>
+          <hr />
+          <p class="p-content">9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运</p>
+          <p class="text-right"><a href="#" role="button">详情<span class="btn-icon btn-icon-img"></span></a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--<ul class="thumbnails">-->
+    <!--<li class="span4">-->
+      <!--<a href="#" class="thumbnail">-->
+        <!--<img data-src="holder.js/300x200" alt="">-->
+      <!--</a>-->
+    <!--</li>-->
+    <!--<li class="span4">-->
+      <!--<a href="#" class="thumbnail">-->
+        <!--<img data-src="holder.js/300x200" alt="">-->
+      <!--</a>-->
+    <!--</li>-->
+    <!--<li class="span4">-->
+      <!--<a href="#" class="thumbnail">-->
+        <!--<img data-src="holder.js/300x200" alt="">-->
+      <!--</a>-->
+    <!--</li>-->
+    <!--<li class="span4">-->
+      <!--<a href="#" class="thumbnail">-->
+        <!--<img data-src="holder.js/300x200" alt="">-->
+      <!--</a>-->
+    <!--</li>-->
+  <!--</ul>-->
+</div>
+
+<footer>
+  <div class="container-fluid" style="background-color: #647179; line-height: 100px; color: #f6f6f6">
+    <div class="container">
+      <div class="col-md-8" style="padding: 0;">Copyright©2016 yontong 版本所有</div>
+      <div class="col-md-4 text-right" style="padding: 0;">ICP备15021153号-1</div>
+    </div>
+  </div>
+</footer>
+
 </body>
 <script src="js/indexcon.min.js"></script>
 

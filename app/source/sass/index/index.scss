@@ -1,3 +1,109 @@
-.index-test{
-  color:red;
+#index{
+  background-color: #F5F6FA;
+  .btn-icon{width: 6px; height: 20px; margin-left:10px; background-color: yellowgreen; float: right;}
+  .btn-icon-img{background: url('../images/index/arrow-right.png') no-repeat center; background-size: 6px 11px;}
+  .navbar{ margin-bottom: 0;
+    .navbar-brand{height: 90px;}
+    ul{
+      li{overflow: hidden; margin-left: 20px;}
+      .bottom-line{position: absolute; bottom: 20px; height: 3px; border-radius: 2px; width: 100%; background: white; left: -100%; overflow: hidden;}
+      a{padding: 35px; font-size: 18px; color: white; background: none;}
+      a:hover{background: none;}
+    }
+  }
+
+  .carousel{
+
+    .container{
+      .thumbnail{background: none;color: white; text-align: center;
+        .caption{padding: 30px 0 15px 0;}
+        .thumbnail-content{color: white; line-height: 30px; margin-bottom: 20px;  padding: 0 70px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+        }
+      }
+      .caption a{background: none; border: 1px solid white; color: white;}
+      .box-num{border: 1px solid white; border-radius: 150px; width: 150px; height: 150px; line-height: 150px; font-size: 65px; margin: auto;}
+      .col-md-3{}
+
+      // 未登录容器
+      #login-container{background: white; padding: 0;width: 260px; float: right;
+        .nav-tabs{margin: 0; padding: 0; border: 0;
+          li {width: 50%; text-align: center;
+            .login-container-icon{width: 40px; height: 40px; margin:10px; background-color: yellowgreen; float: left;}
+            .fh-icon{background: url('../images/index/user.png') no-repeat center; background-size: 18px 22px;}
+            .cy-icon{background: url('../images/index/cy-icon.png') no-repeat center; background-size: 32px 18px;}
+            a{border: 0; margin: 0; border-radius: 0; background: #65717a; height: 60px; line-height: 60px; padding: 0; text-align: left; color: white;}
+          }
+        }
+
+        .tab-content{padding: 15px; margin-top: 25px;
+          form .form-group {
+            .input-icon{width: 35px; height: 35px;position: absolute;}
+            .user-icon{background: url('../images/index/user-icon-gray.png') no-repeat center; background-size: 11px 13px;}
+            .pwd-icon{background: url('../images/index/pwd-icon.png') no-repeat center; background-size: 11px 13px;}
+            .form-control{padding-left: 35px;}
+            //.input-group-addon{background: none;}
+            //.form-control{border-left: 0; ; background: none; border-top-left-radius: 0; border-bottom-left-radius: 0;}
+          }
+
+          .checkbox{color: #ababab;}
+        }
+      }
+
+      // 已登录容器
+      #logged-container{background: white; padding: 0; width: 260px; margin: auto;
+        //.login-inner{background: white;}
+        .nav-tabs{margin: 0; padding: 0; border: 0;
+          li {width: 50%; text-align: center;
+            a{border: 0; margin: 0;border-radius: 0; background: #65717a; color: white;}
+          }
+        }
+        .container-fluid{background-color: #303C49; color: white; padding: 15px;
+          .user-name{line-height: 35px; margin-left: 15px; font-size: 16px;}
+        }
+        .tab-content{padding: 15px; margin-top: 25px;
+          .tab-pane .list-group{
+            .list-group-item:first-child{
+              border-top: 0;
+            }
+            .list-group-item{
+              padding-left: 0; padding-right: 0;color: #ababab;
+              border-left: 0; border-right: 0;  border-radius: 0;
+              overflow :hidden ;text-overflow:ellipsis; white-space:nowrap; -webkit-line-clamp: 1; -webkit-box-orient: vertical;
+            }
+          }
+        }
+        #logout a{width: 100%; background: #65717a; border-radius: 0; border: 0; color: white;}
+      }
+    }
+  }
+
+  .container{
+    #moreBtn{border: 0; box-shadow: 0 0 10px #d7d8db; border-radius: 0; padding: 5px 20px;}
+    .row{
+      .col-sm-6{padding: 1px;}
+    }
+    .thumbnail{border: 0; padding: 0; border-radius: 0;
+      .caption{padding: 30px 15px 15px 15px;
+        hr{width: 35px; background-color: #edede9; margin-left: 0; margin-top: 20px; margin-bottom: 20px;}
+      }
+      h6{color: #cacaca; font-weight: normal;}
+      .p-title{color: #333333; font-size: 16px;}
+      .p-content{color: #666666; font-size: 14px; line-height: 30px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;}
+      .text-right{margin-top: 30px; margin-bottom: 0;
+        a{color: black; font-size: 14px;}
+        a:hover{text-decoration:none;}
+      }
+    }
+
+  }
 }
