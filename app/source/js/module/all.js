@@ -91,6 +91,7 @@ yonglongApp.value('diyData',
 yonglongApp.constant('URL_CONS', {
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   serverUrl:'http://192.168.0.25:8080/admin/api/data',
+  serverFileUrl:'http://192.168.0.25:8080/admin/api/file',
   companyCreateOrder: 'company_create_order',
   companyOrderList: 'company_list_order',
   companyUserinfo:'company_userinfo',
@@ -410,12 +411,16 @@ yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','inter
       nameCard:'',
       nameCardBack:'',
       mobileCode:'',
-      companyAddress:''
+      address:''
     }
+    // $scope.regfile = {
+    //   nameCardFile:'',
+    // }
 
     $scope.onSubmit = function($valid){
       if($valid){
-        interfaceService.companyUpdateinfo($scope.reg,function (data,headers,config) {
+        console.log("==>file:  "+$scope.regfile.nameCardFile.src);
+        interfaceService.companyUpdateinfo($scope.reg,$scope.regfile,function (data,headers,config) {
           console.log(JSON.stringify(data));
           console.log(JSON.stringify(config));
 
@@ -429,6 +434,7 @@ yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','inter
     $scope.getUserInfo = function () {
       interfaceService.companyUserinfo({},function (data,headers,config) {
         console.log(JSON.stringify(data));
+        $scope.reg = data.data;
       })
     };
 
@@ -550,7 +556,7 @@ yonglongApp.provider('dropifyProvider',function () {
   }
 });
 
-yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $timeout, $q) {
+yonglongApp.factory('httpService', ['$http','$timeout','$q','URL_CONS',function ($http, $timeout, $q,URL_CONS) {
   // 默认参数
   var _httpDefaultOpts = {
     method: 'POST', // GET/DELETE/HEAD/JSONP/POST/PUT
@@ -607,16 +613,29 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $ti
   // http 请求执行过程封装    deferred ：http 链式请求延迟对象
   var _httpMin = function (opts, deferred) {
     _httpBefore(opts);
+
+    var contentType = undefined;
+    // var contentType = 'multipart/form-data';
+    // if(opts.url==URL_CONS.serverUrl){
+    //   contentType = 'application/x-www-form-urlencoded';
+    // }
+
+    var formData = new FormData();
+    formData.append('json',JSON.stringify(opts.data.json));
+    if(opts.data.files){
+      console.log("==>file last:  "+opts.data.files.nameCardFile);
+      formData.append('nameCardFile',opts.data.files.nameCardFile);
+    }
+
     $http({
       method: opts.method,
       url: opts.url,
       params: opts.params,
-      data: opts.data,
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      transformRequest: function (data) {
-        var tr = jQuery.param(data);
-        return tr;
-      }
+      data: formData,
+      headers: {'Content-Type': function () {
+        return undefined;
+      }},
+      transformRequest: angular.identity
     }).then(function onSuccess(response) {
       // 权限，超时等控制
       if( opts.checkCode && !_responseError(response.data, opts) ) {
@@ -743,7 +762,8 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $ti
 }]);
 
 yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService',function (httpService,URL_CONS,sessionService) {
-  this.doHttp = function (sub,params,success,error) {
+
+  this.doHttp = function (url,sub,params,success,error) {
     var base = {
       token:sessionService.getSession().token
     }
@@ -753,14 +773,15 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     var request = {
       json:params
     }
+    console.log("request json str:-->  "+request.json);
     var _opts = jQuery.extend({
       timeout : 'getError404Timeout'
     },null);
     // _opts.url = URL_CONS.serverUrl+"/"+sub.method;
-    _opts.url = URL_CONS.serverUrl;
+    _opts.url = url;
     _opts.method = 'POST';
-    // _opts.data = request;
-    _opts.params = request;
+    _opts.data = request;
+    // _opts.params = request;
     _opts.success = function (data,headers,config,status) {
       if(success){
         success(data,headers,config,status);
@@ -773,12 +794,21 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     };
     httpService.http(_opts);
   }
+
   this.doHttpMethod = function (method,params,success,error) {
     var sub = {
       method:method,
     };
-    this.doHttp(sub,params,success,error);
+    this.doHttp(URL_CONS.serverUrl,sub,params,success,error);
   }
+
+  this.doFileHttpMethod = function (method,params,success,error) {
+    var sub = {
+      method:method,
+    };
+    this.doHttp(URL_CONS.serverFileUrl,sub,params,success,error);
+  }
+
   // 创建订单
   this.companyCreateOrder = function (params,success,error) {
     var sub = {
@@ -799,9 +829,47 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.companyUserinfo = function (params,success,error) {
     this.doHttpMethod(URL_CONS.companyUserinfo,params,success,error);
   }
+
   // 2.3 更新用户信息
-  this.companyUpdateinfo = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.companyUpdateinfo,params,success,error);
+  this.companyUpdateinfo = function (params,files,success,error) {
+    // this.doFileHttpMethod(URL_CONS.companyUpdateinfo,params,success,error);
+    var sub = {
+      method:URL_CONS.companyUpdateinfo,
+    };
+
+    var base = {
+      token:sessionService.getSession().token
+    }
+    jQuery.extend(params,sub);
+    jQuery.extend(params,base);
+    // console.log(JSON.stringify(params));
+    var request = {
+      json:params,
+      files:files
+    }
+    console.log("request json str:-->  "+request.json);
+    var _opts = jQuery.extend({
+      timeout : 'getError404Timeout'
+    },null);
+    // _opts.url = URL_CONS.serverUrl+"/"+sub.method;
+    _opts.url = URL_CONS.serverFileUrl;
+    _opts.method = 'POST';
+    _opts.data = request;
+    // _opts.params = request;
+    _opts.success = function (data,headers,config,status) {
+      if(success){
+        success(data,headers,config,status);
+      }
+    };
+    _opts.error = function (data,headers,config,status) {
+      if(error){
+        error(data,headers,config,status);
+      }
+    };
+    httpService.http(_opts);
+
+
+
   }
 
 
@@ -846,6 +914,25 @@ yonglongApp.directive('creditRank',function () {
     template:'<div style="overflow:hidden;width:{{star * 16}}px;"><img src="images/stars.png"></div>'
   }
 });
+
+yonglongApp.directive("ngFilesModel", [function () {
+  return {
+    scope: {
+      ngFilesModel: "="
+    },
+    link: function (scope, element, attributes) {
+      element.bind("change", function (changeEvent) {
+        scope.$apply(function () {
+          scope.ngFilesModel = changeEvent.target.files[0];
+          // or all selected files:
+          // scope.fileread = changeEvent.target.files;
+        });
+      });
+    }
+  }
+}])
+
+;
 
 yonglongApp.directive('orderdetail',function () {
   return{

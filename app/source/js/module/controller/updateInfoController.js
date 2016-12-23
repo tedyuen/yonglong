@@ -18,12 +18,16 @@ yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','inter
       nameCard:'',
       nameCardBack:'',
       mobileCode:'',
-      companyAddress:''
+      address:''
     }
+    // $scope.regfile = {
+    //   nameCardFile:'',
+    // }
 
     $scope.onSubmit = function($valid){
       if($valid){
-        interfaceService.companyUpdateinfo($scope.reg,function (data,headers,config) {
+        // console.log("==>file:  "+$scope.regfile.nameCardFile.src);
+        interfaceService.companyUpdateinfo($scope.reg,$scope.regfile,function (data,headers,config) {
           console.log(JSON.stringify(data));
           console.log(JSON.stringify(config));
 
@@ -37,6 +41,7 @@ yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','inter
     $scope.getUserInfo = function () {
       interfaceService.companyUserinfo({},function (data,headers,config) {
         console.log(JSON.stringify(data));
+        $scope.reg = data.data;
       })
     };
 

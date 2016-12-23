@@ -1,4 +1,4 @@
-yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $timeout, $q) {
+yonglongApp.factory('httpService', ['$http','$timeout','$q','URL_CONS',function ($http, $timeout, $q,URL_CONS) {
   // 默认参数
   var _httpDefaultOpts = {
     method: 'POST', // GET/DELETE/HEAD/JSONP/POST/PUT
@@ -55,16 +55,29 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $ti
   // http 请求执行过程封装    deferred ：http 链式请求延迟对象
   var _httpMin = function (opts, deferred) {
     _httpBefore(opts);
+
+    var contentType = undefined;
+    // var contentType = 'multipart/form-data';
+    // if(opts.url==URL_CONS.serverUrl){
+    //   contentType = 'application/x-www-form-urlencoded';
+    // }
+
+    var formData = new FormData();
+    formData.append('json',JSON.stringify(opts.data.json));
+    if(opts.data.files){
+      console.log("==>file last:  "+opts.data.files.nameCardFile);
+      formData.append('nameCardFile',opts.data.files.nameCardFile);
+    }
+
     $http({
       method: opts.method,
       url: opts.url,
       params: opts.params,
-      data: opts.data,
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      transformRequest: function (data) {
-        var tr = jQuery.param(data);
-        return tr;
-      }
+      data: formData,
+      headers: {'Content-Type': function () {
+        return undefined;
+      }},
+      transformRequest: angular.identity
     }).then(function onSuccess(response) {
       // 权限，超时等控制
       if( opts.checkCode && !_responseError(response.data, opts) ) {
