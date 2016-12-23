@@ -20,14 +20,24 @@ yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','inter
       mobileCode:'',
       address:''
     }
-    // $scope.regfile = {
-    //   nameCardFile:'',
-    // }
+    $scope.regfile1 = {
+      name:'nameCardFile',
+      file:'',
+    }
+    $scope.regfile2 = {
+      name:'nameCardBackFile',
+      file:'',
+    }
+    $scope.regfile3 = {
+      name:'licenceFile',
+      file:'',
+    }
+    var files = [$scope.regfile1,$scope.regfile2,$scope.regfile3];
+
 
     $scope.onSubmit = function($valid){
       if($valid){
-        // console.log("==>file:  "+$scope.regfile.nameCardFile.src);
-        interfaceService.companyUpdateinfo($scope.reg,$scope.regfile,function (data,headers,config) {
+        interfaceService.companyUpdateinfo($scope.reg,files,function (data,headers,config) {
           console.log(JSON.stringify(data));
           console.log(JSON.stringify(config));
 
@@ -44,8 +54,6 @@ yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','inter
         $scope.reg = data.data;
       })
     };
-
     $scope.getUserInfo();
-
   }
 ]);

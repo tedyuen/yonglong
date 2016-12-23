@@ -25,7 +25,8 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q','URL_CONS',function 
     if (angular.isFunction(opts.isErrMsgFn)) {
       opts.isErrMsgFn();
     } else {
-      alert("抱歉！因为操作不能够及时响应，请稍后在试...");
+      // alert("抱歉！因为操作不能够及时响应，请稍后在试...");
+      console.log('因为操作不能够及时响应，请稍后在试...');
     }
   };
 
@@ -56,17 +57,15 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q','URL_CONS',function 
   var _httpMin = function (opts, deferred) {
     _httpBefore(opts);
 
-    var contentType = undefined;
-    // var contentType = 'multipart/form-data';
-    // if(opts.url==URL_CONS.serverUrl){
-    //   contentType = 'application/x-www-form-urlencoded';
-    // }
-
     var formData = new FormData();
     formData.append('json',JSON.stringify(opts.data.json));
     if(opts.data.files){
-      console.log("==>file last:  "+opts.data.files.nameCardFile);
-      formData.append('nameCardFile',opts.data.files.nameCardFile);
+      if(angular.isArray(opts.data.files)){
+        angular.forEach(opts.data.files,function (file) {
+          // console.log("==>file last:  "+file.name+":"+file.file);
+          formData.append(file.name,file.file);
+        })
+      }
     }
 
     $http({
