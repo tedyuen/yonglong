@@ -9,7 +9,7 @@ yonglongApp.provider('showDatePickerProvider',function () {
         jQuery('.mydatepicker').datepicker({
           language: 'zh-CN',
           autoclose: true,
-          format: "yyyy年mm月dd日",
+          format: "yyyy-mm-dd",
           todayHighlight: true
         });
       }

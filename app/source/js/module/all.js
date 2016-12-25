@@ -198,13 +198,13 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePic
     $scope.containerVType = baseDataService.getBoxVol();
     $scope.containerSType = baseDataService.getBoxType();
     $scope.orderDetail ={
-      shippingName:'千里阳光号',
-      shippingDate:'2016年12月31日',
-      originPort:'伟大航路',
-      loadingPort:'人鱼岛',
-      returnPort:'司法岛',
-      transitPort:'海军总部',
-      destPort:'克罗可达尔',
+      shippingName:'辽宁号',
+      shippingDate:'2016-12-31',
+      originPort:'洋山深水港',
+      loadingPort:'大连港',
+      returnPort:'天津港',
+      transitPort:'外高桥港',
+      destPort:'珠海港',
       orderType:'0',
       containerVType:'0',
       containerSType:'0',
@@ -867,7 +867,7 @@ yonglongApp.provider('showDatePickerProvider',function () {
         jQuery('.mydatepicker').datepicker({
           language: 'zh-CN',
           autoclose: true,
-          format: "yyyy年mm月dd日",
+          format: "yyyy-mm-dd",
           todayHighlight: true
         });
       }
