@@ -2,7 +2,7 @@
  * Created by tedyuen on 16-12-8.
  */
 yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
-  $urlRouterProvider.when('','/login').otherwise('/login');
+  $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
   $stateProvider
     .state('login',{//登录页
       url:'/login',

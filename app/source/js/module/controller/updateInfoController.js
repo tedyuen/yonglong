@@ -40,7 +40,7 @@ yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','inter
         interfaceService.companyUpdateinfo($scope.reg,files,function (data,headers,config) {
           console.log(JSON.stringify(data));
           console.log(JSON.stringify(config));
-
+          $('#success-info').modal('show');
         });
       }else{
         console.log("$valid:"+$valid);

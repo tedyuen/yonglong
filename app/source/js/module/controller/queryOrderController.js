@@ -51,4 +51,5 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
       }
     }
 
+    httpList();
 }]);

@@ -8,23 +8,23 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePic
     $scope.containerVType = baseDataService.getBoxVol();
     $scope.containerSType = baseDataService.getBoxType();
     $scope.orderDetail ={
-      shippingName:'awef',
-      shippingDate:'2016年12月08日',
-      originPort:'aawef',
-      loadingPort:'awf',
-      returnPort:'awef',
-      transitPort:'awef',
-      destPort:'awef',
+      shippingName:'千里阳光号',
+      shippingDate:'2016年12月31日',
+      originPort:'伟大航路',
+      loadingPort:'人鱼岛',
+      returnPort:'司法岛',
+      transitPort:'海军总部',
+      destPort:'克罗可达尔',
       orderType:'0',
       containerVType:'0',
       containerSType:'0',
-      containerVol:323,
-      grossWeight:234,
-      note:'awef',
+      containerVol:200,
+      grossWeight:500,
+      note:'',
       shippingFee:'34',
-      extraFee:'332',
-      referenceShippingFee:'23',
-      shippingSn:'awefewaf'
+      extraFee:'245',
+      referenceShippingFee:'34',
+      shippingSn:'AXJIE8737492J'
     }
 
     //提交表单
@@ -34,12 +34,11 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePic
         // $('#table-preview').modal('show');
         // $(".modal-content").css("width","80%")
 
-
-
-        console.log("url:"+URL_CONS.createOrder);
         interfaceService.companyCreateOrder($scope.orderDetail,function (data,headers,config) {
           console.log(JSON.stringify(data));
           console.log(JSON.stringify(config));
+
+          $('#success-info').modal('show');
 
         });
       }else{
