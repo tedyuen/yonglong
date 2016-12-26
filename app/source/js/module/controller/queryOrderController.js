@@ -56,6 +56,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     }
 
 
+
     //删除订单
     $scope.delete = function (orderId) {
       swal({
