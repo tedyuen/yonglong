@@ -11,7 +11,7 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
       json:params,
       files:files
     }
-    console.log("request json str:-->  "+request.json);
+    // console.log("request json str:-->  "+request.json);
     var _opts = jQuery.extend({
       timeout : 'getError404Timeout'
     },null);
@@ -75,5 +75,22 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   // 2.3 更新用户信息
   this.companyUpdateinfo = function (params,files,success,error) {
     this.doHttpMethod(URL_CONS.companyUpdateinfo,params,success,error,files);
+  }
+
+  // 4.1好友分页列表
+  this.companyListFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyListFriend,params,success,error);
+  }
+  // 4.2通过手机号查询车主
+  this.companyListBusowners = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyListBusowners,params,success,error);
+  }
+  // 4.3新增好友
+  this.companyAddFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyAddFriend,params,success,error);
+  }
+  // 4.4解除好友关系
+  this.companyDelFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyDelFriend,params,success,error)
   }
 }]);

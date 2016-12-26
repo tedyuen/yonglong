@@ -9,6 +9,18 @@ yonglongApp.filter('payStatusText',function () {
   }
 });
 
+yonglongApp.filter('friendType',function () {
+  return function (str) {
+    if(str=='0'){
+      return '未审核'
+    }else if(str=='1'){
+      return '审核通过'
+    }else if(str=='9'){
+      return '用户拒绝'
+    }
+  }
+});
+
 //订单状态
 yonglongApp.filter('orderStatusText',function () {
   return function (input) {

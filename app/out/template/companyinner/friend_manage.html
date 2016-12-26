@@ -22,39 +22,52 @@
           <div class="row">
             <button type="submit" class="btn btn-success waves-effect waves-light m-r-10" data-toggle="modal" data-target="#exampleModal">新增</button>
 
-            <h3 class="m-t-15">好友列表</h3>
+            <div  ng-show="results.totalPages!=null && results.totalPages!=0">
+              <h3 class="m-t-15">好友列表</h3>
 
-            <div class="table-responsive m-t-15">
-              <table class="table color-table primary-table table-hover table-bordered">
-                <thead>
-                <tr>
-                  <th><nobr>日期</nobr></th>
-                  <th><nobr>姓名</nobr></th>
-                  <th><nobr>电话</nobr></th>
-                  <th><nobr>状态</nobr></th>
-                  <th><nobr>操作</nobr></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</nobr></td>
-                  <td><nobr><i class="fa fa-female"></i>&nbsp;&nbsp;张二红</nobr></td>
-                  <td><nobr>021-65464382</nobr></td>
-                  <td><nobr>审核通过</nobr></td>
-                  <td><button type="button" class="btn btn-danger btn-xs">解除关系</button></td>
-                </tr>
-                </tbody>
-              </table>
+              <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+                <div class="white-box">
+                  <div class="row">
+                    <div class="alert alert-warning alert-dismissable">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      暂无好友
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-responsive m-t-15">
+                <table class="table color-table primary-table table-hover table-bordered">
+                  <thead>
+                  <tr>
+                    <th><nobr>日期</nobr></th>
+                    <th><nobr>姓名</nobr></th>
+                    <th><nobr>电话</nobr></th>
+                    <th><nobr>状态</nobr></th>
+                    <th><nobr>操作</nobr></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="result in results.pageData">
+                    <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.createTimeStr}}</nobr></td>
+                    <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.busMemberName}}</nobr></td>
+                    <td><nobr><i class="fa fa-phone"></i>&nbsp;&nbsp;{{result.busMemberMobile}}</nobr></td>
+                    <td><nobr>{{result.status | friendType}}</nobr></td>
+                    <td>
+                      <button type="button" class="btn btn-danger btn-xs" ng-click="delFriend(result.id)">解除关系</button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pagination page-size="results.pageSize"
+                          total-pages="results.totalPages"
+                          curr-page="results.currPageNum"
+                          show-count="100"
+                          switch-page="switchPage"
+              >
+              </pagination>
             </div>
-            <ul class="pagination m-b-0">
-              <li> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
-              <li> <a href="#">1</a> </li>
-              <li class="active"> <a href="#">2</a> </li>
-              <li> <a href="#">3</a> </li>
-              <li> <a href="#">4</a> </li>
-              <li> <a href="#">5</a> </li>
-              <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
-            </ul>
           </div>
         </div>
       </div>
@@ -71,24 +84,65 @@
           <h4 class="modal-title" id="exampleModalLabel1">新增好友</h4>
         </div>
         <div class="modal-body">
-          <form>
+          <form ng-submit="getBusowner(phoneQuery.$valid)" novalidate="novalidate" name="phoneQuery">
             <div class="form-group">
-
               <div class="input-group">
-                <input type="text" class="form-control" id="phonenumber" placeholder="输入电话...">
+                <input type="text" class="form-control" id="phonenumber" placeholder="输入电话..." ng-model="busowner.mobilePhone" required>
                 <span class="input-group-btn">
-                  <button type="button" class="btn waves-effect waves-light btn-success" alt="default">通过电话搜索</button>
+                  <button type="submit" class="btn waves-effect waves-light btn-success" alt="default">通过电话搜索</button>
                 </span>
               </div>
             </div>
-
-
           </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-          <button type="button" class="btn btn-primary">确认添加</button>
-        </div>
+        <form ng-submit="addFriend()" novalidate="novalidate" name="addFriendList">
+          <div class="modal-body" style="padding-top: 0px" ng-show="busownerResults.totalPages!=null && busownerResults.totalPages!=0">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>状态</th>
+                  <th>姓名</th>
+                  <th>电话</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="result in busownerResults.pageData">
+                    <td>
+                      <div class="radio radio-info" ng-show="!result.disable">
+                        <input type="radio" name="radio" id="radio1{{result.id}}" ng-value="result.id" ng-model="addFriendId.busMemberId">
+                        <label for="radio1{{result.id}}">选择</label>
+                      </div>
+                      <div style="display:block;margin-top:10px;margin-bottom:10px" ng-show="result.disable">
+                        <span class="text-muted">已添加</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div style="display:block;margin-top:10px;margin-bottom:10px">
+                        <span class="text-muted"><i class="fa fa-clock-o"></i> {{result.memberName}}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div style="display:block;margin-top:10px;margin-bottom:10px">
+                        {{result.mobilePhone}}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button ng-disabled="addFriendId.busMemberId==''" ng-class="{'btn-primary':addFriendId.busMemberId!='','btn-danger':addFriendId.busMemberId==''}" type="submit" class="btn btn-primary">
+              <span ng-if="addFriendId.busMemberId==''">请选择一位好友</span>
+              <span ng-if="addFriendId.busMemberId!=''">确认添加</span>
+            </button>
+            <!--addFriendId.busMemberId!=''-->
+
+
+          </div>
+        </form>
       </div>
     </div>
   </div>
