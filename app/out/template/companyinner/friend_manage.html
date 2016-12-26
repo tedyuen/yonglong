@@ -25,17 +25,6 @@
             <div  ng-show="results.totalPages!=null && results.totalPages!=0">
               <h3 class="m-t-15">好友列表</h3>
 
-              <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
-                <div class="white-box">
-                  <div class="row">
-                    <div class="alert alert-warning alert-dismissable">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      暂无好友
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               <div class="table-responsive m-t-15">
                 <table class="table color-table primary-table table-hover table-bordered">
                   <thead>
@@ -67,6 +56,16 @@
                           switch-page="switchPage"
               >
               </pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+        <div class="white-box">
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无好友
             </div>
           </div>
         </div>
@@ -109,11 +108,11 @@
                 <tbody>
                   <tr ng-repeat="result in busownerResults.pageData">
                     <td>
-                      <div class="radio radio-info" ng-show="!result.disable">
+                      <div class="radio radio-info" ng-show="!result.disabled">
                         <input type="radio" name="radio" id="radio1{{result.id}}" ng-value="result.id" ng-model="addFriendId.busMemberId">
                         <label for="radio1{{result.id}}">选择</label>
                       </div>
-                      <div style="display:block;margin-top:10px;margin-bottom:10px" ng-show="result.disable">
+                      <div style="display:block;margin-top:10px;margin-bottom:10px" ng-show="result.disabled">
                         <span class="text-muted">已添加</span>
                       </div>
                     </td>
@@ -139,8 +138,6 @@
               <span ng-if="addFriendId.busMemberId!=''">确认添加</span>
             </button>
             <!--addFriendId.busMemberId!=''-->
-
-
           </div>
         </form>
       </div>

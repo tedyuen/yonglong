@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-13.
  */
-yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePickerProvider','URL_CONS','baseDataService','interfaceService',
-  function ($scope,$timeout,showDatePickerProvider,URL_CONS,baseDataService,interfaceService) {
+yonglongApp.controller('createOrderController',['$scope','$timeout','$state','showDatePickerProvider','URL_CONS','baseDataService','interfaceService',
+  function ($scope,$timeout,$state,showDatePickerProvider,URL_CONS,baseDataService,interfaceService) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderType();
     $scope.containerVType = baseDataService.getBoxVol();
@@ -31,18 +31,43 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','showDatePic
     $scope.onSubmit = function($valid){
       if($valid){
 
-        // $('#table-preview').modal('show');
-        // $(".modal-content").css("width","80%")
-
-        interfaceService.companyCreateOrder($scope.orderDetail,function (data,headers,config) {
-          console.log(JSON.stringify(data));
-          console.log(JSON.stringify(config));
-
-          $('#success-info').modal('show');
-
+        swal({
+          title: "确定创建订单吗?",
+          text: "您即将创建一份新的订单!",
+          type: "warning",
+          showCancelButton: true,
+          cancelButtonText: "取消",
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "是的,创建!",
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true,
+          animation: "slide-from-top",
+        }, function(){
+          interfaceService.companyCreateOrder($scope.orderDetail,function (data,headers,config) {
+            // console.log(JSON.stringify(data));
+            if(data.rescode=="0000"){
+              swal({
+                title:"创建成功！",
+                text:"已成功创建订单。",
+                type:"success",
+                showCancelButton: true,
+                cancelButtonText: "继续创建",
+                confirmButtonText:"订单查询",
+              },function () {
+                $state.go('main.companyinner.query_order');
+              });
+            }else{
+              swal({
+                title:"创建失败！",
+                text:"请重新执行此操作。",
+                type:"error",
+                confirmButtonText:"确定"
+              });
+            }
+          });
         });
       }else{
-        console.log("$valid:"+$valid);
+        // console.log("$valid:"+$valid);
       }
     };
 

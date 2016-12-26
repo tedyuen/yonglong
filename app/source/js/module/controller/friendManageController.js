@@ -33,7 +33,7 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService',
 
     var httpList = function () {
       interfaceService.companyListFriend($scope.queryData,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         $scope.results = data.data;
       });
     }
@@ -108,7 +108,8 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService',
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "是的,解除!",
         closeOnConfirm: false,
-        showLoaderOnConfirm: true
+        showLoaderOnConfirm: true,
+        animation: "slide-from-top",
       }, function(){
         var param = {
           fid:fid
@@ -119,7 +120,7 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService',
               title:"解除成功！",
               text:"已解除好友关系。",
               type:"success",
-              confirmButtonText:"确定"
+              confirmButtonText:"确定",
             },function () {
               httpList();
             });
@@ -137,7 +138,4 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService',
     }
 
     httpList();
-
-
-
 }]);
