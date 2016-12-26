@@ -30,7 +30,6 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','sh
     //提交表单
     $scope.onSubmit = function($valid){
       if($valid){
-
         swal({
           title: "确定创建订单吗?",
           text: "您即将创建一份新的订单!",

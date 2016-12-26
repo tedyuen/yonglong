@@ -14,6 +14,7 @@ yonglongApp.constant('URL_CONS', {
   deleteOrder: 'company_delete_order',
   companyUserinfo:'company_userinfo',
   companyUpdateinfo: 'company_updateinfo',
+  busUserDetail: 'bus_user_detail',
   companyListFriend: 'company_list_friend',
   companyListBusowners: 'company_list_busowners',
   companyAddFriend: 'company_add_friend',

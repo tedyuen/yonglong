@@ -77,6 +77,11 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.companyUpdateinfo,params,success,error,files);
   }
 
+  // 2.5承运方详情
+  this.busUserDetail = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.busUserDetail,params,success,error,files);
+  }
+
   // 4.1好友分页列表
   this.companyListFriend = function (params,success,error) {
     this.doHttpMethod(URL_CONS.companyListFriend,params,success,error);

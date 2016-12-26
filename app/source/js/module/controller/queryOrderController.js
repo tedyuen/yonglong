@@ -40,7 +40,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
 
     var httpList = function () {
       interfaceService.companyOrderList($scope.queryData,function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+        console.log("response:"+JSON.stringify(data));
         $scope.results = data.data;
       });
     }
@@ -54,8 +54,6 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
 
       }
     }
-
-
 
     //删除订单
     $scope.delete = function (orderId) {
@@ -97,6 +95,15 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
       });
     }
 
+
+    $scope.busUserDetail = function (userId) {
+      var param = {
+        userId:userId
+      }
+      interfaceService.busUserDetail(param,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+      });
+    }
 
     httpList();
 
