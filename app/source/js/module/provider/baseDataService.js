@@ -4,6 +4,10 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
     return diyData.orderType;
   }
 
+  this.getOrderTypeN = function () {
+    return diyData.orderTypeN;
+  }
+
   this.getBoxVol = function () {
     return diyData.boxVol;
   }

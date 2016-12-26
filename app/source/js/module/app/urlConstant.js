@@ -11,6 +11,7 @@ yonglongApp.constant('URL_CONS', {
 
   companyCreateOrder: 'company_create_order',
   companyOrderList: 'company_list_order',
+  deleteOrder: 'company_delete_order',
   companyUserinfo:'company_userinfo',
   companyUpdateinfo: 'company_updateinfo',
 })

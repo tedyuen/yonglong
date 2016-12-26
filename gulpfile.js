@@ -14,6 +14,7 @@ var cssArr = [
   './app/source/css/node/bootstrap.min.css',
   './app/source/css/node/jquery.toast.min.css',
   './app/source/css/node/metisMenu.min.css',
+  './app/source/css/node/sweetalert.css',
   './app/source/css/pixel/animate.css',
   './app/source/css/pixel/style.css',
   './app/source/css/pixel/spinners.css',
@@ -110,6 +111,11 @@ gulp.task('nodeModule',function(){
   gulp.src('./node_modules/dropify/dist/css/dropify.min.css')
     .pipe(gulp.dest('./app/source/css/node'));
   // dropify
+
+  // sweetalert
+  gulp.src('./node_modules/sweetalert/dist/sweetalert.css')
+    .pipe(gulp.dest('./app/source/css/node'));
+  // sweetalert
 
 });
 

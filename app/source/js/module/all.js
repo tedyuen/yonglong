@@ -15,6 +15,7 @@ require('bootstrap-datepicker');
 require('./utils/bootstrap-datepicker');
 require('./utils/jquery.waypoints.min');
 require('./utils/jquery.counterup.min');
+require('sweetalert');
 
 require('angular');
 require('angular-ui-router');
@@ -81,7 +82,9 @@ yonglongApp.value('diyData',
     ],
     //boxVol: [{name: '20', id: '0'}, {name: '40', id: '1'}, {name: '45', id: '2'}]
     boxVol: [{name: '20', id: '0', show: '短板车'}, {name: '40', id: '1', show: '12.6米'}],
-    boxVolN: [{name: '不限', id: '-1', show: '不限'},{name: '20', id: '0', show: '短板车'}, {name: '40', id: '1', show: '12.6米'}]
+    boxVolN: [{name: '不限', id: '-1', show: '不限'},{name: '20', id: '0', show: '短板车'}, {name: '40', id: '1', show: '12.6米'}],
+    orderTypeN: [{name: '不限', id: '-1'},{name: '进口', id: '0'}, {name: '出口', id: '1'}, {name: '拖柜进洋山', id: '2'}],
+
   }
 );
 
@@ -98,6 +101,7 @@ yonglongApp.constant('URL_CONS', {
 
   companyCreateOrder: 'company_create_order',
   companyOrderList: 'company_list_order',
+  deleteOrder: 'company_delete_order',
   companyUserinfo:'company_userinfo',
   companyUpdateinfo: 'company_updateinfo',
 })
@@ -325,7 +329,7 @@ yonglongApp.controller("mainController",['$rootScope','$timeout',function ($root
 yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider','baseDataService','interfaceService',
   function ($scope,showDatePickerProvider,baseDataService,interfaceService) {
     showDatePickerProvider.showDatePicker();
-    $scope.orderType = baseDataService.getOrderType();
+    $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
     $scope.containerSType = baseDataService.getBoxTypeN();
     $scope.queryData = {
@@ -337,6 +341,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
       originPort:'',
       loadingPort:'',
       returnPort:'',
+      orderType:'-1',
       containerVType:'-1',
       containerSType:'-1',
       goodsMemberName:'',
@@ -373,6 +378,51 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     }
 
     httpList();
+
+    $scope.delete = function (orderId) {
+      swal({
+        title: "确定删除吗?",
+        text: "您即将删除这份订单!",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "取消",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "是的,删除!",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, function(){
+        var tempData = {
+          orderId:orderId
+        }
+        interfaceService.deleteOrder(tempData,function (data,headers,config) {
+          console.log(data);
+          if(data.rescode=="0000"){
+            swal({
+              title:"删除成功！",
+              text:"此订单已删除。",
+              type:"success",
+              confirmButtonText:"确定"
+            },function () {
+              console.log("refresh 1");
+              httpList();
+              console.log("refresh 2");
+
+            });
+          }else{
+            swal({
+              title:"删除失败！",
+              text:"请重新执行此操作。",
+              type:"error",
+              confirmButtonText:"确定"
+            });
+          }
+
+        });
+
+      });
+    }
+
+
 }]);
 
 /**
@@ -488,6 +538,10 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
 
   this.getOrderType = function () {
     return diyData.orderType;
+  }
+
+  this.getOrderTypeN = function () {
+    return diyData.orderTypeN;
   }
 
   this.getBoxVol = function () {
@@ -834,6 +888,12 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.companyOrderList = function (params,success,error) {
     this.doHttpMethod(URL_CONS.companyOrderList,params,success,error);
   }
+
+  // 1.5 订单删除
+  this.deleteOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.deleteOrder,params,success,error);
+  }
+
 
   // 2.2 查看个人信息
   this.companyUserinfo = function (params,success,error) {

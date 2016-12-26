@@ -35,7 +35,8 @@ sudo npm install --save-dev gulp gulp-browserify del gulp-clean-css gulp-concat 
 // angular-baidu-map
 // dropify
 // mockjs
-sudo npm install --save angular jquery bootstrap angular-route angular-ui-router angular-animate bootstrap-datepicker jquery-toast-plugin metismenu jquery-slimscroll angular-baidu-map dropify mockjs
+// sweetalert
+sudo npm install --save angular jquery bootstrap angular-route angular-ui-router angular-animate bootstrap-datepicker jquery-toast-plugin metismenu jquery-slimscroll angular-baidu-map dropify mockjs sweetalert
 ```
 
 7. npm 设置淘宝镜像

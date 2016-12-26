@@ -61,6 +61,12 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.companyOrderList,params,success,error);
   }
 
+  // 1.5 订单删除
+  this.deleteOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.deleteOrder,params,success,error);
+  }
+
+
   // 2.2 查看个人信息
   this.companyUserinfo = function (params,success,error) {
     this.doHttpMethod(URL_CONS.companyUserinfo,params,success,error);

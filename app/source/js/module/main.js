@@ -15,6 +15,7 @@ require('bootstrap-datepicker');
 require('./utils/bootstrap-datepicker');
 require('./utils/jquery.waypoints.min');
 require('./utils/jquery.counterup.min');
+require('sweetalert');
 
 require('angular');
 require('angular-ui-router');
