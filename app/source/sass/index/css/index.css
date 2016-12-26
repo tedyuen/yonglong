@@ -9,6 +9,9 @@
   #index .btn-icon-img {
     background: url("../images/index/arrow-right.png") no-repeat center;
     background-size: 6px 11px; }
+  #index .btn-icon-img-white {
+    background: url("../images/index/arrow-right-white.png") no-repeat center;
+    background-size: 6px 11px; }
   #index .navbar {
     margin-bottom: 0; }
     #index .navbar .navbar-brand {
@@ -32,6 +35,10 @@
       background: none; }
     #index .navbar ul a:hover {
       background: none; }
+  #index .carousel #top-container {
+    padding: 0;
+    background: url("../images/index/banner.png") no-repeat center;
+    background-size: cover; }
   #index .carousel .container .thumbnail {
     background: none;
     color: white;
@@ -78,11 +85,17 @@
           margin: 10px;
           background-color: yellowgreen;
           float: left; }
-        #index .carousel .container #login-container .nav-tabs li .fh-icon {
-          background: url("../images/index/user.png") no-repeat center;
+        #index .carousel .container #login-container .nav-tabs li .user-default {
+          background: url("../images/index/user-default.png") no-repeat center;
           background-size: 18px 22px; }
-        #index .carousel .container #login-container .nav-tabs li .cy-icon {
-          background: url("../images/index/cy-icon.png") no-repeat center;
+        #index .carousel .container #login-container .nav-tabs li .user-selected {
+          background: url("../images/index/user-selected.png") no-repeat center;
+          background-size: 18px 22px; }
+        #index .carousel .container #login-container .nav-tabs li .car-default {
+          background: url("../images/index/car-default.png") no-repeat center;
+          background-size: 32px 18px; }
+        #index .carousel .container #login-container .nav-tabs li .car-selected {
+          background: url("../images/index/car-selected.png") no-repeat center;
           background-size: 32px 18px; }
         #index .carousel .container #login-container .nav-tabs li a {
           border: 0;
