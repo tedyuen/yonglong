@@ -13,10 +13,11 @@ yonglongApp.constant('URL_CONS', {
   companyOrderList: 'company_list_order',
   deleteOrder: 'company_delete_order',
   companyUserinfo:'company_userinfo',
+  companyUserDetail:'company_user_detail',
   companyUpdateinfo: 'company_updateinfo',
   busUserDetail: 'bus_user_detail',
   companyListFriend: 'company_list_friend',
   companyListBusowners: 'company_list_busowners',
   companyAddFriend: 'company_add_friend',
   companyDelFriend: 'company_del_friend',
-})
+});

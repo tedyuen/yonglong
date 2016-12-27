@@ -21,6 +21,16 @@ yonglongApp.filter('friendType',function () {
   }
 });
 
+yonglongApp.filter('emptyText',function () {
+  return function (str) {
+    if(str==''){
+      return '无'
+    }else{
+      return str;
+    }
+  }
+})
+
 //订单状态
 yonglongApp.filter('orderStatusText',function () {
   return function (input) {

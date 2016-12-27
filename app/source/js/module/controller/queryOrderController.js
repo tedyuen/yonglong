@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider','baseDataService','interfaceService',
-  function ($scope,showDatePickerProvider,baseDataService,interfaceService) {
+yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider','baseDataService','interfaceService','rescode',
+  function ($scope,showDatePickerProvider,baseDataService,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
@@ -40,7 +40,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
 
     var httpList = function () {
       interfaceService.companyOrderList($scope.queryData,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         $scope.results = data.data;
       });
     }
@@ -73,7 +73,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
         }
         interfaceService.deleteOrder(tempData,function (data,headers,config) {
           console.log(data);
-          if(data.rescode=="0000"){
+          if(data.rescode==rescode.SUCCESS){
             swal({
               title:"删除成功！",
               text:"此订单已删除。",
@@ -96,14 +96,43 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     }
 
 
-    $scope.busUserDetail = function (userId) {
-      var param = {
-        userId:userId
+    $scope.busUserDetail = function (userId,type) {
+      console.log("===> "+userId);
+      switch (type){
+        case 0:param={
+          userId:userId
+        };
+        break;
+        case 1:param={
+          orderId:userId
+        }
       }
       interfaceService.busUserDetail(param,function (data,headers,config) {
         console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.busUserDetailResult = data.data;
+          $scope.busUserDetailResult.resultType = 0;
+          $('#bus-user-detail-modal').modal('show');
+        }
       });
     }
+
+    $scope.companyUserDetail = function (userId) {
+      var param = {
+        userId:userId
+      }
+      interfaceService.companyUserDetail(param,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.busUserDetailResult = data.data;
+          $scope.busUserDetailResult.resultType = 1;
+          $('#bus-user-detail-modal').modal('show');
+        }
+
+      });
+    }
+
+
 
     httpList();
 

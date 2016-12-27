@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-13.
  */
-yonglongApp.controller('createOrderController',['$scope','$timeout','$state','showDatePickerProvider','URL_CONS','baseDataService','interfaceService',
-  function ($scope,$timeout,$state,showDatePickerProvider,URL_CONS,baseDataService,interfaceService) {
+yonglongApp.controller('createOrderController',['$scope','$timeout','$state','showDatePickerProvider','URL_CONS','baseDataService','interfaceService','rescode',
+  function ($scope,$timeout,$state,showDatePickerProvider,URL_CONS,baseDataService,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderType();
     $scope.containerVType = baseDataService.getBoxVol();
@@ -44,7 +44,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','sh
         }, function(){
           interfaceService.companyCreateOrder($scope.orderDetail,function (data,headers,config) {
             // console.log(JSON.stringify(data));
-            if(data.rescode=="0000"){
+            if(data.rescode==rescode.SUCCESS){
               swal({
                 title:"创建成功！",
                 text:"已成功创建订单。",

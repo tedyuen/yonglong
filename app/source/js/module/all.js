@@ -88,6 +88,10 @@ yonglongApp.value('diyData',
   }
 );
 
+yonglongApp.constant('rescode', {
+  SUCCESS:'0000'
+})
+
 /**
  * Created by tedyuen on 16-12-17.
  */
@@ -103,13 +107,14 @@ yonglongApp.constant('URL_CONS', {
   companyOrderList: 'company_list_order',
   deleteOrder: 'company_delete_order',
   companyUserinfo:'company_userinfo',
+  companyUserDetail:'company_user_detail',
   companyUpdateinfo: 'company_updateinfo',
   busUserDetail: 'bus_user_detail',
   companyListFriend: 'company_list_friend',
   companyListBusowners: 'company_list_busowners',
   companyAddFriend: 'company_add_friend',
   companyDelFriend: 'company_del_friend',
-})
+});
 
 /**
  * Created by tedyuen on 16-12-16.
@@ -143,6 +148,16 @@ yonglongApp.filter('friendType',function () {
     }
   }
 });
+
+yonglongApp.filter('emptyText',function () {
+  return function (str) {
+    if(str==''){
+      return '无'
+    }else{
+      return str;
+    }
+  }
+})
 
 //订单状态
 yonglongApp.filter('orderStatusText',function () {
@@ -212,8 +227,8 @@ yonglongApp.controller('accountInfoController',['$scope','countupProvider',
 /**
  * Created by tedyuen on 16-12-13.
  */
-yonglongApp.controller('createOrderController',['$scope','$timeout','$state','showDatePickerProvider','URL_CONS','baseDataService','interfaceService',
-  function ($scope,$timeout,$state,showDatePickerProvider,URL_CONS,baseDataService,interfaceService) {
+yonglongApp.controller('createOrderController',['$scope','$timeout','$state','showDatePickerProvider','URL_CONS','baseDataService','interfaceService','rescode',
+  function ($scope,$timeout,$state,showDatePickerProvider,URL_CONS,baseDataService,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderType();
     $scope.containerVType = baseDataService.getBoxVol();
@@ -255,7 +270,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','sh
         }, function(){
           interfaceService.companyCreateOrder($scope.orderDetail,function (data,headers,config) {
             // console.log(JSON.stringify(data));
-            if(data.rescode=="0000"){
+            if(data.rescode==rescode.SUCCESS){
               swal({
                 title:"创建成功！",
                 text:"已成功创建订单。",
@@ -331,8 +346,8 @@ yonglongApp.controller('createWithdrawController',['$scope','$timeout','showDate
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('friendManageController',['$scope','interfaceService',
-  function ($scope,interfaceService) {
+yonglongApp.controller('friendManageController',['$scope','interfaceService','rescode',
+  function ($scope,interfaceService,rescode) {
 
     $scope.queryData = {
       startTime:'',
@@ -406,7 +421,7 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService',
       if($scope.addFriendId.busMemberId!=''){
         interfaceService.companyAddFriend($scope.addFriendId,function (data,headers,config) {
           // console.log("response:"+JSON.stringify(data));
-          if(data.rescode=="0000"){
+          if(data.rescode==rescode.SUCCESS){
             swal({
               title:"添加成功！",
               text:"已添加好友。",
@@ -445,7 +460,7 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService',
           fid:fid
         }
         interfaceService.companyDelFriend(param,function (data,headers,config) {
-          if(data.rescode=="0000"){
+          if(data.rescode==rescode.SUCCESS){
             swal({
               title:"解除成功！",
               text:"已解除好友关系。",
@@ -545,8 +560,8 @@ yonglongApp.controller("mainController",['$rootScope','$timeout',function ($root
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider','baseDataService','interfaceService',
-  function ($scope,showDatePickerProvider,baseDataService,interfaceService) {
+yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider','baseDataService','interfaceService','rescode',
+  function ($scope,showDatePickerProvider,baseDataService,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
@@ -584,7 +599,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
 
     var httpList = function () {
       interfaceService.companyOrderList($scope.queryData,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         $scope.results = data.data;
       });
     }
@@ -617,7 +632,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
         }
         interfaceService.deleteOrder(tempData,function (data,headers,config) {
           console.log(data);
-          if(data.rescode=="0000"){
+          if(data.rescode==rescode.SUCCESS){
             swal({
               title:"删除成功！",
               text:"此订单已删除。",
@@ -640,14 +655,45 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     }
 
 
-    $scope.busUserDetail = function (userId) {
-      var param = {
-        userId:userId
+    $scope.busUserDetail = function (userId,type) {
+      console.log("===> "+userId);
+      switch (type){
+        case 0:param={
+          userId:userId
+        };
+        break;
+        case 1:param={
+          orderId:userId
+        }
       }
       interfaceService.busUserDetail(param,function (data,headers,config) {
         console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.busUserDetailResult = data.data;
+          $scope.busUserDetailResult.resultType = 0;
+          $('#bus-user-detail-modal').modal('show');
+        }
+
+
       });
     }
+
+    $scope.companyUserDetail = function (userId) {
+      var param = {
+        userId:userId
+      }
+      interfaceService.companyUserDetail(param,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.busUserDetailResult = data.data;
+          $scope.busUserDetailResult.resultType = 1;
+          $('#bus-user-detail-modal').modal('show');
+        }
+
+      });
+    }
+
+
 
     httpList();
 
@@ -1177,10 +1223,14 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.companyUpdateinfo = function (params,files,success,error) {
     this.doHttpMethod(URL_CONS.companyUpdateinfo,params,success,error,files);
   }
+  // 2.4 接单方详情
+  this.companyUserDetail = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyUserDetail,params,success,error);
+  }
 
   // 2.5承运方详情
   this.busUserDetail = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.busUserDetail,params,success,error,files);
+    this.doHttpMethod(URL_CONS.busUserDetail,params,success,error);
   }
 
   // 4.1好友分页列表

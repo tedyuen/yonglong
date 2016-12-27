@@ -147,11 +147,11 @@
                     <button type="button" class="btn btn-danger btn-xs"
                             ng-if="result.orderStatus=='1' && result.payStatus=='0'" ng-click="delete(result.id)">删除订单</button>
                     <button type="button" class="btn btn-success btn-xs"
-                            ng-if="result.orderStatus!='1' && result.busMemberType==1" ng-click="busUserDetail(result.busMemberId)">承运方详情</button>
+                            ng-if="result.orderStatus!='1' && result.busMemberType==1" ng-click="busUserDetail(result.busMemberId,0)">承运方详情</button>
                     <button type="button" class="btn btn-success btn-xs"
-                            ng-if="result.orderStatus!='1' && result.busMemberType==0 && result.shippingStatus!=1002">接单方详情</button>
+                            ng-if="result.orderStatus!='1' && result.busMemberType==0 && result.shippingStatus!=1002" ng-click="companyUserDetail(result.goodsMemberId)">接单方详情</button>
                     <button type="button" class="btn btn-success btn-xs"
-                            ng-if="result.orderStatus!='1' && result.busMemberType==0 && result.shippingStatus==1002">接单方详情</button>
+                            ng-if="result.orderStatus!='1' && result.busMemberType==0 && result.shippingStatus==1002" ng-click="busUserDetail(result.id,1)">接单方详情</button>
                   </td>
                 </tr>
               </tbody>
@@ -160,8 +160,7 @@
                         total-pages="results.totalPages"
                         curr-page="results.currPageNum"
                         show-count="100"
-                        switch-page="switchPage"
-            >
+                        switch-page="switchPage">
             </pagination>
 
           </div>
@@ -171,4 +170,59 @@
     <!--<pre>{{results|json}}</pre>-->
     </div>
   </div>
+
+
+  <div id="bus-user-detail-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel">会员信息</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <table class="table table-striped">
+              <tr>
+                <td>注册时间</td>
+                <td>{{busUserDetailResult.regTimeStr | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>公司名称</td>
+                <td>{{busUserDetailResult.companyName | emptyText}}</td>
+              </tr>
+              <tr ng-if="busUserDetailResult.resultType==0">
+                <td>车牌号</td>
+                <td>{{busUserDetailResult.carNumber | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>手机号</td>
+                <td>{{busUserDetailResult.mobilePhone | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>电话</td>
+                <td>{{busUserDetailResult.tel | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>联系人</td>
+                <td>{{busUserDetailResult.companyLinker | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>联系地址</td>
+                <td>{{busUserDetailResult.address | emptyText}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info waves-effect text-left" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+
+
+
 </div>

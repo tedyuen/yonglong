@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('friendManageController',['$scope','interfaceService',
-  function ($scope,interfaceService) {
+yonglongApp.controller('friendManageController',['$scope','interfaceService','rescode',
+  function ($scope,interfaceService,rescode) {
 
     $scope.queryData = {
       startTime:'',
@@ -76,7 +76,7 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService',
       if($scope.addFriendId.busMemberId!=''){
         interfaceService.companyAddFriend($scope.addFriendId,function (data,headers,config) {
           // console.log("response:"+JSON.stringify(data));
-          if(data.rescode=="0000"){
+          if(data.rescode==rescode.SUCCESS){
             swal({
               title:"添加成功！",
               text:"已添加好友。",
@@ -115,7 +115,7 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService',
           fid:fid
         }
         interfaceService.companyDelFriend(param,function (data,headers,config) {
-          if(data.rescode=="0000"){
+          if(data.rescode==rescode.SUCCESS){
             swal({
               title:"解除成功！",
               text:"已解除好友关系。",
