@@ -26,6 +26,8 @@ var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
 
 var Mock = require('mockjs');
 
+var UiState = require('./utils/UiState');
+
 
 
 $(document).ready(function () {
@@ -551,7 +553,6 @@ yonglongApp.controller("mainController",['$rootScope','$timeout',function ($root
   )
 
   $timeout(function () {
-    var UiState = require('./utils/UiState');
     var uiState = new UiState();
     uiState.ready()
   },50);
@@ -673,8 +674,6 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
           $scope.busUserDetailResult.resultType = 0;
           $('#bus-user-detail-modal').modal('show');
         }
-
-
       });
     }
 
@@ -705,6 +704,16 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
 yonglongApp.controller('receiveReportController',['$scope','$timeout','showDatePickerProvider',
   function ($scope,$timeout,showDatePickerProvider) {
     showDatePickerProvider.showDatePicker();
+
+
+}]);
+
+yonglongApp.controller('registerCompanyController',['$scope','dropifyProvider','interfaceService',
+  function ($scope,dropifyProvider,interfaceService) {
+    dropifyProvider.dropify();
+    $scope.showTerms=function () {
+      $('#terms').modal('show');
+    }
 
 
 }]);
@@ -1369,20 +1378,40 @@ yonglongApp.directive('pagination',function () {
   }
 });
 
+yonglongApp.directive('terms',function () {
+  return{
+    restrict: 'AE',
+    replace: true,
+    templateUrl: 'template/directive/terms.html'
+  }
+});
+
 /**
  * Created by tedyuen on 16-12-8.
  */
 yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
-  $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
+  // $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
+  $urlRouterProvider.when('','/register_company').otherwise('/register_company');
   $stateProvider
     .state('login',{//登录页
       url:'/login',
       templateUrl:'template/login.html'
     })
+    .state('register_company',{//发货方注册页
+      url:'/register_company',
+      templateUrl:'template/register_company.html',
+      controller:'registerCompanyController'
+    })
+    .state('register_user',{//承运方注册页
+      url:'/register_user',
+      templateUrl:'template/register_company.html'
+    })
+
     .state('main',{//主页
       url:'/main',
       templateUrl:'template/main.html',
     });
+
   // 承运方路由
   $stateProvider
     .state('main.userinner',{//主页
