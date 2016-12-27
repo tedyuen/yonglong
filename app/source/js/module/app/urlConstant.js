@@ -9,6 +9,7 @@ yonglongApp.constant('URL_CONS', {
   serverFileUrl:' http://120.26.65.65:8285/adm/api/file',
 
 
+  companyRegister: 'company_register',
   companyCreateOrder: 'company_create_order',
   companyOrderList: 'company_list_order',
   deleteOrder: 'company_delete_order',

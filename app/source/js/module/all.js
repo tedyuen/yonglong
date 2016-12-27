@@ -105,6 +105,7 @@ yonglongApp.constant('URL_CONS', {
   serverFileUrl:' http://120.26.65.65:8285/adm/api/file',
 
 
+  companyRegister: 'company_register',
   companyCreateOrder: 'company_create_order',
   companyOrderList: 'company_list_order',
   deleteOrder: 'company_delete_order',
@@ -545,7 +546,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 /**
  * Created by tedyuen on 16-12-13.
  */
-yonglongApp.controller("mainController",['$rootScope','$timeout',function ($rootScope,$timeout) {
+yonglongApp.controller("mainController",['$rootScope','$scope','$timeout',function ($rootScope,$scope,$timeout) {
   $rootScope.$on('$stateChangeStart',
     function(event, toState, toParams, fromState, fromParams){
       console.info(fromState + "->" + toState, toParams, fromParams);
@@ -556,6 +557,9 @@ yonglongApp.controller("mainController",['$rootScope','$timeout',function ($root
     var uiState = new UiState();
     uiState.ready()
   },50);
+
+
+
 }]);
 
 /**
@@ -708,12 +712,53 @@ yonglongApp.controller('receiveReportController',['$scope','$timeout','showDateP
 
 }]);
 
-yonglongApp.controller('registerCompanyController',['$scope','dropifyProvider','interfaceService',
-  function ($scope,dropifyProvider,interfaceService) {
+yonglongApp.controller('registerCompanyController',['$scope','$state','dropifyProvider','interfaceService',
+  function ($scope,$state,dropifyProvider,interfaceService) {
     dropifyProvider.dropify();
     $scope.showTerms=function () {
       $('#terms').modal('show');
     }
+
+    $scope.reg={
+      memberName:'',
+      password:'',
+      passwordconfirm:'',
+      companyName:'',
+      companyLinker:'',
+      email:'',
+      mobilePhone:'',
+      tel:'',
+      licence:'',
+      nameCard:'',
+      nameCardBack:'',
+      mobileCode:'',
+      address:''
+    }
+    $scope.regfile1 = {
+      name:'nameCardFile',
+      file:'',
+    }
+    $scope.regfile2 = {
+      name:'nameCardBackFile',
+      file:'',
+    }
+    $scope.regfile3 = {
+      name:'licenceFile',
+      file:'',
+    }
+    var files = [$scope.regfile1,$scope.regfile2,$scope.regfile3];
+
+    $scope.onSubmit = function($valid){
+      if($valid){
+        interfaceService.companyRegister($scope.reg,files,function (data,headers,config) {
+          console.log(JSON.stringify(data));
+
+          // $state.go('main.companyinner.create_order');
+        });
+      }else{
+        console.log("$valid:"+$valid);
+      }
+    };
 
 
 }]);
@@ -1221,7 +1266,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.deleteOrder = function (params,success,error) {
     this.doHttpMethod(URL_CONS.deleteOrder,params,success,error);
   }
-
+  // 2.1 注册
+  this.companyRegister = function (params,files,success,error) {
+    this.doHttpMethod(URL_CONS.companyRegister,params,success,error,files);
+  }
 
   // 2.2 查看个人信息
   this.companyUserinfo = function (params,success,error) {

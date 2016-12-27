@@ -65,7 +65,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.deleteOrder = function (params,success,error) {
     this.doHttpMethod(URL_CONS.deleteOrder,params,success,error);
   }
-
+  // 2.1 注册
+  this.companyRegister = function (params,files,success,error) {
+    this.doHttpMethod(URL_CONS.companyRegister,params,success,error,files);
+  }
 
   // 2.2 查看个人信息
   this.companyUserinfo = function (params,success,error) {
