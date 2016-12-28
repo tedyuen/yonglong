@@ -29,4 +29,5 @@ yonglongApp.constant('URL_CONS', {
   listBankCard: 'listBankCard',
   delBankCard: 'delBankCard',
   listRefundApply: 'listRefundApply',
+  cashList: 'cashList',
 });

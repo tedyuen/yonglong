@@ -24,10 +24,8 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon">提现帐号</span>
-                  <select class="form-control">
-                    <option>abc</option>
-                    <option>eee</option>
-                    <option>3341</option>
+                  <select class="form-control" ng-options="c.id as c.bankCardNo for c in listBankCards.dataList" ng-model="params.bankNo" ng-change="changeBankCard()">
+                    <option value="">-- 请选择 --</option>
                   </select>
                 </div>
               </div>
@@ -38,7 +36,7 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon">可提现金额</span>
-                  <input type="number" class="form-control">
+                  <input type="number" class="form-control" readonly ng-model="params.refundMoney">
                 </div>
               </div>
               <div class="help-block with-errors"></div>
@@ -47,15 +45,15 @@
           </div>
           <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10" data-toggle="modal" data-target="#exampleModal">提现</button>
 
+          <pre>{{params|json}}</pre>
         </div>
       </div>
 
-
       <div class="col-sm-12">
         <div class="white-box">
-          <div class="row">
+          <div class="row" ng-show="cashList!=null && cashList.length>0">
             <h3>请选择需要提现的订单</h3>
-            <table class="table color-table primary-table table-hover table-bordered m-t-20">
+            <table class="table color-table primary-table table-hover table-bordered m-t-20" >
               <thead>
               <tr>
                 <th>选择</th>
@@ -66,30 +64,85 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>A</td>
-                <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</td>
-                <td><i class="fa fa-female"></i>&nbsp;&nbsp;李可强</td>
-                <td>10,000$</td>
-                <td><button type="button" class="btn btn-info btn-xs">操作</button></td>
+              <tr ng-repeat="result in cashList">
+                <td>
+                  <div class="checkbox checkbox-success">
+                    <input id="cashList{{result.id}}" type="checkbox" ng-checked="isSelected(result)" ng-click="updateCashListCBSelect($event,result)">
+                    <label for="cashList{{result.id}}">选择订单</label>
+                  </div>
+                </td>
+                <td>
+                  <div style="display:block;margin-top:10px;margin-bottom:10px">
+                    <i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}
+                  </div>
+                </td>
+                <td><div style="display:block;margin-top:10px;margin-bottom:10px">
+                  <i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}
+                </div></td>
+                <td><div style="display:block;margin-top:10px;margin-bottom:10px">
+                  {{result.moneyPaid | moneyText}}
+                </div></td>
+                <td><div style="display:block;margin-top:10px;margin-bottom:10px">
+                  <button type="button" class="btn btn-info btn-xs" ng-click="busUserDetail(result.id,1)">发货方详情</button>
+                </div></td>
               </tr>
               </tbody>
             </table>
+          </div>
 
-            <ul class="pagination m-b-0">
-              <li> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
-              <li> <a href="#">1</a> </li>
-              <li class="active"> <a href="#">2</a> </li>
-              <li> <a href="#">3</a> </li>
-              <li> <a href="#">4</a> </li>
-              <li> <a href="#">5</a> </li>
-              <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
-            </ul>
-
+          <div class="row" ng-show="listCashDispatch!=null && listCashDispatch.length>0">
+            <h3>请选择需要提现的指派订单</h3>
+            <table class="table color-table primary-table table-hover table-bordered m-t-20">
+              <thead>
+              <tr>
+                <th>选择</th>
+                <th>创建日期</th>
+                <th>发车费</th>
+                <th>订单费用</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="result in listCashDispatch">
+                <td>
+                  <div class="checkbox checkbox-success">
+                    <input id="listCashDispatch{{result.id}}" type="checkbox" ng-checked="isDispatchSelected(result)" ng-click="updateCashListDispatchCBSelect($event,result)">
+                    <label for="listCashDispatch{{result.id}}">选择订单</label>
+                  </div>
+                </td>
+                <td>
+                  <div style="display:block;margin-top:10px;margin-bottom:10px">
+                    <i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.createTimeStr}}
+                  </div>
+                </td>
+                <td><div style="display:block;margin-top:10px;margin-bottom:10px">
+                  <i class="fa fa-female"></i>&nbsp;&nbsp;
+                  {{result.moneyPaid | moneyText}}
+                </div></td>
+                <td><div style="display:block;margin-top:10px;margin-bottom:10px">
+                  {{result.offerOrderPaid | moneyText}}
+                </div></td>
+                <td><div style="display:block;margin-top:10px;margin-bottom:10px">
+                  <button type="button" class="btn btn-info btn-xs">操作</button>
+                </div></td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
       <!-- /.row -->
+
+      <div class="col-sm-12" ng-show="cashList==null || (results.totalPages!=null && results.totalPages==0)">
+        <div class="white-box">
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -119,6 +172,57 @@
         </div>
       </div>
     </div>
+  </div>
+
+
+  <div id="bus-user-detail-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel">会员信息</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <table class="table table-striped">
+              <tr>
+                <td>注册时间</td>
+                <td>{{busUserDetailResult.regTimeStr | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>公司名称</td>
+                <td>{{busUserDetailResult.companyName | emptyText}}</td>
+              </tr>
+              <tr ng-if="busUserDetailResult.resultType==0">
+                <td>车牌号</td>
+                <td>{{busUserDetailResult.carNumber | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>手机号</td>
+                <td>{{busUserDetailResult.mobilePhone | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>电话</td>
+                <td>{{busUserDetailResult.tel | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>联系人</td>
+                <td>{{busUserDetailResult.companyLinker | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>联系地址</td>
+                <td>{{busUserDetailResult.address | emptyText}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info waves-effect text-left" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
   </div>
 </div>
 

@@ -135,5 +135,8 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.listRefundApply = function (params,success,error) {
     this.doHttpMethod(URL_CONS.listRefundApply,params,success,error);
   }
-
+  // 5.7 创建工单-查询订单
+  this.cashList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.cashList,params,success,error);
+  }
 }]);
