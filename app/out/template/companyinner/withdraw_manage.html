@@ -19,9 +19,9 @@
       <div class="col-sm-12">
         <div class="white-box">
           <div class="row">
-            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10" data-toggle="modal" data-target="#exampleModal">添加提现账户</button>
+            <button type="button" class="btn btn-success waves-effect waves-light m-r-10" ng-click="showAddBankCard()">添加提现账户</button>
 
-            <div class="table-responsive m-t-20">
+            <div class="table-responsive m-t-20" ng-show="results!=null && (results.dataList!=null && results.dataList.length>0)">
               <table class="table color-table primary-table table-hover table-bordered">
                 <thead>
                 <tr>
@@ -32,55 +32,71 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td><nobr><i class="fa fa-female"></i>&nbsp;&nbsp;张二红</nobr></td>
-                  <td><nobr>建设银行</nobr></td>
-                  <td><nobr>7663 2837 2837 2837 328</nobr></td>
-                  <td><button type="button" class="btn btn-danger btn-xs">删除账户</button></td>
+                <tr ng-repeat="result in results.dataList">
+                  <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.bankCardOwner}}</nobr></td>
+                  <td><nobr>{{result.bankName}}</nobr></td>
+                  <td><nobr>{{result.bankCardNo}}</nobr></td>
+                  <td><button type="button" class="btn btn-danger btn-xs" ng-click="del(result.id)">删除账户</button></td>
                 </tr>
                 </tbody>
               </table>
             </div>
-            <ul class="pagination m-b-0">
-              <li> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
-              <li> <a href="#">1</a> </li>
-              <li class="active"> <a href="#">2</a> </li>
-              <li> <a href="#">3</a> </li>
-              <li> <a href="#">4</a> </li>
-              <li> <a href="#">5</a> </li>
-              <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
-            </ul>
+
           </div>
         </div>
       </div>
       <!-- /.row -->
-
+      <div class="col-sm-12" ng-show="results==null || (results.dataList!=null && results.dataList.length==0)">
+        <div class="white-box">
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+  <div class="modal fade" id="add-bank-card" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="exampleModalLabel1">添加提现账户</h4>
         </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <div class="input-group">
-                <input type="text" class="form-control" id="username" placeholder="输入电话...">
-                <span class="input-group-btn">
-                  <button type="button" class="btn waves-effect waves-light btn-success" alt="default">通过电话搜索</button>
-                </span>
+        <form ng-submit="onSubmit(theForm.$valid)" novalidate="novalidate" name="theForm">
+          <div class="modal-body">
+              <div class="form-group" ng-class="{'has-error':!theForm.bankCardOwner.$valid}">
+                <div class="input-group">
+                  <span class="input-group-addon">持卡人</span>
+                  <input type="text" class="form-control" name="bankCardOwner" ng-model="params.bankCardOwner" required>
+                </div>
               </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-          <button type="button" class="btn btn-primary">确认添加</button>
-        </div>
+              <div class="form-group" ng-class="{'has-error':!theForm.bankName.$valid}">
+                <div class="input-group">
+                  <span class="input-group-addon">所属银行</span>
+                  <input type="text" class="form-control" name="bankName" ng-model="params.bankName" required>
+                </div>
+              </div>
+              <div class="form-group" ng-class="{'has-error':!theForm.bankCardNo.$valid}">
+                <div class="input-group">
+                  <span class="input-group-addon">银行卡号</span>
+                  <input type="text" class="form-control" name="bankCardNo" ng-model="params.bankCardNo" required>
+                </div>
+              </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" class="btn waves-effect waves-light m-r-10">
+              <span ng-if="theForm.$invalid">请填写完整信息</span>
+              <span ng-if="theForm.$valid">确认添加</span>
+            </button>
+          </div>
+        </form>
+
       </div>
     </div>
   </div>

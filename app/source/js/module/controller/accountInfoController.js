@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('accountInfoController',['$scope','countupProvider','interfaceService',
-  function ($scope,countupProvider,interfaceService) {
+yonglongApp.controller('accountInfoController',['$scope','countupProvider','interfaceService','rescode',
+  function ($scope,countupProvider,interfaceService,rescode) {
     // countupProvider.countup();
     $scope.result = {
       all: 0,
@@ -14,10 +14,10 @@ yonglongApp.controller('accountInfoController',['$scope','countupProvider','inte
     var refresh = function () {
       interfaceService.accountInfo({},function (data,headers,config) {
         // console.log(JSON.stringify(data));
-        $scope.result = data.data;
-
+        if(data.rescode == rescode.SUCCESS){
+          $scope.result = data.data;
+        }
       });
-
     }
 
     refresh();

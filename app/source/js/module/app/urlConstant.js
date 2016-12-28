@@ -24,4 +24,7 @@ yonglongApp.constant('URL_CONS', {
   companyAddFriend: 'company_add_friend',
   companyDelFriend: 'company_del_friend',
   accountInfo: 'account_info',
+
+  addBankCard: 'addBankCard',
+  listBankCard: 'listBankCard',
 });
