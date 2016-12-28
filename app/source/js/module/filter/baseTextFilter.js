@@ -29,7 +29,25 @@ yonglongApp.filter('emptyText',function () {
       return str;
     }
   }
+});
+
+yonglongApp.filter('moneyText',function () {
+  return function (str) {
+    return str+"元";
+  }
 })
+
+
+
+yonglongApp.filter('atmStatus',function () {
+  return function (str) {
+    if(str=='1'){
+      return '审核通过';
+    }else{
+      return '审核中';
+    }
+  }
+});
 
 //订单状态
 yonglongApp.filter('orderStatusText',function () {

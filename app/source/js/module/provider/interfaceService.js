@@ -131,6 +131,9 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.delBankCard = function (params,success,error) {
     this.doHttpMethod(URL_CONS.delBankCard,params,success,error);
   }
-
+  // 5.5 提现列表
+  this.listRefundApply = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.listRefundApply,params,success,error);
+  }
 
 }]);

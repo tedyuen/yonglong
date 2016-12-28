@@ -97,7 +97,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
 
 
     $scope.busUserDetail = function (userId,type) {
-      console.log("===> "+userId);
+      // console.log("===> "+userId);
       switch (type){
         case 0:param={
           userId:userId
@@ -108,7 +108,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
         }
       }
       interfaceService.busUserDetail(param,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS){
           $scope.busUserDetailResult = data.data;
           $scope.busUserDetailResult.resultType = 0;
@@ -122,7 +122,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
         userId:userId
       }
       interfaceService.companyUserDetail(param,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS){
           $scope.busUserDetailResult = data.data;
           $scope.busUserDetailResult.resultType = 1;

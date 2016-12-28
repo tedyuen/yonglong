@@ -127,6 +127,7 @@ yonglongApp.constant('URL_CONS', {
   addBankCard: 'addBankCard',
   listBankCard: 'listBankCard',
   delBankCard: 'delBankCard',
+  listRefundApply: 'listRefundApply',
 });
 
 /**
@@ -170,7 +171,25 @@ yonglongApp.filter('emptyText',function () {
       return str;
     }
   }
+});
+
+yonglongApp.filter('moneyText',function () {
+  return function (str) {
+    return str+"元";
+  }
 })
+
+
+
+yonglongApp.filter('atmStatus',function () {
+  return function (str) {
+    if(str=='1'){
+      return '审核通过';
+    }else{
+      return '审核中';
+    }
+  }
+});
 
 //订单状态
 yonglongApp.filter('orderStatusText',function () {
@@ -687,7 +706,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
 
 
     $scope.busUserDetail = function (userId,type) {
-      console.log("===> "+userId);
+      // console.log("===> "+userId);
       switch (type){
         case 0:param={
           userId:userId
@@ -698,7 +717,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
         }
       }
       interfaceService.busUserDetail(param,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS){
           $scope.busUserDetailResult = data.data;
           $scope.busUserDetailResult.resultType = 0;
@@ -712,7 +731,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
         userId:userId
       }
       interfaceService.companyUserDetail(param,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS){
           $scope.busUserDetailResult = data.data;
           $scope.busUserDetailResult.resultType = 1;
@@ -922,11 +941,35 @@ yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePic
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('withdrawListController',['$scope','$timeout','showDatePickerProvider',
-  function ($scope,$timeout,showDatePickerProvider) {
-    showDatePickerProvider.showDatePicker();
+yonglongApp.controller('withdrawListController',['$scope','interfaceService','rescode',
+  function ($scope,interfaceService,rescode) {
 
+    $scope.queryData ={
+      pageno:1,
+      pagesize:10,
+    }
 
+    $scope.results={
+      currPageNum : 1,
+      totalPages : 0,
+      pageSize : $scope.queryData.pagesize
+    }
+
+    var httpList = function () {
+      interfaceService.listRefundApply($scope.queryData,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        $scope.results = data.data;
+      });
+    }
+
+    // 分页
+    $scope.switchPage = function (page) {
+      // console.log(page);
+      $scope.queryData.pageno = page;
+      httpList();
+    }
+
+    httpList();
 }]);
 
 /**
@@ -969,7 +1012,7 @@ yonglongApp.controller('withdrawManageController',['$scope','interfaceService','
           id:result.id
         }
         interfaceService.delBankCard(param,function (data,headers,config) {
-          console.log("response:"+JSON.stringify(data));
+          // console.log("response:"+JSON.stringify(data));
           if(data.rescode == rescode.SUCCESS){
             swal({
               title:"删除成功成功！",
@@ -982,7 +1025,6 @@ yonglongApp.controller('withdrawManageController',['$scope','interfaceService','
           }
         });
       });
-
     }
 
     $scope.showAddBankCard = function () {
@@ -1442,7 +1484,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.delBankCard = function (params,success,error) {
     this.doHttpMethod(URL_CONS.delBankCard,params,success,error);
   }
-
+  // 5.5 提现列表
+  this.listRefundApply = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.listRefundApply,params,success,error);
+  }
 
 }]);
 
