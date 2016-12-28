@@ -27,4 +27,5 @@ yonglongApp.constant('URL_CONS', {
 
   addBankCard: 'addBankCard',
   listBankCard: 'listBankCard',
+  delBankCard: 'delBankCard',
 });

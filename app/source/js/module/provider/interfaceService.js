@@ -127,4 +127,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.listBankCard = function (params,success,error) {
     this.doHttpMethod(URL_CONS.listBankCard,params,success,error);
   }
+  // 5.3 提现账户列表
+  this.delBankCard = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.delBankCard,params,success,error);
+  }
+
+
 }]);
