@@ -32,7 +32,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
     }
 
     var httpList = function () {
-      interfaceService.companyOrderList($scope.queryData,function (data,headers,config) {
+      interfaceService.companyListMyorder($scope.queryData,function (data,headers,config) {
         // console.log("response:"+JSON.stringify(data));
         $scope.results = data.data;
       });

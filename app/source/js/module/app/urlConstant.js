@@ -12,6 +12,8 @@ yonglongApp.constant('URL_CONS', {
   companyRegister: 'company_register',
   companyCreateOrder: 'company_create_order',
   companyOrderList: 'company_list_order',
+  companyListMyorder: 'company_list_myorder',
+  companyListGetorder: 'company_list_getorder',
   deleteOrder: 'company_delete_order',
   companyUserinfo:'company_userinfo',
   companyUserDetail:'company_user_detail',
@@ -21,4 +23,5 @@ yonglongApp.constant('URL_CONS', {
   companyListBusowners: 'company_list_busowners',
   companyAddFriend: 'company_add_friend',
   companyDelFriend: 'company_del_friend',
+  accountInfo: 'account_info',
 });

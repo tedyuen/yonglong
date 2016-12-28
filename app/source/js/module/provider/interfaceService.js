@@ -65,6 +65,15 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.deleteOrder = function (params,success,error) {
     this.doHttpMethod(URL_CONS.deleteOrder,params,success,error);
   }
+  // 1.6 我要接单列表
+  this.companyListGetorder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyListGetorder,params,success,error);
+  }
+  // 1.7 已接订单列表
+  this.companyListMyorder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyListMyorder,params,success,error);
+  }
+
   // 2.1 注册
   this.companyRegister = function (params,files,success,error) {
     this.doHttpMethod(URL_CONS.companyRegister,params,success,error,files);
@@ -103,6 +112,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   }
   // 4.4解除好友关系
   this.companyDelFriend = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.companyDelFriend,params,success,error)
+    this.doHttpMethod(URL_CONS.companyDelFriend,params,success,error);
+  }
+  // 5.1个人账户信息
+  this.accountInfo = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.accountInfo,params,success,error);
   }
 }]);

@@ -33,7 +33,7 @@ yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePic
     }
 
     var httpList = function () {
-      interfaceService.companyOrderList($scope.queryData,function (data,headers,config) {
+      interfaceService.companyListGetorder($scope.queryData,function (data,headers,config) {
         $scope.results = data.data;
       });
     }
