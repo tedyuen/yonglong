@@ -2345,7 +2345,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       url:'/account_info',
       views: {
         'content@main': {
-          templateUrl: 'template/userinner/account_info.html',
+          templateUrl: 'template/companyinner/account_info.html',
           controller: 'accountInfoController'
         }
       }
