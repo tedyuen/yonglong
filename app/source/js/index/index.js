@@ -74,11 +74,22 @@ var service = {
 };
 service.loggedTabs();
 // 发货方|承运方 点击事件
-$navTabsLis.on("click",function(){
-  var active = $(this).hasClass("active");
-  if(!active){
+$("#loginTab").find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  // 获取已激活的标签页的名称
+  //var activeTab = $(e.target).text();
+  //// 获取前一个激活的标签页的名称
+  //var previousTab = $(e.relatedTarget).text();
+  //$(".active-tab span").html(activeTab);
+  //$(".previous-tab span").html(previousTab);
+  //console.log("-->" + $(e.target).parent().html() + " active:" + active);
+  //var isClick = $(e.target).attr("aria-expanded");
+  //console.log("isClick: " + isClick);
+
+  var active = $(e.target).parent().hasClass("active");
+  if(active){
     $(".nav-tabs").find(".active").removeClass("active");
-    $(this).addClass("active");
+    $(e.target).parent().addClass("active");
     service.loggedTabs();
   }
+
 });
