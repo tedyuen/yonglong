@@ -50,18 +50,18 @@ yonglongApp.controller('createWithdrawController',['$scope','$timeout','$state',
       console.log("card!!!");
     }
 
-    $scope.busUserDetail = function (userId) {
-      // console.log("===> "+userId);
-      var param={
-          orderId:userId
-        }
-      interfaceService.busUserDetail(param,function (data,headers,config) {
+    $scope.companyUserDetail = function (userId) {
+      var param = {
+        userId:userId
+      }
+      interfaceService.companyUserDetail(param,function (data,headers,config) {
         // console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS){
           $scope.busUserDetailResult = data.data;
-          $scope.busUserDetailResult.resultType = 0;
+          $scope.busUserDetailResult.resultType = 1;
           $('#bus-user-detail-modal').modal('show');
         }
+
       });
     }
 
