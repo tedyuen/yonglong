@@ -26,4 +26,6 @@ var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
 
 var Mock = require('mockjs');
 
+var UiState = require('./utils/UiState');
+
 

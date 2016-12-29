@@ -7,7 +7,7 @@
       </div>
       <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
-          <li><a href="#">我的账户</a></li>
+          <li><a href="">我的账户</a></li>
           <li class="active">提现列表</li>
         </ol>
       </div>
@@ -19,45 +19,54 @@
       <div class="col-sm-12">
         <div class="white-box">
           <div class="row">
-            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10" ui-sref="main.companyinner.create_withdraw">创建工单</button>
-
-            <div class="table-responsive m-t-20">
-              <table class="table color-table primary-table table-hover table-bordered">
-                <thead>
-                <tr>
-                  <th><nobr>日期</nobr></th>
-                  <th><nobr>持卡人</nobr></th>
-                  <th><nobr>开户行</nobr></th>
-                  <th><nobr>卡号</nobr></th>
-                  <th><nobr>金额</nobr></th>
-                  <th><nobr>状态</nobr></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</nobr></td>
-                  <td><nobr><i class="fa fa-female"></i>&nbsp;&nbsp;张二红</nobr></td>
-                  <td><nobr>建设银行</nobr></td>
-                  <td><nobr>7663 2837 2837 2837 328</nobr></td>
-                  <td><nobr>100,000$</nobr></td>
-                  <td><nobr>审核通过</nobr></td>
-                </tr>
-                </tbody>
-              </table>
+            <button type="button" class="btn btn-success waves-effect waves-light m-r-10" ui-sref="main.companyinner.create_withdraw">创建工单</button>
+            <div ng-show="results.totalPages!=null && results.totalPages!=0">
+              <div class="table-responsive m-t-20">
+                <table class="table color-table primary-table table-hover table-bordered">
+                  <thead>
+                  <tr>
+                    <th><nobr>日期</nobr></th>
+                    <th><nobr>持卡人</nobr></th>
+                    <th><nobr>开户行</nobr></th>
+                    <th><nobr>卡号</nobr></th>
+                    <th><nobr>金额</nobr></th>
+                    <th><nobr>状态</nobr></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="result in results.pageData">
+                    <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.createTimeStr}}</nobr></td>
+                    <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.bankCardOwner | emptyText}}</nobr></td>
+                    <td><nobr>{{result.bankName | emptyText}}</nobr></td>
+                    <td><nobr>{{result.bankCardNo | emptyText}}</nobr></td>
+                    <td><nobr>{{result.refundMoney | moneyText}}</nobr></td>
+                    <td><nobr>{{result.status | atmStatus}}</nobr></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pagination page-size="results.pageSize"
+                          total-pages="results.totalPages"
+                          curr-page="results.currPageNum"
+                          show-count="100"
+                          switch-page="switchPage">
+              </pagination>
             </div>
-            <ul class="pagination m-b-0">
-              <li> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
-              <li> <a href="#">1</a> </li>
-              <li class="active"> <a href="#">2</a> </li>
-              <li> <a href="#">3</a> </li>
-              <li> <a href="#">4</a> </li>
-              <li> <a href="#">5</a> </li>
-              <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
-            </ul>
           </div>
         </div>
       </div>
       <!-- /.row -->
+
+      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+        <div class="white-box">
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>

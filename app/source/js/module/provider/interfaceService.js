@@ -11,7 +11,7 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
       json:params,
       files:files
     }
-    console.log("request json str:-->  "+request.json);
+    // console.log("request json str:-->  "+request.json);
     var _opts = jQuery.extend({
       timeout : 'getError404Timeout'
     },null);
@@ -65,7 +65,19 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.deleteOrder = function (params,success,error) {
     this.doHttpMethod(URL_CONS.deleteOrder,params,success,error);
   }
+  // 1.6 我要接单列表
+  this.companyListGetorder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyListGetorder,params,success,error);
+  }
+  // 1.7 已接订单列表
+  this.companyListMyorder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyListMyorder,params,success,error);
+  }
 
+  // 2.1 注册
+  this.companyRegister = function (params,files,success,error) {
+    this.doHttpMethod(URL_CONS.companyRegister,params,success,error,files);
+  }
 
   // 2.2 查看个人信息
   this.companyUserinfo = function (params,success,error) {
@@ -75,5 +87,60 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   // 2.3 更新用户信息
   this.companyUpdateinfo = function (params,files,success,error) {
     this.doHttpMethod(URL_CONS.companyUpdateinfo,params,success,error,files);
+  }
+  // 2.4 接单方详情
+  this.companyUserDetail = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyUserDetail,params,success,error);
+  }
+
+  // 2.5承运方详情
+  this.busUserDetail = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.busUserDetail,params,success,error);
+  }
+
+  // 4.1好友分页列表
+  this.companyListFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyListFriend,params,success,error);
+  }
+  // 4.2通过手机号查询车主
+  this.companyListBusowners = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyListBusowners,params,success,error);
+  }
+  // 4.3新增好友
+  this.companyAddFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyAddFriend,params,success,error);
+  }
+  // 4.4解除好友关系
+  this.companyDelFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyDelFriend,params,success,error);
+  }
+  // 5.1个人账户信息
+  this.accountInfo = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.accountInfo,params,success,error);
+  }
+  // 5.2 添加提现账户
+  this.addBankCard = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.addBankCard,params,success,error);
+  }
+
+  // 5.3 提现账户列表
+  this.listBankCard = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.listBankCard,params,success,error);
+  }
+  // 5.4 删除提现账户
+  this.delBankCard = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.delBankCard,params,success,error);
+  }
+  // 5.5 提现列表
+  this.listRefundApply = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.listRefundApply,params,success,error);
+  }
+  // 5.6 创建提现工单
+  this.addRefundApply = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.addRefundApply,params,success,error);
+  }
+  // 5.7 创建工单-查询订单
+  this.cashList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.cashList,params,success,error);
   }
 }]);

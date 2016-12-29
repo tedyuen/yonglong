@@ -3,15 +3,27 @@
  */
 yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
   $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
+  // $urlRouterProvider.when('','/register_company').otherwise('/register_company');
   $stateProvider
     .state('login',{//登录页
       url:'/login',
       templateUrl:'template/login.html'
     })
+    .state('register_company',{//发货方注册页
+      url:'/register_company',
+      templateUrl:'template/register_company.html',
+      controller:'registerCompanyController'
+    })
+    .state('register_user',{//承运方注册页
+      url:'/register_user',
+      templateUrl:'template/register_company.html'
+    })
+
     .state('main',{//主页
       url:'/main',
       templateUrl:'template/main.html',
     });
+
   // 承运方路由
   $stateProvider
     .state('main.userinner',{//主页
