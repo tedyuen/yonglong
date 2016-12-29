@@ -49,17 +49,14 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="active">
                   <a href="#">首页</a>
-
                   <div class="bottom-line" style="left: 0;"></div>
                 </li>
                 <li>
                   <a href="#">新闻动态</a>
-
                   <div class="bottom-line"></div>
                 </li>
                 <li>
                   <a href="#">关于我们</a>
-
                   <div class="bottom-line"></div>
                 </li>
                 <li>
@@ -67,12 +64,6 @@
                   <!--<div class="bottom-line"></div>-->
                 </li>
               </ul>
-              <!--<ul class="nav nav-pills navbar-right">-->
-              <!--<li><a href="#">首页</a></li>-->
-              <!--<li><a href="#">新闻动态</a></li>-->
-              <!--<li><a href="#">关于我们</a></li>-->
-              <!--<li><a href="#"><img src="images/index/user.png" class=""/></a></li>-->
-              <!--</ul>-->
             </div>
           </div>
         </nav>
@@ -121,7 +112,7 @@
           <!--未登录 start -->
           <div class="col-md-3" id="login-container">
             <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-tabs" role="tablist" id="loginTab">
               <li role="presentation" class="active">
                 <a href="#home" role="tab" data-toggle="tab">
                   <span class="login-container-icon user-selected"></span>发货方
@@ -162,7 +153,29 @@
 
               </div>
               <div role="tabpanel" class="tab-pane" id="profile">
-                承运方
+
+                <form role="form">
+                  <div class="form-group">
+                    <div class="input-icon user-icon"></div>
+                    <input type="email" class="form-control" placeholder="邮箱帐号或手机号">
+                  </div>
+                  <div class="form-group">
+                    <div class="input-icon pwd-icon"></div>
+                    <input type="email" class="form-control" placeholder="密码">
+                  </div>
+
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> 记住我的密码
+                    </label>
+
+                    <label class="pull-right" style="padding: 0;">忘记密码</label>
+                  </div>
+                  <a href="shell.html#!/main/companyinner/create_order"><img src="images/index/btn-login.png" class="img-rounded" style="margin-left: -5px;"/></a>
+                  <img src="images/index/btn-register.png" class="img-rounded pull-right" style="margin-right: -5px;" />
+                  <!--<button type="submit" class="btn btn-default">Submit</button>-->
+                </form>
+
               </div>
             </div>
           </div>

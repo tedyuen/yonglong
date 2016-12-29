@@ -49,6 +49,8 @@ var service = {
   // 已登录点击tab颜色切换
   loggedTabs : function(){
     $navTabsLis.each(function(i, ele){
+      console.log("loggedTabs - active:" + $(ele).hasClass("active"));
+
       if($(ele).hasClass("active")){
         $(ele).find("a").css({background:"#ffffff", color:"#65717a"});
         if(i == 0){
@@ -74,19 +76,40 @@ var service = {
 };
 service.loggedTabs();
 // 发货方|承运方 点击事件
-$navTabsLis.on("click",function(){
-  var active = $(this).hasClass("active");
-  if(!active){
+$("#loginTab").find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  // 获取已激活的标签页的名称
+  //var activeTab = $(e.target).text();
+  //// 获取前一个激活的标签页的名称
+  //var previousTab = $(e.relatedTarget).text();
+  //$(".active-tab span").html(activeTab);
+  //$(".previous-tab span").html(previousTab);
+
+
+
+  var active = $(e.target).parent().hasClass("active");
+  console.log("-->" + $(e.target).parent().html() + " active:" + active);
+  var isClick = $(e.target).attr("aria-expanded");
+  console.log("isClick: " + isClick);
+  if(active){
     $(".nav-tabs").find(".active").removeClass("active");
-    $(this).addClass("active");
+    $(e.target).parent().addClass("active");
     service.loggedTabs();
   }
+
 });
 
-//global.$ = global.jQuery = require('jquery');
+
+//$navTabsLis.on("click",function(){
+//  var active = $(this).hasClass("active");
+//  if(!active){
+//    $(".nav-tabs").find(".active").removeClass("active");
+//    $(this).addClass("active");
+//    service.loggedTabs();
+//  }
+//});
 
 
-var $listGroupItems = $("#about").find(".list-group > .list-group-item");
+var $listGroupItems = $("#news").find(".list-group > .list-group-item");
 
 $listGroupItems.on("click",function(){
 
@@ -98,7 +121,6 @@ $listGroupItems.on("click",function(){
     if(eleActive){
       $(ele).removeClass("active");
       var $groupItemIcon = $(ele).find(".group-item-icon");
-      console.log("class: " + $groupItemIcon.hasClass("enterprise") + "  " + $groupItemIcon.hasClass("logistics") + "  " + $groupItemIcon.hasClass("finance"));
       if(i == 0){
         $groupItemIcon.removeClass("enterprise-selected");
       }else if(i == 1){
@@ -106,7 +128,6 @@ $listGroupItems.on("click",function(){
       }else if(i == 2){
         $groupItemIcon.removeClass("finance-selected");
       }
-      console.log("-----> " + i);
       return false; // 跳出当前循环
     }
   });
@@ -121,19 +142,3 @@ $listGroupItems.on("click",function(){
     $thisIcon.addClass("finance-selected");
   }
 });
-
-//// 鼠标移出
-//$listGroupItems.on("mouseleave",function(){
-//  var active = $(this).hasClass("active");
-//  if(!active) {
-//    $(this).css({background:"#efefef"});
-//  }
-//});
-//
-//// 鼠标进入
-//$listGroupItems.on("mouseenter",function(){
-//  var active = $(this).hasClass("active");
-//  if(!active){
-//    $(this).css({background:"#D1D1D1"});
-//  }
-//});

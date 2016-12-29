@@ -160,7 +160,7 @@ gulp.task('indexcss',['indexconcatcss'], function() {
 
 var indexJsArr = [
   './app/source/js/index/index.js',
-  './app/source/js/index/about.js'
+  './app/source/js/index/news.js'
 ];
 gulp.task('indexJs',function(){
   gulp.src(indexJsArr)
