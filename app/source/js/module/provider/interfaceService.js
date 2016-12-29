@@ -143,4 +143,9 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.cashList = function (params,success,error) {
     this.doHttpMethod(URL_CONS.cashList,params,success,error);
   }
+
+  // 6.1 订单
+  this.reportList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.reportList,params,success,error);
+  }
 }]);

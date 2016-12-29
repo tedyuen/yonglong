@@ -49,6 +49,40 @@ yonglongApp.filter('atmStatus',function () {
   }
 });
 
+yonglongApp.filter('boxVol',function () {
+  return function (str) {
+    if(str=='0' || str==0){
+      return '20'
+    }else if(str=='1' || str==1){
+      return '40'
+    }else if(str=='2' || str==2){
+      return '45'
+    }
+  }
+})
+
+yonglongApp.filter('boxType',['diyData',function (diyData) {
+  return function(str){
+    var temp;
+    for(temp in diyData.boxType){
+      if(str==diyData.boxType[temp].id){
+        return diyData.boxType[temp].name;
+      }
+    }
+  }
+}]);
+
+yonglongApp.filter('orderType',['diyData',function (diyData) {
+  return function(str){
+    var temp;
+    for(temp in diyData.orderType){
+      if(str==diyData.orderType[temp].id){
+        return diyData.orderType[temp].name;
+      }
+    }
+  }
+}])
+
 //订单状态
 yonglongApp.filter('orderStatusText',function () {
   return function (input) {

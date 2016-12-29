@@ -8,7 +8,6 @@ yonglongApp.constant('URL_CONS', {
   serverUrl:'http://120.26.65.65:8285/adm/api/data',
   serverFileUrl:' http://120.26.65.65:8285/adm/api/file',
 
-
   companyRegister: 'company_register',
   companyCreateOrder: 'company_create_order',
   companyOrderList: 'company_list_order',
@@ -24,11 +23,11 @@ yonglongApp.constant('URL_CONS', {
   companyAddFriend: 'company_add_friend',
   companyDelFriend: 'company_del_friend',
   accountInfo: 'account_info',
-
   addBankCard: 'addBankCard',
   listBankCard: 'listBankCard',
   delBankCard: 'delBankCard',
   listRefundApply: 'listRefundApply',
   addRefundApply: 'addRefundApply',
   cashList: 'cashList',
+  reportList: 'report_list',
 });

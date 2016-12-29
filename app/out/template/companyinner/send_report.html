@@ -17,138 +17,221 @@
     <!-- /.row -->
     <div class="row">
       <div class="col-sm-12">
+        <form ng-submit="queryList(theForm.$valid)" novalidate="novalidate" name="theForm">
+          <div class="white-box">
+            <div class="row">
+
+              <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">开始日期</span>
+                    <input type="text" class="form-control mydatepicker" placeholder="yyyy-mm-dd" ng-model="queryData.startTime">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+              <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">结束日期</span>
+                    <input type="text" class="form-control mydatepicker" placeholder="yyyy-mm-dd" ng-model="queryData.endTime">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+              <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">发货人</span>
+                    <input type="text" class="form-control" ng-model="queryData.sender">
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+              <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">接单人</span>
+                    <input type="text" class="form-control" ng-model="queryData.acter">
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">查询</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-sm-12" ng-show="flist==null || (flist!=null && flist.length<=0)">
         <div class="white-box">
           <div class="row">
-
-            <div class="col-md-6 col-lg-6 col-sm-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">开始日期</span>
-                  <input type="text" class="form-control mydatepicker" placeholder="yyyy年mm月dd日">
-                  <span class="input-group-addon"><i class="icon-calender"></i></span>
-                </div>
-              </div>
-              <div class="help-block with-errors"></div>
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
             </div>
-
-            <div class="col-md-6 col-lg-6 col-sm-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">结束日期</span>
-                  <input type="text" class="form-control mydatepicker" placeholder="yyyy年mm月dd日">
-                  <span class="input-group-addon"><i class="icon-calender"></i></span>
-                </div>
-              </div>
-              <div class="help-block with-errors"></div>
-            </div>
-
-            <div class="col-md-6 col-lg-6 col-sm-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">发货人</span>
-                  <input type="text" class="form-control">
-                </div>
-              </div>
-              <div class="help-block with-errors"></div><!-- 表单验证错误,form-group标签中添加has-error -->
-            </div>
-
-            <div class="col-md-6 col-lg-6 col-sm-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">接单人</span>
-                  <input type="text" class="form-control">
-                </div>
-              </div>
-              <div class="help-block with-errors"></div><!-- 表单验证错误,form-group标签中添加has-error -->
-            </div>
-
           </div>
-          <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">查询</button>
         </div>
       </div>
 
       <div class="col-sm-12">
         <div class="white-box">
           <div class="row">
-            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">导出报表(xlsx)</button>
+            <!--<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">导出报表(xlsx)</button>-->
 
-            <div class="table-responsive m-t-15">
-              <table class="table color-table primary-table table-hover table-bordered">
-                <thead>
-                <tr>
-                  <th><nobr>日期</nobr></th>
-                  <th><nobr>客户编号</nobr></th>
-                  <th><nobr>箱型箱量</nobr></th>
-                  <th><nobr>船名行次</nobr></th>
-                  <th><nobr>提单号</nobr></th>
-                  <th><nobr>提箱点</nobr></th>
-                  <th><nobr>提箱费</nobr></th>
-                  <th><nobr>做箱门点</nobr></th>
-                  <th><nobr>还箱点</nobr></th>
-                  <th><nobr>运费</nobr></th>
-                  <th><nobr>发货人</nobr></th>
-                  <th><nobr>承运人</nobr></th>
-                  <th><nobr>出车费</nobr></th>
-                  <th><nobr>打单费</nobr></th>
-                  <th><nobr>外发运费</nobr></th>
-                  <th><nobr>外发洋山</nobr></th>
-                  <th><nobr>落箱费</nobr></th>
-                  <th><nobr>动卫费</nobr></th>
-                  <th><nobr>坏污箱费</nobr></th>
-                  <th><nobr>改单</nobr></th>
-                  <th><nobr>备注</nobr></th>
-                  <th><nobr>合计</nobr></th>
-                  <th><nobr>应付运费</nobr></th>
-                  <th><nobr>毛利</nobr></th>
-                  <th><nobr>订单金额</nobr></th>
-                  <th><nobr>订单结算状态</nobr></th>
-                  <th><nobr>发车费</nobr></th>
-                  <th><nobr>发车费结算状态</nobr></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;2016-11-15</nobr></td>
-                  <td><nobr>ABacEF2434</nobr></td>
-                  <td><nobr>20L/40kg</nobr></td>
-                  <td><nobr>企业号/a39dej9f</nobr></td>
-                  <td><nobr>abcejfia39</nobr></td>
-                  <td><nobr>上海</nobr></td>
-                  <td><nobr>35$</nobr></td>
-                  <td><nobr>东川路</nobr></td>
-                  <td><nobr>华宁路</nobr></td>
-                  <td><nobr>48.54$</nobr></td>
-                  <td><nobr><i class="fa fa-female"></i>&nbsp;&nbsp;张二红</nobr></td>
-                  <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;李可强</nobr></td>
-                  <td><nobr>100$</nobr></td>
-                  <td><nobr>120.2$</nobr></td>
-                  <td><nobr>20.5$</nobr></td>
-                  <td><nobr>12$</nobr></td>
-                  <td><nobr>35$</nobr></td>
-                  <td><nobr>35$</nobr></td>
-                  <td><nobr>78$</nobr></td>
-                  <td><nobr>129.3$</nobr></td>
-                  <td><nobr>无</nobr></td>
-                  <td><nobr>12309$</nobr></td>
-                  <td><nobr>13309$</nobr></td>
-                  <td><nobr>1309$</nobr></td>
-                  <td><nobr>13309.23$</nobr></td>
-                  <td><nobr>已下单</nobr></td>
-                  <td><nobr>45￥</nobr></td>
-                  <td><nobr>未结算</nobr></td>
-                </tr>
-                </tbody>
-              </table>
+            <div ng-show="list!=null && list.length>0">
+              <h3 class="m-t-15">外发订单（接单方为私营车主）</h3>
+              <div class="table-responsive m-t-15">
+                <table class="table color-table primary-table table-hover table-bordered">
+                  <thead>
+                  <tr>
+                    <th><nobr>日期</nobr></th>
+                    <th><nobr>客户编号</nobr></th>
+                    <th><nobr>箱型箱量</nobr></th>
+                    <th><nobr>船名行次</nobr></th>
+                    <th><nobr>提单号</nobr></th>
+                    <th><nobr>提箱点</nobr></th>
+                    <th><nobr>提箱费</nobr></th>
+                    <th><nobr>做箱门点</nobr></th>
+                    <th><nobr>还箱点</nobr></th>
+                    <th><nobr>运费</nobr></th>
+                    <th><nobr>发货人</nobr></th>
+                    <th><nobr>承运人</nobr></th>
+                    <th><nobr>出车费</nobr></th>
+                    <th><nobr>租车费</nobr></th>
+                    <th><nobr>打单费</nobr></th>
+                    <th><nobr>外发运费</nobr></th>
+                    <th><nobr>外发洋山</nobr></th>
+                    <th><nobr>落箱费</nobr></th>
+                    <th><nobr>动卫检</nobr></th>
+                    <th><nobr>坏污箱费</nobr></th>
+                    <th><nobr>改单</nobr></th>
+                    <th><nobr>备注</nobr></th>
+                    <th><nobr>合计</nobr></th>
+                    <th><nobr>应付运费</nobr></th>
+                    <th><nobr>毛利</nobr></th>
+                    <th><nobr>订单金额</nobr></th>
+                    <th><nobr>订单状态</nobr></th>
+                    <th><nobr>结算状态</nobr></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="result in list">
+                    <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.createTimeStr}}</nobr></td>
+                    <td><nobr>{{result.busMemberId}}</nobr></td>
+                    <td><nobr>{{result.containerVType | boxVol}}{{result.containerSType | boxType}}*1</nobr></td>
+                    <td><nobr>{{result.shippingName}}</nobr></td>
+                    <td><nobr>{{result.shippingSn}}</nobr></td>
+                    <td><nobr>{{result.loadingPort}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.returnPort}}</nobr></td>
+                    <td><nobr>{{result.shippingFee | moneyText}}</nobr></td>
+                    <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</nobr></td>
+                    <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.busMemberName}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.orderType | orderType}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.note}}</nobr></td>
+                    <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
+                    <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
+                    <td ng-if="result.payStatus!=1"><nobr>{{result.orderStatus | orderStatusText}}</nobr></td>
+                    <td ng-if="result.payStatus==1"><nobr>完成</nobr></td>
+                    <td><nobr>{{result.payStatus | payStatusText}}</nobr></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <ul class="pagination m-b-0">
-              <li> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
-              <li> <a href="#">1</a> </li>
-              <li class="active"> <a href="#">2</a> </li>
-              <li> <a href="#">3</a> </li>
-              <li> <a href="#">4</a> </li>
-              <li> <a href="#">5</a> </li>
-              <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
-            </ul>
+
+
+            <div ng-show="flist!=null && flist.length>0">
+              <h3 class="m-t-15">外发订单（接单方为私营车主）</h3>
+              <div class="table-responsive m-t-15">
+                <table class="table color-table primary-table table-hover table-bordered">
+                  <thead>
+                  <tr>
+                    <th><nobr>日期</nobr></th>
+                    <th><nobr>客户编号</nobr></th>
+                    <th><nobr>箱型箱量</nobr></th>
+                    <th><nobr>船名行次</nobr></th>
+                    <th><nobr>提单号</nobr></th>
+                    <th><nobr>提箱点</nobr></th>
+                    <th><nobr>提箱费</nobr></th>
+                    <th><nobr>做箱门点</nobr></th>
+                    <th><nobr>还箱点</nobr></th>
+                    <th><nobr>运费</nobr></th>
+                    <th><nobr>发货人</nobr></th>
+                    <th><nobr>承运人</nobr></th>
+                    <th><nobr>出车费</nobr></th>
+                    <th><nobr>租车费</nobr></th>
+                    <th><nobr>打单费</nobr></th>
+                    <th><nobr>外发运费</nobr></th>
+                    <th><nobr>外发洋山</nobr></th>
+                    <th><nobr>落箱费</nobr></th>
+                    <th><nobr>动卫费</nobr></th>
+                    <th><nobr>坏污箱费</nobr></th>
+                    <th><nobr>改单</nobr></th>
+                    <th><nobr>备注</nobr></th>
+                    <th><nobr>合计</nobr></th>
+                    <th><nobr>应付运费</nobr></th>
+                    <th><nobr>毛利</nobr></th>
+                    <th><nobr>订单金额</nobr></th>
+                    <th><nobr>订单结算状态</nobr></th>
+                    <th><nobr>发车费</nobr></th>
+                    <th><nobr>发车费结算状态</nobr></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="result in flist">
+                    <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.createTimeStr}}</nobr></td>
+                    <td><nobr>{{result.busMemberId}}</nobr></td>
+                    <td><nobr>{{result.containerVType | boxVol}}{{result.containerSType | boxType}}*1</nobr></td>
+                    <td><nobr>{{result.shippingName}}</nobr></td>
+                    <td><nobr>{{result.shippingSn}}</nobr></td>
+                    <td><nobr>{{result.loadingPort}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.returnPort}}</nobr></td>
+                    <td><nobr>{{result.shippingFee | moneyText}}</nobr></td>
+                    <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</nobr></td>
+                    <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.busMemberName}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.orderType | orderType}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.note}}</nobr></td>
+                    <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
+                    <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.offerOrderMoney}}</nobr></td>
+                    <td><nobr>{{result.payStatus | payStatusText}}</nobr></td>
+                    <td><nobr>{{result.moneyPaid}}</nobr></td>
+                    <td><nobr>{{result.payStatus | payStatusText}}</nobr></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -157,3 +240,5 @@
     </div>
   </div>
 </div>
+
+
