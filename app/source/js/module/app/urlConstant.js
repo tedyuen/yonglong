@@ -30,4 +30,8 @@ yonglongApp.constant('URL_CONS', {
   addRefundApply: 'addRefundApply',
   cashList: 'cashList',
   reportList: 'report_list',
+
+
+  // 以下是user接口
+  userRegister: 'user_register'
 });

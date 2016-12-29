@@ -148,4 +148,13 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.reportList = function (params,success,error) {
     this.doHttpMethod(URL_CONS.reportList,params,success,error);
   }
+
+
+  /////----- ------  以下是user接口
+  // b2.1 注册
+  this.userRegister = function (params,files,success,error) {
+    this.doHttpMethod(URL_CONS.userRegister,params,success,error,files);
+  }
+
+
 }]);

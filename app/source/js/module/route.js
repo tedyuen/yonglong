@@ -2,8 +2,9 @@
  * Created by tedyuen on 16-12-8.
  */
 yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
-  $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
-  // $urlRouterProvider.when('','/register_company').otherwise('/register_company');
+  // $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
+  $urlRouterProvider.when('','/main/userinner/wanner_order').otherwise('/main/userinner/wanner_order');
+  // $urlRouterProvider.when('','/register_user').otherwise('/register_user');
   $stateProvider
     .state('login',{//登录页
       url:'/login',
@@ -16,7 +17,8 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
     })
     .state('register_user',{//承运方注册页
       url:'/register_user',
-      templateUrl:'template/register_company.html'
+      templateUrl:'template/register_user.html',
+      controller:'userRegisterController'
     })
 
     .state('main',{//主页
