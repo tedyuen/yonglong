@@ -14,9 +14,11 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePick
 
     var httpList = function () {
       interfaceService.reportList($scope.queryData,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
-        $scope.flist = data.data.flist;
-        $scope.list = data.data.list;
+        // console.log("response:"+JSON.stringify(data));
+        if(data.rescode = rescode.SUCCESS){
+          $scope.flist = data.data.flist;
+          $scope.list = data.data.list;
+        }
       });
     }
 

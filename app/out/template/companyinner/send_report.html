@@ -69,7 +69,7 @@
         </form>
       </div>
 
-      <div class="col-sm-12" ng-show="flist==null || (flist!=null && flist.length<=0)">
+      <div class="col-sm-12" ng-show="(flist==null || (flist!=null && flist.length<=0)) && (list==null || (list!=null && list.length<=0))">
         <div class="white-box">
           <div class="row">
             <div class="alert alert-warning alert-dismissable">
