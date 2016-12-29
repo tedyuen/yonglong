@@ -156,5 +156,14 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.userRegister,params,success,error,files);
   }
 
+  // b4.1好友分页列表
+  this.userListFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userListFriend,params,success,error);
+  }
+  // b4.2好友请求通过/拒绝
+  this.userEditFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userEditFriend,params,success,error);
+  }
+
 
 }]);

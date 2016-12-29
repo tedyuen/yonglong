@@ -84,7 +84,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       views: {
         'content@main': {
           templateUrl: 'template/userinner/friend_manage.html',
-          controller: 'friendManageController'
+          controller: 'userFriendManageController'
         }
       }
     })

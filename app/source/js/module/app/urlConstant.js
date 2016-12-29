@@ -33,5 +33,7 @@ yonglongApp.constant('URL_CONS', {
 
 
   // 以下是user接口
-  userRegister: 'user_register'
+  userRegister: 'user_register',
+  userListFriend: 'user_list_friend',
+  userEditFriend: 'user_edit_friend',
 });
