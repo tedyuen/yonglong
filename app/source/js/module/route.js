@@ -93,7 +93,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       views: {
         'content@main': {
           templateUrl: 'template/userinner/update_info.html',
-          controller: 'updateInfoController'
+          controller: 'userUpdateInfoController'
         }
       }
     })

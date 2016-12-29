@@ -133,6 +133,8 @@ yonglongApp.constant('URL_CONS', {
 
   // 以下是user接口
   userRegister: 'user_register',
+  userUserinfo: 'user_userinfo',
+  userUpdateInfo: 'user_updateinfo',
   userListFriend: 'user_list_friend',
   userEditFriend: 'user_edit_friend',
 });
@@ -486,6 +488,85 @@ yonglongApp.controller('userRegisterController',['$scope','$state','dropifyProvi
       }
     };
 
+
+  }]);
+
+yonglongApp.controller('userUpdateInfoController',['$scope','$state','dropifyProvider','interfaceService','rescode','baseDataService',
+  function ($scope,$state,dropifyProvider,interfaceService,rescode,baseDataService) {
+    dropifyProvider.dropify();
+    $scope.showTerms=function () {
+      $('#terms').modal('show');
+    }
+
+    $scope.containerVType = baseDataService.getBoxVol();
+
+    $scope.reg={
+      memberName:'',
+      password:'',
+      passwordconfirm:'',
+      companyName:'',
+      companyLinker:'',
+      email:'',
+      mobilePhone:'',
+      tel:'',
+      licence:'',
+      nameCard:'',
+      nameCardBack:'',
+      mobileCode:'',
+      address:'',
+      car_number:'',
+      busContainer:null,
+    }
+    $scope.regfile1 = {
+      name:'drivingLicence',
+      file:'',
+    }
+    $scope.regfile2 = {
+      name:'roadLicence',
+      file:'',
+    }
+    $scope.regfile3 = {
+      name:'roadLicenceAttach',
+      file:'',
+    }
+    $scope.regfile4 = {
+      name:'carPic',
+      file:'',
+    }
+    $scope.regfile5 = {
+      name:'nameCard',
+      file:'',
+    }
+
+    var files = [$scope.regfile5,$scope.regfile1,$scope.regfile2,$scope.regfile3,$scope.regfile4];
+
+    $scope.onSubmit = function($valid){
+      if($valid){
+        interfaceService.userUpdateInfo($scope.reg,files,function (data,headers,config) {
+          // console.log(JSON.stringify(data));
+          if(data.rescode==rescode.SUCCESS){
+            swal({
+              title:"修改成功！",
+              text:"已成功修改个人信息。",
+              type:"success",
+              confirmButtonText:"确定",
+            },function () {
+            });
+          }
+        });
+      }else{
+        console.log("$valid:"+$valid);
+      }
+    };
+
+
+    $scope.getUserInfo = function () {
+      interfaceService.userUserinfo({},function (data,headers,config) {
+        console.log(JSON.stringify(data));
+        $scope.reg = data.data;
+      })
+    };
+    $scope.getUserInfo();
 
   }]);
 
@@ -1310,9 +1391,16 @@ yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','inter
     $scope.onSubmit = function($valid){
       if($valid){
         interfaceService.companyUpdateinfo($scope.reg,files,function (data,headers,config) {
-          console.log(JSON.stringify(data));
-          console.log(JSON.stringify(config));
-          $('#success-info').modal('show');
+          // console.log(JSON.stringify(data));
+          if(data.rescode==rescode.SUCCESS){
+            swal({
+              title:"修改成功！",
+              text:"已成功修改个人信息。",
+              type:"success",
+              confirmButtonText:"确定",
+            },function () {
+            });
+          }
         });
       }else{
         console.log("$valid:"+$valid);
@@ -1955,7 +2043,13 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.userRegister = function (params,files,success,error) {
     this.doHttpMethod(URL_CONS.userRegister,params,success,error,files);
   }
-
+  // B2.2 查看个人信息
+  this.userUserinfo = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userUserinfo,params,success,error);
+  }
+  this.userUpdateInfo = function (params,files,success,error) {
+    this.doHttpMethod(URL_CONS.userUpdateInfo,params,success,error,files);
+  }
   // b4.1好友分页列表
   this.userListFriend = function (params,success,error) {
     this.doHttpMethod(URL_CONS.userListFriend,params,success,error);
@@ -2189,7 +2283,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       views: {
         'content@main': {
           templateUrl: 'template/userinner/update_info.html',
-          controller: 'updateInfoController'
+          controller: 'userUpdateInfoController'
         }
       }
     })

@@ -1,9 +1,11 @@
-/**
- * Created by tedyuen on 16-12-15.
- */
-yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','interfaceService',
-  function ($scope,dropifyProvider,interfaceService) {
+yonglongApp.controller('userUpdateInfoController',['$scope','$state','dropifyProvider','interfaceService','rescode','baseDataService',
+  function ($scope,$state,dropifyProvider,interfaceService,rescode,baseDataService) {
     dropifyProvider.dropify();
+    $scope.showTerms=function () {
+      $('#terms').modal('show');
+    }
+
+    $scope.containerVType = baseDataService.getBoxVol();
 
     $scope.reg={
       memberName:'',
@@ -18,26 +20,36 @@ yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','inter
       nameCard:'',
       nameCardBack:'',
       mobileCode:'',
-      address:''
+      address:'',
+      car_number:'',
+      busContainer:null,
     }
     $scope.regfile1 = {
-      name:'nameCardFile',
+      name:'drivingLicence',
       file:'',
     }
     $scope.regfile2 = {
-      name:'nameCardBackFile',
+      name:'roadLicence',
       file:'',
     }
     $scope.regfile3 = {
-      name:'licenceFile',
+      name:'roadLicenceAttach',
       file:'',
     }
-    var files = [$scope.regfile1,$scope.regfile2,$scope.regfile3];
+    $scope.regfile4 = {
+      name:'carPic',
+      file:'',
+    }
+    $scope.regfile5 = {
+      name:'nameCard',
+      file:'',
+    }
 
+    var files = [$scope.regfile5,$scope.regfile1,$scope.regfile2,$scope.regfile3,$scope.regfile4];
 
     $scope.onSubmit = function($valid){
       if($valid){
-        interfaceService.companyUpdateinfo($scope.reg,files,function (data,headers,config) {
+        interfaceService.userUpdateInfo($scope.reg,files,function (data,headers,config) {
           // console.log(JSON.stringify(data));
           if(data.rescode==rescode.SUCCESS){
             swal({
@@ -56,11 +68,11 @@ yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','inter
 
 
     $scope.getUserInfo = function () {
-      interfaceService.companyUserinfo({},function (data,headers,config) {
+      interfaceService.userUserinfo({},function (data,headers,config) {
         console.log(JSON.stringify(data));
         $scope.reg = data.data;
       })
     };
     $scope.getUserInfo();
-  }
-]);
+
+  }]);

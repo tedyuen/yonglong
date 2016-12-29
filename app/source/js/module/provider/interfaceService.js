@@ -155,7 +155,13 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.userRegister = function (params,files,success,error) {
     this.doHttpMethod(URL_CONS.userRegister,params,success,error,files);
   }
-
+  // B2.2 查看个人信息
+  this.userUserinfo = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userUserinfo,params,success,error);
+  }
+  this.userUpdateInfo = function (params,files,success,error) {
+    this.doHttpMethod(URL_CONS.userUpdateInfo,params,success,error,files);
+  }
   // b4.1好友分页列表
   this.userListFriend = function (params,success,error) {
     this.doHttpMethod(URL_CONS.userListFriend,params,success,error);
