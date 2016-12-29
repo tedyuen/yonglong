@@ -17,7 +17,7 @@ yonglongApp.controller('withdrawListController',['$scope','interfaceService','re
 
     var httpList = function () {
       interfaceService.listRefundApply($scope.queryData,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         $scope.results = data.data;
       });
     }

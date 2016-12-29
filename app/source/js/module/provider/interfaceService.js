@@ -127,13 +127,17 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.listBankCard = function (params,success,error) {
     this.doHttpMethod(URL_CONS.listBankCard,params,success,error);
   }
-  // 5.3 提现账户列表
+  // 5.4 删除提现账户
   this.delBankCard = function (params,success,error) {
     this.doHttpMethod(URL_CONS.delBankCard,params,success,error);
   }
   // 5.5 提现列表
   this.listRefundApply = function (params,success,error) {
     this.doHttpMethod(URL_CONS.listRefundApply,params,success,error);
+  }
+  // 5.6 创建提现工单
+  this.addRefundApply = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.addRefundApply,params,success,error);
   }
   // 5.7 创建工单-查询订单
   this.cashList = function (params,success,error) {

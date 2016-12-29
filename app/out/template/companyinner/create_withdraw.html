@@ -43,13 +43,11 @@
             </div>
 
           </div>
-          <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10" data-toggle="modal" data-target="#exampleModal">提现</button>
-
-          <pre>{{params|json}}</pre>
+          <button type="button" class="btn btn-primary waves-effect waves-light m-r-10" ng-click="onSubmit()">提现</button>
         </div>
       </div>
 
-      <div class="col-sm-12">
+      <div class="col-sm-12" ng-show="!((cashList==null || (cashList!=null && cashList.length<=0)) && (listCashDispatch==null || (listCashDispatch!=null && listCashDispatch.length<=0)))">
         <div class="white-box">
           <div class="row" ng-show="cashList!=null && cashList.length>0">
             <h3>请选择需要提现的订单</h3>
@@ -133,7 +131,7 @@
       </div>
       <!-- /.row -->
 
-      <div class="col-sm-12" ng-show="cashList==null || (results.totalPages!=null && results.totalPages==0)">
+      <div class="col-sm-12" ng-show="(cashList==null || (cashList!=null && cashList.length<=0)) && (listCashDispatch==null || (listCashDispatch!=null && listCashDispatch.length<=0))">
         <div class="white-box">
           <div class="row">
             <div class="alert alert-warning alert-dismissable">
@@ -147,32 +145,6 @@
     </div>
   </div>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="exampleModalLabel1">添加提现账户</h4>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <div class="input-group">
-                <input type="text" class="form-control" id="username" placeholder="输入电话...">
-                <span class="input-group-btn">
-                  <button type="button" class="btn waves-effect waves-light btn-success" alt="default">通过电话搜索</button>
-                </span>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-          <button type="button" class="btn btn-primary">确认添加</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
   <div id="bus-user-detail-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
