@@ -75,7 +75,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       views: {
         'content@main': {
           templateUrl: 'template/userinner/all_report.html',
-          controller: 'receiveReportController'
+          controller: 'userAllReportController'
         }
       }
     })
