@@ -23,6 +23,7 @@ yonglongApp.controller('userRegisterController',['$scope','$state','dropifyProvi
       nameCardBack:'',
       mobileCode:'',
       address:'',
+      carNumber:'',
       busContainer:null,
     }
     $scope.regfile1 = {

@@ -172,4 +172,9 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   }
 
 
+  // B7.1 发车费列表
+  this.userDispatchList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userDispatchList,params,success,error);
+  }
+
 }]);

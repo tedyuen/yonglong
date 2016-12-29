@@ -137,6 +137,9 @@ yonglongApp.constant('URL_CONS', {
   userUpdateInfo: 'user_updateinfo',
   userListFriend: 'user_list_friend',
   userEditFriend: 'user_edit_friend',
+
+
+  userDispatchList: 'user_dispatchList',
 });
 
 /**
@@ -288,6 +291,40 @@ yonglongApp.filter('orderStatusText',function () {
     return _bv;
   }
 });
+
+yonglongApp.controller('departCostListController',['$scope','interfaceService','rescode',
+  function ($scope,interfaceService,rescode) {
+    $scope.queryData = {
+      pageno:1,
+      pagesize:10,
+    }
+
+    $scope.results={
+      currPageNum : 1,
+      totalPages : 0,
+      pageSize : $scope.queryData.pagesize
+    }
+
+    // 分页
+    $scope.switchPage = function (page) {
+      // console.log(page);
+      $scope.queryData.pageno = page;
+      httpList();
+    }
+
+    var httpList = function () {
+      interfaceService.userDispatchList($scope.queryData,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS) {
+          $scope.results = data.data;
+        }
+      });
+    }
+
+
+    httpList();
+
+}]);
 
 /**
  * Created by tedyuen on 16-12-15.
@@ -446,6 +483,7 @@ yonglongApp.controller('userRegisterController',['$scope','$state','dropifyProvi
       nameCardBack:'',
       mobileCode:'',
       address:'',
+      carNumber:'',
       busContainer:null,
     }
     $scope.regfile1 = {
@@ -514,7 +552,7 @@ yonglongApp.controller('userUpdateInfoController',['$scope','$state','dropifyPro
       nameCardBack:'',
       mobileCode:'',
       address:'',
-      car_number:'',
+      carNumber:'',
       busContainer:null,
     }
     $scope.regfile1 = {
@@ -1126,7 +1164,9 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     var httpList = function () {
       interfaceService.companyOrderList($scope.queryData,function (data,headers,config) {
         // console.log("response:"+JSON.stringify(data));
-        $scope.results = data.data;
+        if(data.rescode==rescode.SUCCESS) {
+          $scope.results = data.data;
+        }
       });
     }
 
@@ -2060,6 +2100,11 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   }
 
 
+  // B7.1 发车费列表
+  this.userDispatchList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userDispatchList,params,success,error);
+  }
+
 }]);
 
 yonglongApp.service('sessionService',function () {
@@ -2292,7 +2337,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       views: {
         'content@main': {
           templateUrl: 'template/userinner/depart_cost_list.html',
-          controller: 'createWithdrawController'
+          controller: 'departCostListController'
         }
       }
     })

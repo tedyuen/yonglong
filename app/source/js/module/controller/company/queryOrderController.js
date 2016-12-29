@@ -41,7 +41,9 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     var httpList = function () {
       interfaceService.companyOrderList($scope.queryData,function (data,headers,config) {
         // console.log("response:"+JSON.stringify(data));
-        $scope.results = data.data;
+        if(data.rescode==rescode.SUCCESS) {
+          $scope.results = data.data;
+        }
       });
     }
 

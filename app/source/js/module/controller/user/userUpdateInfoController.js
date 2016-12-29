@@ -21,7 +21,7 @@ yonglongApp.controller('userUpdateInfoController',['$scope','$state','dropifyPro
       nameCardBack:'',
       mobileCode:'',
       address:'',
-      car_number:'',
+      carNumber:'',
       busContainer:null,
     }
     $scope.regfile1 = {

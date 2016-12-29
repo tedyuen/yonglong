@@ -102,7 +102,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       views: {
         'content@main': {
           templateUrl: 'template/userinner/depart_cost_list.html',
-          controller: 'createWithdrawController'
+          controller: 'departCostListController'
         }
       }
     })

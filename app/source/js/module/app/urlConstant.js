@@ -38,4 +38,7 @@ yonglongApp.constant('URL_CONS', {
   userUpdateInfo: 'user_updateinfo',
   userListFriend: 'user_list_friend',
   userEditFriend: 'user_edit_friend',
+
+
+  userDispatchList: 'user_dispatchList',
 });
