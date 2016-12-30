@@ -21,7 +21,9 @@
     .first-row{margin: auto; box-shadow: 0 0 30px #a1a1a1; padding: 50px 80px; max-width: 1050px; background: white;
       .media{position: relative; overflow: visible;
         .title-line-50{height: 1px; width: 50%; background: grey; position: absolute; top: 20px; right: 0; z-index: 10;}
-        a{padding: 0; position: relative;}
+        .media-left{padding: 0; position: relative; left: -120px; top: 20px;
+          img{box-shadow: 0 0 30px #7586a1;}
+        }
       }
       .media-body{position: relative;
         .media-heading{padding-left: 50px; background: white; width: 250px; position: relative; z-index: 20;}
