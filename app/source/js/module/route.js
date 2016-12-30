@@ -120,7 +120,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       views: {
         'content@main': {
           templateUrl: 'template/userinner/withdraw_manage.html',
-          controller: 'withdrawManageController'
+          controller: 'userWithdrawManageController'
         }
       }
     })
@@ -129,7 +129,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       views: {
         'content@main': {
           templateUrl: 'template/userinner/withdraw_list.html',
-          controller: 'withdrawListController'
+          controller: 'userWithdrawListController'
         }
       }
     })
@@ -138,7 +138,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       views: {
         'content@main': {
           templateUrl: 'template/userinner/create_withdraw.html',
-          controller: 'createWithdrawController'
+          controller: 'userCreateWithdrawController'
         }
       }
     })
