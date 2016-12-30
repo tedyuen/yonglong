@@ -53,9 +53,13 @@
           top: 20px;
           right: 0;
           z-index: 10; }
-        #about .about-container .first-row .media a {
+        #about .about-container .first-row .media .media-left {
           padding: 0;
-          position: relative; }
+          position: relative;
+          left: -120px;
+          top: 20px; }
+          #about .about-container .first-row .media .media-left img {
+            box-shadow: 0 0 30px #7586a1; }
       #about .about-container .first-row .media-body {
         position: relative; }
         #about .about-container .first-row .media-body .media-heading {
