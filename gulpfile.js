@@ -169,7 +169,7 @@ gulp.task('indexJs',function(){
     .pipe(gulp.dest('./app/source/js/index'))
     .pipe(rename({suffix: '.min'}))
     .pipe(browserify())
-    .pipe(uglify({ mangle: false, compress:true, output: { beautify: false } }))
+    // .pipe(uglify({ mangle: false, compress:true, output: { beautify: false } }))
     .pipe(gulp.dest('./app/out/js'));
 });
 

@@ -1,6 +1,40 @@
 global.$ = global.jQuery = require('jquery');
 require('bootstrap');
 
+var goLogin = function (role) {
+  document.cookie = "yonglongRole="+role;
+  if(role=='company'){
+    window.location.href = 'shell.html#!/main/companyinner/create_order';
+  }else if(role=='user'){
+    window.location.href = 'shell.html#!/main/userinner/wanner_order';
+  }
+}
+
+var goRegister = function (role) {
+  document.cookie = "yonglongRole="+role;
+  if(role=='company'){
+    window.location.href = 'shell.html#!/register_company';
+  }else if(role=='user'){
+    window.location.href = 'shell.html#!/register_user';
+  }
+
+}
+
+$('.login-company').on('click',function () {
+  goLogin('company');
+});
+$('.login-user').on('click',function () {
+  goLogin('user');
+});
+$('.register-company').on('click',function () {
+  goRegister('company');
+});
+$('.register-user').on('click',function () {
+  goRegister('user');
+});
+
+
+
 var $navBarLis = $(".navbar-nav > li");
 
 // index
@@ -49,8 +83,6 @@ var service = {
   // 已登录点击tab颜色切换
   loggedTabs : function(){
     $navTabsLis.each(function(i, ele){
-      console.log("loggedTabs - active:" + $(ele).hasClass("active"));
-
       if($(ele).hasClass("active")){
         $(ele).find("a").css({background:"#ffffff", color:"#65717a"});
         if(i == 0){
@@ -83,13 +115,11 @@ $("#loginTab").find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   //var previousTab = $(e.relatedTarget).text();
   //$(".active-tab span").html(activeTab);
   //$(".previous-tab span").html(previousTab);
-
-
+  //console.log("-->" + $(e.target).parent().html() + " active:" + active);
+  //var isClick = $(e.target).attr("aria-expanded");
+  //console.log("isClick: " + isClick);
 
   var active = $(e.target).parent().hasClass("active");
-  console.log("-->" + $(e.target).parent().html() + " active:" + active);
-  var isClick = $(e.target).attr("aria-expanded");
-  console.log("isClick: " + isClick);
   if(active){
     $(".nav-tabs").find(".active").removeClass("active");
     $(e.target).parent().addClass("active");
@@ -99,14 +129,7 @@ $("#loginTab").find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 });
 
 
-//$navTabsLis.on("click",function(){
-//  var active = $(this).hasClass("active");
-//  if(!active){
-//    $(".nav-tabs").find(".active").removeClass("active");
-//    $(this).addClass("active");
-//    service.loggedTabs();
-//  }
-//});
+
 
 
 var $listGroupItems = $("#news").find(".list-group > .list-group-item");

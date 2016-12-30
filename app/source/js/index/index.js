@@ -1,6 +1,40 @@
 global.$ = global.jQuery = require('jquery');
 require('bootstrap');
 
+var goLogin = function (role) {
+  document.cookie = "yonglongRole="+role;
+  if(role=='company'){
+    window.location.href = 'shell.html#!/main/companyinner/create_order';
+  }else if(role=='user'){
+    window.location.href = 'shell.html#!/main/userinner/wanner_order';
+  }
+}
+
+var goRegister = function (role) {
+  document.cookie = "yonglongRole="+role;
+  if(role=='company'){
+    window.location.href = 'shell.html#!/register_company';
+  }else if(role=='user'){
+    window.location.href = 'shell.html#!/register_user';
+  }
+
+}
+
+$('.login-company').on('click',function () {
+  goLogin('company');
+});
+$('.login-user').on('click',function () {
+  goLogin('user');
+});
+$('.register-company').on('click',function () {
+  goRegister('company');
+});
+$('.register-user').on('click',function () {
+  goRegister('user');
+});
+
+
+
 var $navBarLis = $(".navbar-nav > li");
 
 // index
@@ -93,3 +127,6 @@ $("#loginTab").find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   }
 
 });
+
+
+
