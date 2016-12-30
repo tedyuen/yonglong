@@ -1,7 +1,4 @@
-/**
- * Created by tedyuen on 16-12-15.
- */
-yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode',
+yonglongApp.controller('userHasgetOrderController',['$scope','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode',
   function ($scope,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
@@ -32,7 +29,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
     }
 
     var httpList = function () {
-      interfaceService.companyListMyorder($scope.queryData,function (data,headers,config) {
+      interfaceService.userListMyorder($scope.queryData,function (data,headers,config) {
         // console.log("response:"+JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $scope.results = data.data;
@@ -58,34 +55,12 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
     }
 
 
-    $scope.busUserDetail = function (userId,type) {
-      // console.log("===> "+userId);
-      switch (type){
-        case 0:param={
-          userId:userId
-        };
-          break;
-        case 1:param={
-          orderId:userId
-        }
-      }
-      interfaceService.busUserDetail(param,function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
-        if(data.rescode==rescode.SUCCESS){
-          $scope.busUserDetailResult = data.data;
-          $scope.busUserDetailResult.resultType = 0;
-          $('#bus-user-detail-modal').modal('show');
-        }
-      });
-    }
-
     $scope.companyUserDetail = function (userId) {
-      console.log('===> ');
       var param = {
         userId:userId
       }
       interfaceService.companyUserDetail(param,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS){
           $scope.busUserDetailResult = data.data;
           $scope.busUserDetailResult.resultType = 1;
@@ -95,10 +70,44 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
       });
     }
 
-    // 指定车辆
-    $scope.selectedOid = function (orderId) {
+    $scope.over = function (orderId) {
+      swal({
+        title: "确认送到吗?",
+        text: "您即将确认送到此订单!",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "取消",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "是的,确认!",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, function(){
+        var tempData = {
+          orderId:orderId
+        }
+        interfaceService.userOverOfferOrder(tempData,function (data,headers,config) {
+          if(data.rescode==rescode.SUCCESS){
+            swal({
+              title:"确认成功！",
+              text:"此订单已确认送到。",
+              type:"success",
+              confirmButtonText:"确定"
+            },function () {
+              httpList();
+            });
+          }else{
+            swal({
+              title:"确认失败！",
+              text:"请重新执行此操作。",
+              type:"error",
+              confirmButtonText:"确定"
+            });
+          }
+        });
 
+      });
     }
+
 
 
     $scope.cancelOrder = function (orderId) {

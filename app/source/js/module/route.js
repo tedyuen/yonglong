@@ -57,7 +57,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       views: {
         'content@main': {
           templateUrl: 'template/userinner/hasget_order.html',
-          controller: 'hasgetOrderController'
+          controller: 'userHasgetOrderController'
         }
       }
     })
@@ -66,7 +66,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       views: {
         'content@main': {
           templateUrl: 'template/userinner/hasget2_order.html',
-          controller: 'hasgetOrderController'
+          controller: 'userHasgetOrderController2'
         }
       }
     })
@@ -273,17 +273,6 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
-
-
-
-
-
-
-
-
-
-
-
 
 }]);
 

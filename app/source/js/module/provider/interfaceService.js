@@ -98,6 +98,11 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.busUserDetail,params,success,error);
   }
 
+  // 13.3 订单取消
+  this.cancelOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.cancelOrder,params,success,error);
+  }
+
   // 4.1好友分页列表
   this.companyListFriend = function (params,success,error) {
     this.doHttpMethod(URL_CONS.companyListFriend,params,success,error);
@@ -151,6 +156,17 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 
 
   /////----- ------  以下是user接口
+  // B1.2 已接订单列表
+  this.userListMyorder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userListMyorder,params,success,error);
+  }
+  // B1.3 已接指派订单列表
+  this.userListDispatchorder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userListDispatchorder,params,success,error);
+  }
+
+
+
   // b2.1 注册
   this.userRegister = function (params,files,success,error) {
     this.doHttpMethod(URL_CONS.userRegister,params,success,error,files);
@@ -162,6 +178,12 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.userUpdateInfo = function (params,files,success,error) {
     this.doHttpMethod(URL_CONS.userUpdateInfo,params,success,error,files);
   }
+
+  // b3.2 确认送到哦啊
+  this.userOverOfferOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userOverOfferOrder,params,success,error);
+  }
+
   // b4.1好友分页列表
   this.userListFriend = function (params,success,error) {
     this.doHttpMethod(URL_CONS.userListFriend,params,success,error);

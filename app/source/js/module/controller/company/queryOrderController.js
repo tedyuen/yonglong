@@ -74,7 +74,6 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
           orderId:orderId
         }
         interfaceService.deleteOrder(tempData,function (data,headers,config) {
-          console.log(data);
           if(data.rescode==rescode.SUCCESS){
             swal({
               title:"删除成功！",

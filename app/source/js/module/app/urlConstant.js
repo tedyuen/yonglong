@@ -18,6 +18,7 @@ yonglongApp.constant('URL_CONS', {
   companyUserDetail:'company_user_detail',
   companyUpdateinfo: 'company_updateinfo',
   busUserDetail: 'bus_user_detail',
+  cancelOrder: 'userCancelOfferOrder',
   companyListFriend: 'company_list_friend',
   companyListBusowners: 'company_list_busowners',
   companyAddFriend: 'company_add_friend',
@@ -33,9 +34,12 @@ yonglongApp.constant('URL_CONS', {
 
 
   // 以下是user接口
+  userListMyorder: 'user_list_myorder',
+  userListDispatchorder: 'user_list_dispatchorder',
   userRegister: 'user_register',
   userUserinfo: 'user_userinfo',
   userUpdateInfo: 'user_updateinfo',
+  userOverOfferOrder: 'userOverOfferOrder',
   userListFriend: 'user_list_friend',
   userEditFriend: 'user_edit_friend',
 
