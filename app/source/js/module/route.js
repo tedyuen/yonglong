@@ -48,7 +48,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       views: {
         'content@main': {
           templateUrl: 'template/userinner/wanner_order.html',
-          controller: 'wannerOrderController'
+          controller: 'userWannerOrderController'
         }
       }
     })

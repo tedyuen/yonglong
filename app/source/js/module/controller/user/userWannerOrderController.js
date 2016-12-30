@@ -1,7 +1,7 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode',
+yonglongApp.controller('userWannerOrderController',['$scope','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode',
   function ($scope,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
@@ -33,7 +33,7 @@ yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePic
     }
 
     var httpList = function () {
-      interfaceService.companyListGetorder($scope.queryData,function (data,headers,config) {
+      interfaceService.userListGetorder($scope.queryData,function (data,headers,config) {
         if(data.rescode == rescode.SUCCESS){
           $scope.results = data.data;
         }
@@ -66,20 +66,6 @@ yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePic
       });
     }
 
-    $scope.busUserDetail = function (userId) {
-      // console.log("===> "+userId);
-      var param={
-        orderId:userId
-      }
-      interfaceService.busUserDetail(param,function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
-        if(data.rescode==rescode.SUCCESS){
-          $scope.busUserDetailResult = data.data;
-          $scope.busUserDetailResult.resultType = 0;
-          $('#bus-user-detail-modal').modal('show');
-        }
-      });
-    }
 
     $scope.takeOrder = function (orderId) {
       swal({
@@ -94,10 +80,9 @@ yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePic
         showLoaderOnConfirm: true
       }, function(){
         var param={
-          orderId:orderId,
-          busMemberType:0
+          orderId:orderId
         }
-        interfaceService.fleetTakeOfferOrder(param,function (data,headers,config) {
+        interfaceService.userTakeOfferOrder(param,function (data,headers,config) {
           if(data.rescode==rescode.SUCCESS){
             swal({
               title:"接单成功！",
