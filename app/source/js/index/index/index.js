@@ -130,6 +130,7 @@ $("#loginTab").find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
 require('angular');
 var ylIndex = angular.module("myApp",[]);
+var Mock = require('mockjs');
 
 
 

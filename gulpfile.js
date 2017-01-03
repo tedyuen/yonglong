@@ -164,10 +164,12 @@ gulp.task('indexcss',['indexconcatcss'], function() {
 
 var indexJsArr = [
   './app/source/js/index/index/index.js',
-  './app/source/js/module/provider/httpService.js',
+  './app/source/js/index/httpService.js',
+  './app/source/js/index/rescode.js',
   './app/source/js/index/index/urlConstant.js',
-
+  './app/source/js/index/index/interfaceService.js',
   './app/source/js/index/index/indexController.js',
+  './app/source/js/index/test/mockjs.js',
 
 ];
 gulp.task('indexJs',function(){

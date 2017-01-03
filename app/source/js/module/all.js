@@ -2600,7 +2600,7 @@ yonglongApp.provider('dropifyProvider',function () {
   }
 });
 
-yonglongApp.factory('httpService', ['$http','$timeout','$q','URL_CONS',function ($http, $timeout, $q,URL_CONS) {
+yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $timeout, $q) {
   // 默认参数
   var _httpDefaultOpts = {
     method: 'POST', // GET/DELETE/HEAD/JSONP/POST/PUT

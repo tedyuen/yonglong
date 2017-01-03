@@ -1,14 +1,14 @@
 /**
  * Created by tedyuen on 17-1-3.
  */
-yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService',function (httpService,URL_CONS,sessionService) {
+ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpService,URL_CONS) {
 
   this.doHttp = function (url,sub,params,success,error,files) {
-    var base = {
-      token:sessionService.getSession().token
-    }
+    // var base = {
+    //   token:sessionService.getSession().token
+    // }
     jQuery.extend(params,sub);
-    jQuery.extend(params,base);
+    // jQuery.extend(params,base);
     // console.log(JSON.stringify(params));
     var request = {
       json:params,
@@ -18,8 +18,8 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     var _opts = jQuery.extend({
       timeout : 'getError404Timeout'
     },null);
-    // _opts.url = URL_CONS.serverUrl+"/"+sub.method;
-    _opts.url = url;
+    _opts.url = URL_CONS.serverUrl+"/"+sub.method;
+    // _opts.url = url;
     _opts.method = 'POST';
     _opts.data = request;
     // _opts.params = request;
@@ -49,7 +49,6 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   }
 
 
-  // 创建订单
   this.testHttp = function (params,success,error) {
     var sub = {
       method:URL_CONS.testInterface
@@ -57,7 +56,6 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttp(URL_CONS.serverUrl,sub,params,success,error);
   }
 
-  // 1.2 订单列表
   this.testInterface = function (params,success,error) {
     this.doHttpMethod(URL_CONS.testInterface,params,success,error);
   }
