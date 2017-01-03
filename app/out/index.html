@@ -144,7 +144,7 @@
                       <input type="checkbox"> 记住我的密码
                     </label>
 
-                    <label class="pull-right" style="padding: 0;">忘记密码</label>
+                    <label class="pull-right" style="padding: 0;" data-toggle="modal" data-target="#myModal">忘记密码</label>
                   </div>
                   <a class="login-company" href="javascript:void(0);"><img src="images/index/btn-login.png" class="img-rounded" style="margin-left: -5px;"/></a>
                   <a class="register-company" href="javascript:void(0);"><img src="images/index/btn-register.png" class="img-rounded pull-right" style="margin-right: -5px;" /></a>
@@ -302,6 +302,36 @@
     </div>
   </div>
 </footer>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">找回密码</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="phoneNumber">请输入手机号</label>
+          <input type="tel" class="form-control" id="phoneNumber" placeholder="请输入手机号">
+        </div>
+        <button type="submit" class="btn btn-default" onclick="">获取验证码</button>
+        <div>
+          <label></label>
+        </div>
+        <div class="form-group">
+          <label for="verificationCode">请输入验证码</label>
+          <input type="number" class="form-control" id="verificationCode" placeholder="请输入验证码">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 <script src="js/indexcon.min.js"></script>
