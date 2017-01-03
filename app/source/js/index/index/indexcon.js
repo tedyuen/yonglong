@@ -128,5 +128,12 @@ $("#loginTab").find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
 });
 
+require('angular');
+var ylIndex = angular.module("myApp",[]);
 
 
+
+
+ylIndex.controller('indexController',['$scope',function ($scope) {
+  $scope.testNum = 30001;
+}]);
