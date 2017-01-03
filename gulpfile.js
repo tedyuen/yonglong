@@ -163,17 +163,28 @@ gulp.task('indexcss',['indexconcatcss'], function() {
 // index js
 
 var indexJsArr = [
-  './app/source/js/index/index.js',
-  './app/source/js/index/news.js'
+  './app/source/js/index/index/index.js',
+  './app/source/js/index/index/indexController.js'
 ];
 gulp.task('indexJs',function(){
   gulp.src(indexJsArr)
     .pipe(concat('indexcon.js'))
-    .pipe(gulp.dest('./app/source/js/index'))
+    .pipe(gulp.dest('./app/source/js/index/index'))
     .pipe(rename({suffix: '.min'}))
     .pipe(browserify())
     // .pipe(uglify({ mangle: false, compress:true, output: { beautify: false } }))
     .pipe(gulp.dest('./app/out/js'));
 });
 
-
+var newsJsArr = [
+  './app/source/js/index/news/news.js'
+];
+gulp.task('newsJs',function(){
+  gulp.src(newsJsArr)
+    .pipe(concat('newscon.js'))
+    .pipe(gulp.dest('./app/source/js/index/news'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(browserify())
+    // .pipe(uglify({ mangle: false, compress:true, output: { beautify: false } }))
+    .pipe(gulp.dest('./app/out/js'));
+});

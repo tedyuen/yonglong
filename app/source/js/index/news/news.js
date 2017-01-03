@@ -1,3 +1,5 @@
+global.$ = global.jQuery = require('jquery');
+require('bootstrap');
 
 var $listGroupItems = $("#news").find(".list-group > .list-group-item");
 
