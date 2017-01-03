@@ -18,7 +18,8 @@
 // gulp-rename
 // gulp-sass
 // gulp-uglify
-sudo npm install --save-dev gulp gulp-browserify del gulp-clean-css gulp-concat gulp-obfuscate gulp-rename gulp-sass gulp-uglify
+// gulp-babel babel-preset-es2015
+sudo npm install --save-dev gulp gulp-browserify del gulp-clean-css gulp-concat gulp-obfuscate gulp-rename gulp-sass gulp-uglify gulp-babel babel-preset-es2015
 ```
 6. 安装项目插件
 ```bash

@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','interfaceService',
-  function ($scope,dropifyProvider,interfaceService) {
+yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','interfaceService','rescode',
+  function ($scope,dropifyProvider,interfaceService,rescode) {
     dropifyProvider.dropify();
 
     $scope.reg={

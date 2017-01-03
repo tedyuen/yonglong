@@ -29,5 +29,9 @@ var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
 // var Mock = require('mockjs');
 
 var UiState = require('./utils/UiState');
-
-
+//
+// var wait1000 = new Promise((resolve,reject)=>{
+//   setTimeout(resolve,1000);
+//   }).then(()=>{
+//     console.log('Yay!');
+// });

@@ -23,14 +23,18 @@ require('angular-ui-router');
 require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
 
 var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
-yonglongApp.config(['$compileProvider',function ($compileProvider) {
-  $compileProvider.debugInfoEnabled(false);
-}]);
+// yonglongApp.config(['$compileProvider',function ($compileProvider) {
+//   $compileProvider.debugInfoEnabled(false);
+// }]);
 // var Mock = require('mockjs');
 
 var UiState = require('./utils/UiState');
-
-
+//
+// var wait1000 = new Promise((resolve,reject)=>{
+//   setTimeout(resolve,1000);
+//   }).then(()=>{
+//     console.log('Yay!');
+// });
 
 $(document).ready(function () {
     $(function () {
@@ -2196,8 +2200,8 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePick
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','interfaceService',
-  function ($scope,dropifyProvider,interfaceService) {
+yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','interfaceService','rescode',
+  function ($scope,dropifyProvider,interfaceService,rescode) {
     dropifyProvider.dropify();
 
     $scope.reg={

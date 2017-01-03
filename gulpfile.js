@@ -8,7 +8,7 @@ var rename = require('gulp-rename');
 var del = require('del');
 var obfuscate = require('gulp-obfuscate');
 var sass = require('gulp-sass');
-
+const babel = require('gulp-babel');
 
 var cssArr = [
   './app/source/css/node/bootstrap.min.css',
@@ -76,6 +76,9 @@ gulp.task('css',['concatcss'], function() {
 gulp.task('js',function(){
   gulp.src(jsArr)
     .pipe(concat('all.js'))
+    // .pipe(babel({
+    //   presets: ['es2015']
+    // }))
     .pipe(gulp.dest('./app/source/js/module'))
     .pipe(rename({suffix: '.min'}))
     .pipe(browserify())
