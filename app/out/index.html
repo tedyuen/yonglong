@@ -99,7 +99,7 @@
           <div class="col-md-3">
             <div class="thumbnail">
               <!--<div class="col-md-12 box-num">301</div>-->
-              <div class="box-num text-center" style="font-size: 45px;">30001</div>
+              <div class="box-num text-center" style="font-size: 45px;">{{testNum}}</div>
               <div class="caption">
                 <p class="thumbnail-content">你用平台我奖励活动正在火热进行,已经发放奖金30000元</p>
                 <a href="#" class="btn btn-default" role="button">了解详情
@@ -144,7 +144,7 @@
                       <input type="checkbox"> 记住我的密码
                     </label>
 
-                    <label class="pull-right" style="padding: 0;" data-toggle="modal" data-target="#myModal">忘记密码</label>
+                    <label class="pull-right" style="padding: 0;" ng-click="forgetPassCompany()">忘记密码</label>
                   </div>
                   <a class="login-company" href="javascript:void(0);"><img src="images/index/btn-login.png" class="img-rounded" style="margin-left: -5px;"/></a>
                   <a class="register-company" href="javascript:void(0);"><img src="images/index/btn-register.png" class="img-rounded pull-right" style="margin-right: -5px;" /></a>
@@ -304,7 +304,7 @@
 </footer>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="forget-password-company" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -316,7 +316,7 @@
           <label for="phoneNumber">请输入手机号</label>
           <input type="tel" class="form-control" id="phoneNumber" placeholder="请输入手机号">
         </div>
-        <button type="submit" class="btn btn-default" onclick="">获取验证码</button>
+        <button type="submit" class="btn btn-default" ng-click="getCodeCompany()">获取验证码</button>
         <div>
           <label></label>
         </div>
