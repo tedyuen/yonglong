@@ -106,6 +106,18 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','showDat
 
     }
 
+    $scope.detail = function (id) {
+      $scope.detailOrderId = id;
+      $('#order-detail').modal('show');
+    }
+
+    $scope.printDetail = function () {
+      if($scope.detailOrderId){
+        var link = 'table.html#!?id='+$scope.detailOrderId;
+        window.open(link);
+      }
+    }
+
     httpList();
 
   }]);

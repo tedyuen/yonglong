@@ -139,6 +139,12 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
       $('#order-detail').modal('show');
     }
 
+    $scope.printDetail = function () {
+      if($scope.detailOrderId){
+        var link = 'table.html#!?id='+$scope.detailOrderId;
+        window.open(link);
+      }
+    }
 
     httpList();
 

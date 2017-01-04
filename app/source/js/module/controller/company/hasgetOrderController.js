@@ -33,7 +33,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 
     var httpList = function () {
       interfaceService.companyListMyorder($scope.queryData,function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $scope.results = data.data;
         }
@@ -138,6 +138,18 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 
       });
 
+    }
+
+    $scope.detail = function (id) {
+      $scope.detailOrderId = id;
+      $('#order-detail').modal('show');
+    }
+
+    $scope.printDetail = function () {
+      if($scope.detailOrderId){
+        var link = 'table.html#!?id='+$scope.detailOrderId;
+        window.open(link);
+      }
     }
 
     httpList();
