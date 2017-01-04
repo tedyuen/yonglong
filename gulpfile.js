@@ -22,7 +22,7 @@ var cssArr = [
   './app/source/css/pixel/colors/purple.css',
   './app/source/css/node/bootstrap-datepicker.min.css',
   './app/source/css/node/dropify.min.css',
-  './app/source/sass/css/*.css'
+  './app/source/sass/css/createOrder.css'
 ];
 
 var jsArr = [
