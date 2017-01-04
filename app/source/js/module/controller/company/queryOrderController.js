@@ -135,6 +135,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
 
 
     $scope.detail = function (id) {
+      $scope.detailOrderId = id;
       $('#order-detail').modal('show');
     }
 

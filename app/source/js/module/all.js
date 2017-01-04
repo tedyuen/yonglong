@@ -20,9 +20,10 @@ require('sweetalert');
 require('angular');
 require('angular-ui-router');
 
-require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
+// require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
 
-var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
+// var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
+var yonglongApp = angular.module("myApp",['ui.router']);
 // yonglongApp.config(['$compileProvider',function ($compileProvider) {
 //   $compileProvider.debugInfoEnabled(false);
 // }]);
@@ -138,6 +139,7 @@ yonglongApp.constant('URL_CONS', {
   cashList: 'cashList',
   reportList: 'report_list',
 
+  companyDetailOrder: 'company_detail_order',
 
   // 以下是user接口
   userListGetorder: 'user_list_getorder',
@@ -2065,6 +2067,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
 
 
     $scope.detail = function (id) {
+      $scope.detailOrderId = id;
       $('#order-detail').modal('show');
     }
 
@@ -2871,6 +2874,11 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.companyOrderList,params,success,error);
   }
 
+  // 1.3 订单详情
+  this.companyDetailOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyDetailOrder,params,success,error);
+  }
+
   // 1.5 订单删除
   this.deleteOrder = function (params,success,error) {
     this.doHttpMethod(URL_CONS.deleteOrder,params,success,error);
@@ -3084,10 +3092,21 @@ yonglongApp.directive("ngFilesModel", [function () {
 
 yonglongApp.directive('orderdetail',function () {
   return{
-    restrict: 'A',
+    restrict: 'AE',
     replace: true,
-    // template:'<h1>hello world</h1>'
-    templateUrl: 'template/directive/order_detail.html'
+    scope:{
+      orderId:'='
+    },
+    template:'<div id="od-frame" class="table-responsive"></div>',
+    controller:function ($scope) {
+      // $scope.orderId
+      $scope.$watch('orderId',function () {
+        console.log("===>  orderId:"+$scope.orderId);
+        $('#od-frame').html(
+          '<iframe src="table.html#!?id='+$scope.orderId+'" frameborder="0" width="100%" height="500%" style="height:1050px;"></iframe>'
+        );
+      },true);
+    }
   }
 });
 

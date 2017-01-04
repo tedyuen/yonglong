@@ -20,9 +20,10 @@ require('sweetalert');
 require('angular');
 require('angular-ui-router');
 
-require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
+// require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
 
-var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
+// var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
+var yonglongApp = angular.module("myApp",['ui.router']);
 // yonglongApp.config(['$compileProvider',function ($compileProvider) {
 //   $compileProvider.debugInfoEnabled(false);
 // }]);

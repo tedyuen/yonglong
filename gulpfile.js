@@ -39,6 +39,17 @@ var jsArr = [
   './app/source/js/module/route.js',
 ];
 
+var orderJsArr = [
+  './app/source/js/module/order/order.js',
+  './app/source/js/module/provider/httpService.js',
+  './app/source/js/module/provider/sessionService.js',
+  './app/source/js/module/provider/interfaceService.js',
+  './app/source/js/module/app/rescode.js',
+  './app/source/js/module/app/urlConstant.js',
+  './app/source/js/module/app/diyData.js',
+  './app/source/js/module/filter/*.js',
+  './app/source/js/module/order/orderController.js',
+];
 // css
 gulp.task('concatcss',['nodeModule','sass'],function(){
   return gulp.src(cssArr)    //- 需要处理的css文件，放到一个字符串数组里
@@ -86,6 +97,19 @@ gulp.task('js',function(){
     //.pipe(obfuscate())
     .pipe(gulp.dest('./app/out/js'));
 });
+
+gulp.task('orderJs',function(){
+  gulp.src(orderJsArr)
+    .pipe(concat('ordercon.js'))
+    .pipe(gulp.dest('./app/source/js/module/order'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(browserify())
+    // .pipe(uglify({ mangle: false, compress:true, output: { beautify: false } }))
+    //.pipe(obfuscate())
+    .pipe(gulp.dest('./app/out/js'));
+});
+
+
 
 
 gulp.task('nodeModule',function(){

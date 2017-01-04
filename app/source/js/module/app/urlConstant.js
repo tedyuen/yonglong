@@ -33,6 +33,7 @@ yonglongApp.constant('URL_CONS', {
   cashList: 'cashList',
   reportList: 'report_list',
 
+  companyDetailOrder: 'company_detail_order',
 
   // 以下是user接口
   userListGetorder: 'user_list_getorder',

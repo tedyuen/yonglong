@@ -1,8 +1,19 @@
 yonglongApp.directive('orderdetail',function () {
   return{
-    restrict: 'A',
+    restrict: 'AE',
     replace: true,
-    // template:'<h1>hello world</h1>'
-    templateUrl: 'template/directive/order_detail.html'
+    scope:{
+      orderId:'='
+    },
+    template:'<div id="od-frame" class="table-responsive"></div>',
+    controller:function ($scope) {
+      // $scope.orderId
+      $scope.$watch('orderId',function () {
+        console.log("===>  orderId:"+$scope.orderId);
+        $('#od-frame').html(
+          '<iframe src="table.html#!?id='+$scope.orderId+'" frameborder="0" width="100%" height="500%" style="height:1050px;"></iframe>'
+        );
+      },true);
+    }
   }
 });
