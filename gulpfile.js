@@ -150,7 +150,8 @@ gulp.task('nodeModule',function(){
 gulp.task('default',['js','css']);
 var indexCssArr = [
   './app/source/css/node/bootstrap.min.css',
-  './app/source/sass/index/css/*.css'
+  './app/source/sass/index/css/*.css',
+  './app/source/css/pixel/spinners.css',
 ];
 
 // index news about css
@@ -188,6 +189,7 @@ gulp.task('indexcss',['indexconcatcss'], function() {
 
 var indexJsArr = [
   './app/source/js/index/index/index.js',
+  './app/source/js/module/custom.js',
   './app/source/js/index/httpService.js',
   './app/source/js/index/rescode.js',
   './app/source/js/index/index/urlConstant.js',

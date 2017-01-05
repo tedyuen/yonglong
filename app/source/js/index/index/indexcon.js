@@ -20,9 +20,7 @@ var goRegister = function (role) {
 
 }
 
-$('.login-company').on('click',function () {
-  goLogin('company');
-});
+
 $('.login-user').on('click',function () {
   goLogin('user');
 });
@@ -129,11 +127,20 @@ $("#loginTab").find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 });
 
 require('angular');
-var ylIndex = angular.module("myApp",[]);
+require('angular-cookies');
+var ylIndex = angular.module("myApp",["ngCookies"]);
 var Mock = require('mockjs');
 
 
 
+
+$(document).ready(function () {
+    $(function () {
+        $(".preloader").fadeOut();
+    });
+    // Theme settings
+
+});
 
 ylIndex.factory('httpService', ['$http','$timeout','$q',function ($http, $timeout, $q) {
   // 默认参数
@@ -353,7 +360,8 @@ ylIndex.constant('URL_CONS', {
   serverUrl:'http://120.26.65.65:8285/adm/api/data',
   serverFileUrl:' http://120.26.65.65:8285/adm/api/file',
 
-  testInterface:'testInterface'
+  testInterface:'testInterface',
+  companyLogin:'company_login',
 });
 
 /**
@@ -376,8 +384,8 @@ ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpServi
     var _opts = jQuery.extend({
       timeout : 'getError404Timeout'
     },null);
-    _opts.url = URL_CONS.serverUrl+"/"+sub.method;
-    // _opts.url = url;
+    // _opts.url = URL_CONS.serverUrl+"/"+sub.method;
+    _opts.url = url;
     _opts.method = 'POST';
     _opts.data = request;
     // _opts.params = request;
@@ -418,9 +426,13 @@ ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpServi
     this.doHttpMethod(URL_CONS.testInterface,params,success,error);
   }
 
+  // 11.1 登录
+  this.companyLogin = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyLogin,params,success,error);
+  }
 }]);
 
-ylIndex.controller('indexController',['$scope','interfaceService','rescode',function ($scope,interfaceService,rescode) {
+ylIndex.controller('indexController',['$scope','$cookies','interfaceService','rescode',function ($scope,$cookies,interfaceService,rescode) {
   $scope.testNum = 30001;
 
 
@@ -445,7 +457,99 @@ ylIndex.controller('indexController',['$scope','interfaceService','rescode',func
     });
   }
 
+  // $scope.company = {
+  //   memberName:'',
+  //   password:'',
+  //   isRemember:true
+  // }
 
+  var initCompanyForm = function () {
+    var comMName = $cookies.get('yltComMName');
+    var comIsReme = $cookies.get('yltComIsReme');
+    var comPass = $cookies.get('yltComPass');
+
+    console.log("comMName:"+comMName);
+
+    if(comMName==undefined){
+      comMName = '';
+    }
+    if(comPass==undefined){
+      comPass = '';
+    }
+    if(comIsReme==undefined){
+      comIsReme = 'false';
+      comPass = '';
+    }else{
+      if(comIsReme=='false'){
+        comPass = '';
+      }
+    }
+
+    $scope.company = {
+      memberName:comMName,
+      password:comPass,
+      isRemember:comIsReme=='true'
+    }
+
+    $cookies.remove('yltUser');
+
+    $scope.loginUser = $cookies.getObject('yltUser');
+    // console.log();
+
+
+  }
+
+
+
+  $scope.onLoginCompany = function ($valid) {
+    if($valid.companyMemberName.$invalid){
+      console.log('用户名空');
+
+      return;
+    }
+
+    if($valid.companyPassword.$invalid){
+      console.log('密码空');
+
+      return;
+    }
+
+
+
+    interfaceService.companyLogin($scope.company,function (data,headers,config) {
+      console.log(JSON.stringify(data));
+      if(data.rescode == rescode.SUCCESS){
+        $scope.loginUser = data.data;
+
+        $cookies.put('yltComMName',$scope.company.memberName);
+        if($scope.company.isRemember){
+          $cookies.put('yltComIsReme','true');
+          $cookies.put('yltComPass',$scope.company.password);
+        }else{
+          $cookies.put('yltComIsReme','false');
+          $cookies.remove('yltComPass');
+        }
+        $cookies.putObject('yltUser',$scope.loginUser);
+        // $cookies.put('yltRole',$scope.companyLoginResult.role);
+        // $cookies.put('yltCompanyName',$scope.companyLoginResult.companyName);
+        // $cookies.put('yltMemberName',$scope.companyLoginResult.memberName);
+        // $cookies.put('yltToken',$scope.companyLoginResult.token);
+        // $cookies.put('yltEmail',$scope.companyLoginResult.email);
+        // $cookies.put('yltMobilePhone',$scope.companyLoginResult.mobilePhone);
+
+
+      }
+    });
+
+    // document.cookie = "yonglongRole="+role;
+    // if(role=='company'){
+    //   window.location.href = 'shell.html#!/main/companyinner/create_order';
+    // }else if(role=='user'){
+    //   window.location.href = 'shell.html#!/main/userinner/wanner_order';
+    // }
+  }
+
+  initCompanyForm();
 
 }]);
 

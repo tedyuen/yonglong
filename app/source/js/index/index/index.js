@@ -20,9 +20,7 @@ var goRegister = function (role) {
 
 }
 
-$('.login-company').on('click',function () {
-  goLogin('company');
-});
+
 $('.login-user').on('click',function () {
   goLogin('user');
 });
@@ -129,7 +127,8 @@ $("#loginTab").find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 });
 
 require('angular');
-var ylIndex = angular.module("myApp",[]);
+require('angular-cookies');
+var ylIndex = angular.module("myApp",["ngCookies"]);
 var Mock = require('mockjs');
 
 

@@ -19,7 +19,9 @@
 
 </head>
 <body id="index" ng-controller="indexController">
-
+<div class="preloader">
+  <div class="cssload-speeding-wheel"></div>
+</div>
 <div class="carousel slide" data-ride="carousel">
 
   <!-- Wrapper for slides -->
@@ -128,28 +130,33 @@
             <!-- Tab panes -->
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="home">
-
-                <form role="form">
+                <form role="form" novalidate="novalidate" name="companyForm" ng-show="loginUser==undefined">
                   <div class="form-group">
                     <div class="input-icon user-icon"></div>
-                    <input type="email" class="form-control" placeholder="邮箱帐号或手机号">
+                    <input type="text" class="form-control" placeholder="帐号" name="companyMemberName" ng-model="company.memberName" required>
                   </div>
                   <div class="form-group">
                     <div class="input-icon pwd-icon"></div>
-                    <input type="email" class="form-control" placeholder="密码">
+                    <input type="password" class="form-control" placeholder="密码" name="companyPassword" ng-model="company.password" required>
                   </div>
 
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox"> 记住我的密码
+                      <input type="checkbox" ng-model="company.isRemember"> 记住我的密码
                     </label>
 
                     <label class="pull-right" style="padding: 0;" ng-click="forgetPassCompany()">忘记密码</label>
                   </div>
-                  <a class="login-company" href="javascript:void(0);"><img src="images/index/btn-login.png" class="img-rounded" style="margin-left: -5px;"/></a>
+                  <a ng-click="onLoginCompany(companyForm)" href="javascript:void(0);"><img src="images/index/btn-login.png" class="img-rounded" style="margin-left: -5px;"/></a>
                   <a class="register-company" href="javascript:void(0);"><img src="images/index/btn-register.png" class="img-rounded pull-right" style="margin-right: -5px;" /></a>
-                  <!--<button type="submit" class="btn btn-default">Submit</button>-->
                 </form>
+
+                <div ng-show="loginUser && loginUser.role=='company'" class="ng-hide">
+                  <div class="row">
+                    <div class="col-sm-12">用户名:{{loginUser.memberName}}</div>
+                    <div class="col-sm-12">公司:{{loginUser.companyName}}</div>
+                  </div>
+                </div>
 
               </div>
               <div role="tabpanel" class="tab-pane" id="profile">

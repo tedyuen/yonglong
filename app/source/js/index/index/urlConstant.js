@@ -5,5 +5,6 @@ ylIndex.constant('URL_CONS', {
   serverUrl:'http://120.26.65.65:8285/adm/api/data',
   serverFileUrl:' http://120.26.65.65:8285/adm/api/file',
 
-  testInterface:'testInterface'
+  testInterface:'testInterface',
+  companyLogin:'company_login',
 });

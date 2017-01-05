@@ -18,8 +18,8 @@ ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpServi
     var _opts = jQuery.extend({
       timeout : 'getError404Timeout'
     },null);
-    _opts.url = URL_CONS.serverUrl+"/"+sub.method;
-    // _opts.url = url;
+    // _opts.url = URL_CONS.serverUrl+"/"+sub.method;
+    _opts.url = url;
     _opts.method = 'POST';
     _opts.data = request;
     // _opts.params = request;
@@ -60,4 +60,8 @@ ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpServi
     this.doHttpMethod(URL_CONS.testInterface,params,success,error);
   }
 
+  // 11.1 登录
+  this.companyLogin = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyLogin,params,success,error);
+  }
 }]);
