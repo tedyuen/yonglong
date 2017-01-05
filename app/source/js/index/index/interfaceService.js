@@ -64,4 +64,9 @@ ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpServi
   this.companyLogin = function (params,success,error) {
     this.doHttpMethod(URL_CONS.companyLogin,params,success,error);
   }
+  // B11.1 登录
+  this.userLogin = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userLogin,params,success,error);
+  }
+
 }]);

@@ -21,9 +21,6 @@ var goRegister = function (role) {
 }
 
 
-$('.login-user').on('click',function () {
-  goLogin('user');
-});
 $('.register-company').on('click',function () {
   goRegister('company');
 });
