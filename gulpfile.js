@@ -152,6 +152,7 @@ var indexCssArr = [
   './app/source/css/node/bootstrap.min.css',
   './app/source/sass/index/css/*.css',
   './app/source/css/pixel/spinners.css',
+  './app/source/css/node/sweetalert.css',
 ];
 
 // index news about css
@@ -195,7 +196,7 @@ var indexJsArr = [
   './app/source/js/index/index/urlConstant.js',
   './app/source/js/index/index/interfaceService.js',
   './app/source/js/index/index/indexController.js',
-  './app/source/js/index/test/mockjs.js',
+  // './app/source/js/index/test/mockjs.js',
 
 ];
 gulp.task('indexJs',function(){

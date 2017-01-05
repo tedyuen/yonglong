@@ -59,7 +59,6 @@ ylIndex.controller('indexController',['$scope','$cookies','interfaceService','re
     var userIsReme = $cookies.get('yltUserIsReme');
     var userPass = $cookies.get('yltUserPass');
 
-
     if(userMName==undefined){
       userMName = '';
     }
@@ -82,6 +81,14 @@ ylIndex.controller('indexController',['$scope','$cookies','interfaceService','re
     }
   }
 
+  var doSwal = function (code) {
+    if(code == rescode.UNKNOW_USER){
+      swal('错误','帐号不存在','warning');
+    }else if(code == rescode.ERROR_PASSWORD){
+      swal('错误','密码不正确','warning');
+    }
+  }
+
   $scope.goBackground = function () {
     if($scope.loginUser && $scope.loginUser.token){
       if($scope.loginUser.role=='company'){
@@ -100,14 +107,12 @@ ylIndex.controller('indexController',['$scope','$cookies','interfaceService','re
 
   $scope.onLoginCompany = function ($valid) {
     if($valid.companyMemberName.$invalid){
-      console.log('用户名空');
-
+      swal('错误','帐号不能为空','warning');
       return;
     }
 
     if($valid.companyPassword.$invalid){
-      console.log('密码空');
-
+      swal('错误','密码不能为空','warning');
       return;
     }
     interfaceService.companyLogin($scope.company,function (data,headers,config) {
@@ -124,6 +129,8 @@ ylIndex.controller('indexController',['$scope','$cookies','interfaceService','re
           $cookies.remove('yltComPass');
         }
         $cookies.putObject('yltUser',$scope.loginUser);
+      }else{
+        doSwal(data.rescode);
       }
     });
   }
@@ -131,14 +138,12 @@ ylIndex.controller('indexController',['$scope','$cookies','interfaceService','re
   // 承运方登录
   $scope.onLoginUser = function ($valid) {
     if($valid.userMemberName.$invalid){
-      console.log('用户名空');
-
+      swal('错误','帐号不能为空','warning');
       return;
     }
 
     if($valid.userPassword.$invalid){
-      console.log('密码空');
-
+      swal('错误','密码不能为空','warning');
       return;
     }
     interfaceService.userLogin($scope.user,function (data,headers,config) {
@@ -155,6 +160,8 @@ ylIndex.controller('indexController',['$scope','$cookies','interfaceService','re
           $cookies.remove('yltUserPass');
         }
         $cookies.putObject('yltUser',$scope.loginUser);
+      }else{
+        doSwal(data.rescode);
       }
     });
   }
