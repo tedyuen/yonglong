@@ -118,6 +118,26 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','showDat
       }
     }
 
+    $scope.reset = function () {
+      $scope.queryData = {
+        orderSn:'',
+        orderStatus:'',
+        startTime:'',
+        endTime:'',
+        originPort:'',
+        loadingPort:'',
+        shippingDate:'',
+        returnPort:'',
+        orderType:'-1',
+        containerVType:'-1',
+        containerSType:'-1',
+        goodsMemberName:'',
+        busMemberName:'',
+        pageno:1,
+        pagesize:10,
+      }
+    }
+
     httpList();
 
   }]);

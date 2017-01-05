@@ -161,6 +161,24 @@ yonglongApp.controller('userHasgetOrderController',['$scope','$timeout','showDat
       }
     }
 
+    $scope.reset = function () {
+      $scope.queryData = {
+        orderSn:'',
+        startTime:'',
+        endTime:'',
+        originPort:'',
+        loadingPort:'',
+        returnPort:'',
+        orderType:'-1',
+        containerVType:'-1',
+        containerSType:'-1',
+        goodsMemberName:'',
+        busMemberName:'',
+        pageno:1,
+        pagesize:20,
+      }
+    }
+
     httpList();
 
   }]);

@@ -213,6 +213,7 @@
               <span ng-if="theForm.$invalid">请先完成表单</span>
               <span ng-if="theForm.$valid">创建订单</span>
             </button>
+            <button type="button" ng-click="reset(theForm)" class="btn waves-effect waves-light btn-success">清空表单</button>
           </div>
         </form>
         <!--<pre>{{theForm | json}}</pre>-->

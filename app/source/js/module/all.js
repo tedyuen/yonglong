@@ -375,6 +375,14 @@ yonglongApp.controller('userAllReportController',['$scope','$timeout','showDateP
       }
     }
 
+    $scope.reset = function () {
+      $scope.queryData = {
+        startTime:'',
+        endTime:'',
+        owner:false,
+        sender:'',
+      }
+    }
 
     httpList();
   }]);
@@ -797,6 +805,24 @@ yonglongApp.controller('userHasgetOrderController',['$scope','$timeout','showDat
       }
     }
 
+    $scope.reset = function () {
+      $scope.queryData = {
+        orderSn:'',
+        startTime:'',
+        endTime:'',
+        originPort:'',
+        loadingPort:'',
+        returnPort:'',
+        orderType:'-1',
+        containerVType:'-1',
+        containerSType:'-1',
+        goodsMemberName:'',
+        busMemberName:'',
+        pageno:1,
+        pagesize:20,
+      }
+    }
+
     httpList();
 
   }]);
@@ -966,6 +992,24 @@ yonglongApp.controller('userHasgetOrderController2',['$scope','$timeout','showDa
       if($scope.detailOrderId){
         var link = 'table.html#!?id='+$scope.detailOrderId;
         window.open(link);
+      }
+    }
+
+    $scope.reset = function () {
+      $scope.queryData = {
+        orderSn:'',
+        startTime:'',
+        endTime:'',
+        originPort:'',
+        loadingPort:'',
+        returnPort:'',
+        orderType:'-1',
+        containerVType:'-1',
+        containerSType:'-1',
+        goodsMemberName:'',
+        busMemberName:'',
+        pageno:1,
+        pagesize:20,
       }
     }
 
@@ -1267,6 +1311,26 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','showDat
       }
     }
 
+    $scope.reset = function () {
+      $scope.queryData = {
+        orderSn:'',
+        orderStatus:'',
+        startTime:'',
+        endTime:'',
+        originPort:'',
+        loadingPort:'',
+        shippingDate:'',
+        returnPort:'',
+        orderType:'-1',
+        containerVType:'-1',
+        containerSType:'-1',
+        goodsMemberName:'',
+        busMemberName:'',
+        pageno:1,
+        pagesize:10,
+      }
+    }
+
     httpList();
 
   }]);
@@ -1538,6 +1602,31 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','sh
   $scope.mapLoaded = function(map) {
     console.log(map);
   };
+
+  $scope.reset = function (theForm) {
+    $scope.orderDetail ={
+      shippingName:'',
+      shippingDate:'',
+      originPort:'',
+      loadingPort:'',
+      returnPort:'',
+      transitPort:'',
+      destPort:'',
+      orderType:'0',
+      containerVType:'0',
+      containerSType:'0',
+      containerVol:0,
+      grossWeight:0,
+      note:'',
+      shippingFee:'',
+      extraFee:'',
+      referenceShippingFee:'',
+      shippingSn:''
+    }
+
+    theForm.$setPristine();
+    theForm.$setUntouched();
+  }
 
   $timeout(function() {
     $scope.mapOptions.center.longitude = 121.500885;
@@ -2006,6 +2095,24 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
       }
     }
 
+    $scope.reset = function () {
+      $scope.queryData = {
+        orderSn:'',
+        startTime:'',
+        endTime:'',
+        originPort:'',
+        loadingPort:'',
+        returnPort:'',
+        orderType:'-1',
+        containerVType:'-1',
+        containerSType:'-1',
+        goodsMemberName:'',
+        busMemberName:'',
+        pageno:1,
+        pagesize:20,
+      }
+    }
+
     httpList();
 
   }]);
@@ -2158,6 +2265,26 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
       }
     }
 
+    $scope.reset = function () {
+      $scope.queryData = {
+        goodsMemberId: 67,
+        startTime:'',
+        endTime:'',
+        orderSn:'',
+        shippingDate:'',
+        originPort:'',
+        loadingPort:'',
+        returnPort:'',
+        orderType:'-1',
+        containerVType:'-1',
+        containerSType:'-1',
+        goodsMemberName:'',
+        busMemberName:'',
+        pageno:1,
+        pagesize:10,
+      }
+    }
+
     httpList();
 
 }]);
@@ -2191,6 +2318,15 @@ yonglongApp.controller('receiveReportController',['$scope','$timeout','showDateP
         httpList();
       }else{
 
+      }
+    }
+
+    $scope.reset = function () {
+      $scope.queryData = {
+        startTime:'',
+        endTime:'',
+        owner:false,
+        sender:'',
       }
     }
 
@@ -2283,6 +2419,15 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePick
         httpList();
       }else{
 
+      }
+    }
+
+    $scope.reset = function () {
+      $scope.queryData = {
+        startTime:'',
+        endTime:'',
+        owner:true,
+        sender:'',
       }
     }
 
@@ -2489,6 +2634,26 @@ yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePic
       if($scope.detailOrderId){
         var link = 'table.html#!?id='+$scope.detailOrderId;
         window.open(link);
+      }
+    }
+
+    $scope.reset = function () {
+      $scope.queryData = {
+        orderSn:'',
+        orderStatus:'',
+        startTime:'',
+        endTime:'',
+        originPort:'',
+        loadingPort:'',
+        shippingDate:'',
+        returnPort:'',
+        orderType:'-1',
+        containerVType:'-1',
+        containerSType:'-1',
+        goodsMemberName:'',
+        busMemberName:'',
+        pageno:1,
+        pagesize:10,
       }
     }
 

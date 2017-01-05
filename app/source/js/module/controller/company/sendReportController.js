@@ -30,6 +30,15 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePick
       }
     }
 
+    $scope.reset = function () {
+      $scope.queryData = {
+        startTime:'',
+        endTime:'',
+        owner:true,
+        sender:'',
+      }
+    }
+
 
     httpList();
 }]);

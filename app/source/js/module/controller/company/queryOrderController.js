@@ -146,6 +146,26 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
       }
     }
 
+    $scope.reset = function () {
+      $scope.queryData = {
+        goodsMemberId: 67,
+        startTime:'',
+        endTime:'',
+        orderSn:'',
+        shippingDate:'',
+        originPort:'',
+        loadingPort:'',
+        returnPort:'',
+        orderType:'-1',
+        containerVType:'-1',
+        containerSType:'-1',
+        goodsMemberName:'',
+        busMemberName:'',
+        pageno:1,
+        pagesize:10,
+      }
+    }
+
     httpList();
 
 }]);

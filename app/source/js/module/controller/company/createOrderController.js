@@ -98,6 +98,31 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','sh
     console.log(map);
   };
 
+  $scope.reset = function (theForm) {
+    $scope.orderDetail ={
+      shippingName:'',
+      shippingDate:'',
+      originPort:'',
+      loadingPort:'',
+      returnPort:'',
+      transitPort:'',
+      destPort:'',
+      orderType:'0',
+      containerVType:'0',
+      containerSType:'0',
+      containerVol:0,
+      grossWeight:0,
+      note:'',
+      shippingFee:'',
+      extraFee:'',
+      referenceShippingFee:'',
+      shippingSn:''
+    }
+
+    theForm.$setPristine();
+    theForm.$setUntouched();
+  }
+
   $timeout(function() {
     $scope.mapOptions.center.longitude = 121.500885;
     $scope.mapOptions.center.latitude = 31.190032;
