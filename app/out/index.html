@@ -253,69 +253,23 @@
     </button>
   </div>
   <div class="row">
-    <div class="col-sm-6 col-md-3">
+    <div class="col-sm-6 col-md-3" ng-repeat="result in articleResults.dataList">
       <div class="thumbnail">
-        <img src="images/index/big01.png"/>
+        <img src="{{result.thumbImg}}"/>
 
         <div class="caption">
-          <h6>2016-09-23</h6>
+          <h6>{{result.createTimeStr}}</h6>
 
-          <p class="p-title">万海一集装箱船航行途中发生危险货物爆炸</p>
+          <p class="p-title">{{result.title}}</p>
           <hr/>
-          <p class="p-content">9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运</p>
+          <p class="p-content">{{result.note}}</p>
 
-          <p class="text-right"><a href="#" role="button">详情<span class="btn-icon btn-icon-img"></span></a></p>
+          <p class="text-right"><a href="result.linkurl" target="_blank" role="button">详情<span class="btn-icon btn-icon-img"></span></a></p>
         </div>
       </div>
     </div>
 
-    <div class="col-sm-6 col-md-3">
-      <div class="thumbnail">
-        <img src="images/index/big02.png"/>
 
-        <div class="caption">
-          <h6>2016-09-23</h6>
-
-          <p class="p-title">万海一集装箱船航行途中发生危险货物爆炸</p>
-          <hr/>
-          <p class="p-content">9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运</p>
-
-          <p class="text-right"><a href="#" role="button">详情<span class="btn-icon btn-icon-img"></span></a></p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-6 col-md-3">
-      <div class="thumbnail">
-        <img src="images/index/big03.png"/>
-
-        <div class="caption">
-          <h6>2016-09-23</h6>
-
-          <p class="p-title">万海一集装箱船航行途中发生危险货物爆炸</p>
-          <hr/>
-          <p class="p-content">9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运</p>
-
-          <p class="text-right"><a href="#" role="button">详情<span class="btn-icon btn-icon-img"></span></a></p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-6 col-md-3">
-      <div class="thumbnail">
-        <img src="images/index/big04.png"/>
-
-        <div class="caption">
-          <h6>2016-09-23</h6>
-
-          <p class="p-title">万海一集装箱船航行途中发生危险货物爆炸</p>
-          <hr/>
-          <p class="p-content">9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运9月19日09:55左右,台湾第三大班轮公司万海航运</p>
-
-          <p class="text-right"><a href="#" role="button">详情<span class="btn-icon btn-icon-img"></span></a></p>
-        </div>
-      </div>
-    </div>
   </div>
 
 </div>

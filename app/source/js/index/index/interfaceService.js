@@ -69,4 +69,9 @@ ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpServi
     this.doHttpMethod(URL_CONS.userLogin,params,success,error);
   }
 
+  // 12.2 首页文章
+  this.getArticleIndex = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.getArticleIndex,params,success,error);
+
+  }
 }]);

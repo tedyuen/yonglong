@@ -171,4 +171,21 @@ ylIndex.controller('indexController',['$scope','$cookies','interfaceService','re
   initUserForm();
   $scope.loginUser = $cookies.getObject('yltUser');
 
+
+  var getArticleIndex = function () {
+    var params = {
+      num:4
+    }
+    interfaceService.getArticleIndex(params,function (data,headers,config) {
+      console.log(JSON.stringify(data));
+      if(data.rescode == rescode.SUCCESS){
+        $scope.articleResults = data.data;
+      }else{
+
+      }
+    });
+  }
+
+  getArticleIndex();
+
 }]);

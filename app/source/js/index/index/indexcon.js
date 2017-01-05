@@ -363,6 +363,7 @@ ylIndex.constant('URL_CONS', {
   testInterface:'testInterface',
   companyLogin:'company_login',
   userLogin:'user_login',
+  getArticleIndex:'article_index',
 });
 
 /**
@@ -436,6 +437,11 @@ ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpServi
     this.doHttpMethod(URL_CONS.userLogin,params,success,error);
   }
 
+  // 12.2 首页文章
+  this.getArticleIndex = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.getArticleIndex,params,success,error);
+
+  }
 }]);
 
 ylIndex.controller('indexController',['$scope','$cookies','interfaceService','rescode',function ($scope,$cookies,interfaceService,rescode) {
@@ -610,5 +616,22 @@ ylIndex.controller('indexController',['$scope','$cookies','interfaceService','re
   initCompanyForm();
   initUserForm();
   $scope.loginUser = $cookies.getObject('yltUser');
+
+
+  var getArticleIndex = function () {
+    var params = {
+      num:3
+    }
+    interfaceService.getArticleIndex(params,function (data,headers,config) {
+      console.log(JSON.stringify(data));
+      if(data.rescode == rescode.SUCCESS){
+        $scope.articleResults = data.data;
+      }else{
+
+      }
+    });
+  }
+
+  getArticleIndex();
 
 }]);

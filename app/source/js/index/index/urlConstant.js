@@ -8,4 +8,5 @@ ylIndex.constant('URL_CONS', {
   testInterface:'testInterface',
   companyLogin:'company_login',
   userLogin:'user_login',
+  getArticleIndex:'article_index',
 });
