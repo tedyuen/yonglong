@@ -34,3 +34,8 @@ $listGroupItems.on("click",function(){
     $thisIcon.addClass("finance-selected");
   }
 });
+
+require('sweetalert');
+require('angular');
+require('angular-cookies');
+var ylIndex = angular.module("myApp",["ngCookies"]);
