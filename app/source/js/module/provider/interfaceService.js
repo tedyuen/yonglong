@@ -1,4 +1,5 @@
-yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService',function (httpService,URL_CONS,sessionService) {
+yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService','rescode',
+  function (httpService,URL_CONS,sessionService,rescode) {
 
   this.doHttp = function (url,sub,params,success,error,files) {
     var base = {
@@ -21,11 +22,26 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     _opts.data = request;
     // _opts.params = request;
     _opts.success = function (data,headers,config,status) {
+      if(data.rescode==rescode.ERROR_TOKEN){
+
+        swal({
+          title: "登录失效",
+          text: "您的登录已经失效，请前往重新登录!",
+          type: "error",
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "前往登录!",
+          closeOnConfirm: false
+        },function () {
+          window.location.href = 'index.html';
+        });
+      }
       if(success){
+        // swal('success','success','success');
         success(data,headers,config,status);
       }
     };
     _opts.error = function (data,headers,config,status) {
+      swal('错误','网络请求失败，请重试！','error');
       if(error){
         error(data,headers,config,status);
       }

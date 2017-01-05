@@ -3,4 +3,5 @@ yonglongApp.constant('rescode', {
 
   AGAIN_PHONE:'201002',
   EMPTY_SMS_CODE:'201004',
+  ERROR_TOKEN:'9001',
 })
