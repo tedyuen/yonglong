@@ -3,7 +3,12 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 
   this.doHttp = function (url,sub,params,success,error,files) {
     var base = {
-      token:sessionService.getSession().token
+      // token:sessionService.getSession().token
+    }
+    if(sessionService.getSession() != undefined){
+      base = {
+        token:sessionService.getSession().token
+      }
     }
     jQuery.extend(params,sub);
     jQuery.extend(params,base);
@@ -232,4 +237,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.userDispatchList,params,success,error);
   }
 
+
+  ///  以下是管理员接口
+  // A11.1 登录
+  this.adminLogin = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminLogin,params,success,error);
+  }
 }]);

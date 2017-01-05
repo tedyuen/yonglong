@@ -49,4 +49,8 @@ yonglongApp.constant('URL_CONS', {
 
 
   userDispatchList: 'user_dispatchList',
+
+
+  // 以下是admin接口
+  adminLogin: 'admin_login',
 });

@@ -104,6 +104,9 @@ yonglongApp.constant('rescode', {
   AGAIN_PHONE:'201002',
   EMPTY_SMS_CODE:'201004',
   ERROR_TOKEN:'9001',
+
+  UNKNOW_USER:'201008',//用户不存在
+  ERROR_PASSWORD:'201009',//密码不正确
 })
 
 /**
@@ -157,6 +160,10 @@ yonglongApp.constant('URL_CONS', {
 
 
   userDispatchList: 'user_dispatchList',
+
+
+  // 以下是admin接口
+  adminLogin: 'admin_login',
 });
 
 /**
@@ -2782,6 +2789,79 @@ yonglongApp.controller('withdrawManageController',['$scope','interfaceService','
     httpList();
 }]);
 
+yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies','interfaceService','rescode',
+  function ($scope,$rootScope,$cookies,interfaceService,rescode) {
+
+
+    var initCompanyForm = function () {
+      var adminMName = $cookies.get('yltAdminMName');
+      var adminIsReme = $cookies.get('yltAdminIsReme');
+      var adminPass = $cookies.get('yltAdminPass');
+
+
+      if(adminMName==undefined){
+        adminMName = '';
+      }
+      if(adminPass==undefined){
+        adminPass = '';
+      }
+      if(adminIsReme==undefined){
+        adminIsReme = 'false';
+        adminPass = '';
+      }else{
+        if(adminIsReme=='false'){
+          adminPass = '';
+        }
+      }
+
+      $scope.admin = {
+        memberName:adminMName,
+        password:adminPass,
+        isRemember:adminIsReme=='true'
+      }
+    }
+
+    var doSwal = function (code) {
+      if(code == rescode.UNKNOW_USER){
+        swal('错误','帐号不存在','warning');
+      }else if(code == rescode.ERROR_PASSWORD){
+        swal('错误','密码不正确','warning');
+      }
+    }
+
+    $scope.onLoginAdmin = function ($valid) {
+      if($valid.adminMemberName.$invalid){
+        swal('错误','帐号不能为空','warning');
+        return;
+      }
+
+      if($valid.adminPassword.$invalid){
+        swal('错误','密码不能为空','warning');
+        return;
+      }
+      interfaceService.adminLogin($scope.admin,function (data,headers,config) {
+        console.log(JSON.stringify(data));
+        if(data.rescode == rescode.SUCCESS){
+          $rootScope.loginUser = data.data;
+
+          $cookies.put('yltAdminMName',$scope.admin.memberName);
+          if($scope.admin.isRemember){
+            $cookies.put('yltAdminIsReme','true');
+            $cookies.put('yltAdminPass',$scope.admin.password);
+          }else{
+            $cookies.put('yltAdminIsReme','false');
+            $cookies.remove('yltAdminPass');
+          }
+          $cookies.putObject('yltUser',$rootScope.loginUser);
+        }else{
+          doSwal(data.rescode);
+        }
+      });
+    }
+
+    initCompanyForm();
+}]);
+
 yonglongApp.controller('mainController',['$rootScope','$scope','$cookies','$timeout',function ($rootScope,$scope,$cookies,$timeout) {
   $rootScope.$on('$stateChangeStart',
     function(event, toState, toParams, fromState, fromParams){
@@ -3092,7 +3172,12 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 
   this.doHttp = function (url,sub,params,success,error,files) {
     var base = {
-      token:sessionService.getSession().token
+      // token:sessionService.getSession().token
+    }
+    if(sessionService.getSession() != undefined){
+      base = {
+        token:sessionService.getSession().token
+      }
     }
     jQuery.extend(params,sub);
     jQuery.extend(params,base);
@@ -3321,6 +3406,12 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.userDispatchList,params,success,error);
   }
 
+
+  ///  以下是管理员接口
+  // A11.1 登录
+  this.adminLogin = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminLogin,params,success,error);
+  }
 }]);
 
 yonglongApp.service('logoutService',['$rootScope','$cookies',function ($rootScope,$cookies) {
@@ -3334,12 +3425,16 @@ yonglongApp.service('logoutService',['$rootScope','$cookies',function ($rootScop
 yonglongApp.service('sessionService',['$rootScope',function ($rootScope) {
   this.getSession = function () {
     // console.log("show token:"+eluser.token);
-    console.log("show $rootScope token:"+$rootScope.loginUser.token);
-    var session = {
-      // token:eluser.token
-      token:$rootScope.loginUser.token
+    // console.log("show $rootScope token:"+$rootScope.loginUser.token);
+    if($rootScope.loginUser){
+      var session = {
+        // token:eluser.token
+        token:$rootScope.loginUser.token
+      }
+      return session;
+    }else{
+      return undefined;
     }
-    return session;
   }
 }]);
 
@@ -3481,7 +3576,8 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
   $stateProvider
     .state('login',{//登录页
       url:'/login',
-      templateUrl:'template/login.html'
+      templateUrl:'template/login.html',
+      controller:'adminLoginController'
     })
     .state('register_company',{//发货方注册页
       url:'/register_company',

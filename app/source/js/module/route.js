@@ -9,7 +9,8 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
   $stateProvider
     .state('login',{//登录页
       url:'/login',
-      templateUrl:'template/login.html'
+      templateUrl:'template/login.html',
+      controller:'adminLoginController'
     })
     .state('register_company',{//发货方注册页
       url:'/register_company',
