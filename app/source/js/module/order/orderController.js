@@ -4,8 +4,10 @@
 //     requireBase:false
 //   });
 // }]);
-yonglongApp.controller('orderController',['$scope','$location','interfaceService','rescode',
-  function ($scope,$location,interfaceService,rescode) {
+yonglongApp.controller('orderController',['$scope','$rootScope','$cookies','$location','interfaceService','rescode',
+  function ($scope,$rootScope,$cookies,$location,interfaceService,rescode) {
+
+    $rootScope.loginUser = $cookies.getObject('yltUser');
 
     $scope.testNum = 3000;
     $scope.orderId = $location.search().id;

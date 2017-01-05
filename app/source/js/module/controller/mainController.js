@@ -1,7 +1,4 @@
-/**
- * Created by tedyuen on 16-12-13.
- */
-yonglongApp.controller("mainController",['$rootScope','$scope','$timeout',function ($rootScope,$scope,$timeout) {
+yonglongApp.controller('mainController',['$rootScope','$scope','$cookies','$timeout',function ($rootScope,$scope,$cookies,$timeout) {
   $rootScope.$on('$stateChangeStart',
     function(event, toState, toParams, fromState, fromParams){
       console.info(fromState + "->" + toState, toParams, fromParams);
@@ -12,7 +9,4 @@ yonglongApp.controller("mainController",['$rootScope','$scope','$timeout',functi
     var uiState = new UiState();
     uiState.ready()
   },50);
-
-
-
 }]);

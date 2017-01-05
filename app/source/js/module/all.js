@@ -18,12 +18,13 @@ require('./utils/jquery.counterup.min');
 require('sweetalert');
 
 require('angular');
+require('angular-cookies');
 require('angular-ui-router');
 
 // require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
 
 // var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
-var yonglongApp = angular.module("myApp",['ui.router']);
+var yonglongApp = angular.module("myApp",['ui.router','ngCookies']);
 // yonglongApp.config(['$compileProvider',function ($compileProvider) {
 //   $compileProvider.debugInfoEnabled(false);
 // }]);
@@ -1042,6 +1043,15 @@ yonglongApp.controller('userRegisterController',['$scope','$state','dropifyProvi
 
   }]);
 
+yonglongApp.controller('userRoleController',['$rootScope','$cookies',
+  function ($rootScope,$cookies) {
+    $rootScope.loginUser = $cookies.getObject('yltUser');
+    if($rootScope.loginUser==undefined || $rootScope.loginUser && $rootScope.loginUser.role!='user'){
+      console.log('没有user权限');
+      window.location.href = 'index.html';
+    }
+  }]);
+
 yonglongApp.controller('userUpdateInfoController',['$scope','$state','dropifyProvider','interfaceService','rescode','baseDataService',
   function ($scope,$state,dropifyProvider,interfaceService,rescode,baseDataService) {
     dropifyProvider.dropify();
@@ -1388,6 +1398,15 @@ yonglongApp.controller('accountInfoController',['$scope','countupProvider','inte
     refresh();
   }
 ]);
+
+yonglongApp.controller('companyRoleController',['$rootScope','$cookies',
+  function ($rootScope,$cookies) {
+    $rootScope.loginUser = $cookies.getObject('yltUser');
+    if($rootScope.loginUser==undefined || $rootScope.loginUser && $rootScope.loginUser.role!='company'){
+      console.log('没有company权限');
+      window.location.href = 'index.html';
+    }
+}]);
 
 /**
  * Created by tedyuen on 16-12-13.
@@ -1959,25 +1978,6 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
     httpList();
 
   }]);
-
-/**
- * Created by tedyuen on 16-12-13.
- */
-yonglongApp.controller("mainController",['$rootScope','$scope','$timeout',function ($rootScope,$scope,$timeout) {
-  $rootScope.$on('$stateChangeStart',
-    function(event, toState, toParams, fromState, fromParams){
-      console.info(fromState + "->" + toState, toParams, fromParams);
-    }
-  )
-
-  $timeout(function () {
-    var uiState = new UiState();
-    uiState.ready()
-  },50);
-
-
-
-}]);
 
 /**
  * Created by tedyuen on 16-12-15.
@@ -2586,6 +2586,19 @@ yonglongApp.controller('withdrawManageController',['$scope','interfaceService','
     httpList();
 }]);
 
+yonglongApp.controller('mainController',['$rootScope','$scope','$cookies','$timeout',function ($rootScope,$scope,$cookies,$timeout) {
+  $rootScope.$on('$stateChangeStart',
+    function(event, toState, toParams, fromState, fromParams){
+      console.info(fromState + "->" + toState, toParams, fromParams);
+    }
+  )
+
+  $timeout(function () {
+    var uiState = new UiState();
+    uiState.ready()
+  },50);
+}]);
+
 yonglongApp.service('baseDataService',['diyData',function (diyData) {
 
   this.getOrderType = function () {
@@ -3098,15 +3111,17 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 
 }]);
 
-yonglongApp.service('sessionService',function () {
+yonglongApp.service('sessionService',['$rootScope',function ($rootScope) {
   this.getSession = function () {
-    console.log("show token:"+eluser.token);
+    // console.log("show token:"+eluser.token);
+    console.log("show $rootScope token:"+$rootScope.loginUser.token);
     var session = {
-      token:eluser.token
+      // token:eluser.token
+      token:$rootScope.loginUser.token
     }
     return session;
   }
-});
+}]);
 
 /**
  * Created by tedyuen on 16-12-13.
@@ -3239,8 +3254,9 @@ yonglongApp.directive('terms',function () {
  * Created by tedyuen on 16-12-8.
  */
 yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
-  // $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
-  $urlRouterProvider.when('','/main/userinner/wanner_order').otherwise('/main/userinner/wanner_order');
+
+  $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
+  // $urlRouterProvider.when('','/main/userinner/wanner_order').otherwise('/main/userinner/wanner_order');
   // $urlRouterProvider.when('','/register_user').otherwise('/register_user');
   $stateProvider
     .state('login',{//登录页
@@ -3261,6 +3277,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
     .state('main',{//主页
       url:'/main',
       templateUrl:'template/main.html',
+      controller:'mainController'
     });
 
   // 承运方路由
@@ -3273,7 +3290,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'sidebar': {
           templateUrl: 'template/sidebar_userinner.html',
-          controller: 'mainController'
+          controller: 'userRoleController'
         },
         'footer': {
           templateUrl: 'template/footer.html'
@@ -3395,7 +3412,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'sidebar': {
           templateUrl: 'template/sidebar_companyinner.html',
-          controller: 'mainController'
+          controller: 'companyRoleController'
         },
         'footer': {
           templateUrl: 'template/footer.html'

@@ -2,8 +2,9 @@
  * Created by tedyuen on 16-12-8.
  */
 yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
-  // $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
-  $urlRouterProvider.when('','/main/userinner/wanner_order').otherwise('/main/userinner/wanner_order');
+
+  $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
+  // $urlRouterProvider.when('','/main/userinner/wanner_order').otherwise('/main/userinner/wanner_order');
   // $urlRouterProvider.when('','/register_user').otherwise('/register_user');
   $stateProvider
     .state('login',{//登录页
@@ -24,6 +25,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
     .state('main',{//主页
       url:'/main',
       templateUrl:'template/main.html',
+      controller:'mainController'
     });
 
   // 承运方路由
@@ -36,7 +38,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'sidebar': {
           templateUrl: 'template/sidebar_userinner.html',
-          controller: 'mainController'
+          controller: 'userRoleController'
         },
         'footer': {
           templateUrl: 'template/footer.html'
@@ -158,7 +160,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'sidebar': {
           templateUrl: 'template/sidebar_companyinner.html',
-          controller: 'mainController'
+          controller: 'companyRoleController'
         },
         'footer': {
           templateUrl: 'template/footer.html'

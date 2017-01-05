@@ -18,12 +18,13 @@ require('./utils/jquery.counterup.min');
 require('sweetalert');
 
 require('angular');
+require('angular-cookies');
 require('angular-ui-router');
 
 // require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
 
 // var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
-var yonglongApp = angular.module("myApp",['ui.router']);
+var yonglongApp = angular.module("myApp",['ui.router','ngCookies']);
 // yonglongApp.config(['$compileProvider',function ($compileProvider) {
 //   $compileProvider.debugInfoEnabled(false);
 // }]);

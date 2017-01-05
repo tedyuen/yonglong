@@ -3,8 +3,9 @@
  */
 global.$ = global.jQuery = require('jquery');
 require('angular');
+require('angular-cookies');
 
-var yonglongApp = angular.module("orderApp",[]);
+var yonglongApp = angular.module("orderApp",['ngCookies']);
 
 
 yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $timeout, $q) {
@@ -211,15 +212,17 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $ti
   };
 }]);
 
-yonglongApp.service('sessionService',function () {
+yonglongApp.service('sessionService',['$rootScope',function ($rootScope) {
   this.getSession = function () {
-    console.log("show token:"+eluser.token);
+    // console.log("show token:"+eluser.token);
+    console.log("show $rootScope token:"+$rootScope.loginUser.token);
     var session = {
-      token:eluser.token
+      // token:eluser.token
+      token:$rootScope.loginUser.token
     }
     return session;
   }
-});
+}]);
 
 yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService',function (httpService,URL_CONS,sessionService) {
 
@@ -686,8 +689,10 @@ yonglongApp.filter('orderStatusText',function () {
 //     requireBase:false
 //   });
 // }]);
-yonglongApp.controller('orderController',['$scope','$location','interfaceService','rescode',
-  function ($scope,$location,interfaceService,rescode) {
+yonglongApp.controller('orderController',['$scope','$rootScope','$cookies','$location','interfaceService','rescode',
+  function ($scope,$rootScope,$cookies,$location,interfaceService,rescode) {
+
+    $rootScope.loginUser = $cookies.getObject('yltUser');
 
     $scope.testNum = 3000;
     $scope.orderId = $location.search().id;

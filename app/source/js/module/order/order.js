@@ -3,6 +3,7 @@
  */
 global.$ = global.jQuery = require('jquery');
 require('angular');
+require('angular-cookies');
 
-var yonglongApp = angular.module("orderApp",[]);
+var yonglongApp = angular.module("orderApp",['ngCookies']);
 
