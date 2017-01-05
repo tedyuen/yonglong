@@ -252,10 +252,10 @@
       <span class="btn-icon btn-icon-img"></span>
     </button>
   </div>
-  <div class="row">
+  <div class="row" >
     <div class="col-sm-6 col-md-3" ng-repeat="result in articleResults.dataList">
       <div class="thumbnail">
-        <img src="{{result.thumbImg}}"/>
+        <img ng-src="{{result.thumbImg}}"/>
 
         <div class="caption">
           <h6>{{result.createTimeStr}}</h6>

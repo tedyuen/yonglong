@@ -620,7 +620,7 @@ ylIndex.controller('indexController',['$scope','$cookies','interfaceService','re
 
   var getArticleIndex = function () {
     var params = {
-      num:3
+      num:4
     }
     interfaceService.getArticleIndex(params,function (data,headers,config) {
       console.log(JSON.stringify(data));
