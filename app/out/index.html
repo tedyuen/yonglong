@@ -133,7 +133,7 @@
             <!-- Tab panes -->
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="home">
-                <form role="form" novalidate="novalidate" name="companyForm" ng-show="loginUser==undefined || (loginUser && loginUser.role!='company')">
+                <form role="form" ng-submit="onLoginCompany(companyForm)" novalidate="novalidate" name="companyForm" ng-show="loginUser==undefined || (loginUser && loginUser.role!='company')">
                   <div class="form-group">
                     <div class="input-icon user-icon"></div>
                     <input type="text" class="form-control" placeholder="帐号" name="companyMemberName" ng-model="company.memberName" required>
@@ -150,6 +150,7 @@
 
                     <label class="pull-right" style="padding: 0;" ng-click="forgetPassCompany()">忘记密码</label>
                   </div>
+                  <button type="submit" class="ng-hide"></button>
                   <a ng-click="onLoginCompany(companyForm)" href="javascript:void(0);"><img src="images/index/btn-login.png" class="img-rounded" style="margin-left: -5px;"/></a>
                   <a class="register-company" href="javascript:void(0);"><img src="images/index/btn-register.png" class="img-rounded pull-right" style="margin-right: -5px;" /></a>
                 </form>
@@ -168,7 +169,7 @@
               </div>
               <div role="tabpanel" class="tab-pane" id="profile">
 
-                <form role="form" novalidate="novalidate" name="userForm" ng-show="loginUser==undefined || (loginUser && loginUser.role!='user')">
+                <form role="form" ng-submit="onLoginUser(userForm)" novalidate="novalidate" name="userForm" ng-show="loginUser==undefined || (loginUser && loginUser.role!='user')">
                   <div class="form-group">
                     <div class="input-icon user-icon"></div>
                     <input type="text" class="form-control" name="userMemberName" placeholder="帐号" ng-model="user.memberName"  required>
@@ -185,6 +186,7 @@
 
                     <label class="pull-right" style="padding: 0;" ng-click="forgetPassCompany()">忘记密码</label>
                   </div>
+                  <button type="submit" class="ng-hide"></button>
                   <a ng-click="onLoginUser(userForm)"  href="javascript:void(0);"><img src="images/index/btn-login.png" class="img-rounded " style="margin-left: -5px;"/></a>
                   <a class="register-user" href="javascript:void(0);"><img src="images/index/btn-register.png" class="img-rounded pull-right" style="margin-right: -5px;" /></a>
                   <!--<button type="submit" class="btn btn-default">Submit</button>-->
