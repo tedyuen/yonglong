@@ -248,4 +248,13 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.adminGetOrderList = function (params,success,error) {
     this.doHttpMethod(URL_CONS.adminGetOrderList,params,success,error);
   }
+
+  // A3.1 提现列表
+  this.adminListSysRefund = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminListSysRefund,params,success,error);
+  }
+  // A3.2 提现通过审核
+  this.adminAuditSysRefund = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminAuditSysRefund,params,success,error);
+  }
 }]);

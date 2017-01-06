@@ -7,6 +7,7 @@ yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies',
       var adminIsReme = $cookies.get('yltAdminIsReme');
       var adminPass = $cookies.get('yltAdminPass');
 
+      console.log(adminMName);
 
       if(adminMName==undefined){
         adminMName = '';

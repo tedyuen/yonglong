@@ -31,17 +31,6 @@ yonglongApp.filter('memberType',function () {
   }
 });
 
-yonglongApp.filter('atmStatus',function () {
-  return function (str) {
-    if(str=='1'){
-      return '审核通过';
-    }else{
-      return '审核中';
-    }
-  }
-});
-
-
 
 yonglongApp.filter('emptyText',function () {
   return function (str) {
