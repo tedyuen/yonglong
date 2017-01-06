@@ -243,4 +243,9 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.adminLogin = function (params,success,error) {
     this.doHttpMethod(URL_CONS.adminLogin,params,success,error);
   }
+
+  // A1.1 订单列表
+  this.adminGetOrderList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminGetOrderList,params,success,error);
+  }
 }]);

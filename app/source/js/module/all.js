@@ -164,6 +164,7 @@ yonglongApp.constant('URL_CONS', {
 
   // 以下是admin接口
   adminLogin: 'admin_login',
+  adminGetOrderList: 'admin_getOrderList',
 });
 
 /**
@@ -198,6 +199,28 @@ yonglongApp.filter('friendType',function () {
     }
   }
 });
+
+yonglongApp.filter('memberType',function () {
+  return function (str) {
+    if(str=='0'){
+      return '货主'
+    }else if(str=='1'){
+      return '车主'
+    }
+  }
+});
+
+yonglongApp.filter('atmStatus',function () {
+  return function (str) {
+    if(str=='1'){
+      return '审核通过';
+    }else{
+      return '审核中';
+    }
+  }
+});
+
+
 
 yonglongApp.filter('emptyText',function () {
   return function (str) {
@@ -313,6 +336,593 @@ yonglongApp.filter('orderStatusText',function () {
         break;
     }
     return _bv;
+  }
+});
+
+yonglongApp.service('baseDataService',['diyData',function (diyData) {
+
+  this.getOrderType = function () {
+    return diyData.orderType;
+  }
+
+  this.getOrderTypeN = function () {
+    return diyData.orderTypeN;
+  }
+
+  this.getBoxVol = function () {
+    return diyData.boxVol;
+  }
+
+  this.getBoxType = function () {
+    return diyData.boxType;
+  }
+
+  this.getBoxVolN = function () {
+    return diyData.boxVolN;
+  }
+
+  this.getBoxTypeN = function () {
+    return diyData.boxTypeN;
+  }
+
+
+
+  this.getPayStatusText = function (value) {
+    if(value=='0'){
+      return '未付款';
+    }else if(value=='1'){
+      return '已付款';
+    }
+  }
+}]);
+
+yonglongApp.provider('countupProvider',function () {
+  this.$get = function () {
+    return {
+      countup:function () {
+        console.log('countup');
+        // jQuery(".counter").counterUp({
+        //   delay: 100,
+        //   time: 1200
+        // });
+      }
+    }
+  }
+});
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.provider('dropifyProvider',function () {
+  this.$get = function () {
+    return {
+      dropify:function () {
+        console.log('dropify');
+        var drEvent = jQuery('.dropify').dropify({
+          messages: {
+            default: '拖拽图片或点击添加',
+            replace: '拖拽图片或点击替换',
+            remove:  '删除',
+            error: {
+              'fileSize': '文件不能大于{{ value }}',
+              'imageFormat': '文件格式不正确'
+            }
+          }
+        });
+
+        // drEvent.on('dropify.beforeClear', function(event, element){
+        //   return confirm("确定要删除 \"" + element.file.name + "\" 吗?");
+        // });
+        //
+        // drEvent.on('dropify.afterClear', function(event, element){
+        //   alert('删除成功');
+        // });
+        //
+        // drEvent.on('dropify.errors', function(event, element){
+        //   console.log('出错了！');
+        // });
+
+      }
+    }
+  }
+});
+
+yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $timeout, $q) {
+  // 默认参数
+  var _httpDefaultOpts = {
+    method: 'POST', // GET/DELETE/HEAD/JSONP/POST/PUT
+    url: '',
+    params: {}, // 拼接在url的参数
+    data: {},
+    cache: false, // boolean or Cache object
+    limit: true, //是否节流
+    timeout : "httpTimeout", // 节流变量名
+    timeoutTime : 100,
+    isErrMsg: false,// 错误提示
+    isErrMsgFn : null,// 错误提示函数
+    checkCode: true, // 是否校验code
+    before: function(){}, // ajax 执行开始 执行函数
+    end: function(){}, // ajax 执行结束 执行函数
+    error: function(){}, // ajax 执行失败 执行函数
+    success: function(data){}, // ajax 执行成功 执行函数
+    checkCodeError : function(code, errMsg, data){} // ajax 校验code失败 执行函数
+  };
+
+  var _httpTimeoutArray = {"httpTimeout" : null};//ajax节流使用的定时器 集合
+
+  var _isErrMsgFn = function (opts) {
+    if (angular.isFunction(opts.isErrMsgFn)) {
+      opts.isErrMsgFn();
+    } else {
+      // alert("抱歉！因为操作不能够及时响应，请稍后在试...");
+      console.log('因为操作不能够及时响应，请稍后在试...');
+    }
+  };
+
+  // http请求之前执行函数
+  var _httpBefore = function (opts) {
+    if (angular.isFunction(opts.before)) {
+      opts.before();
+    }
+  };
+
+  // http请求之后执行函数
+  var _httpEnd = function (opts) {
+    if (angular.isFunction(opts.end)) {
+      opts.end();
+    }
+    if(opts.limit){
+      $timeout.cancel(_httpTimeoutArray[opts.timeout]);
+    }
+  };
+
+  // 响应错误判断
+  var _responseError = function (data, opts) {
+    // public.js
+    return checkCode(data, opts);
+  };
+
+  // http 请求执行过程封装    deferred ：http 链式请求延迟对象
+  var _httpMin = function (opts, deferred) {
+    _httpBefore(opts);
+
+    var formData = new FormData();
+    formData.append('json',JSON.stringify(opts.data.json));
+    if(opts.data.files){
+      if(angular.isArray(opts.data.files)){
+        angular.forEach(opts.data.files,function (file) {
+          // console.log("==>file last:  "+file.name+":"+file.file);
+          formData.append(file.name,file.file);
+        })
+      }
+    }
+
+    $http({
+      method: opts.method,
+      url: opts.url,
+      params: opts.params,
+      data: formData,
+      headers: {'Content-Type': function () {
+        return undefined;
+      }},
+      transformRequest: angular.identity
+    }).then(function onSuccess(response) {
+      // 权限，超时等控制
+      if( opts.checkCode && !_responseError(response.data, opts) ) {
+        return false;
+      }
+      // 请求成功回调函数
+      if(opts.success) {
+        opts.success(response.data,response.config.headers,response.config,response.status);
+      }
+      if (deferred) {
+        deferred.resolve(response.data,response.config.headers,response.config,response.status);  //任务被成功执行
+      }
+      _httpEnd(opts);
+    }).catch(function onError(response) {//处理响应失败
+        // Handle error
+      if(opts.isErrMsg){
+        _isErrMsgFn();
+      }
+
+      opts.error(response.data,response.config.headers,response.config,response.status);
+
+      if (deferred) {
+        deferred.reject(response.data,response.config.headers,response.config,response.status); //任务未被成功执行
+      }
+
+      _httpEnd(opts);
+    });
+  };
+
+  // http请求，内含节流等控制
+  var _http = function (opts, deferred) {
+    opts = jQuery.extend({}, _httpDefaultOpts, opts);
+    var result;
+    if (opts.limit) {
+      $timeout.cancel(_httpTimeoutArray[opts.timeout]);
+      _httpTimeoutArray[opts.timeout] = $timeout(function () {
+        result = _httpMin(opts, deferred);
+      }, opts.timeoutTime);
+    } else {
+      result = _httpMin(opts, deferred);
+    }
+  };
+
+  // http 链式请求
+  var _linkHttpMin = function (opts, deferred) {
+    _http(opts, deferred);
+  };
+
+
+  //
+  /**
+   * 判断 code
+   * @param data
+   */
+  var checkCode = function(data, opts){
+    return true;
+    // var _data ;
+    // var _isCode = true;
+    // if(isEmpty(data)){
+    //   _isCode = false;
+    // } else {
+    //   if( typeof data == "string" ){
+    //     if(data.indexOf("code") > -1){
+    //       _data = jQuery.parseJSON(data);
+    //     }else{
+    //       _isCode = false;
+    //     }
+    //   }else{
+    //     _data = data;
+    //   }
+    // }
+    // if( _isCode && isNotEmpty(_data.code) ){
+    //   if( _data.code == CODESTATUS.IS_NOT_LOGIN || _data.code == CODESTATUS.SESSION_TIME_OUT){// 会话超时
+    //     // 超时处理
+    //     console.log("超时或未登录");
+    //     window.location.href = _data.value;
+    //     return false;
+    //   } else if( _data.code == CODESTATUS.IS_ERROR ){
+    //     console.log("连接错误，请稍等!");
+    //     if(opts.checkCodeError){
+    //       opts.checkCodeError( _data.code, "连接错误，请稍等!", _data);
+    //     }
+    //     return false;
+    //   } else if( _data.code == CODESTATUS.USER_AUTH_FAIL ){
+    //     console.log("用户认证失败!");
+    //     if(opts.checkCodeError){
+    //       opts.checkCodeError( _data.code, "用户认证失败!", _data);
+    //     }
+    //     return false;
+    //   } else if( _data.code == CODESTATUS.PARAM_IS_ERROR ){
+    //     console.log("无效的请求参数");
+    //     if(opts.checkCodeError){
+    //       opts.checkCodeError( _data.code, "无效的请求参数!", _data);
+    //     }
+    //     return false;
+    //   }
+    // }
+    // return true;
+  }
+  //
+
+
+
+  return {
+    /**
+     * http请求
+     * @param opts
+     */
+    http: function (opts) {
+      _http(opts);
+    },
+    /**
+     * http链式请求
+     * @param opts
+     * @param deferred
+     * @returns {deferred.promise|{then, catch, finally}}
+     */
+    linkHttp : function (opts, deferred) {
+      deferred = deferred || $q.defer();
+      _linkHttpMin(opts, deferred);
+      return deferred.promise;
+    }
+  };
+}]);
+
+yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService','rescode',
+  function (httpService,URL_CONS,sessionService,rescode) {
+
+  this.doHttp = function (url,sub,params,success,error,files) {
+    var base = {
+      // token:sessionService.getSession().token
+    }
+    if(sessionService.getSession() != undefined){
+      base = {
+        token:sessionService.getSession().token
+      }
+    }
+    jQuery.extend(params,sub);
+    jQuery.extend(params,base);
+    // console.log(JSON.stringify(params));
+    var request = {
+      json:params,
+      files:files
+    }
+    // console.log("request json str:-->  "+request.json);
+    var _opts = jQuery.extend({
+      timeout : 'getError404Timeout'
+    },null);
+    // _opts.url = URL_CONS.serverUrl+"/"+sub.method;
+    _opts.url = url;
+    _opts.method = 'POST';
+    _opts.data = request;
+    // _opts.params = request;
+    _opts.success = function (data,headers,config,status) {
+      if(data.rescode==rescode.ERROR_TOKEN){
+
+        swal({
+          title: "登录失效",
+          text: "您的登录已经失效，请前往重新登录!",
+          type: "error",
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "前往登录!",
+          closeOnConfirm: false
+        },function () {
+          window.location.href = 'index.html';
+        });
+      }
+      if(success){
+        // swal('success','success','success');
+        success(data,headers,config,status);
+      }
+    };
+    _opts.error = function (data,headers,config,status) {
+      swal('错误','网络请求失败，请重试！','error');
+      if(error){
+        error(data,headers,config,status);
+      }
+    };
+    httpService.http(_opts);
+  }
+
+
+  this.doHttpMethod = function (method,params,success,error,files) {
+    var sub = {
+      method:method,
+    };
+    if(files){
+      this.doHttp(URL_CONS.serverFileUrl,sub,params,success,error,files);
+    }else{
+      this.doHttp(URL_CONS.serverUrl,sub,params,success,error);
+    }
+  }
+
+
+  // 创建订单
+  this.companyCreateOrder = function (params,success,error) {
+    var sub = {
+      method:URL_CONS.companyCreateOrder,
+      orderStatus:1,
+      orderCreditRank:5
+    };
+    this.doHttp(URL_CONS.serverUrl,sub,params,success,error);
+  }
+
+  // 1.2 订单列表
+  this.companyOrderList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyOrderList,params,success,error);
+  }
+
+  // 1.3 订单详情
+  this.companyDetailOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyDetailOrder,params,success,error);
+  }
+
+  // 1.5 订单删除
+  this.deleteOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.deleteOrder,params,success,error);
+  }
+  // 1.6 我要接单列表
+  this.companyListGetorder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyListGetorder,params,success,error);
+  }
+  // 1.7 已接订单列表
+  this.companyListMyorder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyListMyorder,params,success,error);
+  }
+
+  // 2.1 注册
+  this.companyRegister = function (params,files,success,error) {
+    this.doHttpMethod(URL_CONS.companyRegister,params,success,error,files);
+  }
+
+  // 2.2 查看个人信息
+  this.companyUserinfo = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyUserinfo,params,success,error);
+  }
+
+  // 2.3 更新用户信息
+  this.companyUpdateinfo = function (params,files,success,error) {
+    this.doHttpMethod(URL_CONS.companyUpdateinfo,params,success,error,files);
+  }
+  // 2.4 接单方详情
+  this.companyUserDetail = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyUserDetail,params,success,error);
+  }
+
+  // 2.5承运方详情
+  this.busUserDetail = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.busUserDetail,params,success,error);
+  }
+
+  // 3.1 接单
+  this.fleetTakeOfferOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.fleetTakeOfferOrder,params,success,error);
+  }
+  // 3.3 订单取消
+  this.cancelOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.cancelOrder,params,success,error);
+  }
+
+  // 4.1好友分页列表
+  this.companyListFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyListFriend,params,success,error);
+  }
+  // 4.2通过手机号查询车主
+  this.companyListBusowners = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyListBusowners,params,success,error);
+  }
+  // 4.3新增好友
+  this.companyAddFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyAddFriend,params,success,error);
+  }
+  // 4.4解除好友关系
+  this.companyDelFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyDelFriend,params,success,error);
+  }
+  // 5.1个人账户信息
+  this.accountInfo = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.accountInfo,params,success,error);
+  }
+  // 5.2 添加提现账户
+  this.addBankCard = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.addBankCard,params,success,error);
+  }
+
+  // 5.3 提现账户列表
+  this.listBankCard = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.listBankCard,params,success,error);
+  }
+  // 5.4 删除提现账户
+  this.delBankCard = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.delBankCard,params,success,error);
+  }
+  // 5.5 提现列表
+  this.listRefundApply = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.listRefundApply,params,success,error);
+  }
+  // 5.6 创建提现工单
+  this.addRefundApply = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.addRefundApply,params,success,error);
+  }
+  // 5.7 创建工单-查询订单
+  this.cashList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.cashList,params,success,error);
+  }
+
+  // 6.1 订单
+  this.reportList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.reportList,params,success,error);
+  }
+
+
+  /////----- ------  以下是user接口
+  // b1.1 我要接单列表
+  this.userListGetorder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userListGetorder,params,success,error);
+  }
+  // B1.2 已接订单列表
+  this.userListMyorder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userListMyorder,params,success,error);
+  }
+  // B1.3 已接指派订单列表
+  this.userListDispatchorder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userListDispatchorder,params,success,error);
+  }
+
+
+
+  // b2.1 注册
+  this.userRegister = function (params,files,success,error) {
+    this.doHttpMethod(URL_CONS.userRegister,params,success,error,files);
+  }
+  // B2.2 查看个人信息
+  this.userUserinfo = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userUserinfo,params,success,error);
+  }
+  this.userUpdateInfo = function (params,files,success,error) {
+    this.doHttpMethod(URL_CONS.userUpdateInfo,params,success,error,files);
+  }
+
+  // b3.1 接单
+  this.userTakeOfferOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userTakeOfferOrder,params,success,error);
+  }
+  // b3.2 确认送到哦啊
+  this.userOverOfferOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userOverOfferOrder,params,success,error);
+  }
+
+  // b4.1好友分页列表
+  this.userListFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userListFriend,params,success,error);
+  }
+  // b4.2好友请求通过/拒绝
+  this.userEditFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userEditFriend,params,success,error);
+  }
+
+
+  // B7.1 发车费列表
+  this.userDispatchList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.userDispatchList,params,success,error);
+  }
+
+
+  ///  以下是管理员接口
+  // A11.1 登录
+  this.adminLogin = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminLogin,params,success,error);
+  }
+
+  // A1.1 订单列表
+  this.adminGetOrderList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminGetOrderList,params,success,error);
+  }
+}]);
+
+yonglongApp.service('logoutService',['$rootScope','$cookies',function ($rootScope,$cookies) {
+  this.logout = function () {
+    $rootScope.loginUser = undefined;
+    $cookies.remove('yltUser');
+    window.location.href = 'index.html';
+  }
+}]);
+
+yonglongApp.service('sessionService',['$rootScope',function ($rootScope) {
+  this.getSession = function () {
+    // console.log("show token:"+eluser.token);
+    // console.log("show $rootScope token:"+$rootScope.loginUser.token);
+    if($rootScope.loginUser){
+      var session = {
+        // token:eluser.token
+        token:$rootScope.loginUser.token
+      }
+      return session;
+    }else{
+      return undefined;
+    }
+  }
+}]);
+
+/**
+ * Created by tedyuen on 16-12-13.
+ */
+yonglongApp.provider('showDatePickerProvider',function () {
+  this.$get = function () {
+    return {
+      showDatePicker:function () {
+        // console.log('showdatepicker');
+        jQuery('.mydatepicker').datepicker({
+          language: 'zh-CN',
+          autoclose: true,
+          format: "yyyy-mm-dd",
+          todayHighlight: true
+        });
+      }
+    }
   }
 });
 
@@ -2789,11 +3399,55 @@ yonglongApp.controller('withdrawManageController',['$scope','interfaceService','
     httpList();
 }]);
 
-yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies','interfaceService','rescode',
-  function ($scope,$rootScope,$cookies,interfaceService,rescode) {
+/**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.controller('adminAllReportController',['$scope','$timeout','showDatePickerProvider','interfaceService','rescode',
+  function ($scope,$timeout,showDatePickerProvider,interfaceService,rescode) {
+    showDatePickerProvider.showDatePicker();
+
+    $scope.queryData = {
+      startTime:'',
+      endTime:'',
+      owner:false,
+      sender:'',
+    }
+
+    var httpList = function () {
+      interfaceService.reportList($scope.queryData,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode = rescode.SUCCESS){
+          $scope.flist = data.data.flist;
+          $scope.list = data.data.list;
+        }
+      });
+    }
+
+    $scope.queryList = function ($valid) {
+      if($valid){
+        httpList();
+      }else{
+
+      }
+    }
+
+    $scope.reset = function () {
+      $scope.queryData = {
+        startTime:'',
+        endTime:'',
+        owner:false,
+        sender:'',
+      }
+    }
+
+    httpList();
+  }]);
+
+yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies','$state','interfaceService','rescode',
+  function ($scope,$rootScope,$cookies,$state,interfaceService,rescode) {
 
 
-    var initCompanyForm = function () {
+    var initAdminForm = function () {
       var adminMName = $cookies.get('yltAdminMName');
       var adminIsReme = $cookies.get('yltAdminIsReme');
       var adminPass = $cookies.get('yltAdminPass');
@@ -2829,6 +3483,7 @@ yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies',
       }
     }
 
+
     $scope.onLoginAdmin = function ($valid) {
       if($valid.adminMemberName.$invalid){
         swal('错误','帐号不能为空','warning');
@@ -2839,8 +3494,9 @@ yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies',
         swal('错误','密码不能为空','warning');
         return;
       }
+
       interfaceService.adminLogin($scope.admin,function (data,headers,config) {
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $rootScope.loginUser = data.data;
 
@@ -2853,13 +3509,206 @@ yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies',
             $cookies.remove('yltAdminPass');
           }
           $cookies.putObject('yltUser',$rootScope.loginUser);
+          $state.go('main.admin.order_list');
         }else{
           doSwal(data.rescode);
         }
       });
     }
 
-    initCompanyForm();
+    initAdminForm();
+}]);
+
+yonglongApp.controller('adminOrderListController',['$scope','showDatePickerProvider','baseDataService','interfaceService','rescode',
+  function ($scope,showDatePickerProvider,baseDataService,interfaceService,rescode) {
+    showDatePickerProvider.showDatePicker();
+    $scope.orderType = baseDataService.getOrderTypeN();
+    $scope.containerVType = baseDataService.getBoxVolN();
+    $scope.containerSType = baseDataService.getBoxTypeN();
+    $scope.queryData = {
+      startTime:'',
+      endTime:'',
+      orderSn:'',
+      shippingDate:'',
+      originPort:'',
+      loadingPort:'',
+      returnPort:'',
+      orderType:'-1',
+      containerVType:'-1',
+      containerSType:'-1',
+      goodsMemberName:'',
+      busMemberName:'',
+      pageno:1,
+      pagesize:10,
+    }
+
+    $scope.results={
+      currPageNum : 1,
+      totalPages : 0,
+      pageSize : $scope.queryData.pagesize
+    }
+
+    // 分页
+    $scope.switchPage = function (page) {
+      // console.log(page);
+      $scope.queryData.pageno = page;
+      httpList();
+    }
+
+    var httpList = function () {
+      interfaceService.adminGetOrderList($scope.queryData,function (data,headers,config) {
+        // console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS) {
+          $scope.results = data.data;
+        }
+      });
+    }
+
+    // 表单查询订单列表
+    $scope.queryList = function ($valid) {
+      if($valid){
+        // console.log("request:"+JSON.stringify($scope.queryData));
+        httpList();
+      }else{
+
+      }
+    }
+
+    //删除订单
+    $scope.delete = function (orderId) {
+      swal({
+        title: "确定删除吗?",
+        text: "您即将删除这份订单!",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "取消",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "是的,删除!",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, function(){
+        var tempData = {
+          orderId:orderId
+        }
+        interfaceService.deleteOrder(tempData,function (data,headers,config) {
+          if(data.rescode==rescode.SUCCESS){
+            swal({
+              title:"删除成功！",
+              text:"此订单已删除。",
+              type:"success",
+              confirmButtonText:"确定"
+            },function () {
+              httpList();
+            });
+          }else{
+            swal({
+              title:"删除失败！",
+              text:"请重新执行此操作。",
+              type:"error",
+              confirmButtonText:"确定"
+            });
+          }
+        });
+
+      });
+    }
+
+
+    $scope.busUserDetail = function (userId,type) {
+      // console.log("===> "+userId);
+      switch (type){
+        case 0:param={
+          userId:userId
+        };
+          break;
+        case 1:param={
+          orderId:userId
+        }
+      }
+      interfaceService.busUserDetail(param,function (data,headers,config) {
+        // console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.busUserDetailResult = data.data;
+          $scope.busUserDetailResult.resultType = 0;
+          $('#bus-user-detail-modal').modal('show');
+        }
+      });
+    }
+
+    $scope.companyUserDetail = function (userId) {
+      var param = {
+        userId:userId
+      }
+      interfaceService.companyUserDetail(param,function (data,headers,config) {
+        // console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.busUserDetailResult = data.data;
+          $scope.busUserDetailResult.resultType = 1;
+          $('#bus-user-detail-modal').modal('show');
+        }
+
+      });
+    }
+
+
+    $scope.detail = function (id) {
+      $scope.detailOrderId = id;
+      $('#order-detail').modal('show');
+    }
+
+    $scope.printDetail = function () {
+      if($scope.detailOrderId){
+        var link = 'table.html#!?id='+$scope.detailOrderId;
+        window.open(link);
+      }
+    }
+
+    $scope.reset = function () {
+      $scope.queryData = {
+        startTime:'',
+        endTime:'',
+        orderSn:'',
+        shippingDate:'',
+        originPort:'',
+        loadingPort:'',
+        returnPort:'',
+        orderType:'-1',
+        containerVType:'-1',
+        containerSType:'-1',
+        goodsMemberName:'',
+        busMemberName:'',
+        pageno:1,
+        pagesize:10,
+      }
+    }
+
+    httpList();
+
+  }]);
+
+yonglongApp.controller('adminRoleController',['$rootScope','$scope','$cookies','$state','logoutService',
+  function ($rootScope,$scope,$cookies,$state,logoutService) {
+    $rootScope.loginUser = $cookies.getObject('yltUser');
+    if($rootScope.loginUser==undefined || $rootScope.loginUser && $rootScope.loginUser.role!='admin'){
+      console.log('没有admin权限');
+      $state.go('login');
+    }
+
+    $scope.logout = function () {
+      swal({
+        title: "退出登录?",
+        text: "是否要退出登录!",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "取消",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "是的,注销!",
+        closeOnConfirm: false,
+      },function () {
+        logoutService.logout();
+      });
+    }
+
 }]);
 
 yonglongApp.controller('mainController',['$rootScope','$scope','$cookies','$timeout',function ($rootScope,$scope,$cookies,$timeout) {
@@ -2874,588 +3723,6 @@ yonglongApp.controller('mainController',['$rootScope','$scope','$cookies','$time
     uiState.ready()
   },50);
 }]);
-
-yonglongApp.service('baseDataService',['diyData',function (diyData) {
-
-  this.getOrderType = function () {
-    return diyData.orderType;
-  }
-
-  this.getOrderTypeN = function () {
-    return diyData.orderTypeN;
-  }
-
-  this.getBoxVol = function () {
-    return diyData.boxVol;
-  }
-
-  this.getBoxType = function () {
-    return diyData.boxType;
-  }
-
-  this.getBoxVolN = function () {
-    return diyData.boxVolN;
-  }
-
-  this.getBoxTypeN = function () {
-    return diyData.boxTypeN;
-  }
-
-
-
-  this.getPayStatusText = function (value) {
-    if(value=='0'){
-      return '未付款';
-    }else if(value=='1'){
-      return '已付款';
-    }
-  }
-}]);
-
-yonglongApp.provider('countupProvider',function () {
-  this.$get = function () {
-    return {
-      countup:function () {
-        console.log('countup');
-        // jQuery(".counter").counterUp({
-        //   delay: 100,
-        //   time: 1200
-        // });
-      }
-    }
-  }
-});
-
-/**
- * Created by tedyuen on 16-12-15.
- */
-yonglongApp.provider('dropifyProvider',function () {
-  this.$get = function () {
-    return {
-      dropify:function () {
-        console.log('dropify');
-        var drEvent = jQuery('.dropify').dropify({
-          messages: {
-            default: '拖拽图片或点击添加',
-            replace: '拖拽图片或点击替换',
-            remove:  '删除',
-            error: {
-              'fileSize': '文件不能大于{{ value }}',
-              'imageFormat': '文件格式不正确'
-            }
-          }
-        });
-
-        // drEvent.on('dropify.beforeClear', function(event, element){
-        //   return confirm("确定要删除 \"" + element.file.name + "\" 吗?");
-        // });
-        //
-        // drEvent.on('dropify.afterClear', function(event, element){
-        //   alert('删除成功');
-        // });
-        //
-        // drEvent.on('dropify.errors', function(event, element){
-        //   console.log('出错了！');
-        // });
-
-      }
-    }
-  }
-});
-
-yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $timeout, $q) {
-  // 默认参数
-  var _httpDefaultOpts = {
-    method: 'POST', // GET/DELETE/HEAD/JSONP/POST/PUT
-    url: '',
-    params: {}, // 拼接在url的参数
-    data: {},
-    cache: false, // boolean or Cache object
-    limit: true, //是否节流
-    timeout : "httpTimeout", // 节流变量名
-    timeoutTime : 100,
-    isErrMsg: false,// 错误提示
-    isErrMsgFn : null,// 错误提示函数
-    checkCode: true, // 是否校验code
-    before: function(){}, // ajax 执行开始 执行函数
-    end: function(){}, // ajax 执行结束 执行函数
-    error: function(){}, // ajax 执行失败 执行函数
-    success: function(data){}, // ajax 执行成功 执行函数
-    checkCodeError : function(code, errMsg, data){} // ajax 校验code失败 执行函数
-  };
-
-  var _httpTimeoutArray = {"httpTimeout" : null};//ajax节流使用的定时器 集合
-
-  var _isErrMsgFn = function (opts) {
-    if (angular.isFunction(opts.isErrMsgFn)) {
-      opts.isErrMsgFn();
-    } else {
-      // alert("抱歉！因为操作不能够及时响应，请稍后在试...");
-      console.log('因为操作不能够及时响应，请稍后在试...');
-    }
-  };
-
-  // http请求之前执行函数
-  var _httpBefore = function (opts) {
-    if (angular.isFunction(opts.before)) {
-      opts.before();
-    }
-  };
-
-  // http请求之后执行函数
-  var _httpEnd = function (opts) {
-    if (angular.isFunction(opts.end)) {
-      opts.end();
-    }
-    if(opts.limit){
-      $timeout.cancel(_httpTimeoutArray[opts.timeout]);
-    }
-  };
-
-  // 响应错误判断
-  var _responseError = function (data, opts) {
-    // public.js
-    return checkCode(data, opts);
-  };
-
-  // http 请求执行过程封装    deferred ：http 链式请求延迟对象
-  var _httpMin = function (opts, deferred) {
-    _httpBefore(opts);
-
-    var formData = new FormData();
-    formData.append('json',JSON.stringify(opts.data.json));
-    if(opts.data.files){
-      if(angular.isArray(opts.data.files)){
-        angular.forEach(opts.data.files,function (file) {
-          // console.log("==>file last:  "+file.name+":"+file.file);
-          formData.append(file.name,file.file);
-        })
-      }
-    }
-
-    $http({
-      method: opts.method,
-      url: opts.url,
-      params: opts.params,
-      data: formData,
-      headers: {'Content-Type': function () {
-        return undefined;
-      }},
-      transformRequest: angular.identity
-    }).then(function onSuccess(response) {
-      // 权限，超时等控制
-      if( opts.checkCode && !_responseError(response.data, opts) ) {
-        return false;
-      }
-      // 请求成功回调函数
-      if(opts.success) {
-        opts.success(response.data,response.config.headers,response.config,response.status);
-      }
-      if (deferred) {
-        deferred.resolve(response.data,response.config.headers,response.config,response.status);  //任务被成功执行
-      }
-      _httpEnd(opts);
-    }).catch(function onError(response) {//处理响应失败
-        // Handle error
-      if(opts.isErrMsg){
-        _isErrMsgFn();
-      }
-
-      opts.error(response.data,response.config.headers,response.config,response.status);
-
-      if (deferred) {
-        deferred.reject(response.data,response.config.headers,response.config,response.status); //任务未被成功执行
-      }
-
-      _httpEnd(opts);
-    });
-  };
-
-  // http请求，内含节流等控制
-  var _http = function (opts, deferred) {
-    opts = jQuery.extend({}, _httpDefaultOpts, opts);
-    var result;
-    if (opts.limit) {
-      $timeout.cancel(_httpTimeoutArray[opts.timeout]);
-      _httpTimeoutArray[opts.timeout] = $timeout(function () {
-        result = _httpMin(opts, deferred);
-      }, opts.timeoutTime);
-    } else {
-      result = _httpMin(opts, deferred);
-    }
-  };
-
-  // http 链式请求
-  var _linkHttpMin = function (opts, deferred) {
-    _http(opts, deferred);
-  };
-
-
-  //
-  /**
-   * 判断 code
-   * @param data
-   */
-  var checkCode = function(data, opts){
-    return true;
-    // var _data ;
-    // var _isCode = true;
-    // if(isEmpty(data)){
-    //   _isCode = false;
-    // } else {
-    //   if( typeof data == "string" ){
-    //     if(data.indexOf("code") > -1){
-    //       _data = jQuery.parseJSON(data);
-    //     }else{
-    //       _isCode = false;
-    //     }
-    //   }else{
-    //     _data = data;
-    //   }
-    // }
-    // if( _isCode && isNotEmpty(_data.code) ){
-    //   if( _data.code == CODESTATUS.IS_NOT_LOGIN || _data.code == CODESTATUS.SESSION_TIME_OUT){// 会话超时
-    //     // 超时处理
-    //     console.log("超时或未登录");
-    //     window.location.href = _data.value;
-    //     return false;
-    //   } else if( _data.code == CODESTATUS.IS_ERROR ){
-    //     console.log("连接错误，请稍等!");
-    //     if(opts.checkCodeError){
-    //       opts.checkCodeError( _data.code, "连接错误，请稍等!", _data);
-    //     }
-    //     return false;
-    //   } else if( _data.code == CODESTATUS.USER_AUTH_FAIL ){
-    //     console.log("用户认证失败!");
-    //     if(opts.checkCodeError){
-    //       opts.checkCodeError( _data.code, "用户认证失败!", _data);
-    //     }
-    //     return false;
-    //   } else if( _data.code == CODESTATUS.PARAM_IS_ERROR ){
-    //     console.log("无效的请求参数");
-    //     if(opts.checkCodeError){
-    //       opts.checkCodeError( _data.code, "无效的请求参数!", _data);
-    //     }
-    //     return false;
-    //   }
-    // }
-    // return true;
-  }
-  //
-
-
-
-  return {
-    /**
-     * http请求
-     * @param opts
-     */
-    http: function (opts) {
-      _http(opts);
-    },
-    /**
-     * http链式请求
-     * @param opts
-     * @param deferred
-     * @returns {deferred.promise|{then, catch, finally}}
-     */
-    linkHttp : function (opts, deferred) {
-      deferred = deferred || $q.defer();
-      _linkHttpMin(opts, deferred);
-      return deferred.promise;
-    }
-  };
-}]);
-
-yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService','rescode',
-  function (httpService,URL_CONS,sessionService,rescode) {
-
-  this.doHttp = function (url,sub,params,success,error,files) {
-    var base = {
-      // token:sessionService.getSession().token
-    }
-    if(sessionService.getSession() != undefined){
-      base = {
-        token:sessionService.getSession().token
-      }
-    }
-    jQuery.extend(params,sub);
-    jQuery.extend(params,base);
-    // console.log(JSON.stringify(params));
-    var request = {
-      json:params,
-      files:files
-    }
-    // console.log("request json str:-->  "+request.json);
-    var _opts = jQuery.extend({
-      timeout : 'getError404Timeout'
-    },null);
-    // _opts.url = URL_CONS.serverUrl+"/"+sub.method;
-    _opts.url = url;
-    _opts.method = 'POST';
-    _opts.data = request;
-    // _opts.params = request;
-    _opts.success = function (data,headers,config,status) {
-      if(data.rescode==rescode.ERROR_TOKEN){
-
-        swal({
-          title: "登录失效",
-          text: "您的登录已经失效，请前往重新登录!",
-          type: "error",
-          confirmButtonColor: "#DD6B55",
-          confirmButtonText: "前往登录!",
-          closeOnConfirm: false
-        },function () {
-          window.location.href = 'index.html';
-        });
-      }
-      if(success){
-        // swal('success','success','success');
-        success(data,headers,config,status);
-      }
-    };
-    _opts.error = function (data,headers,config,status) {
-      swal('错误','网络请求失败，请重试！','error');
-      if(error){
-        error(data,headers,config,status);
-      }
-    };
-    httpService.http(_opts);
-  }
-
-
-  this.doHttpMethod = function (method,params,success,error,files) {
-    var sub = {
-      method:method,
-    };
-    if(files){
-      this.doHttp(URL_CONS.serverFileUrl,sub,params,success,error,files);
-    }else{
-      this.doHttp(URL_CONS.serverUrl,sub,params,success,error);
-    }
-  }
-
-
-  // 创建订单
-  this.companyCreateOrder = function (params,success,error) {
-    var sub = {
-      method:URL_CONS.companyCreateOrder,
-      orderStatus:1,
-      orderCreditRank:5
-    };
-    this.doHttp(URL_CONS.serverUrl,sub,params,success,error);
-  }
-
-  // 1.2 订单列表
-  this.companyOrderList = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.companyOrderList,params,success,error);
-  }
-
-  // 1.3 订单详情
-  this.companyDetailOrder = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.companyDetailOrder,params,success,error);
-  }
-
-  // 1.5 订单删除
-  this.deleteOrder = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.deleteOrder,params,success,error);
-  }
-  // 1.6 我要接单列表
-  this.companyListGetorder = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.companyListGetorder,params,success,error);
-  }
-  // 1.7 已接订单列表
-  this.companyListMyorder = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.companyListMyorder,params,success,error);
-  }
-
-  // 2.1 注册
-  this.companyRegister = function (params,files,success,error) {
-    this.doHttpMethod(URL_CONS.companyRegister,params,success,error,files);
-  }
-
-  // 2.2 查看个人信息
-  this.companyUserinfo = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.companyUserinfo,params,success,error);
-  }
-
-  // 2.3 更新用户信息
-  this.companyUpdateinfo = function (params,files,success,error) {
-    this.doHttpMethod(URL_CONS.companyUpdateinfo,params,success,error,files);
-  }
-  // 2.4 接单方详情
-  this.companyUserDetail = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.companyUserDetail,params,success,error);
-  }
-
-  // 2.5承运方详情
-  this.busUserDetail = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.busUserDetail,params,success,error);
-  }
-
-  // 3.1 接单
-  this.fleetTakeOfferOrder = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.fleetTakeOfferOrder,params,success,error);
-  }
-  // 3.3 订单取消
-  this.cancelOrder = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.cancelOrder,params,success,error);
-  }
-
-  // 4.1好友分页列表
-  this.companyListFriend = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.companyListFriend,params,success,error);
-  }
-  // 4.2通过手机号查询车主
-  this.companyListBusowners = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.companyListBusowners,params,success,error);
-  }
-  // 4.3新增好友
-  this.companyAddFriend = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.companyAddFriend,params,success,error);
-  }
-  // 4.4解除好友关系
-  this.companyDelFriend = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.companyDelFriend,params,success,error);
-  }
-  // 5.1个人账户信息
-  this.accountInfo = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.accountInfo,params,success,error);
-  }
-  // 5.2 添加提现账户
-  this.addBankCard = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.addBankCard,params,success,error);
-  }
-
-  // 5.3 提现账户列表
-  this.listBankCard = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.listBankCard,params,success,error);
-  }
-  // 5.4 删除提现账户
-  this.delBankCard = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.delBankCard,params,success,error);
-  }
-  // 5.5 提现列表
-  this.listRefundApply = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.listRefundApply,params,success,error);
-  }
-  // 5.6 创建提现工单
-  this.addRefundApply = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.addRefundApply,params,success,error);
-  }
-  // 5.7 创建工单-查询订单
-  this.cashList = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.cashList,params,success,error);
-  }
-
-  // 6.1 订单
-  this.reportList = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.reportList,params,success,error);
-  }
-
-
-  /////----- ------  以下是user接口
-  // b1.1 我要接单列表
-  this.userListGetorder = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.userListGetorder,params,success,error);
-  }
-  // B1.2 已接订单列表
-  this.userListMyorder = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.userListMyorder,params,success,error);
-  }
-  // B1.3 已接指派订单列表
-  this.userListDispatchorder = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.userListDispatchorder,params,success,error);
-  }
-
-
-
-  // b2.1 注册
-  this.userRegister = function (params,files,success,error) {
-    this.doHttpMethod(URL_CONS.userRegister,params,success,error,files);
-  }
-  // B2.2 查看个人信息
-  this.userUserinfo = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.userUserinfo,params,success,error);
-  }
-  this.userUpdateInfo = function (params,files,success,error) {
-    this.doHttpMethod(URL_CONS.userUpdateInfo,params,success,error,files);
-  }
-
-  // b3.1 接单
-  this.userTakeOfferOrder = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.userTakeOfferOrder,params,success,error);
-  }
-  // b3.2 确认送到哦啊
-  this.userOverOfferOrder = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.userOverOfferOrder,params,success,error);
-  }
-
-  // b4.1好友分页列表
-  this.userListFriend = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.userListFriend,params,success,error);
-  }
-  // b4.2好友请求通过/拒绝
-  this.userEditFriend = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.userEditFriend,params,success,error);
-  }
-
-
-  // B7.1 发车费列表
-  this.userDispatchList = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.userDispatchList,params,success,error);
-  }
-
-
-  ///  以下是管理员接口
-  // A11.1 登录
-  this.adminLogin = function (params,success,error) {
-    this.doHttpMethod(URL_CONS.adminLogin,params,success,error);
-  }
-}]);
-
-yonglongApp.service('logoutService',['$rootScope','$cookies',function ($rootScope,$cookies) {
-  this.logout = function () {
-    $rootScope.loginUser = undefined;
-    $cookies.remove('yltUser');
-    window.location.href = 'index.html';
-  }
-}]);
-
-yonglongApp.service('sessionService',['$rootScope',function ($rootScope) {
-  this.getSession = function () {
-    // console.log("show token:"+eluser.token);
-    // console.log("show $rootScope token:"+$rootScope.loginUser.token);
-    if($rootScope.loginUser){
-      var session = {
-        // token:eluser.token
-        token:$rootScope.loginUser.token
-      }
-      return session;
-    }else{
-      return undefined;
-    }
-  }
-}]);
-
-/**
- * Created by tedyuen on 16-12-13.
- */
-yonglongApp.provider('showDatePickerProvider',function () {
-  this.$get = function () {
-    return {
-      showDatePicker:function () {
-        // console.log('showdatepicker');
-        jQuery('.mydatepicker').datepicker({
-          language: 'zh-CN',
-          autoclose: true,
-          format: "yyyy-mm-dd",
-          todayHighlight: true
-        });
-      }
-    }
-  }
-});
 
 yonglongApp.directive('creditRank',function () {
   return{
@@ -3570,12 +3837,12 @@ yonglongApp.directive('terms',function () {
  */
 yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
 
-  $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
+  // $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
   // $urlRouterProvider.when('','/main/userinner/wanner_order').otherwise('/main/userinner/wanner_order');
-  // $urlRouterProvider.when('','/register_user').otherwise('/register_user');
+  $urlRouterProvider.when('','/adminlogin').otherwise('/adminlogin');
   $stateProvider
-    .state('login',{//登录页
-      url:'/login',
+    .state('adminlogin',{//登录页
+      url:'/adminlogin',
       templateUrl:'template/login.html',
       controller:'adminLoginController'
     })
@@ -3595,6 +3862,70 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       templateUrl:'template/main.html',
       controller:'mainController'
     });
+
+  // 管理员路由
+  $stateProvider
+    .state('main.admin',{
+      url:'/admin',
+      views:{
+        'nav': {
+          templateUrl: 'template/nav.html'
+        },
+        'sidebar': {
+          templateUrl: 'template/sidebar_admin.html',
+          controller: 'adminRoleController'
+        },
+        'footer': {
+          templateUrl: 'template/footer.html'
+        }
+      }
+    })
+    .state('main.admin.order_list',{//订单列表
+      url:'/order_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/order_list.html',
+          controller: 'adminOrderListController'
+        }
+      }
+    })
+    .state('main.admin.user_list',{//承运方会员列表
+      url:'/user_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/user_list.html',
+          controller: 'adminUserListController'
+        }
+      }
+    })
+    .state('main.admin.company_list',{//发货方会员列表
+      url:'/company_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/company_list.html',
+          controller: 'adminCompanyListController'
+        }
+      }
+    })
+    .state('main.admin.withdraw_list',{//提现列表
+      url:'/withdraw_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/withdraw_list.html',
+          controller: 'adminWithdrawListController'
+        }
+      }
+    })
+    .state('main.admin.all_report',{//报表
+      url:'/all_report',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/all_report.html',
+          controller: 'adminAllReportController'
+        }
+      }
+    })
+
 
   // 承运方路由
   $stateProvider

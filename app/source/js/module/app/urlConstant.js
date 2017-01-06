@@ -53,4 +53,5 @@ yonglongApp.constant('URL_CONS', {
 
   // 以下是admin接口
   adminLogin: 'admin_login',
+  adminGetOrderList: 'admin_getOrderList',
 });

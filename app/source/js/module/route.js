@@ -3,12 +3,12 @@
  */
 yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
 
-  $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
+  // $urlRouterProvider.when('','/main/companyinner/create_order').otherwise('/main/companyinner/create_order');
   // $urlRouterProvider.when('','/main/userinner/wanner_order').otherwise('/main/userinner/wanner_order');
-  // $urlRouterProvider.when('','/register_user').otherwise('/register_user');
+  $urlRouterProvider.when('','/adminlogin').otherwise('/adminlogin');
   $stateProvider
-    .state('login',{//登录页
-      url:'/login',
+    .state('adminlogin',{//登录页
+      url:'/adminlogin',
       templateUrl:'template/login.html',
       controller:'adminLoginController'
     })
@@ -28,6 +28,70 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       templateUrl:'template/main.html',
       controller:'mainController'
     });
+
+  // 管理员路由
+  $stateProvider
+    .state('main.admin',{
+      url:'/admin',
+      views:{
+        'nav': {
+          templateUrl: 'template/nav.html'
+        },
+        'sidebar': {
+          templateUrl: 'template/sidebar_admin.html',
+          controller: 'adminRoleController'
+        },
+        'footer': {
+          templateUrl: 'template/footer.html'
+        }
+      }
+    })
+    .state('main.admin.order_list',{//订单列表
+      url:'/order_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/order_list.html',
+          controller: 'adminOrderListController'
+        }
+      }
+    })
+    .state('main.admin.user_list',{//承运方会员列表
+      url:'/user_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/user_list.html',
+          controller: 'adminUserListController'
+        }
+      }
+    })
+    .state('main.admin.company_list',{//发货方会员列表
+      url:'/company_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/company_list.html',
+          controller: 'adminCompanyListController'
+        }
+      }
+    })
+    .state('main.admin.withdraw_list',{//提现列表
+      url:'/withdraw_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/withdraw_list.html',
+          controller: 'adminWithdrawListController'
+        }
+      }
+    })
+    .state('main.admin.all_report',{//报表
+      url:'/all_report',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/all_report.html',
+          controller: 'adminAllReportController'
+        }
+      }
+    })
+
 
   // 承运方路由
   $stateProvider

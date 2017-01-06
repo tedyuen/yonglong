@@ -21,6 +21,28 @@ yonglongApp.filter('friendType',function () {
   }
 });
 
+yonglongApp.filter('memberType',function () {
+  return function (str) {
+    if(str=='0'){
+      return '货主'
+    }else if(str=='1'){
+      return '车主'
+    }
+  }
+});
+
+yonglongApp.filter('atmStatus',function () {
+  return function (str) {
+    if(str=='1'){
+      return '审核通过';
+    }else{
+      return '审核中';
+    }
+  }
+});
+
+
+
 yonglongApp.filter('emptyText',function () {
   return function (str) {
     if(str==''){

@@ -1,0 +1,194 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">提现列表</h4>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="">提现管理</a></li>
+          <li class="active">提现列表</li>
+        </ol>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12">
+
+        <form ng-submit="queryList(theForm.$valid)" novalidate="novalidate" name="theForm">
+          <div class="white-box">
+            <div class="row">
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">最早日期</span>
+                    <input type="text" class="form-control mydatepicker" placeholder="yyyy-mm-dd" ng-model="queryData.startTime">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">最晚日期</span>
+                    <input type="text" class="form-control mydatepicker" placeholder="yyyy-mm-dd" ng-model="queryData.endTime">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">查询</button>
+            <button type="button" ng-click="reset()" class="btn waves-effect waves-light btn-success">清空表单</button>
+
+          </div>
+        </form>
+      </div>
+
+      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+        <div class="white-box">
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12" ng-show="results.totalPages!=null && results.totalPages!=0">
+        <div class="white-box">
+          <div class="row">
+            <table class="table color-table primary-table table-hover table-bordered">
+              <thead>
+              <tr>
+                <th>日期</th>
+                <th>持卡人</th>
+                <th>开户行</th>
+                <th>卡号</th>
+                <th>会员类型</th>
+                <th>金额</th>
+                <th>状态</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="result in results.pageData">
+                <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.createTimeStr}}</td>
+                <td><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.bankCardOwner}}</td>
+                <td>{{result.bankName}}</td>
+                <td>{{result.bankCardNo}}</td>
+                <td>{{result.role|memberType}}</td>
+                <td>{{result.status|atmStatus|}}</td>
+                <td>
+                  <!--<button type="button" class="btn btn-primary btn-xs"-->
+                          <!--ng-click="auditSysRefund(result.id)">通过审核</button>-->
+                  <!--<button type="button" class="btn btn-primary btn-xs"-->
+                          <!--ng-if="result.orderStatus=='9'" ng-click="alipay(result)">付款</button>-->
+                  <!--<button type="button" class="btn btn-danger btn-xs"-->
+                          <!--ng-if="result.orderStatus=='1' && result.payStatus=='0'" ng-click="delete(result.id)">删除订单</button>-->
+                  <!--<button type="button" class="btn btn-success btn-xs"-->
+                          <!--ng-if="result.orderStatus!='1' && result.busMemberType==1" ng-click="busUserDetail(result.busMemberId,0)">承运方详情</button>-->
+                  <!--<button type="button" class="btn btn-success btn-xs"-->
+                          <!--ng-if="result.orderStatus!='1' && result.busMemberType==0 && result.shippingStatus!=1002" ng-click="companyUserDetail(result.goodsMemberId)">接单方详情</button>-->
+                  <!--<button type="button" class="btn btn-success btn-xs"-->
+                          <!--ng-if="result.orderStatus!='1' && result.busMemberType==0 && result.shippingStatus==1002" ng-click="busUserDetail(result.id,1)">接单方详情</button>-->
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <pagination page-size="results.pageSize"
+                        total-pages="results.totalPages"
+                        curr-page="results.currPageNum"
+                        show-count="100"
+                        switch-page="switchPage">
+            </pagination>
+
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+      <!--<pre>{{results|json}}</pre>-->
+    </div>
+  </div>
+
+
+  <div id="bus-user-detail-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel">会员信息</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <table class="table table-striped">
+              <tr>
+                <td>注册时间</td>
+                <td>{{busUserDetailResult.regTimeStr | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>公司名称</td>
+                <td>{{busUserDetailResult.companyName | emptyText}}</td>
+              </tr>
+              <tr ng-if="busUserDetailResult.resultType==0">
+                <td>车牌号</td>
+                <td>{{busUserDetailResult.carNumber | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>手机号</td>
+                <td>{{busUserDetailResult.mobilePhone | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>电话</td>
+                <td>{{busUserDetailResult.tel | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>联系人</td>
+                <td>{{busUserDetailResult.companyLinker | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>联系地址</td>
+                <td>{{busUserDetailResult.address | emptyText}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info waves-effect text-left" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+
+  <div id="order-detail" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog order-detail">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" >确认订单信息</h4>
+        </div>
+        <div class="modal-body">
+          <orderdetail order-id="detailOrderId"></orderdetail>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal" ng-click="printDetail()">打印</button>
+          <button type="button" class="btn btn-info waves-effect text-left" data-dismiss="modal">确定</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+
+</div>

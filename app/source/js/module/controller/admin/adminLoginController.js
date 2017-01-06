@@ -1,8 +1,8 @@
-yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies','interfaceService','rescode',
-  function ($scope,$rootScope,$cookies,interfaceService,rescode) {
+yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies','$state','interfaceService','rescode',
+  function ($scope,$rootScope,$cookies,$state,interfaceService,rescode) {
 
 
-    var initCompanyForm = function () {
+    var initAdminForm = function () {
       var adminMName = $cookies.get('yltAdminMName');
       var adminIsReme = $cookies.get('yltAdminIsReme');
       var adminPass = $cookies.get('yltAdminPass');
@@ -38,6 +38,7 @@ yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies',
       }
     }
 
+
     $scope.onLoginAdmin = function ($valid) {
       if($valid.adminMemberName.$invalid){
         swal('错误','帐号不能为空','warning');
@@ -48,8 +49,9 @@ yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies',
         swal('错误','密码不能为空','warning');
         return;
       }
+
       interfaceService.adminLogin($scope.admin,function (data,headers,config) {
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $rootScope.loginUser = data.data;
 
@@ -62,11 +64,12 @@ yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies',
             $cookies.remove('yltAdminPass');
           }
           $cookies.putObject('yltUser',$rootScope.loginUser);
+          $state.go('main.admin.order_list');
         }else{
           doSwal(data.rescode);
         }
       });
     }
 
-    initCompanyForm();
+    initAdminForm();
 }]);

@@ -1,0 +1,68 @@
+<div id="sidebar">
+  <div class="navbar-default sidebar " role="navigation">
+    <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+      <div class="user-profile">
+        <div class="dropdown user-pro-body">
+          <div><img src="images/avater.png" alt="user-img" class="img-circle"></div>
+          <a class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">欢迎&nbsp;&nbsp;{{loginUser.memberName}}<span class="caret"></span></a>
+          <ul class="dropdown-menu animated flipInY">
+            <li><a ><i class="ti-user"></i> 个人信息</a></li>
+            <li><a ><i class="ti-wallet"></i> 待办事项</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a ><i class="ti-settings"></i> 帐号设置</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a ng-click="logout()"><i class="fa fa-power-off" ></i> 登出</a></li>
+          </ul>
+        </div>
+      </div>
+      <ul class="nav" id="side-menu">
+        <li class="sidebar-search hidden-sm hidden-md hidden-lg">
+          <!-- input-group -->
+          <div class="input-group custom-search-form">
+            <input type="text" class="form-control" placeholder="Search..."> <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"> <i class="fa fa-search"></i> </button>
+                          </span>
+          </div>
+          <!-- /input-group -->
+        </li>
+
+        <!-- 订单管理 -->
+        <li>
+          <a href="#" class="waves-effect active"><i class="linea-icon linea-basic fa-fw" data-icon="&#xe005;"></i> <span class="hide-menu">订单管理<span class="fa arrow"></span> </span></a>
+          <ul class="nav nav-second-level">
+            <li> <a href="" ui-sref="main.admin.order_list">订单列表</a> </li>
+          </ul>
+        </li>
+        <!-- 订单管理 -->
+
+        <!-- 会员管理 -->
+        <li>
+          <a href="#" class="waves-effect active"><i data-icon=")" class="linea-icon linea-basic fa-fw"></i> <span class="hide-menu">会员管理<span class="fa arrow"></span></span></a>
+          <ul class="nav nav-second-level">
+            <li><a href="" ui-sref="main.admin.user_list">承运方会员列表</a></li>
+            <li><a href="" ui-sref="main.admin.company_list">发货方会员列表</a></li>
+          </ul>
+        </li>
+        <!-- 会员管理 -->
+
+        <!-- 提现管理 -->
+        <li>
+          <a href="#" class="waves-effect active"><i data-icon="/" class="linea-icon linea-basic fa-fw"></i> <span class="hide-menu">提现管理<span class="fa arrow"></span>  </span></a>
+          <ul class="nav nav-second-level">
+            <li><a href="" ui-sref="main.admin.withdraw_list">提现列表</a></li>
+          </ul>
+        </li>
+        <!-- 提现管理 -->
+
+        <!-- 报表管理 -->
+        <li>
+          <a href="#" class="waves-effect active"><i data-icon="o" class="linea-icon linea-basic fa-fw"></i> <span class="hide-menu">报表管理<span class="fa arrow"></span></span></a>
+          <ul class="nav nav-second-level">
+            <li><a href="" ui-sref="main.admin.all_report">报表</a></li>
+          </ul>
+        </li>
+        <!-- 报表管理 -->
+      </ul>
+    </div>
+  </div>
+</div>

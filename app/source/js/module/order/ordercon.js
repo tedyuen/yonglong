@@ -215,12 +215,16 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $ti
 yonglongApp.service('sessionService',['$rootScope',function ($rootScope) {
   this.getSession = function () {
     // console.log("show token:"+eluser.token);
-    console.log("show $rootScope token:"+$rootScope.loginUser.token);
-    var session = {
-      // token:eluser.token
-      token:$rootScope.loginUser.token
+    // console.log("show $rootScope token:"+$rootScope.loginUser.token);
+    if($rootScope.loginUser){
+      var session = {
+        // token:eluser.token
+        token:$rootScope.loginUser.token
+      }
+      return session;
+    }else{
+      return undefined;
     }
-    return session;
   }
 }]);
 
@@ -229,7 +233,12 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 
   this.doHttp = function (url,sub,params,success,error,files) {
     var base = {
-      token:sessionService.getSession().token
+      // token:sessionService.getSession().token
+    }
+    if(sessionService.getSession() != undefined){
+      base = {
+        token:sessionService.getSession().token
+      }
     }
     jQuery.extend(params,sub);
     jQuery.extend(params,base);
@@ -458,6 +467,17 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.userDispatchList,params,success,error);
   }
 
+
+  ///  以下是管理员接口
+  // A11.1 登录
+  this.adminLogin = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminLogin,params,success,error);
+  }
+
+  // A1.1 订单列表
+  this.adminGetOrderList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminGetOrderList,params,success,error);
+  }
 }]);
 
 yonglongApp.constant('rescode', {
@@ -466,6 +486,9 @@ yonglongApp.constant('rescode', {
   AGAIN_PHONE:'201002',
   EMPTY_SMS_CODE:'201004',
   ERROR_TOKEN:'9001',
+
+  UNKNOW_USER:'201008',//用户不存在
+  ERROR_PASSWORD:'201009',//密码不正确
 })
 
 /**
@@ -519,6 +542,11 @@ yonglongApp.constant('URL_CONS', {
 
 
   userDispatchList: 'user_dispatchList',
+
+
+  // 以下是admin接口
+  adminLogin: 'admin_login',
+  adminGetOrderList: 'admin_getOrderList',
 });
 
 yonglongApp.value('diyData',
@@ -582,6 +610,28 @@ yonglongApp.filter('friendType',function () {
     }
   }
 });
+
+yonglongApp.filter('memberType',function () {
+  return function (str) {
+    if(str=='0'){
+      return '货主'
+    }else if(str=='1'){
+      return '车主'
+    }
+  }
+});
+
+yonglongApp.filter('atmStatus',function () {
+  return function (str) {
+    if(str=='1'){
+      return '审核通过';
+    }else{
+      return '审核中';
+    }
+  }
+});
+
+
 
 yonglongApp.filter('emptyText',function () {
   return function (str) {
