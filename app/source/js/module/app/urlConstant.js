@@ -56,4 +56,7 @@ yonglongApp.constant('URL_CONS', {
   adminGetOrderList: 'admin_getOrderList',
   adminListSysRefund: 'admin_listSysRefund',
   adminAuditSysRefund: 'admin_auditSysRefund',
+  adminGetBusUserList: 'admin_getBusUserlist',
+  adminGetGoodsUserList: 'admin_getGoodsUserlist',
+  adminAuditSysMember: 'admin_auditSysMember',
 });

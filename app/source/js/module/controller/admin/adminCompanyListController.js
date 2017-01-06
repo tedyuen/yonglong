@@ -1,4 +1,4 @@
-yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerProvider','interfaceService','rescode',
+yonglongApp.controller('adminCompanyListController',['$scope','showDatePickerProvider','interfaceService','rescode',
   function ($scope,showDatePickerProvider,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.queryData = {
@@ -22,7 +22,7 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
     }
 
     var httpList = function () {
-      interfaceService.adminListSysRefund($scope.queryData,function (data,headers,config) {
+      interfaceService.adminGetGoodsUserList($scope.queryData,function (data,headers,config) {
         // console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS) {
           $scope.results = data.data;
@@ -58,26 +58,42 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
     }
 
     //通过审核
-    $scope.auditSysRefund = function (id) {
+    $scope.auditSysMember = function (id,type,ila) {
+      var title = "确定通过审核吗";
+      var text = "这位会员即将通过审核";
+      var confirmButtonText = "是的,通过!";
+      var resultTitle = "通过成功!";
+      var resultText = "此会员已经通过审核。";
+      if(ila==1){//通过
+
+      }else if(ila==0){//取消
+        title = "确定取消审核吗";
+        text = "即将取消此会员已通过的审核";
+        confirmButtonText = "是的,取消!";
+        resultTitle = "取消成功!";
+        resultText = "此会员已经取消通过的审核。";
+      }
       swal({
-        title: "确定通过审核吗?",
-        text: "这份提现订单即将通过审核!",
+        title: title,
+        text: text,
         type: "warning",
         showCancelButton: true,
         cancelButtonText: "取消",
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "是的,通过!",
+        confirmButtonText: confirmButtonText,
         closeOnConfirm: false,
         showLoaderOnConfirm: true
       }, function(){
         var tempData = {
-          id:id
+          id:id,
+          isValidated:ila,
+          type:type
         }
-        interfaceService.adminAuditSysRefund(tempData,function (data,headers,config) {
+        interfaceService.adminAuditSysMember(tempData,function (data,headers,config) {
           if(data.rescode==rescode.SUCCESS){
             swal({
-              title:"通过成功！",
-              text:"此提现订单已经通过审核。",
+              title:resultTitle,
+              text:resultText,
               type:"success",
               confirmButtonText:"确定"
             },function () {
@@ -85,7 +101,7 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
             });
           }else{
             swal({
-              title:"通过失败！",
+              title:"执行失败！",
               text:"请重新执行此操作。",
               type:"error",
               confirmButtonText:"确定"
@@ -96,21 +112,21 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
       });
     }
 
-
-    $scope.busUserDetail = function (userId) {
-      var param={
+    $scope.companyUserDetail = function (userId) {
+      var param = {
         userId:userId
       }
-
-      interfaceService.busUserDetail(param,function (data,headers,config) {
+      interfaceService.companyUserDetail(param,function (data,headers,config) {
         // console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS){
           $scope.busUserDetailResult = data.data;
-          $scope.busUserDetailResult.resultType = 0;
+          $scope.busUserDetailResult.resultType = 1;
           $('#bus-user-detail-modal').modal('show');
         }
+
       });
     }
+
 
     $scope.companyUserDetail = function (userId) {
       var param = {

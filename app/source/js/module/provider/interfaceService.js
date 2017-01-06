@@ -249,6 +249,23 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.adminGetOrderList,params,success,error);
   }
 
+  // A2.1 承运方会员列表
+  this.adminGetBusUserList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminGetBusUserList,params,success,error);
+  }
+  // A2.2 发货方会员列表
+  this.adminGetGoodsUserList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminGetGoodsUserList,params,success,error);
+  }
+
+
+  // A2.3 会员审核通过/取消
+  this.adminAuditSysMember = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminAuditSysMember,params,success,error);
+  }
+
+
+
   // A3.1 提现列表
   this.adminListSysRefund = function (params,success,error) {
     this.doHttpMethod(URL_CONS.adminListSysRefund,params,success,error);
