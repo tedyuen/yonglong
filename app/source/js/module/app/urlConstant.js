@@ -47,9 +47,7 @@ yonglongApp.constant('URL_CONS', {
   userListFriend: 'user_list_friend',
   userEditFriend: 'user_edit_friend',
 
-
   userDispatchList: 'user_dispatchList',
-
 
   // 以下是admin接口
   adminLogin: 'admin_login',
@@ -59,4 +57,7 @@ yonglongApp.constant('URL_CONS', {
   adminGetBusUserList: 'admin_getBusUserlist',
   adminGetGoodsUserList: 'admin_getGoodsUserlist',
   adminAuditSysMember: 'admin_auditSysMember',
+
+  articleList: 'article_list',
+  articleDelete: 'article_delete',
 });

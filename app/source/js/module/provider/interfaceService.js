@@ -274,4 +274,16 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.adminAuditSysRefund = function (params,success,error) {
     this.doHttpMethod(URL_CONS.adminAuditSysRefund,params,success,error);
   }
+
+    // 12.3 文章列表
+    this.articleList = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.articleList,params,success,error);
+    }
+
+    // 12.3 删除文章
+    this.articleDelete = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.articleDelete,params,success,error);
+    }
+
+
 }]);

@@ -5,6 +5,7 @@ global.$ = global.jQuery = require('jquery');
 require('bootstrap');
 require('metismenu');
 require('jquery-slimscroll');
+require('./utils/JqueryEllipsis');
 require('jquery-toast-plugin');
 require('dropify');
 

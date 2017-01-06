@@ -91,6 +91,26 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.admin.edit_news',{//录入/修改新闻
+      url:'/edit_news',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/edit_news.html',
+          controller: 'adminEditNewsController'
+        }
+      }
+    })
+    .state('main.admin.news_list',{//新闻列表
+      url:'/news_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/news_list.html',
+          controller: 'adminNewsListController'
+        }
+      }
+    })
+
+
 
 
   // 承运方路由
