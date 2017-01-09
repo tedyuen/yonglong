@@ -275,6 +275,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.adminAuditSysRefund,params,success,error);
   }
 
+    // 12.1 编辑文章
+    this.articleEdit = function (params,files,success,error) {
+      this.doHttpMethod(URL_CONS.articleEdit,params,success,error,files);
+    }
     // 12.3 文章列表
     this.articleList = function (params,success,error) {
       this.doHttpMethod(URL_CONS.articleList,params,success,error);
@@ -284,6 +288,13 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.articleDelete = function (params,success,error) {
       this.doHttpMethod(URL_CONS.articleDelete,params,success,error);
     }
+
+    // 12.3 文章详情
+    this.articleDetail = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.articleDetail,params,success,error);
+    }
+
+
 
 
 }]);

@@ -58,6 +58,8 @@ yonglongApp.constant('URL_CONS', {
   adminGetGoodsUserList: 'admin_getGoodsUserlist',
   adminAuditSysMember: 'admin_auditSysMember',
 
+  articleEdit: 'article_edit',
   articleList: 'article_list',
   articleDelete: 'article_delete',
+  articleDetail: 'article_detail',
 });

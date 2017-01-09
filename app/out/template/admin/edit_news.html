@@ -22,47 +22,48 @@
           <div class="white-box">
             <div class="row">
 
-              <div class="col-md-6 col-lg-4 col-sm-12">
+              <div class="col-md-6 col-lg-6 col-sm-12">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">标题</span>
-                    <input type="text" class="form-control" id="title" ng-model="reg.title" required>
+                    <input type="text" class="form-control" id="title" ng-model="reg.title">
                   </div>
                   <div class="help-block with-errors"></div>
                 </div>
               </div>
 
-              <div class="col-md-6 col-lg-4 col-sm-12">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon">简介</span>
-                    <input type="text" class="form-control" ng-model="reg.note" required>
-                  </div>
-                  <div class="help-block with-errors"></div>
-                </div>
-              </div>
 
-              <div class="col-md-6 col-lg-4 col-sm-12">
+              <div class="col-md-6 col-lg-6 col-sm-12">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">链接</span>
-                    <input type="text" class="form-control" ng-model="reg.linkurl" required>
+                    <input type="text" class="form-control" ng-model="reg.linkurl">
+                  </div>
+                  <div class="help-block with-errors"></div>
+                </div>
+              </div>
+
+              <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">简介</span>
+                    <input type="text" class="form-control" ng-model="reg.note">
                   </div>
                   <div class="help-block with-errors"></div>
                 </div>
               </div>
 
 
-            <div class="row">
-              <div class="col-md-4 col-lg-4 col-sm-12">
-                <div class="form-group">
-                  <label for="id1">封面图片</label>
-                  <input type="file" id="id1" class="dropify" data-max-file-size="2M" ng-files-model="regfile1.file"/>
+              <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-12">
+                  <div class="form-group">
+                    <label for="id1">封面图片</label>
+                    <input type="file" id="id1" class="dropify" data-max-file-size="2M" data-default-file="{{reg.thumbImg}}" ng-files-model="regfile1.file"/>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">提交编辑</button>
+              <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">提交编辑</button>
 
           </div>
         </form>
