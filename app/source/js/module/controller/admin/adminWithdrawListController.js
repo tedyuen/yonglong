@@ -1,5 +1,5 @@
-yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerProvider','interfaceService','rescode','loadingService',
+  function ($scope,showDatePickerProvider,interfaceService,rescode,loadingService) {
     showDatePickerProvider.showDatePicker();
     $scope.queryData = {
       startTime:'',
@@ -34,7 +34,7 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
-        interfaceService.showLoading();
+        loadingService.showLoading('正在查询');
         httpList();
       }else{
 
