@@ -9,4 +9,5 @@ ylIndex.constant('URL_CONS', {
   companyLogin:'company_login',
   userLogin:'user_login',
   getArticleIndex:'article_index',
+  getArticleList:'article_list',
 });

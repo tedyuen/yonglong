@@ -364,6 +364,7 @@ ylIndex.constant('URL_CONS', {
   companyLogin:'company_login',
   userLogin:'user_login',
   getArticleIndex:'article_index',
+  getArticleList:'article_list',
 });
 
 /**
@@ -441,6 +442,11 @@ ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpServi
   this.getArticleIndex = function (params,success,error) {
     this.doHttpMethod(URL_CONS.getArticleIndex,params,success,error);
 
+  }
+
+  //12.3文章列表
+  this.getArticleList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.getArticleList,params,success,error);
   }
 }]);
 

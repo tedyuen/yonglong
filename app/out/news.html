@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head lang="zh">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
   <![endif]-->
 
 </head>
-<body id="news">
+<body id="news" ng-controller="newsController">
 
 <!--<nav class="navbar navbar-fixed-top" role="navigation">-->
 <nav class="navbar navbar-top" role="navigation" style="z-index: 10;">
@@ -77,46 +77,16 @@
     </div>
     <div class="col-md-7 new-list">
 
-      <div class="row">
+      <div class="row" ng-repeat="result in articleResults.pageData">
         <div class="media">
           <a class="media-left" href="#" style="">
-            <img src="images/about/small01.png" height="240">
+            <img ng-src="{{result.thumbImg}}" height="240">
           </a>
           <div class="media-body" style="">
-            <h4 class="media-heading">万海一集装箱船航行途中发生危险货物爆炸万海一集装箱船航行途中发生危险货物爆炸万海一集装箱船航行途中发生危险货物爆炸万海一集装箱船航行途中发生危险货物爆炸</h4>
-            <p class="p-content">9月19日09:55左右,台湾第三大班轮公司万海航运台湾第三大班轮公司万海航运台湾第三大班轮公司万海航运台湾第三大班轮公司万海航运台湾第三大班轮公司万海航运</p>
+            <h4 class="media-heading">{{result.title}}</h4>
+            <p class="p-content">{{result.note}}</p>
             <p class="p-date pull-right" style="">
-              <span>2016-09-12</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="media">
-          <a class="media-left" href="#" style="">
-            <img src="images/about/small01.png" height="240">
-          </a>
-          <div class="media-body" style="">
-            <h4 class="media-heading">万海一集装箱船航行途中发生危险货物爆炸万海一集装箱船航行途中发生危险货物爆炸万海一集装箱船航行途中发生危险货物爆炸万海一集装箱船航行途中发生危险货物爆炸</h4>
-            <p class="p-content">9月19日09:55左右,台湾第三大班轮公司万海航运台湾第三大班轮公司万海航运台湾第三大班轮公司万海航运台湾第三大班轮公司万海航运台湾第三大班轮公司万海航运</p>
-            <p class="p-date pull-right" style="">
-              <span>2016-09-12</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="media">
-          <a class="media-left" href="#" style="">
-            <img src="images/about/small01.png" height="240">
-          </a>
-          <div class="media-body" style="">
-            <h4 class="media-heading">万海一集装箱船航行途中发生危险货物爆炸万海一集装箱船航行途中发生危险货物爆炸万海一集装箱船航行途中发生危险货物爆炸万海一集装箱船航行途中发生危险货物爆炸</h4>
-            <p class="p-content">9月19日09:55左右,台湾第三大班轮公司万海航运台湾第三大班轮公司万海航运台湾第三大班轮公司万海航运台湾第三大班轮公司万海航运台湾第三大班轮公司万海航运</p>
-            <p class="p-date pull-right" style="">
-              <span>2016-09-12</span>
+              <span>{{result.createTimeStr}}</span>
             </p>
           </div>
         </div>

@@ -212,7 +212,13 @@ gulp.task('indexJs',function(){
 });
 
 var newsJsArr = [
-  './app/source/js/index/news/news.js'
+  './app/source/js/index/news/news.js',
+  './app/source/js/index/httpService.js',
+  './app/source/js/index/rescode.js',
+  './app/source/js/index/index/urlConstant.js',
+  './app/source/js/index/index/interfaceService.js',
+  './app/source/js/index/news/newsController.js',
+
 ];
 gulp.task('newsJs',function(){
   gulp.src(newsJsArr)

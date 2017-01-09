@@ -74,4 +74,9 @@ ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpServi
     this.doHttpMethod(URL_CONS.getArticleIndex,params,success,error);
 
   }
+
+  //12.3文章列表
+  this.getArticleList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.getArticleList,params,success,error);
+  }
 }]);
