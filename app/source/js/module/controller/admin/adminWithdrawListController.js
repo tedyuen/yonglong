@@ -34,6 +34,7 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading();
         httpList();
       }else{
 

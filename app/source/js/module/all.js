@@ -6,6 +6,7 @@ require('bootstrap');
 require('metismenu');
 require('jquery-slimscroll');
 require('./utils/JqueryEllipsis');
+require('./utils/jquery.blockUI');
 require('jquery-toast-plugin');
 require('dropify');
 
@@ -629,8 +630,8 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $ti
   };
 }]);
 
-yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService','rescode',
-  function (httpService,URL_CONS,sessionService,rescode) {
+yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService','rescode','$timeout',
+  function (httpService,URL_CONS,sessionService,rescode,$timeout) {
 
   this.doHttp = function (url,sub,params,success,error,files) {
     var base = {
@@ -658,8 +659,8 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     _opts.data = request;
     // _opts.params = request;
     _opts.success = function (data,headers,config,status) {
+      this.closeLoading();
       if(data.rescode==rescode.ERROR_TOKEN){
-
         swal({
           title: "登录失效",
           text: "您的登录已经失效，请前往重新登录!",
@@ -677,6 +678,7 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
       }
     };
     _opts.error = function (data,headers,config,status) {
+      this.closeLoading();
       swal('错误','网络请求失败，请重试！','error');
       if(error){
         error(data,headers,config,status);
@@ -928,6 +930,54 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 
 
 
+    this.showLoading = function () {
+      $.blockUI({
+        message: '<h4 style="color:white;"> 正在加载...</h4>'
+        ,css: {
+          border: 'none',
+          padding: '15px',
+          backgroundColor: '#000',
+          '-webkit-border-radius': '10px',
+          '-moz-border-radius': '10px',
+          opacity: .5,
+          color: '#fff'
+        }
+      });
+      $timeout(function () {
+        // $.unblockUI();
+        $('.blockOverlay').attr('title','点击关闭等待').click($.unblockUI);
+      },5000);
+    }
+    this.closeLoading = function () {
+      $.unblockUI();
+    }
+
+}]);
+
+yonglongApp.service('loadingService',['$scope','$timeout',function ($scope,$timeout) {
+  this.showLoading = function () {
+    // $('#wrapper').block({
+    //   message: '<h4><img src="images/pixel/busy.gif" /> 正在加载...</h4>'
+    //   , css: {
+    //     border: '1px solid #fff'
+    //   }
+    //   // css: {
+    //   //   border: 'none',
+    //   //   padding: '15px',
+    //   //   backgroundColor: '#000',
+    //   //   '-webkit-border-radius': '10px',
+    //   //   '-moz-border-radius': '10px',
+    //   //   opacity: .5,
+    //   //   color: '#fff'
+    //   // }
+    // });
+    // $timeout(function () {
+    //   $('#wrapper').unblockUI;
+    // },2000);
+  }
+  this.closeLoading = function () {
+    $('#wrapper').unblockUI;
+  }
 }]);
 
 yonglongApp.service('logoutService',['$rootScope','$cookies',function ($rootScope,$cookies) {
@@ -4267,6 +4317,7 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading();
         httpList();
       }else{
 

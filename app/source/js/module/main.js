@@ -6,6 +6,7 @@ require('bootstrap');
 require('metismenu');
 require('jquery-slimscroll');
 require('./utils/JqueryEllipsis');
+require('./utils/jquery.blockUI');
 require('jquery-toast-plugin');
 require('dropify');
 
