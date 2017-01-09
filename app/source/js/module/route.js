@@ -92,7 +92,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       }
     })
     .state('main.admin.edit_news',{//录入/修改新闻
-      url:'/edit_news',
+      url:'/edit_news/{newsId}',
       views: {
         'content@main': {
           templateUrl: 'template/admin/edit_news.html',

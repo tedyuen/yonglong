@@ -1,5 +1,5 @@
-yonglongApp.controller('adminNewsListController',['$scope','$timeout','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('adminNewsListController',['$scope','$timeout','$state','showDatePickerProvider','interfaceService','rescode',
+  function ($scope,$timeout,$state,showDatePickerProvider,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.queryData = {
       pageno:1,
@@ -37,6 +37,10 @@ yonglongApp.controller('adminNewsListController',['$scope','$timeout','showDateP
 
         }
       });
+    }
+
+    $scope.editNews = function (id) {
+      $state.go('main.admin.edit_news',{newsId:id});
     }
 
     //通过审核
