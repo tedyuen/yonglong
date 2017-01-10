@@ -380,11 +380,11 @@ ylIndex.controller('newsController',['$scope','interfaceService','rescode',funct
     // console.log("$scope.articleResults.currPageNum:"+$scope.articleResults.currPageNum);
     // console.log("scope.articleResults.totalPages:"+$scope.articleResults.totalPages);
     if(($scope.articleResults.totalPages-2) <= $scope.showCount){
-      console.log('全显示');
+      // console.log('全显示');
       $scope.preShow = false;
       $scope.nextShow = false;
     }else {
-      console.log('不全显示');
+      // console.log('不全显示');
       $scope.preShow = (perCount+2)<$scope.articleResults.currPageNum;
       $scope.nextShow = (perCount+1)<($scope.articleResults.totalPages - $scope.articleResults.currPageNum);
     }

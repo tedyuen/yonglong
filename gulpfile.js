@@ -150,7 +150,9 @@ gulp.task('nodeModule',function(){
 
 });
 
-gulp.task('default',['js','css']);
+gulp.task('default',['js','css','orderJs','indexJs','newsJs','indexcss']);
+
+
 var indexCssArr = [
   './app/source/css/node/bootstrap.min.css',
   './app/source/sass/index/css/*.css',
