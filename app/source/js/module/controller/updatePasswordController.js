@@ -47,6 +47,7 @@ yonglongApp.controller('updatePasswordController',['$rootScope','$scope','$inter
       if($rootScope.loginUser){
         if($rootScope.loginUser.mobilePhone){
           var mobilePhone = $rootScope.loginUser.mobilePhone;
+          mobilePhone = mobilePhone.substring(0,3)+'****'+mobilePhone.substring(8,11);
           swal({
             title: "发送验证码?",
             text: "即将往手机号为"+mobilePhone+"的手机发送一条验证码短信!",

@@ -145,6 +145,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.userinner.update_password',{//修改密码
+      url:'/update_password',
+      views: {
+        'content@main': {
+          templateUrl: 'template/update_password.html',
+          controller: 'updatePasswordController'
+        }
+      }
+    })
     .state('main.userinner.wanner_order',{//我要接单
       url:'/wanner_order',
       views: {
@@ -264,6 +273,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'footer': {
           templateUrl: 'template/footer.html'
+        }
+      }
+    })
+    .state('main.companyinner.update_password',{//修改密码
+      url:'/update_password',
+      views: {
+        'content@main': {
+          templateUrl: 'template/update_password.html',
+          controller: 'updatePasswordController'
         }
       }
     })
