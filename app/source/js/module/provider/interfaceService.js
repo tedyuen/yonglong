@@ -296,8 +296,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     }
 
 
-
-
+    // 13.3 发送验证码
+    this.sendcode = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.sendcode,params,success,error);
+    }
 
 
 }]);

@@ -38,7 +38,8 @@ sudo npm install --save-dev gulp gulp-browserify del gulp-clean-css gulp-concat 
 // mockjs
 // sweetalert
 // angular-cookies
-sudo npm install --save angular jquery bootstrap angular-route angular-ui-router angular-animate bootstrap-datepicker jquery-toast-plugin metismenu jquery-slimscroll angular-baidu-map dropify mockjs sweetalert angular-cookies
+// waypoints
+sudo npm install --save angular jquery bootstrap angular-route angular-ui-router angular-animate bootstrap-datepicker jquery-toast-plugin metismenu jquery-slimscroll angular-baidu-map dropify mockjs sweetalert angular-cookies waypoints
 ```
 
 7. npm 设置淘宝镜像

@@ -7,6 +7,8 @@ require('metismenu');
 require('jquery-slimscroll');
 require('./utils/JqueryEllipsis');
 require('./utils/jquery.blockUI');
+// require('waypoints');
+// require('./utils/jquery.counterup.min');
 require('jquery-toast-plugin');
 require('dropify');
 
@@ -15,8 +17,8 @@ require('dropify');
 
 require('bootstrap-datepicker');
 require('./utils/bootstrap-datepicker');
-require('./utils/jquery.waypoints.min');
-require('./utils/jquery.counterup.min');
+// require('./utils/jquery.waypoints');
+// require('./utils/jquery.counterup.min');
 require('sweetalert');
 
 require('angular');
@@ -175,6 +177,8 @@ yonglongApp.constant('URL_CONS', {
   articleList: 'article_list',
   articleDelete: 'article_delete',
   articleDetail: 'article_detail',
+
+  sendcode: 'sendcode',
 });
 
 /**
@@ -379,8 +383,7 @@ yonglongApp.provider('countupProvider',function () {
   this.$get = function () {
     return {
       countup:function () {
-        console.log('countup');
-        // jQuery(".counter").counterUp({
+        // $(".counter").counterUp({
         //   delay: 100,
         //   time: 1200
         // });
@@ -928,8 +931,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     }
 
 
-
-
+    // 13.3 发送验证码
+    this.sendcode = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.sendcode,params,success,error);
+    }
 
 
 }]);
@@ -1005,6 +1010,86 @@ yonglongApp.provider('showDatePickerProvider',function () {
     }
   }
 });
+
+yonglongApp.service('toastService',function () {
+
+  this.toastSuccess = function (option) {
+    $.toast({
+      heading: option.heading,
+      text: option.text,
+      position: 'top-right',
+      loaderBg:'#ff6849',
+      icon: 'success',
+      hideAfter: 2000,
+      stack: 6
+    });
+  }
+  this.toastWarning = function (option) {
+    $.toast({
+      heading: option.heading,
+      text: option.text,
+      position: 'top-right',
+      loaderBg:'#ff6849',
+      icon: 'warning',
+      hideAfter: 2000,
+      stack: 6
+    });
+  }
+
+  //验证码发送
+  this.sendCodeToast = function (flag) {
+    if(flag){
+      this.toastSuccess({
+        heading: '发送成功',
+        text: '验证码发送成功,请查看您的短信收件箱，输入有效验证码，并完成表单。',
+      })
+    }else{
+      this.toastWarning({
+        heading: '发送失败',
+        text: '验证码发送失败,请查看您的网络设置并重试。',
+      });
+    }
+  }
+
+})
+
+yonglongApp.service('validateService',['$rootScope',function ($rootScope) {
+
+  this.mobile = function (mobile,swalFlag) {
+    var code = {
+      result:true,
+      msg:'手机号正确'
+    }
+    if(mobile==null || mobile == undefined || mobile==''){
+      code = {
+        result:false,
+        msg:'手机号不能为空'
+      }
+    }else if(mobile.length!=11 || isNaN(mobile)){
+      code = {
+        result:false,
+        msg:'请输入11位有效的手机号码'
+      }
+    }else{
+      // var myreg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,2,3,5-9]))\\d{8}$/;
+      // if(!myreg.test(mobile)){
+      //   code= {
+      //     result:false,
+      //     msg:'请输入有效的手机号码'
+      //   }
+      // }
+    }
+
+    if(swalFlag && !code.result){
+      swal('验证',code.msg,'error');
+    }
+    return code;
+  }
+
+
+
+
+}])
 
 yonglongApp.controller('departCostListController',['$scope','interfaceService','rescode',
   function ($scope,interfaceService,rescode) {
@@ -1714,8 +1799,8 @@ yonglongApp.controller('userHasgetOrderController2',['$scope','$timeout','showDa
 
   }]);
 
-yonglongApp.controller('userRegisterController',['$scope','$state','dropifyProvider','interfaceService','rescode','baseDataService',
-  function ($scope,$state,dropifyProvider,interfaceService,rescode,baseDataService) {
+yonglongApp.controller('userRegisterController',['$scope','$state','dropifyProvider','interfaceService','rescode','baseDataService','validateService','toastService',
+  function ($scope,$state,dropifyProvider,interfaceService,rescode,baseDataService,validateService,toastService) {
     dropifyProvider.dropify();
     $scope.showTerms=function () {
       $('#terms').modal('show');
@@ -1782,6 +1867,45 @@ yonglongApp.controller('userRegisterController',['$scope','$state','dropifyProvi
       }
     };
 
+    //发送验证码
+    $scope.validCodeFlag = true;
+    $scope.validCodeText = '发送验证码';
+    $scope.sendCode = function () {
+      var validMobile = validateService.mobile($scope.reg.mobilePhone,true);
+      if(validMobile.result && $scope.validCodeFlag){
+        var second = 60;
+        $scope.validCodeFlag = false;
+        $scope.validCodeText = '正在发送...';
+
+        var params = {
+          codetype:0,
+          mobilePhone:$scope.reg.mobilePhone
+        }
+        interfaceService.sendcode(params,function (data,headers,config) {
+          console.log(JSON.stringify(data));
+
+          if(data.rescode==rescode.SUCCESS){
+            toastService.sendCodeToast(true);
+            var timePromise = $interval(function () {
+              if(second<=0){
+                $interval.cancel(timePromise);
+                timePromise = undefined;
+                $scope.validCodeFlag = true;
+                $scope.validCodeText = '重新发送验证码';
+              }else{
+                $scope.validCodeText = second+'秒后重新发送';
+                second--;
+              }
+            },1000,65);
+
+          }else{
+            toastService.sendCodeToast(false);
+            $scope.validCodeFlag = true;
+            $scope.validCodeText = '发送验证码';
+          }
+        });
+      }
+    }
 
   }]);
 
@@ -3031,8 +3155,8 @@ yonglongApp.controller('receiveReportController',['$scope','$timeout','showDateP
     httpList();
 }]);
 
-yonglongApp.controller('registerCompanyController',['$scope','$state','dropifyProvider','interfaceService','rescode',
-  function ($scope,$state,dropifyProvider,interfaceService,rescode) {
+yonglongApp.controller('registerCompanyController',['$scope','$state','$interval','dropifyProvider','interfaceService','rescode','validateService','toastService',
+  function ($scope,$state,$interval,dropifyProvider,interfaceService,rescode,validateService,toastService) {
     dropifyProvider.dropify();
     $scope.showTerms=function () {
       $('#terms').modal('show');
@@ -3070,7 +3194,7 @@ yonglongApp.controller('registerCompanyController',['$scope','$state','dropifyPr
     $scope.onSubmit = function($valid){
       if($valid){
         interfaceService.companyRegister($scope.reg,files,function (data,headers,config) {
-          console.log(JSON.stringify(data));
+          // console.log(JSON.stringify(data));
           if(data.rescode==rescode.SUCCESS){
             $state.go('main.companyinner.create_order');
           }else if(data.rescode==rescode.AGAIN_PHONE){
@@ -3083,6 +3207,46 @@ yonglongApp.controller('registerCompanyController',['$scope','$state','dropifyPr
         console.log("$valid:"+$valid);
       }
     };
+
+    //发送验证码
+    $scope.validCodeFlag = true;
+    $scope.validCodeText = '发送验证码';
+    $scope.sendCode = function () {
+      var validMobile = validateService.mobile($scope.reg.mobilePhone,true);
+      if(validMobile.result && $scope.validCodeFlag){
+        var second = 60;
+        $scope.validCodeFlag = false;
+        $scope.validCodeText = '正在发送...';
+
+        var params = {
+          codetype:0,
+          mobilePhone:$scope.reg.mobilePhone
+        }
+        interfaceService.sendcode(params,function (data,headers,config) {
+          console.log(JSON.stringify(data));
+
+          if(data.rescode==rescode.SUCCESS){
+            toastService.sendCodeToast(true);
+            var timePromise = $interval(function () {
+              if(second<=0){
+                $interval.cancel(timePromise);
+                timePromise = undefined;
+                $scope.validCodeFlag = true;
+                $scope.validCodeText = '重新发送验证码';
+              }else{
+                $scope.validCodeText = second+'秒后重新发送';
+                second--;
+              }
+            },1000,65);
+
+          }else{
+            toastService.sendCodeToast(false);
+            $scope.validCodeFlag = true;
+            $scope.validCodeText = '发送验证码';
+          }
+        });
+      }
+    }
 
 
 }]);
