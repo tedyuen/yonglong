@@ -52,6 +52,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.admin.update_password',{//修改密码
+      url:'/update_password',
+      views: {
+        'content@main': {
+          templateUrl: 'template/update_password.html',
+          controller: 'updatePasswordController'
+        }
+      }
+    })
     .state('main.admin.order_list',{//订单列表
       url:'/order_list',
       views: {

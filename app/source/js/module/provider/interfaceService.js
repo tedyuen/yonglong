@@ -296,6 +296,11 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     }
 
 
+    // 13.1 修改密码
+    this.updatePassword = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.updatePassword,params,success,error);
+    }
+
     // 13.2 找回密码
     this.resetPassword = function (params,success,error) {
       this.doHttpMethod(URL_CONS.resetPassword,params,success,error);

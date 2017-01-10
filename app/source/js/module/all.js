@@ -178,6 +178,7 @@ yonglongApp.constant('URL_CONS', {
   articleDelete: 'article_delete',
   articleDetail: 'article_detail',
 
+  updatePassword: 'update_password',
   resetPassword: 'reset_password',
   sendcode: 'sendcode',
 });
@@ -932,6 +933,11 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     }
 
 
+    // 13.1 修改密码
+    this.updatePassword = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.updatePassword,params,success,error);
+    }
+
     // 13.2 找回密码
     this.resetPassword = function (params,success,error) {
       this.doHttpMethod(URL_CONS.resetPassword,params,success,error);
@@ -976,11 +982,15 @@ yonglongApp.service('loadingService',['$timeout',function ($timeout) {
   }
 }]);
 
-yonglongApp.service('logoutService',['$rootScope','$cookies',function ($rootScope,$cookies) {
-  this.logout = function () {
+yonglongApp.service('logoutService',['$rootScope','$state','$cookies',function ($rootScope,$state,$cookies) {
+  this.logout = function (role) {
     $rootScope.loginUser = undefined;
     $cookies.remove('yltUser');
-    window.location.href = 'index.html';
+    if(role){
+      $state.go('adminlogin');
+    }else{
+      window.location.href = 'index.html';
+    }
   }
 }]);
 
@@ -4270,7 +4280,7 @@ yonglongApp.controller('adminRoleController',['$rootScope','$scope','$cookies','
         confirmButtonText: "是的,注销!",
         closeOnConfirm: false,
       },function () {
-        logoutService.logout();
+        logoutService.logout('admin');
       });
     }
 
@@ -4607,7 +4617,7 @@ yonglongApp.controller('forgetPasswordController',['$scope','$state','$statePara
     $scope.onResetPassword = function ($valid) {
       if($valid){
         interfaceService.resetPassword($scope.params,function (data,headers,config) {
-          console.log(JSON.stringify(data));
+          // console.log(JSON.stringify(data));
           if(data.rescode==rescode.SUCCESS){
             swal({
               title:"密码重置成功！",
@@ -4651,8 +4661,7 @@ yonglongApp.controller('forgetPasswordController',['$scope','$state','$statePara
           mobilePhone:$scope.params.mobilePhone
         }
         interfaceService.sendcode(params,function (data,headers,config) {
-          console.log(JSON.stringify(data));
-
+          // console.log(JSON.stringify(data));
           if(data.rescode==rescode.SUCCESS){
             toastService.sendCodeToast(true);
             var timePromise = $interval(function () {
@@ -4689,6 +4698,100 @@ yonglongApp.controller('mainController',['$rootScope','$scope','$cookies','$time
     var uiState = new UiState();
     uiState.ready()
   },50);
+}]);
+
+yonglongApp.controller('updatePasswordController',['$rootScope','$scope','$interval','interfaceService','rescode','toastService',
+  function ($rootScope,$scope,$interval,interfaceService,rescode,toastService) {
+
+    $scope.reg = {
+      mobileCode:'',
+      newPassword:'',
+      repassword:'',
+    }
+
+    $scope.valid = {
+      repass:true
+    }
+
+
+    $scope.checkPassword = function () {
+      $scope.valid.repass = $scope.reg.newPassword==$scope.reg.repassword;
+    }
+
+    $scope.onSubmit = function ($valid) {
+      if($valid){
+        if(!$scope.valid.repass){
+          swal('重复密码有误','两次输入的密码需要一致!','error');
+          return;
+        }
+        interfaceService.updatePassword($scope.reg,function (data,headers,config) {
+          if(data.rescode==rescode.SUCCESS){
+            swal('修改成功','修改密码成功!','success');
+            $scope.reg = {
+              mobileCode:'',
+              newPassword:'',
+              repassword:'',
+            }
+          }else{
+            swal('修改密码出错','修改密码出错，请重新修改!','error');
+            $scope.reg.mobileCode = '';
+          }
+        });
+      }else{
+        swal('提交内容不能为空','表单内红框部分的内容不能为空!','error');
+      }
+    }
+
+    //发送验证码
+    $scope.validCodeFlag = true;
+    $scope.validCodeText = '发送验证码';
+    $scope.sendCode = function () {
+      if($rootScope.loginUser){
+        if($rootScope.loginUser.mobilePhone){
+          var mobilePhone = $rootScope.loginUser.mobilePhone;
+          swal({
+            title: "发送验证码?",
+            text: "即将往手机号为"+mobilePhone+"的手机发送一条验证码短信!",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的,发送!",
+          },function () {
+            var second = 60;
+            $scope.validCodeFlag = false;
+            $scope.validCodeText = '正在发送...';
+            var params = {
+              codetype:2,
+              mobilePhone:mobilePhone
+            }
+            interfaceService.sendcode(params,function (data,headers,config) {
+              // console.log(JSON.stringify(data));
+              if(data.rescode==rescode.SUCCESS){
+                toastService.sendCodeToast(true);
+                var timePromise = $interval(function () {
+                  if(second<=0){
+                    $interval.cancel(timePromise);
+                    timePromise = undefined;
+                    $scope.validCodeFlag = true;
+                    $scope.validCodeText = '重新发送验证码';
+                  }else{
+                    $scope.validCodeText = second+'秒后重新发送';
+                    second--;
+                  }
+                },1000,65);
+
+              }else{
+                toastService.sendCodeToast(false);
+                $scope.validCodeFlag = true;
+                $scope.validCodeText = '发送验证码';
+              }
+            });
+          });
+        }
+      }
+    }
+
 }]);
 
 yonglongApp.directive('creditRank',function () {
@@ -4850,6 +4953,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'footer': {
           templateUrl: 'template/footer.html'
+        }
+      }
+    })
+    .state('main.admin.update_password',{//修改密码
+      url:'/update_password',
+      views: {
+        'content@main': {
+          templateUrl: 'template/update_password.html',
+          controller: 'updatePasswordController'
         }
       }
     })

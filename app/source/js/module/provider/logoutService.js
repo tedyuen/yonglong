@@ -1,7 +1,11 @@
-yonglongApp.service('logoutService',['$rootScope','$cookies',function ($rootScope,$cookies) {
-  this.logout = function () {
+yonglongApp.service('logoutService',['$rootScope','$state','$cookies',function ($rootScope,$state,$cookies) {
+  this.logout = function (role) {
     $rootScope.loginUser = undefined;
     $cookies.remove('yltUser');
-    window.location.href = 'index.html';
+    if(role){
+      $state.go('adminlogin');
+    }else{
+      window.location.href = 'index.html';
+    }
   }
 }]);
