@@ -55,7 +55,7 @@
       }
 
       .row:last-child{background: none;}
-      .page-list nav .pager{
+      .page-list nav .pagination{
         li {
           a{
             border: 0; background: none; font-size: 16px; color: #808080;
@@ -63,7 +63,11 @@
           a:hover{
             background: #e8e8e8;
           }
+          .active{
+            background: #e8e8e8;
+          }
         }
+
         .previous{
           a{
             //padding-left: 0;padding-right: 0;
