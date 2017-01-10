@@ -63,5 +63,6 @@ yonglongApp.constant('URL_CONS', {
   articleDelete: 'article_delete',
   articleDetail: 'article_detail',
 
+  resetPassword: 'reset_password',
   sendcode: 'sendcode',
 });

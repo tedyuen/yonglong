@@ -45,6 +45,7 @@ var orderJsArr = [
   './app/source/js/module/order/order.js',
   './app/source/js/module/provider/httpService.js',
   './app/source/js/module/provider/sessionService.js',
+  './app/source/js/module/provider/loadingService.js',
   './app/source/js/module/provider/interfaceService.js',
   './app/source/js/module/app/rescode.js',
   './app/source/js/module/app/urlConstant.js',

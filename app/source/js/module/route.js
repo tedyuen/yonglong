@@ -22,6 +22,12 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       templateUrl:'template/register_user.html',
       controller:'userRegisterController'
     })
+    .state('forget_password',{//忘记密码
+      url:'/forget_password/{role}',
+      templateUrl:'template/forget_password.html',
+      controller:'forgetPasswordController'
+    })
+
 
     .state('main',{//主页
       url:'/main',
