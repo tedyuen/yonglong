@@ -94,18 +94,16 @@
 
       <div class="row page-list">
         <nav>
-          <ul class="pager">
-            <li class="previous"><a href="#"><span class="pull-left btn-icon btn-icon-left"></span>上一页</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>...</li>
-            <li><a href="#">98</a></li>
-            <li><a href="#">99</a></li>
-            <li><a href="#">100</a></li>
-            <li class="next"><a href="#">下一页<span class="pull-right btn-icon btn-icon-right"></span></a></li>
+          <ul class="pagination">
+            <li class="previous"><a ng-click="switchPage(articleResults.currPageNum-1)"><span class="pull-left btn-icon btn-icon-left"></span>上一页</a></li>
+            <li><a href="" ng-class="{'active':firstPage.isCurrent}" ng-click="switchPage(firstPage.pageNum)">{{firstPage.pageNum}}</a></li>
+            <li ng-if="preShow"><a href="">...</a></li>
+
+            <li ng-repeat="result in selectPageArray"><a href="" ng-class="{'active':result.isCurrent}" ng-click="switchPage(result.pageNum)">{{result.pageNum}}</a></li>
+
+            <li ng-if="nextShow"><a href="">...</a></li>
+            <li><a href="" ng-class="{'active':lastPage.isCurrent}" ng-click="switchPage(lastPage.pageNum)">{{lastPage.pageNum}}</a></li>
+            <li class="next"><a ng-click="switchPage(articleResults.currPageNum+1)">下一页<span class="pull-right btn-icon btn-icon-right"></span></a></li>
           </ul>
         </nav>
       </div>

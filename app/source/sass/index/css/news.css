@@ -117,13 +117,15 @@
           display: inline-block; }
     #news .news-container .new-list .row:last-child {
       background: none; }
-    #news .news-container .new-list .page-list nav .pager li a {
+    #news .news-container .new-list .page-list nav .pagination li a {
       border: 0;
       background: none;
       font-size: 16px;
       color: #808080; }
-    #news .news-container .new-list .page-list nav .pager li a:hover {
+    #news .news-container .new-list .page-list nav .pagination li a:hover {
       background: #e8e8e8; }
-    #news .news-container .new-list .page-list nav .pager .previous a span {
+    #news .news-container .new-list .page-list nav .pagination li .active {
+      background: #e8e8e8; }
+    #news .news-container .new-list .page-list nav .pagination .previous a span {
       margin-left: 0;
       margin-right: 10px; }
