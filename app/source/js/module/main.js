@@ -5,6 +5,10 @@ global.$ = global.jQuery = require('jquery');
 require('bootstrap');
 require('metismenu');
 require('jquery-slimscroll');
+require('./utils/JqueryEllipsis');
+require('./utils/jquery.blockUI');
+// require('waypoints');
+// require('./utils/jquery.counterup.min');
 require('jquery-toast-plugin');
 require('dropify');
 
@@ -13,8 +17,8 @@ require('dropify');
 
 require('bootstrap-datepicker');
 require('./utils/bootstrap-datepicker');
-require('./utils/jquery.waypoints.min');
-require('./utils/jquery.counterup.min');
+// require('./utils/jquery.waypoints');
+// require('./utils/jquery.counterup.min');
 require('sweetalert');
 
 require('angular');

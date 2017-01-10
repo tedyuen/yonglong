@@ -215,21 +215,30 @@ yonglongApp.factory('httpService', ['$http','$timeout','$q',function ($http, $ti
 yonglongApp.service('sessionService',['$rootScope',function ($rootScope) {
   this.getSession = function () {
     // console.log("show token:"+eluser.token);
-    console.log("show $rootScope token:"+$rootScope.loginUser.token);
-    var session = {
-      // token:eluser.token
-      token:$rootScope.loginUser.token
+    // console.log("show $rootScope token:"+$rootScope.loginUser.token);
+    if($rootScope.loginUser){
+      var session = {
+        // token:eluser.token
+        token:$rootScope.loginUser.token
+      }
+      return session;
+    }else{
+      return undefined;
     }
-    return session;
   }
 }]);
 
-yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService','rescode',
-  function (httpService,URL_CONS,sessionService,rescode) {
+yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService','rescode','loadingService',
+  function (httpService,URL_CONS,sessionService,rescode,loadingService) {
 
   this.doHttp = function (url,sub,params,success,error,files) {
     var base = {
-      token:sessionService.getSession().token
+      // token:sessionService.getSession().token
+    }
+    if(sessionService.getSession() != undefined){
+      base = {
+        token:sessionService.getSession().token
+      }
     }
     jQuery.extend(params,sub);
     jQuery.extend(params,base);
@@ -248,8 +257,8 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     _opts.data = request;
     // _opts.params = request;
     _opts.success = function (data,headers,config,status) {
+      // loadingService.closeLoading();
       if(data.rescode==rescode.ERROR_TOKEN){
-
         swal({
           title: "登录失效",
           text: "您的登录已经失效，请前往重新登录!",
@@ -267,6 +276,7 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
       }
     };
     _opts.error = function (data,headers,config,status) {
+      loadingService.closeLoading();
       swal('错误','网络请求失败，请重试！','error');
       if(error){
         error(data,headers,config,status);
@@ -458,6 +468,68 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.userDispatchList,params,success,error);
   }
 
+
+  ///  以下是管理员接口
+  // A11.1 登录
+  this.adminLogin = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminLogin,params,success,error);
+  }
+
+  // A1.1 订单列表
+  this.adminGetOrderList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminGetOrderList,params,success,error);
+  }
+
+  // A2.1 承运方会员列表
+  this.adminGetBusUserList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminGetBusUserList,params,success,error);
+  }
+  // A2.2 发货方会员列表
+  this.adminGetGoodsUserList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminGetGoodsUserList,params,success,error);
+  }
+
+
+  // A2.3 会员审核通过/取消
+  this.adminAuditSysMember = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminAuditSysMember,params,success,error);
+  }
+
+
+
+  // A3.1 提现列表
+  this.adminListSysRefund = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminListSysRefund,params,success,error);
+  }
+  // A3.2 提现通过审核
+  this.adminAuditSysRefund = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.adminAuditSysRefund,params,success,error);
+  }
+
+    // 12.1 编辑文章
+    this.articleEdit = function (params,files,success,error) {
+      this.doHttpMethod(URL_CONS.articleEdit,params,success,error,files);
+    }
+    // 12.3 文章列表
+    this.articleList = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.articleList,params,success,error);
+    }
+
+    // 12.3 删除文章
+    this.articleDelete = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.articleDelete,params,success,error);
+    }
+
+    // 12.3 文章详情
+    this.articleDetail = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.articleDetail,params,success,error);
+    }
+
+
+
+
+
+
 }]);
 
 yonglongApp.constant('rescode', {
@@ -466,6 +538,9 @@ yonglongApp.constant('rescode', {
   AGAIN_PHONE:'201002',
   EMPTY_SMS_CODE:'201004',
   ERROR_TOKEN:'9001',
+
+  UNKNOW_USER:'201008',//用户不存在
+  ERROR_PASSWORD:'201009',//密码不正确
 })
 
 /**
@@ -517,8 +592,21 @@ yonglongApp.constant('URL_CONS', {
   userListFriend: 'user_list_friend',
   userEditFriend: 'user_edit_friend',
 
-
   userDispatchList: 'user_dispatchList',
+
+  // 以下是admin接口
+  adminLogin: 'admin_login',
+  adminGetOrderList: 'admin_getOrderList',
+  adminListSysRefund: 'admin_listSysRefund',
+  adminAuditSysRefund: 'admin_auditSysRefund',
+  adminGetBusUserList: 'admin_getBusUserlist',
+  adminGetGoodsUserList: 'admin_getGoodsUserlist',
+  adminAuditSysMember: 'admin_auditSysMember',
+
+  articleEdit: 'article_edit',
+  articleList: 'article_list',
+  articleDelete: 'article_delete',
+  articleDetail: 'article_detail',
 });
 
 yonglongApp.value('diyData',
@@ -582,6 +670,17 @@ yonglongApp.filter('friendType',function () {
     }
   }
 });
+
+yonglongApp.filter('memberType',function () {
+  return function (str) {
+    if(str=='0'){
+      return '货主'
+    }else if(str=='1'){
+      return '车主'
+    }
+  }
+});
+
 
 yonglongApp.filter('emptyText',function () {
   return function (str) {

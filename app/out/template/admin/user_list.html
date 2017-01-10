@@ -1,0 +1,222 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">承运方会员列表</h4>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="">会员管理</a></li>
+          <li class="active">承运方会员列表</li>
+        </ol>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12">
+
+        <form ng-submit="queryList(theForm.$valid)" novalidate="novalidate" name="theForm">
+          <div class="white-box">
+            <div class="row">
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">最早日期</span>
+                    <input type="text" class="form-control mydatepicker" placeholder="yyyy-mm-dd" ng-model="queryData.startTime">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">最晚日期</span>
+                    <input type="text" class="form-control mydatepicker" placeholder="yyyy-mm-dd" ng-model="queryData.endTime">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">查询</button>
+            <button type="button" ng-click="reset()" class="btn waves-effect waves-light btn-success">清空表单</button>
+
+          </div>
+        </form>
+      </div>
+
+      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+        <div class="white-box">
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12" ng-show="results.totalPages!=null && results.totalPages!=0">
+        <div class="white-box">
+          <div class="row">
+            <table class="table color-table primary-table table-hover table-bordered">
+              <thead>
+              <tr>
+                <th>日期</th>
+                <th>姓名</th>
+                <th>手机</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="result in results.pageData">
+                <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.regTimeStr}}</td>
+                <td><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.memberName}}</td>
+                <td>{{result.mobilePhone}}</td>
+                <td>
+                  <button type="button" class="btn btn-primary btn-xs"
+                          ng-if="result.isValidated==0" ng-click="auditSysMember(result.id,1,1)">通过审核</button>
+                  <button type="button" class="btn btn-primary btn-xs"
+                          ng-if="result.isValidated==1" ng-click="auditSysMember(result.id,1,0)">取消审核</button>
+
+                  <button type="button" class="btn btn-success btn-xs"
+                          ng-click="busUserDetail(result.id)">查看用户详情</button>
+
+                  <button type="button" class="btn btn-success btn-xs"
+                          ng-click="gb(result.id,'1',result.memberName)">查看用户账户状态</button>
+
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <pagination page-size="results.pageSize"
+                        total-pages="results.totalPages"
+                        curr-page="results.currPageNum"
+                        show-count="100"
+                        switch-page="switchPage">
+            </pagination>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="bus-user-detail-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel">会员信息</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <table class="table table-striped">
+              <tr>
+                <td>注册时间</td>
+                <td>{{busUserDetailResult.regTimeStr | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>公司名称</td>
+                <td>{{busUserDetailResult.companyName | emptyText}}</td>
+              </tr>
+              <tr ng-if="busUserDetailResult.resultType==0">
+                <td>车牌号</td>
+                <td>{{busUserDetailResult.carNumber | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>手机号</td>
+                <td>{{busUserDetailResult.mobilePhone | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>电话</td>
+                <td>{{busUserDetailResult.tel | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>联系人</td>
+                <td>{{busUserDetailResult.companyLinker | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>联系地址</td>
+                <td>{{busUserDetailResult.address | emptyText}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info waves-effect text-left" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+  <div id="account-info-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" >账户状态</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <table class="table table-striped">
+              <tr>
+                <td>姓名</td>
+                <td>{{accountResult.bankCardOwner}}</td>
+              </tr>
+              <tr>
+                <td>订单总额</td>
+                <td>{{accountResult.all}}</td>
+              </tr>
+              <tr>
+                <td>发货方已支付</td>
+                <td>{{accountResult.pay}}</td>
+              </tr>
+              <tr>
+                <td>提现中</td>
+                <td>{{accountResult.posing}}</td>
+              </tr>
+              <tr>
+                <td>已提现</td>
+                <td>{{accountResult.pos}}</td>
+              </tr>
+              <tr ng-if="accountResult.role=='1'">
+                <td>指派订单总额</td>
+                <td>{{accountResult.distotal}}</td>
+              </tr>
+              <tr ng-if="accountResult.role=='1'">
+                <td>提现中指派订单金额</td>
+                <td>{{accountResult.disingtotal}}</td>
+              </tr>
+              <tr ng-if="accountResult.role=='1'">
+                <td>已提现指派订单金额</td>
+                <td>{{accountResult.disdonetotal}}</td>
+              </tr>
+              <tr>
+                <td>可提现金额</td>
+                <td>{{accountResult.canpos}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info waves-effect text-left" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+
+
+</div>

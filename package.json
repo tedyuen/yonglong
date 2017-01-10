@@ -36,6 +36,7 @@
     "jquery-toast-plugin": "^1.3.1",
     "metismenu": "^2.6.0",
     "mockjs": "^1.0.1-beta3",
-    "sweetalert": "^1.1.3"
+    "sweetalert": "^1.1.3",
+    "waypoints": "^4.0.1"
   }
 }

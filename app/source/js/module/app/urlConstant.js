@@ -47,6 +47,21 @@ yonglongApp.constant('URL_CONS', {
   userListFriend: 'user_list_friend',
   userEditFriend: 'user_edit_friend',
 
-
   userDispatchList: 'user_dispatchList',
+
+  // 以下是admin接口
+  adminLogin: 'admin_login',
+  adminGetOrderList: 'admin_getOrderList',
+  adminListSysRefund: 'admin_listSysRefund',
+  adminAuditSysRefund: 'admin_auditSysRefund',
+  adminGetBusUserList: 'admin_getBusUserlist',
+  adminGetGoodsUserList: 'admin_getGoodsUserlist',
+  adminAuditSysMember: 'admin_auditSysMember',
+
+  articleEdit: 'article_edit',
+  articleList: 'article_list',
+  articleDelete: 'article_delete',
+  articleDetail: 'article_detail',
+
+  sendcode: 'sendcode',
 });

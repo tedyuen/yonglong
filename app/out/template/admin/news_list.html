@@ -1,0 +1,60 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">新闻列表</h4>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="">新闻管理</a></li>
+          <li class="active">新闻列表</li>
+        </ol>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+
+      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+        <div class="white-box">
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12" ng-show="results.totalPages!=null && results.totalPages!=0">
+        <div class="row">
+          <div class="col-md-3 col-xs-12 col-sm-6" ng-repeat="result in results.pageData">
+            <img class="img-responsive" alt="user" ng-src="{{result.thumbImg}}">
+            <div class="white-box">
+              <div class="text-muted"><span class="m-r-10">{{result.createTimeStr}}</span>
+                <a class="text-muted m-l-10" ng-href="{{result.linkurl}}" target="_blank"><i class="fa fa-link"></i> 链接</a></div>
+              <h3 class="m-t-20 m-b-20 news-title">{{result.title}}</h3>
+              <p class="news-note">{{result.note}}</p>
+              <button class="btn btn-success btn-rounded waves-effect waves-light m-t-20" ng-click="deleteNews(result.id)">删除新闻</button>
+              <button class="btn btn-success btn-rounded waves-effect waves-light m-t-20" ng-click="editNews(result.id)">编辑新闻</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="white-box">
+          <div class="row">
+            <pagination page-size="results.pageSize"
+                        total-pages="results.totalPages"
+                        curr-page="results.currPageNum"
+                        show-count="100"
+                        switch-page="switchPage">
+            </pagination>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
