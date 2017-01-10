@@ -35,6 +35,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -50,7 +51,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 

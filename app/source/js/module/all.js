@@ -664,7 +664,7 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     _opts.data = request;
     // _opts.params = request;
     _opts.success = function (data,headers,config,status) {
-      // loadingService.closeLoading();
+      loadingService.closeLoading();
       if(data.rescode==rescode.ERROR_TOKEN){
         swal({
           title: "登录失效",
@@ -704,6 +704,9 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     }
   }
 
+  this.showLoading = function (str) {
+    loadingService.showLoading(str);
+  }
 
   // 创建订单
   this.companyCreateOrder = function (params,success,error) {
@@ -954,6 +957,8 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 }]);
 
 yonglongApp.service('loadingService',['$timeout',function ($timeout) {
+
+  var timeoutFlag = undefined;
   this.showLoading = function (str) {
     var loadingText = "正在加载...";
     if(str!=undefined && str!=''){
@@ -971,7 +976,7 @@ yonglongApp.service('loadingService',['$timeout',function ($timeout) {
         color: '#fff'
       }
     });
-    $timeout(function () {
+    timeoutFlag=$timeout(function () {
       // $.unblockUI();
       $('#own-block-text').html('超时,点击关闭等待!');
       $('.blockOverlay').attr('title','点击关闭等待').click($.unblockUI);
@@ -979,6 +984,10 @@ yonglongApp.service('loadingService',['$timeout',function ($timeout) {
   }
   this.closeLoading = function () {
     $.unblockUI();
+    if(timeoutFlag!=undefined){
+      $timeout.cancel(timeoutFlag);
+      timeoutFlag = undefined;
+    }
   }
 }]);
 
@@ -1124,7 +1133,7 @@ yonglongApp.controller('departCostListController',['$scope','interfaceService','
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -1169,6 +1178,7 @@ yonglongApp.controller('userAllReportController',['$scope','$timeout','showDateP
 
     $scope.queryList = function ($valid) {
       if($valid){
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -1375,7 +1385,7 @@ yonglongApp.controller('userFriendManageController',['$scope','interfaceService'
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -1484,7 +1494,7 @@ yonglongApp.controller('userHasgetOrderController',['$scope','$timeout','showDat
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -1493,7 +1503,7 @@ yonglongApp.controller('userHasgetOrderController',['$scope','$timeout','showDat
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -1669,7 +1679,7 @@ yonglongApp.controller('userHasgetOrderController2',['$scope','$timeout','showDa
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -1678,7 +1688,7 @@ yonglongApp.controller('userHasgetOrderController2',['$scope','$timeout','showDa
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -2075,13 +2085,19 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','showDat
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
       }
     }
 
+    // 分页
+    $scope.switchPage = function (page) {
+      $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpList();
+    }
 
     $scope.companyUserDetail = function (userId) {
       var param = {
@@ -2688,7 +2704,7 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService','re
     // 表单查询好友列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -2697,7 +2713,7 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService','re
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -2825,7 +2841,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -2834,7 +2850,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -2993,6 +3009,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -3008,7 +3025,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -3154,6 +3171,7 @@ yonglongApp.controller('receiveReportController',['$scope','$timeout','showDateP
 
     $scope.queryList = function ($valid) {
       if($valid){
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -3295,6 +3313,7 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePick
 
     $scope.queryList = function ($valid) {
       if($valid){
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -3426,11 +3445,18 @@ yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePic
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
       }
+    }
+
+    // 分页
+    $scope.switchPage = function (page) {
+      $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpList();
     }
 
 
@@ -3677,7 +3703,7 @@ yonglongApp.controller('adminAllReportController',['$scope','$timeout','showDate
 
     var httpList = function () {
       interfaceService.reportList($scope.queryData,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode = rescode.SUCCESS){
           $scope.flist = data.data.flist;
           $scope.list = data.data.list;
@@ -3687,6 +3713,7 @@ yonglongApp.controller('adminAllReportController',['$scope','$timeout','showDate
 
     $scope.queryList = function ($valid) {
       if($valid){
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -3725,6 +3752,7 @@ yonglongApp.controller('adminCompanyListController',['$scope','showDatePickerPro
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -3741,6 +3769,7 @@ yonglongApp.controller('adminCompanyListController',['$scope','showDatePickerPro
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -4127,6 +4156,7 @@ yonglongApp.controller('adminOrderListController',['$scope','showDatePickerProvi
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -4143,6 +4173,7 @@ yonglongApp.controller('adminOrderListController',['$scope','showDatePickerProvi
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -4306,6 +4337,7 @@ yonglongApp.controller('adminUserListController',['$scope','showDatePickerProvid
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -4322,6 +4354,7 @@ yonglongApp.controller('adminUserListController',['$scope','showDatePickerProvid
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -4466,6 +4499,7 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -4482,7 +4516,7 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
-        loadingService.showLoading('正在查询');
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 

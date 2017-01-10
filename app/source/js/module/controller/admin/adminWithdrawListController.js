@@ -18,6 +18,7 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -34,7 +35,7 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
-        loadingService.showLoading('正在查询');
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 

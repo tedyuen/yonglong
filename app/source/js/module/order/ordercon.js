@@ -229,6 +229,8 @@ yonglongApp.service('sessionService',['$rootScope',function ($rootScope) {
 }]);
 
 yonglongApp.service('loadingService',['$timeout',function ($timeout) {
+
+  var timeoutFlag = undefined;
   this.showLoading = function (str) {
     var loadingText = "正在加载...";
     if(str!=undefined && str!=''){
@@ -246,7 +248,7 @@ yonglongApp.service('loadingService',['$timeout',function ($timeout) {
         color: '#fff'
       }
     });
-    $timeout(function () {
+    timeoutFlag=$timeout(function () {
       // $.unblockUI();
       $('#own-block-text').html('超时,点击关闭等待!');
       $('.blockOverlay').attr('title','点击关闭等待').click($.unblockUI);
@@ -254,6 +256,10 @@ yonglongApp.service('loadingService',['$timeout',function ($timeout) {
   }
   this.closeLoading = function () {
     $.unblockUI();
+    if(timeoutFlag!=undefined){
+      $timeout.cancel(timeoutFlag);
+      timeoutFlag = undefined;
+    }
   }
 }]);
 
@@ -286,7 +292,7 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     _opts.data = request;
     // _opts.params = request;
     _opts.success = function (data,headers,config,status) {
-      // loadingService.closeLoading();
+      loadingService.closeLoading();
       if(data.rescode==rescode.ERROR_TOKEN){
         swal({
           title: "登录失效",
@@ -326,6 +332,9 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     }
   }
 
+  this.showLoading = function (str) {
+    loadingService.showLoading(str);
+  }
 
   // 创建订单
   this.companyCreateOrder = function (params,success,error) {

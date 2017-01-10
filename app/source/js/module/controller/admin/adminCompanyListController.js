@@ -18,6 +18,7 @@ yonglongApp.controller('adminCompanyListController',['$scope','showDatePickerPro
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -34,6 +35,7 @@ yonglongApp.controller('adminCompanyListController',['$scope','showDatePickerPro
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 

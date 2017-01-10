@@ -48,7 +48,7 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService','re
     // 表单查询好友列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -57,7 +57,7 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService','re
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
