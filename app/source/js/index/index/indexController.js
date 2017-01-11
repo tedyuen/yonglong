@@ -1,4 +1,8 @@
-ylIndex.controller('indexController',['$scope','$cookies','interfaceService','rescode',function ($scope,$cookies,interfaceService,rescode) {
+ylIndex.controller('indexController',['$scope','$cookies','interfaceService','rescode','cookiesService',
+  function ($scope,$cookies,interfaceService,rescode,cookiesService) {
+
+
+
 
   // 发货方初始化
   var initCompanyForm = function () {
@@ -93,19 +97,19 @@ ylIndex.controller('indexController',['$scope','$cookies','interfaceService','re
       return;
     }
     interfaceService.companyLogin($scope.company,function (data,headers,config) {
-      console.log(JSON.stringify(data));
+      // console.log(JSON.stringify(data));
       if(data.rescode == rescode.SUCCESS){
         $scope.loginUser = data.data;
 
-        $cookies.put('yltComMName',$scope.company.memberName);
+        $cookies.put('yltComMName',$scope.company.memberName,cookiesService.cookiesDate());
         if($scope.company.isRemember){
-          $cookies.put('yltComIsReme','true');
-          $cookies.put('yltComPass',$scope.company.password);
+          $cookies.put('yltComIsReme','true',cookiesService.cookiesDate());
+          $cookies.put('yltComPass',$scope.company.password,cookiesService.cookiesDate());
         }else{
-          $cookies.put('yltComIsReme','false');
+          $cookies.put('yltComIsReme','false',cookiesService.cookiesDate());
           $cookies.remove('yltComPass');
         }
-        $cookies.putObject('yltUser',$scope.loginUser);
+        $cookies.putObject('yltUser',$scope.loginUser,cookiesService.cookiesDate());
       }else{
         doSwal(data.rescode);
       }
@@ -124,19 +128,19 @@ ylIndex.controller('indexController',['$scope','$cookies','interfaceService','re
       return;
     }
     interfaceService.userLogin($scope.user,function (data,headers,config) {
-      console.log(JSON.stringify(data));
+      // console.log(JSON.stringify(data));
       if(data.rescode == rescode.SUCCESS){
         $scope.loginUser = data.data;
 
-        $cookies.put('yltUserMName',$scope.user.memberName);
+        $cookies.put('yltUserMName',$scope.user.memberName,cookiesService.cookiesDate());
         if($scope.user.isRemember){
-          $cookies.put('yltUserIsReme','true');
-          $cookies.put('yltUserPass',$scope.user.password);
+          $cookies.put('yltUserIsReme','true',cookiesService.cookiesDate());
+          $cookies.put('yltUserPass',$scope.user.password,cookiesService.cookiesDate());
         }else{
-          $cookies.put('yltUserIsReme','false');
+          $cookies.put('yltUserIsReme','false',cookiesService.cookiesDate());
           $cookies.remove('yltUserPass');
         }
-        $cookies.putObject('yltUser',$scope.loginUser);
+        $cookies.putObject('yltUser',$scope.loginUser,cookiesService.cookiesDate());
       }else{
         doSwal(data.rescode);
       }

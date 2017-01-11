@@ -382,6 +382,14 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
   }
 }]);
 
+yonglongApp.service('cookiesService',function () {
+  this.cookiesDate = function () {
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() + 60);
+    return {'expires': expireDate.toUTCString()};
+  }
+});
+
 yonglongApp.provider('countupProvider',function () {
   this.$get = function () {
     return {
@@ -3976,8 +3984,8 @@ yonglongApp.controller('adminEditNewsController',['$scope','$stateParams','$time
 
   }]);
 
-yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies','$state','interfaceService','rescode',
-  function ($scope,$rootScope,$cookies,$state,interfaceService,rescode) {
+yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies','$state','interfaceService','rescode','cookiesService',
+  function ($scope,$rootScope,$cookies,$state,interfaceService,rescode,cookiesService) {
 
 
     var initAdminForm = function () {
@@ -4034,15 +4042,15 @@ yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies',
         if(data.rescode == rescode.SUCCESS){
           $rootScope.loginUser = data.data;
 
-          $cookies.put('yltAdminMName',$scope.admin.memberName);
+          $cookies.put('yltAdminMName',$scope.admin.memberName,cookiesService.cookiesDate());
           if($scope.admin.isRemember){
-            $cookies.put('yltAdminIsReme','true');
-            $cookies.put('yltAdminPass',$scope.admin.password);
+            $cookies.put('yltAdminIsReme','true',cookiesService.cookiesDate());
+            $cookies.put('yltAdminPass',$scope.admin.password,cookiesService.cookiesDate());
           }else{
-            $cookies.put('yltAdminIsReme','false');
+            $cookies.put('yltAdminIsReme','false',cookiesService.cookiesDate());
             $cookies.remove('yltAdminPass');
           }
-          $cookies.putObject('yltUser',$rootScope.loginUser);
+          $cookies.putObject('yltUser',$rootScope.loginUser,cookiesService.cookiesDate());
           $state.go('main.admin.order_list');
         }else{
           doSwal(data.rescode);

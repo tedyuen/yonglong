@@ -453,6 +453,13 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.reportList,params,success,error);
   }
 
+  // 8.1 订单查询-支付前
+  this.alipay = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.alipay,params,success,error);
+  }
+
+
+
 
   /////----- ------  以下是user接口
   // b1.1 我要接单列表
@@ -629,6 +636,7 @@ yonglongApp.constant('URL_CONS', {
   addRefundApply: 'addRefundApply',
   cashList: 'cashList',
   reportList: 'report_list',
+  alipay: 'alipay',
 
   companyDetailOrder: 'company_detail_order',
 

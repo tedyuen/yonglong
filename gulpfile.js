@@ -201,6 +201,7 @@ var indexJsArr = [
   './app/source/js/index/index/urlConstant.js',
   './app/source/js/index/index/interfaceService.js',
   './app/source/js/index/index/indexController.js',
+  './app/source/js/index/cookiesConfig.js',
   // './app/source/js/index/test/mockjs.js',
 
 ];
