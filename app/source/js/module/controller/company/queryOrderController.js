@@ -167,6 +167,17 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
       }
     }
 
+
+    $scope.alipay = function (result) {
+      interfaceService.alipay({id:result.id},function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+
+        }
+
+      });
+    }
+
     httpList();
 
 }]);

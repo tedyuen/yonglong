@@ -32,6 +32,7 @@ yonglongApp.constant('URL_CONS', {
   addRefundApply: 'addRefundApply',
   cashList: 'cashList',
   reportList: 'report_list',
+  alipay: 'alipay',
 
   companyDetailOrder: 'company_detail_order',
 
