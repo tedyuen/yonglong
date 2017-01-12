@@ -150,9 +150,9 @@
 
                     <label class="pull-right" style="padding: 0;" ng-click="goResetPassword(0)">忘记密码</label>
                   </div>
-                  <button type="submit" class="ng-hide"></button>
                   <a ng-click="onLoginCompany(companyForm)" href="javascript:void(0);"><img src="images/index/btn-login.png" class="img-rounded" style="margin-left: -5px;"/></a>
                   <a class="register-company" href="javascript:void(0);"><img src="images/index/btn-register.png" class="img-rounded pull-right" style="margin-right: -5px;" /></a>
+                  <button type="submit" style="visibility:hidden;"></button>
                 </form>
 
                 <ul class="list-group" ng-show="loginUser && loginUser.role=='company'" class="ng-hide container">
@@ -186,10 +186,9 @@
 
                     <label class="pull-right" style="padding: 0;" ng-click="goResetPassword(1)">忘记密码</label>
                   </div>
-                  <button type="submit" class="ng-hide"></button>
                   <a ng-click="onLoginUser(userForm)"  href="javascript:void(0);"><img src="images/index/btn-login.png" class="img-rounded " style="margin-left: -5px;"/></a>
                   <a class="register-user" href="javascript:void(0);"><img src="images/index/btn-register.png" class="img-rounded pull-right" style="margin-right: -5px;" /></a>
-                  <!--<button type="submit" class="btn btn-default">Submit</button>-->
+                  <button type="submit" style="visibility:hidden;"></button>
                 </form>
 
                 <ul class="list-group" ng-show="loginUser && loginUser.role=='user'" class="ng-hide container">

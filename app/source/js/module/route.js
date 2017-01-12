@@ -123,7 +123,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
           controller: 'adminNewsListController'
         }
       }
-    })
+    });
 
 
 
@@ -252,7 +252,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
           controller: 'userCreateWithdrawController'
         }
       }
-    })
+    });
 
 
 
@@ -392,9 +392,6 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
           controller: 'withdrawListController'
         }
       }
-    })
+    });
 
 }]);
-
-
-
