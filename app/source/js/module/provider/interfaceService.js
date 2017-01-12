@@ -27,7 +27,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     _opts.data = request;
     // _opts.params = request;
     _opts.success = function (data,headers,config,status) {
-      loadingService.closeLoading();
+      try{
+        loadingService.closeLoading();
+      }catch (e){}
+
       if(data.rescode==rescode.ERROR_TOKEN){
         swal({
           title: "登录失效",

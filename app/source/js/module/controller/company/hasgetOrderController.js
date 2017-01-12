@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode',
-  function ($scope,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode) {
+yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
+  function ($scope,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
@@ -168,6 +168,10 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
         pageno:1,
         pagesize:20,
       }
+    }
+
+    $scope.alipay = function (result) {
+      alipayService.alipay(result);
     }
 
     httpList();
