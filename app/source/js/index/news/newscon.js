@@ -351,7 +351,7 @@ ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpServi
   }
 }]);
 
-ylIndex.controller('newsController',['$scope','interfaceService','rescode',function ($scope,interfaceService,rescode) {
+ylIndex.controller('newsController',['$scope','interfaceService','rescode','$cookies',function ($scope,interfaceService,rescode,$cookies) {
 
 
   $scope.showCount = 5;
@@ -360,7 +360,7 @@ ylIndex.controller('newsController',['$scope','interfaceService','rescode',funct
   $scope.nextShow = false;
   $scope.pageParams = {
     pageno:1,
-    pagesize:2
+    pagesize:5
   }
 
   $scope.pageArray=[];
@@ -389,8 +389,8 @@ ylIndex.controller('newsController',['$scope','interfaceService','rescode',funct
       $scope.preShow = (perCount+2)<$scope.articleResults.currPageNum;
       $scope.nextShow = (perCount+1)<($scope.articleResults.totalPages - $scope.articleResults.currPageNum);
     }
-    console.log($scope.preShow);
-    console.log($scope.nextShow);
+    // console.log($scope.preShow);
+    // console.log($scope.nextShow);
     // console.log($scope.preShow+":"+$scope.nextShow);
     for(var i=2;i<$scope.articleResults.totalPages;i++){
 
@@ -429,9 +429,10 @@ ylIndex.controller('newsController',['$scope','interfaceService','rescode',funct
     if($scope.articleResults.totalPages!=1){
       $scope.lastPage = {
         pageNum:$scope.articleResults.totalPages,
-        isCurrent:$scope.currPage==$scope.articleResults.totalPages,
-        canClick:$scope.currPage!=$scope.articleResults.totalPages
+        isCurrent:$scope.articleResults.currPageNum==$scope.articleResults.totalPages,
+        canClick:$scope.articleResults.currPageNum!=$scope.articleResults.totalPages
       }
+      // console.log('最后一页'+'  '+'pageNum'+':'+($scope.articleResults.totalPages)+'---'+'isCurrent'+':'+($scope.articleResults.totalPages+1)+'---'+'canClick'+":"+$scope.articleResults.totalPages);
     }
   }
 
@@ -456,9 +457,85 @@ ylIndex.controller('newsController',['$scope','interfaceService','rescode',funct
 
   $scope.switchPage = function (pageNum) {
     $scope.pageParams.pageno = pageNum;
-    console.log('==>'+pageNum);
+    // console.log('==>'+pageNum);
     getArticleList();
   }
 
+  // 发货方初始化
+  var initCompanyForm = function() {
+    var comMName = $cookies.get('yltComMName');
+    var comIsReme = $cookies.get('yltComIsReme');
+    var comPass = $cookies.get('yltComPass');
+
+    console.log("comMName:" + comMName);
+
+    if (comMName === undefined) {
+      comMName = '';
+    }
+    if (comPass === undefined) {
+      comPass = '';
+    }
+    if (comIsReme === undefined) {
+      comIsReme = 'false';
+      comPass = '';
+    } else {
+      if (comIsReme === 'false') {
+        comPass = '';
+      }
+    }
+
+    $scope.company = {
+      memberName: comMName,
+      password: comPass,
+      isRemember: comIsReme == 'true'
+    };
+  };
+
+  // 承运方初始化
+  var initUserForm = function() {
+    var userMName = $cookies.get('yltUserMName');
+    var userIsReme = $cookies.get('yltUserIsReme');
+    var userPass = $cookies.get('yltUserPass');
+
+    if (userMName === undefined) {
+      userMName = '';
+    }
+    if (userPass === undefined) {
+      userPass = '';
+    }
+    if (userIsReme === undefined) {
+      userIsReme = 'false';
+      userPass = '';
+    } else {
+      if (userIsReme == 'false') {
+        userPass = '';
+      }
+    }
+
+    $scope.user = {
+      memberName: userMName,
+      password: userPass,
+      isRemember: userIsReme == 'true'
+    };
+  };
+
+  initCompanyForm();
+  initUserForm();
+  $scope.loginUser = $cookies.getObject('yltUser');
+  console.log($scope.loginUser);
+
+  $scope.mySelfClick = function () {
+    console.log('个人中心'+'---'+$scope.articleResults+'---'+$scope.articleResults.token);
+    if($scope.loginUser && $scope.loginUser.token){
+      console.log('if');
+      if($scope.loginUser.role=='company'){
+        window.location.href = 'shell.html#!/main/companyinner/create_order';
+      }else if($scope.loginUser.role=='user'){
+        window.location.href = 'shell.html#!/main/userinner/wanner_order';
+      }
+    }else {
+      console.log('else');
+    }
+  }
 
 }]);

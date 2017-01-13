@@ -42,7 +42,7 @@
           <div class="bottom-line"></div>
         </li>
         <li>
-          <a href="#"><img src="images/index/user.png" class=""/></a>
+          <a href="#"><img src="images/index/user.png" ng-click="mySelfClick()" ng-show="loginUser"/>&nbsp;{{loginUser.memberName}}</a>
           <!--<div class="bottom-line"></div>-->
         </li>
       </ul>
@@ -79,16 +79,16 @@
 
       <div class="row" ng-repeat="result in articleResults.pageData">
         <div class="media">
-          <a class="media-left" href="#" style="">
+          <a class="media-left" style="" ng-href="{{result.linkurl}}">
             <img ng-src="{{result.thumbImg}}" height="240">
           </a>
-          <div class="media-body" style="">
+          <a class="media-body" style="" ng-href="{{result.linkurl}}">
             <h4 class="media-heading">{{result.title}}</h4>
             <p class="p-content">{{result.note}}</p>
             <p class="p-date pull-right" style="">
               <span>{{result.createTimeStr}}</span>
             </p>
-          </div>
+          </a>
         </div>
       </div>
 
