@@ -8,7 +8,7 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
       bankCardNo: '',
       bankCardOwner: '',
       bankName: ''
-    }
+    };
 
     var httpList = function() {
       interfaceService.listBankCard({}, function(data, headers, config) {
@@ -19,7 +19,7 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
           console.log($scope.results.dataList.length);
         }
       });
-    }
+    };
 
     $scope.del = function(result) {
       swal({
@@ -36,7 +36,7 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
       }, function() {
         var param = {
           id: result.id
-        }
+        };
         interfaceService.delBankCard(param, function(data, headers, config) {
           // console.log("response:"+JSON.stringify(data));
           if (data.rescode == rescode.SUCCESS) {
@@ -51,11 +51,11 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
           }
         });
       });
-    }
+    };
 
     $scope.showAddBankCard = function() {
       $('#add-bank-card').modal('show');
-    }
+    };
 
     //添加提现帐号
     $scope.onSubmit = function($valid) {
@@ -73,14 +73,14 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
             }, function() {
               $('#add-bank-card').modal('hide');
               httpList();
-            })
+            });
           }
         });
 
       } else {
 
       }
-    }
+    };
 
     httpList();
   }
