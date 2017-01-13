@@ -126,6 +126,8 @@ $("#loginTab").find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 require('sweetalert');
 require('angular');
 require('angular-cookies');
+require('../../module/utils/JqueryEllipsis');
+
 var ylIndex = angular.module("myApp",["ngCookies"]);
 // var Mock = require('mockjs');
 
@@ -450,8 +452,12 @@ ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpServi
   }
 }]);
 
-ylIndex.controller('indexController', ['$scope', '$cookies', 'interfaceService', 'rescode', 'cookiesService',
-  function($scope, $cookies, interfaceService, rescode, cookiesService) {
+ylIndex.controller('indexController', ['$scope', '$cookies','$timeout', 'interfaceService', 'rescode', 'cookiesService',
+  function($scope, $cookies,$timeout, interfaceService, rescode, cookiesService) {
+
+    $('.line-3').ellipsis({
+      row:3
+    });
 
     // 发货方初始化
     var initCompanyForm = function() {
@@ -610,6 +616,11 @@ ylIndex.controller('indexController', ['$scope', '$cookies', 'interfaceService',
         console.log(JSON.stringify(data));
         if (data.rescode == rescode.SUCCESS) {
           $scope.articleResults = data.data;
+          $timeout(function () {
+            $('.line-2').ellipsis({
+              row:2
+            });
+          },20);
         } else {
 
         }

@@ -105,7 +105,8 @@
             border: 2px solid #3880bb;
             border-radius: 20px;
             position: absolute;
-            left: 0; }
+            left: 0;
+            top: 5px; }
         #about .about-container .second-row .col-md-6 .second-ul-container {
           list-style-position: inside;
           height: 250px;
