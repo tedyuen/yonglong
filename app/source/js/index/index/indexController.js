@@ -1,5 +1,9 @@
-ylIndex.controller('indexController', ['$scope', '$cookies', 'interfaceService', 'rescode', 'cookiesService',
-  function($scope, $cookies, interfaceService, rescode, cookiesService) {
+ylIndex.controller('indexController', ['$scope', '$cookies','$timeout', 'interfaceService', 'rescode', 'cookiesService',
+  function($scope, $cookies,$timeout, interfaceService, rescode, cookiesService) {
+
+    $('.line-3').ellipsis({
+      row:3
+    });
 
     // 发货方初始化
     var initCompanyForm = function() {
@@ -158,6 +162,11 @@ ylIndex.controller('indexController', ['$scope', '$cookies', 'interfaceService',
         console.log(JSON.stringify(data));
         if (data.rescode == rescode.SUCCESS) {
           $scope.articleResults = data.data;
+          $timeout(function () {
+            $('.line-2').ellipsis({
+              row:2
+            });
+          },20);
         } else {
 
         }

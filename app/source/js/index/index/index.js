@@ -126,6 +126,8 @@ $("#loginTab").find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 require('sweetalert');
 require('angular');
 require('angular-cookies');
+require('../../module/utils/JqueryEllipsis');
+
 var ylIndex = angular.module("myApp",["ngCookies"]);
 // var Mock = require('mockjs');
 
