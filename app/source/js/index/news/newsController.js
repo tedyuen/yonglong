@@ -7,7 +7,7 @@ ylIndex.controller('newsController',['$scope','interfaceService','rescode',funct
   $scope.nextShow = false;
   $scope.pageParams = {
     pageno:1,
-    pagesize:2
+    pagesize:1
   }
 
   $scope.pageArray=[];
@@ -76,9 +76,10 @@ ylIndex.controller('newsController',['$scope','interfaceService','rescode',funct
     if($scope.articleResults.totalPages!=1){
       $scope.lastPage = {
         pageNum:$scope.articleResults.totalPages,
-        isCurrent:$scope.currPage==$scope.articleResults.totalPages,
-        canClick:$scope.currPage!=$scope.articleResults.totalPages
+        isCurrent:$scope.articleResults.currPageNum==$scope.articleResults.totalPages,
+        canClick:$scope.articleResults.currPageNum!=$scope.articleResults.totalPages
       }
+      console.log('最后一页'+'  '+'pageNum'+':'+($scope.articleResults.totalPages)+'---'+'isCurrent'+':'+($scope.articleResults.totalPages+1)+'---'+'canClick'+":"+$scope.articleResults.totalPages);
     }
   }
 
@@ -86,7 +87,7 @@ ylIndex.controller('newsController',['$scope','interfaceService','rescode',funct
   var getArticleList = function () {
 
     interfaceService.getArticleList($scope.pageParams,function (data,headers,config) {
-      // console.log(JSON.stringify(data));
+      console.log(JSON.stringify(data));
       if(data.rescode == rescode.SUCCESS){
         $scope.articleResults = data.data;
         // $scope.totalPages = $scope.articleResults.totalPages;
@@ -107,5 +108,29 @@ ylIndex.controller('newsController',['$scope','interfaceService','rescode',funct
     getArticleList();
   }
 
+
+  $scope.mySelfClick = function () {
+    console.log('个人中心'+'---'+$scope.articleResults+'---'+$scope.articleResults.token);
+    if($scope.articleResults && $scope.articleResults.token){
+      console.log('if');
+      if($scope.loginUser.role=='company'){
+        window.location.href = 'shell.html#!/main/companyinner/create_order';
+      }else if($scope.loginUser.role=='user'){
+        window.location.href = 'shell.html#!/main/userinner/wanner_order';
+      }
+    }else {
+      console.log('else');
+    }
+  }
+
+  // $scope.goBackground = function () {
+  //   if($scope.loginUser && $scope.loginUser.token){
+  //     if($scope.loginUser.role=='company'){
+  //       window.location.href = 'shell.html#!/main/companyinner/create_order';
+  //     }else if($scope.loginUser.role=='user'){
+  //       window.location.href = 'shell.html#!/main/userinner/wanner_order';
+  //     }
+  //   }
+  // }
 
 }]);
