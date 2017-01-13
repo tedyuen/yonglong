@@ -359,7 +359,7 @@ ylIndex.controller('newsController',['$scope','interfaceService','rescode',funct
   $scope.nextShow = false;
   $scope.pageParams = {
     pageno:1,
-    pagesize:1
+    pagesize:5
   }
 
   $scope.pageArray=[];

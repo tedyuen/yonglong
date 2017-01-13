@@ -7,7 +7,7 @@ ylIndex.controller('newsController',['$scope','interfaceService','rescode',funct
   $scope.nextShow = false;
   $scope.pageParams = {
     pageno:1,
-    pagesize:1
+    pagesize:5
   }
 
   $scope.pageArray=[];
@@ -122,15 +122,5 @@ ylIndex.controller('newsController',['$scope','interfaceService','rescode',funct
       console.log('else');
     }
   }
-
-  // $scope.goBackground = function () {
-  //   if($scope.loginUser && $scope.loginUser.token){
-  //     if($scope.loginUser.role=='company'){
-  //       window.location.href = 'shell.html#!/main/companyinner/create_order';
-  //     }else if($scope.loginUser.role=='user'){
-  //       window.location.href = 'shell.html#!/main/userinner/wanner_order';
-  //     }
-  //   }
-  // }
 
 }]);
