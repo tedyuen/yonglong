@@ -1044,3 +1044,6 @@ body.stop-scrolling {
 .modal-dialog.order-detail {
   width: 90%;
   max-width: 1220px; }
+
+.m-t-2 {
+  margin-top: 2px; }

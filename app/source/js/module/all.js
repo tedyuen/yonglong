@@ -2411,8 +2411,8 @@ yonglongApp.controller('companyRoleController',['$rootScope','$scope','$cookies'
 /**
  * Created by tedyuen on 16-12-13.
  */
-yonglongApp.controller('createOrderController',['$scope','$timeout','$state','showDatePickerProvider','URL_CONS','baseDataService','interfaceService','rescode',
-  function ($scope,$timeout,$state,showDatePickerProvider,URL_CONS,baseDataService,interfaceService,rescode) {
+yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$compile','showDatePickerProvider','URL_CONS','baseDataService','interfaceService','rescode',
+  function ($scope,$timeout,$state,$compile,showDatePickerProvider,URL_CONS,baseDataService,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderType();
     $scope.containerVType = baseDataService.getBoxVol();
@@ -2434,8 +2434,11 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','sh
       shippingFee:'34',
       extraFee:'245',
       referenceShippingFee:'34',
-      shippingSn:'AXJIE8737492J'
+      shippingSn:'AXJIE8737492J',
+      extrafeeList:[]
     }
+
+    $scope.initStr = '上下车费;待时费;动卫检;坏污箱移箱费;预进港;落箱费';
 
     //提交表单
     $scope.onSubmit = function($valid){
@@ -2533,12 +2536,13 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','sh
     theForm.$setUntouched();
   }
 
-  $timeout(function() {
-    $scope.mapOptions.center.longitude = 121.500885;
-    $scope.mapOptions.center.latitude = 31.190032;
-    $scope.mapOptions.markers[0].longitude = 121.500885;
-    $scope.mapOptions.markers[0].latitude = 31.190032;
-  }, 5000);
+
+  // $timeout(function() {
+  //   $scope.mapOptions.center.longitude = 121.500885;
+  //   $scope.mapOptions.center.latitude = 31.190032;
+  //   $scope.mapOptions.markers[0].longitude = 121.500885;
+  //   $scope.mapOptions.markers[0].latitude = 31.190032;
+  // }, 5000);
 
 }]);
 
@@ -3669,7 +3673,7 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
       bankCardNo: '',
       bankCardOwner: '',
       bankName: ''
-    }
+    };
 
     var httpList = function() {
       interfaceService.listBankCard({}, function(data, headers, config) {
@@ -3680,7 +3684,7 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
           console.log($scope.results.dataList.length);
         }
       });
-    }
+    };
 
     $scope.del = function(result) {
       swal({
@@ -3697,7 +3701,7 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
       }, function() {
         var param = {
           id: result.id
-        }
+        };
         interfaceService.delBankCard(param, function(data, headers, config) {
           // console.log("response:"+JSON.stringify(data));
           if (data.rescode == rescode.SUCCESS) {
@@ -3712,11 +3716,11 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
           }
         });
       });
-    }
+    };
 
     $scope.showAddBankCard = function() {
       $('#add-bank-card').modal('show');
-    }
+    };
 
     //添加提现帐号
     $scope.onSubmit = function($valid) {
@@ -3734,14 +3738,14 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
             }, function() {
               $('#add-bank-card').modal('hide');
               httpList();
-            })
+            });
           }
         });
 
       } else {
 
       }
-    }
+    };
 
     httpList();
   }
@@ -4129,7 +4133,7 @@ yonglongApp.controller('adminNewsListController',['$scope','$timeout','$state','
               row:1
             });
 
-          },10);
+          },20);
 
         }
       });
@@ -4900,6 +4904,89 @@ yonglongApp.directive('creditRank',function () {
     template:'<div style="overflow:hidden;width:{{star * 16}}px;"><img src="images/stars.png"></div>'
   }
 });
+
+yonglongApp.directive('extraFee',['$compile',function($compile){
+  return{
+    restrict: 'AE',
+    replace: true,
+    scope: {
+      initStr:'=',
+      resultList:'='
+    },
+    templateUrl: 'template/directive/extra_fee.html',
+    controller: function($scope){
+      $scope.resultList = [];
+      console.log($scope.initStr);
+      var strArray = $scope.initStr.split(';');
+      for(var n in strArray){
+        $scope.resultList.push({
+          feeName:strArray[n],
+          feeValue:0,
+          id:0,
+          sort:0,
+          isInit:true
+        });
+      }
+
+      $scope.addExtra = function(){
+        swal({
+          title: "新增",
+          text: "您即将新增一项额外费用",
+          type: "input",
+          showCancelButton: true,
+          closeOnConfirm: false,
+          cancelButtonText: "取消",
+          confirmButtonText: "是的,新增!",
+          animation: "slide-from-top",
+          inputPlaceholder: "输入额外费用的名称"
+        },
+        function(inputValue){
+          if (inputValue === false){
+
+          }else if (inputValue === "") {
+            swal.showInputError("请输入额外费用的名称!");
+            // swal('错误','额外费用名称不能为空！','error');
+            // return false
+          }else{
+            $scope.$apply(function () {
+              $scope.resultList.push({
+                feeName:inputValue,
+                feeValue:0,
+                id:0,
+                sort:0,
+                isInit:false
+              });
+            });
+            sweetAlert.close();
+          }
+
+
+        });
+      };
+
+      $scope.deleteItem = function (item) {
+        for(var i=0;i<$scope.resultList.length;i++){
+          if($scope.resultList[i].feeName==item.feeName) {
+            $scope.resultList.splice(i,1);
+            break;
+          }
+        }
+        // swal({
+        //   title: "删除额外费用",
+        //   text: "您即将删除一项额外费用",
+        //   type: "info",
+        //   showCancelButton: true,
+        //   cancelButtonText: "取消",
+        //   confirmButtonText: "是的,删除!",
+        // },
+        // function(){
+        //
+        // });
+
+      }
+    }
+  }
+}]);
 
 yonglongApp.directive("ngFilesModel", [function () {
   return {

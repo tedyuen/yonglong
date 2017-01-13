@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-13.
  */
-yonglongApp.controller('createOrderController',['$scope','$timeout','$state','showDatePickerProvider','URL_CONS','baseDataService','interfaceService','rescode',
-  function ($scope,$timeout,$state,showDatePickerProvider,URL_CONS,baseDataService,interfaceService,rescode) {
+yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$compile','showDatePickerProvider','URL_CONS','baseDataService','interfaceService','rescode',
+  function ($scope,$timeout,$state,$compile,showDatePickerProvider,URL_CONS,baseDataService,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderType();
     $scope.containerVType = baseDataService.getBoxVol();
@@ -24,8 +24,11 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','sh
       shippingFee:'34',
       extraFee:'245',
       referenceShippingFee:'34',
-      shippingSn:'AXJIE8737492J'
+      shippingSn:'AXJIE8737492J',
+      extrafeeList:[]
     }
+
+    $scope.initStr = '上下车费;待时费;动卫检;坏污箱移箱费;预进港;落箱费';
 
     //提交表单
     $scope.onSubmit = function($valid){
@@ -123,11 +126,12 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','sh
     theForm.$setUntouched();
   }
 
-  $timeout(function() {
-    $scope.mapOptions.center.longitude = 121.500885;
-    $scope.mapOptions.center.latitude = 31.190032;
-    $scope.mapOptions.markers[0].longitude = 121.500885;
-    $scope.mapOptions.markers[0].latitude = 31.190032;
-  }, 5000);
+
+  // $timeout(function() {
+  //   $scope.mapOptions.center.longitude = 121.500885;
+  //   $scope.mapOptions.center.latitude = 31.190032;
+  //   $scope.mapOptions.markers[0].longitude = 121.500885;
+  //   $scope.mapOptions.markers[0].latitude = 31.190032;
+  // }, 5000);
 
 }]);

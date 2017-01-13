@@ -33,7 +33,7 @@ yonglongApp.controller('adminNewsListController',['$scope','$timeout','$state','
               row:1
             });
 
-          },10);
+          },20);
 
         }
       });

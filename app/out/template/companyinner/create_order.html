@@ -169,18 +169,8 @@
                     <input type="text" class="form-control" name="shippingFee" ng-model="orderDetail.shippingFee" required>
                   </div>
                   <div class="help-block with-errors">
-                    <span style="color:red;font-size: 12px;">&nbsp;注：该运费视作不包含提箱费，如有提箱费，请在额外费用中输入金额</span>
+                    <span style="color:red;font-size: 11px;">&nbsp;注：该运费视作不包含提箱费，如有提箱费，请在额外费用中输入金额</span>
                   </div>
-                </div>
-              </div>
-
-              <div class="col-md-6 col-lg-4 col-sm-12">
-                <div class="form-group" ng-class="{'has-error':!theForm.extraFee.$valid}">
-                  <div class="input-group">
-                    <span class="input-group-addon">额外费用</span>
-                    <input type="text" class="form-control" name="extraFee" ng-model="orderDetail.extraFee" required>
-                  </div>
-                  <div class="help-block with-errors"></div>
                 </div>
               </div>
 
@@ -196,7 +186,6 @@
                 </div>
               </div>
 
-              <div class="clearfix visible-lg-block"></div>
 
               <div class="col-md-6 col-lg-4 col-sm-12">
                 <div class="form-group" ng-class="{'has-error':!theForm.shippingSn.$valid}">
@@ -207,8 +196,21 @@
                   <div class="help-block with-errors"></div>
                 </div>
               </div>
+              <!-- <div class="clearfix visible-lg-block"></div> -->
 
             </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h4>额外费用</h4>
+              </div>
+            </div>
+
+            <extra-fee init-str="initStr"
+                       result-list="orderDetail.extrafeeList">
+
+            </extra-fee>
+
             <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" class="btn waves-effect waves-light m-r-10">
               <span ng-if="theForm.$invalid">请先完成表单</span>
               <span ng-if="theForm.$valid">创建订单</span>
