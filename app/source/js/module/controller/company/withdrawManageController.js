@@ -38,7 +38,7 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
           id: result.id
         };
         interfaceService.delBankCard(param, function(data, headers, config) {
-          // console.log("response:"+JSON.stringify(data));
+          console.log("response:"+JSON.stringify(data));
           if (data.rescode == rescode.SUCCESS) {
             swal({
               title: "删除成功成功！",
@@ -74,7 +74,10 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
               $('#add-bank-card').modal('hide');
               httpList();
             });
+          }else if(data.rescode == rescode.HAS_BANK){
+            swal('绑卡出错','已经绑定过银行卡，换卡请先解绑!','error');
           }
+
         });
 
       } else {

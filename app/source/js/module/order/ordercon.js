@@ -603,6 +603,8 @@ yonglongApp.constant('rescode', {
 
   UNKNOW_USER:'201008',//用户不存在
   ERROR_PASSWORD:'201009',//密码不正确
+
+  HAS_BANK:'301008',//已经绑定过银行卡，换卡请先解绑
 })
 
 /**
@@ -612,8 +614,11 @@ yonglongApp.constant('URL_CONS', {
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   // serverFileUrl:'http://192.168.0.25:8080/admin/api/file',
-  serverUrl: 'http://120.26.65.65:8285/api/data',
-  serverFileUrl: ' http://120.26.65.65:8285/api/file',
+  // serverUrl: 'http://120.26.65.65:8285/api/data',
+  // serverFileUrl: ' http://120.26.65.65:8285/api/file',
+  serverUrl: 'http://www.56elutong.com/api/data',
+  serverFileUrl: ' http://www.56elutong.com/api/file',
+
 
   companyRegister: 'company_register',
   companyCreateOrder: 'company_create_order',
