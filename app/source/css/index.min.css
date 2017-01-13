@@ -663,23 +663,13 @@
       #news .news-container .new-list .media .media-body .media-heading {
         line-height: 25px;
         border-left: 5px solid deepskyblue;
-        padding-left: 35px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical; }
+        padding-left: 35px; }
       #news .news-container .new-list .media .media-body .p-content {
         padding-left: 40px;
         line-height: 25px;
         margin-top: 50px;
         font-size: 14px;
-        color: #666666;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical; }
+        color: #666666; }
       #news .news-container .new-list .media .media-body .p-date {
         width: 134px;
         height: 35px;
