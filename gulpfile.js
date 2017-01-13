@@ -45,6 +45,7 @@ var orderJsArr = [
   './app/source/js/module/order/order.js',
   './app/source/js/module/provider/httpService.js',
   './app/source/js/module/provider/sessionService.js',
+  './app/source/js/module/provider/loadingService.js',
   './app/source/js/module/provider/interfaceService.js',
   './app/source/js/module/app/rescode.js',
   './app/source/js/module/app/urlConstant.js',
@@ -149,7 +150,9 @@ gulp.task('nodeModule',function(){
 
 });
 
-gulp.task('default',['js','css']);
+gulp.task('default',['js','css','orderJs','indexJs','newsJs','indexcss']);
+
+
 var indexCssArr = [
   './app/source/css/node/bootstrap.min.css',
   './app/source/sass/index/css/*.css',
@@ -198,6 +201,7 @@ var indexJsArr = [
   './app/source/js/index/index/urlConstant.js',
   './app/source/js/index/index/interfaceService.js',
   './app/source/js/index/index/indexController.js',
+  './app/source/js/index/cookiesConfig.js',
   // './app/source/js/index/test/mockjs.js',
 
 ];

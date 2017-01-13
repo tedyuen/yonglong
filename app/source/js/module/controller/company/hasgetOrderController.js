@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode',
-  function ($scope,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode) {
+yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
+  function ($scope,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
@@ -43,7 +43,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -52,7 +52,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -168,6 +168,10 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
         pageno:1,
         pagesize:20,
       }
+    }
+
+    $scope.alipay = function (result) {
+      alipayService.alipay(result);
     }
 
     httpList();

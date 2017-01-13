@@ -27,7 +27,7 @@ yonglongApp.controller('userFriendManageController',['$scope','interfaceService'
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }

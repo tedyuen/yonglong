@@ -104,7 +104,7 @@
           <div class="col-md-3">
             <div class="thumbnail">
               <!--<div class="col-md-12 box-num">301</div>-->
-              <div class="box-num text-center" style="font-size: 45px;">{{testNum}}</div>
+              <div class="box-num text-center" style="font-size: 45px;">30001</div>
               <div class="caption">
                 <p class="thumbnail-content">你用平台我奖励活动正在火热进行,已经发放奖金30000元</p>
                 <a href="#" class="btn btn-default" role="button">了解详情
@@ -136,21 +136,20 @@
                 <form role="form" ng-submit="onLoginCompany(companyForm)" novalidate="novalidate" name="companyForm" ng-show="loginUser==undefined || (loginUser && loginUser.role!='company')">
                   <div class="form-group">
                     <div class="input-icon user-icon"></div>
-                    <input type="text" class="form-control" placeholder="帐号" name="companyMemberName" ng-model="company.memberName" required>
+                    <input type="text" class="form-control" placeholder="帐号" ng-keydown="keydown($event,0,companyForm)" name="companyMemberName" ng-model="company.memberName" required>
                   </div>
                   <div class="form-group">
                     <div class="input-icon pwd-icon"></div>
-                    <input type="password" class="form-control" placeholder="密码" name="companyPassword" ng-model="company.password" required>
+                    <input type="password" class="form-control" placeholder="密码" ng-keydown="keydown($event,0,companyForm)" name="companyPassword" ng-model="company.password" required>
                   </div>
 
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" ng-model="company.isRemember"> 记住我的密码
+                      <input type="checkbox" ng-model="company.isRemember" ng-keydown="keydown($event,0,companyForm)"> 记住我的密码
                     </label>
 
-                    <label class="pull-right" style="padding: 0;" ng-click="forgetPassCompany()">忘记密码</label>
+                    <label class="pull-right" style="padding: 0;" ng-click="goResetPassword(0)">忘记密码</label>
                   </div>
-                  <button type="submit" class="ng-hide"></button>
                   <a ng-click="onLoginCompany(companyForm)" href="javascript:void(0);"><img src="images/index/btn-login.png" class="img-rounded" style="margin-left: -5px;"/></a>
                   <a class="register-company" href="javascript:void(0);"><img src="images/index/btn-register.png" class="img-rounded pull-right" style="margin-right: -5px;" /></a>
                 </form>
@@ -172,24 +171,22 @@
                 <form role="form" ng-submit="onLoginUser(userForm)" novalidate="novalidate" name="userForm" ng-show="loginUser==undefined || (loginUser && loginUser.role!='user')">
                   <div class="form-group">
                     <div class="input-icon user-icon"></div>
-                    <input type="text" class="form-control" name="userMemberName" placeholder="帐号" ng-model="user.memberName"  required>
+                    <input type="text" class="form-control" name="userMemberName" ng-keydown="keydown($event,1,userForm)" placeholder="帐号" ng-model="user.memberName"  required>
                   </div>
                   <div class="form-group">
                     <div class="input-icon pwd-icon"></div>
-                    <input type="password" class="form-control" name="userPassword" placeholder="密码" ng-model="user.password" required>
+                    <input type="password" class="form-control" name="userPassword" ng-keydown="keydown($event,1,userForm)" placeholder="密码" ng-model="user.password" required>
                   </div>
 
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" ng-model="user.isRemember"> 记住我的密码
+                      <input type="checkbox" ng-model="user.isRemember" ng-keydown="keydown($event,1,userForm)"> 记住我的密码
                     </label>
 
-                    <label class="pull-right" style="padding: 0;" ng-click="forgetPassCompany()">忘记密码</label>
+                    <label class="pull-right" style="padding: 0;" ng-click="goResetPassword(1)">忘记密码</label>
                   </div>
-                  <button type="submit" class="ng-hide"></button>
                   <a ng-click="onLoginUser(userForm)"  href="javascript:void(0);"><img src="images/index/btn-login.png" class="img-rounded " style="margin-left: -5px;"/></a>
                   <a class="register-user" href="javascript:void(0);"><img src="images/index/btn-register.png" class="img-rounded pull-right" style="margin-right: -5px;" /></a>
-                  <!--<button type="submit" class="btn btn-default">Submit</button>-->
                 </form>
 
                 <ul class="list-group" ng-show="loginUser && loginUser.role=='user'" class="ng-hide container">
@@ -283,35 +280,6 @@
   </div>
 </footer>
 
-<!-- Modal -->
-<div class="modal fade" id="forget-password-company" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">找回密码</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="phoneNumber">请输入手机号</label>
-          <input type="tel" class="form-control" id="phoneNumber" placeholder="请输入手机号">
-        </div>
-        <button type="submit" class="btn btn-default" ng-click="getCodeCompany()">获取验证码</button>
-        <div>
-          <label></label>
-        </div>
-        <div class="form-group">
-          <label for="verificationCode">请输入验证码</label>
-          <input type="number" class="form-control" id="verificationCode" placeholder="请输入验证码">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary">确定</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 </body>
 <script src="js/indexcon.min.js"></script>

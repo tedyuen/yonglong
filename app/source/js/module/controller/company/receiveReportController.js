@@ -24,6 +24,7 @@ yonglongApp.controller('receiveReportController',['$scope','$timeout','showDateP
 
     $scope.queryList = function ($valid) {
       if($valid){
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 

@@ -8,3 +8,4 @@ app/build/fonts
 bower_components
 test/bower_components
 *.iml
+.DS_Store

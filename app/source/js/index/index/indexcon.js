@@ -357,14 +357,14 @@ ylIndex.constant('URL_CONS', {
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   // serverFileUrl:'http://192.168.0.25:8080/admin/api/file',
-  serverUrl:'http://120.26.65.65:8285/adm/api/data',
-  serverFileUrl:' http://120.26.65.65:8285/adm/api/file',
+  serverUrl: 'http://120.26.65.65:8285/api/data',
+  serverFileUrl: ' http://120.26.65.65:8285/api/file',
 
-  testInterface:'testInterface',
-  companyLogin:'company_login',
-  userLogin:'user_login',
-  getArticleIndex:'article_index',
-  getArticleList:'article_list',
+  testInterface: 'testInterface',
+  companyLogin: 'company_login',
+  userLogin: 'user_login',
+  getArticleIndex: 'article_index',
+  getArticleList: 'article_list',
 });
 
 /**
@@ -450,194 +450,196 @@ ylIndex.service('interfaceService',['httpService','URL_CONS',function (httpServi
   }
 }]);
 
-ylIndex.controller('indexController',['$scope','$cookies','interfaceService','rescode',function ($scope,$cookies,interfaceService,rescode) {
-  $scope.testNum = 30001;
+ylIndex.controller('indexController', ['$scope', '$cookies', 'interfaceService', 'rescode', 'cookiesService',
+  function($scope, $cookies, interfaceService, rescode, cookiesService) {
 
+    // 发货方初始化
+    var initCompanyForm = function() {
+      var comMName = $cookies.get('yltComMName');
+      var comIsReme = $cookies.get('yltComIsReme');
+      var comPass = $cookies.get('yltComPass');
 
-  $scope.forgetPassCompany = function () {
-    $('#forget-password-company').modal('show');
-    $scope.testNum = 200;
-  }
+      console.log("comMName:" + comMName);
 
-  $scope.getCodeCompany = function () {
-    console.log('getCodeCompany');
-
-    var param = {
-      phone:18716166778,
-      vercode:4448
-    }
-
-    interfaceService.testInterface(param,function (data,headers,config) {
-      console.log(JSON.stringify(data));
-      if(data.rescode == rescode.SUCCESS){
-        $scope.result = data.data;
+      if (comMName === undefined) {
+        comMName = '';
       }
-    });
-  }
-
-  // 发货方初始化
-  var initCompanyForm = function () {
-    var comMName = $cookies.get('yltComMName');
-    var comIsReme = $cookies.get('yltComIsReme');
-    var comPass = $cookies.get('yltComPass');
-
-    console.log("comMName:"+comMName);
-
-    if(comMName==undefined){
-      comMName = '';
-    }
-    if(comPass==undefined){
-      comPass = '';
-    }
-    if(comIsReme==undefined){
-      comIsReme = 'false';
-      comPass = '';
-    }else{
-      if(comIsReme=='false'){
+      if (comPass === undefined) {
         comPass = '';
       }
-    }
+      if (comIsReme === undefined) {
+        comIsReme = 'false';
+        comPass = '';
+      } else {
+        if (comIsReme === 'false') {
+          comPass = '';
+        }
+      }
 
-    $scope.company = {
-      memberName:comMName,
-      password:comPass,
-      isRemember:comIsReme=='true'
-    }
-  }
+      $scope.company = {
+        memberName: comMName,
+        password: comPass,
+        isRemember: comIsReme == 'true'
+      };
+    };
 
-  // 承运方初始化
-  var initUserForm = function () {
-    var userMName = $cookies.get('yltUserMName');
-    var userIsReme = $cookies.get('yltUserIsReme');
-    var userPass = $cookies.get('yltUserPass');
+    // 承运方初始化
+    var initUserForm = function() {
+      var userMName = $cookies.get('yltUserMName');
+      var userIsReme = $cookies.get('yltUserIsReme');
+      var userPass = $cookies.get('yltUserPass');
 
-    if(userMName==undefined){
-      userMName = '';
-    }
-    if(userPass==undefined){
-      userPass = '';
-    }
-    if(userIsReme==undefined){
-      userIsReme = 'false';
-      userPass = '';
-    }else{
-      if(userIsReme=='false'){
+      if (userMName === undefined) {
+        userMName = '';
+      }
+      if (userPass === undefined) {
         userPass = '';
       }
-    }
-
-    $scope.user = {
-      memberName:userMName,
-      password:userPass,
-      isRemember:userIsReme=='true'
-    }
-  }
-
-  var doSwal = function (code) {
-    if(code == rescode.UNKNOW_USER){
-      swal('错误','帐号不存在','warning');
-    }else if(code == rescode.ERROR_PASSWORD){
-      swal('错误','密码不正确','warning');
-    }
-  }
-
-  $scope.goBackground = function () {
-    if($scope.loginUser && $scope.loginUser.token){
-      if($scope.loginUser.role=='company'){
-        window.location.href = 'shell.html#!/main/companyinner/create_order';
-      }else if($scope.loginUser.role=='user'){
-        window.location.href = 'shell.html#!/main/userinner/wanner_order';
-      }
-    }
-  }
-
-  $scope.logoutUser = function () {
-    $scope.loginUser = undefined;
-    $cookies.remove('yltUser');
-  }
-
-
-  $scope.onLoginCompany = function ($valid) {
-    if($valid.companyMemberName.$invalid){
-      swal('错误','帐号不能为空','warning');
-      return;
-    }
-
-    if($valid.companyPassword.$invalid){
-      swal('错误','密码不能为空','warning');
-      return;
-    }
-    interfaceService.companyLogin($scope.company,function (data,headers,config) {
-      console.log(JSON.stringify(data));
-      if(data.rescode == rescode.SUCCESS){
-        $scope.loginUser = data.data;
-
-        $cookies.put('yltComMName',$scope.company.memberName);
-        if($scope.company.isRemember){
-          $cookies.put('yltComIsReme','true');
-          $cookies.put('yltComPass',$scope.company.password);
-        }else{
-          $cookies.put('yltComIsReme','false');
-          $cookies.remove('yltComPass');
+      if (userIsReme === undefined) {
+        userIsReme = 'false';
+        userPass = '';
+      } else {
+        if (userIsReme == 'false') {
+          userPass = '';
         }
-        $cookies.putObject('yltUser',$scope.loginUser);
-      }else{
-        doSwal(data.rescode);
       }
-    });
-  }
 
-  // 承运方登录
-  $scope.onLoginUser = function ($valid) {
-    if($valid.userMemberName.$invalid){
-      swal('错误','帐号不能为空','warning');
-      return;
-    }
+      $scope.user = {
+        memberName: userMName,
+        password: userPass,
+        isRemember: userIsReme == 'true'
+      };
+    };
 
-    if($valid.userPassword.$invalid){
-      swal('错误','密码不能为空','warning');
-      return;
-    }
-    interfaceService.userLogin($scope.user,function (data,headers,config) {
-      console.log(JSON.stringify(data));
-      if(data.rescode == rescode.SUCCESS){
-        $scope.loginUser = data.data;
+    var doSwal = function(code) {
+      if (code == rescode.UNKNOW_USER) {
+        swal('错误', '帐号不存在', 'warning');
+      } else if (code == rescode.ERROR_PASSWORD) {
+        swal('错误', '密码不正确', 'warning');
+      }
+    };
 
-        $cookies.put('yltUserMName',$scope.user.memberName);
-        if($scope.user.isRemember){
-          $cookies.put('yltUserIsReme','true');
-          $cookies.put('yltUserPass',$scope.user.password);
-        }else{
-          $cookies.put('yltUserIsReme','false');
-          $cookies.remove('yltUserPass');
+    $scope.goBackground = function() {
+      if ($scope.loginUser && $scope.loginUser.token) {
+        if ($scope.loginUser.role == 'company') {
+          window.location.href = 'shell.html#!/main/companyinner/create_order';
+        } else if ($scope.loginUser.role == 'user') {
+          window.location.href = 'shell.html#!/main/userinner/wanner_order';
         }
-        $cookies.putObject('yltUser',$scope.loginUser);
-      }else{
-        doSwal(data.rescode);
       }
-    });
-  }
+    };
+
+    $scope.logoutUser = function() {
+      $scope.loginUser = undefined;
+      $cookies.remove('yltUser');
+    };
 
 
-  initCompanyForm();
-  initUserForm();
-  $scope.loginUser = $cookies.getObject('yltUser');
-
-
-  var getArticleIndex = function () {
-    var params = {
-      num:4
-    }
-    interfaceService.getArticleIndex(params,function (data,headers,config) {
-      console.log(JSON.stringify(data));
-      if(data.rescode == rescode.SUCCESS){
-        $scope.articleResults = data.data;
-      }else{
-
+    $scope.onLoginCompany = function($valid) {
+      if ($valid.companyMemberName.$invalid) {
+        swal('错误', '帐号不能为空', 'warning');
+        return;
       }
-    });
+
+      if ($valid.companyPassword.$invalid) {
+        swal('错误', '密码不能为空', 'warning');
+        return;
+      }
+      interfaceService.companyLogin($scope.company, function(data, headers, config) {
+        // console.log(JSON.stringify(data));
+        if (data.rescode == rescode.SUCCESS) {
+          $scope.loginUser = data.data;
+
+          $cookies.put('yltComMName', $scope.company.memberName, cookiesService.cookiesDate());
+          if ($scope.company.isRemember) {
+            $cookies.put('yltComIsReme', 'true', cookiesService.cookiesDate());
+            $cookies.put('yltComPass', $scope.company.password, cookiesService.cookiesDate());
+          } else {
+            $cookies.put('yltComIsReme', 'false', cookiesService.cookiesDate());
+            $cookies.remove('yltComPass');
+          }
+          $cookies.putObject('yltUser', $scope.loginUser, cookiesService.cookiesDate());
+        } else {
+          doSwal(data.rescode);
+        }
+      });
+    };
+
+    // 承运方登录
+    $scope.onLoginUser = function($valid) {
+      if ($valid.userMemberName.$invalid) {
+        swal('错误', '帐号不能为空', 'warning');
+        return;
+      }
+
+      if ($valid.userPassword.$invalid) {
+        swal('错误', '密码不能为空', 'warning');
+        return;
+      }
+      interfaceService.userLogin($scope.user, function(data, headers, config) {
+        // console.log(JSON.stringify(data));
+        if (data.rescode == rescode.SUCCESS) {
+          $scope.loginUser = data.data;
+
+          $cookies.put('yltUserMName', $scope.user.memberName, cookiesService.cookiesDate());
+          if ($scope.user.isRemember) {
+            $cookies.put('yltUserIsReme', 'true', cookiesService.cookiesDate());
+            $cookies.put('yltUserPass', $scope.user.password, cookiesService.cookiesDate());
+          } else {
+            $cookies.put('yltUserIsReme', 'false', cookiesService.cookiesDate());
+            $cookies.remove('yltUserPass');
+          }
+          $cookies.putObject('yltUser', $scope.loginUser, cookiesService.cookiesDate());
+        } else {
+          doSwal(data.rescode);
+        }
+      });
+    };
+
+
+    initCompanyForm();
+    initUserForm();
+    $scope.loginUser = $cookies.getObject('yltUser');
+
+
+    var getArticleIndex = function() {
+      var params = {
+        num: 4
+      };
+      interfaceService.getArticleIndex(params, function(data, headers, config) {
+        console.log(JSON.stringify(data));
+        if (data.rescode == rescode.SUCCESS) {
+          $scope.articleResults = data.data;
+        } else {
+
+        }
+      });
+    };
+
+    getArticleIndex();
+
+
+    $scope.goResetPassword = function(role) {
+      window.location.href = 'shell.html#!/forget_password/' + role;
+    };
+
+    $scope.keydown = function(e, role, form) {
+      var keycode = window.event ? e.keyCode : e.which;
+      if (keycode == 13) {
+        if (role === 0) {
+          $scope.onLoginCompany(form);
+        } else if (role == 1) {
+          $scope.onLoginUser(form);
+        }
+      }
+    };
   }
+]);
 
-  getArticleIndex();
-
-}]);
+ylIndex.service('cookiesService',function () {
+  this.cookiesDate = function () {
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() + 60);
+    return {'expires': expireDate.toUTCString()};
+  }
+});

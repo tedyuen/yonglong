@@ -43,13 +43,19 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','showDat
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
       }
     }
 
+    // 分页
+    $scope.switchPage = function (page) {
+      $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpList();
+    }
 
     $scope.companyUserDetail = function (userId) {
       var param = {

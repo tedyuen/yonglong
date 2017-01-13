@@ -5,8 +5,8 @@ yonglongApp.constant('URL_CONS', {
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   // serverFileUrl:'http://192.168.0.25:8080/admin/api/file',
-  serverUrl:'http://120.26.65.65:8285/adm/api/data',
-  serverFileUrl:' http://120.26.65.65:8285/adm/api/file',
+  serverUrl: 'http://120.26.65.65:8285/api/data',
+  serverFileUrl: ' http://120.26.65.65:8285/api/file',
 
   companyRegister: 'company_register',
   companyCreateOrder: 'company_create_order',
@@ -14,8 +14,8 @@ yonglongApp.constant('URL_CONS', {
   companyListMyorder: 'company_list_myorder',
   companyListGetorder: 'company_list_getorder',
   deleteOrder: 'company_delete_order',
-  companyUserinfo:'company_userinfo',
-  companyUserDetail:'company_user_detail',
+  companyUserinfo: 'company_userinfo',
+  companyUserDetail: 'company_user_detail',
   companyUpdateinfo: 'company_updateinfo',
   busUserDetail: 'bus_user_detail',
   fleetTakeOfferOrder: 'fleetTakeOfferOrder',
@@ -32,6 +32,7 @@ yonglongApp.constant('URL_CONS', {
   addRefundApply: 'addRefundApply',
   cashList: 'cashList',
   reportList: 'report_list',
+  alipay: 'alipay',
 
   companyDetailOrder: 'company_detail_order',
 
@@ -63,5 +64,7 @@ yonglongApp.constant('URL_CONS', {
   articleDelete: 'article_delete',
   articleDetail: 'article_detail',
 
+  updatePassword: 'update_password',
+  resetPassword: 'reset_password',
   sendcode: 'sendcode',
 });

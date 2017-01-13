@@ -27,7 +27,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     _opts.data = request;
     // _opts.params = request;
     _opts.success = function (data,headers,config,status) {
-      // loadingService.closeLoading();
+      try{
+        loadingService.closeLoading();
+      }catch (e){}
+
       if(data.rescode==rescode.ERROR_TOKEN){
         swal({
           title: "登录失效",
@@ -67,6 +70,9 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     }
   }
 
+  this.showLoading = function (str) {
+    loadingService.showLoading(str);
+  }
 
   // 创建订单
   this.companyCreateOrder = function (params,success,error) {
@@ -185,6 +191,13 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.reportList,params,success,error);
   }
 
+  // 8.1 订单查询-支付前
+  this.alipay = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.alipay,params,success,error);
+  }
+
+
+
 
   /////----- ------  以下是user接口
   // b1.1 我要接单列表
@@ -296,10 +309,22 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     }
 
 
+    // 13.1 修改密码
+    this.updatePassword = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.updatePassword,params,success,error);
+    }
+
+    // 13.2 找回密码
+    this.resetPassword = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.resetPassword,params,success,error);
+    }
+
     // 13.3 发送验证码
     this.sendcode = function (params,success,error) {
       this.doHttpMethod(URL_CONS.sendcode,params,success,error);
     }
+
+
 
 
 }]);

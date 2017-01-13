@@ -1,4 +1,6 @@
 yonglongApp.service('loadingService',['$timeout',function ($timeout) {
+
+  var timeoutFlag = undefined;
   this.showLoading = function (str) {
     var loadingText = "正在加载...";
     if(str!=undefined && str!=''){
@@ -16,7 +18,7 @@ yonglongApp.service('loadingService',['$timeout',function ($timeout) {
         color: '#fff'
       }
     });
-    $timeout(function () {
+    timeoutFlag=$timeout(function () {
       // $.unblockUI();
       $('#own-block-text').html('超时,点击关闭等待!');
       $('.blockOverlay').attr('title','点击关闭等待').click($.unblockUI);
@@ -24,5 +26,9 @@ yonglongApp.service('loadingService',['$timeout',function ($timeout) {
   }
   this.closeLoading = function () {
     $.unblockUI();
+    if(timeoutFlag!=undefined){
+      $timeout.cancel(timeoutFlag);
+      timeoutFlag = undefined;
+    }
   }
 }]);

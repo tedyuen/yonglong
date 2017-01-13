@@ -17,7 +17,7 @@ yonglongApp.controller('adminRoleController',['$rootScope','$scope','$cookies','
         confirmButtonText: "是的,注销!",
         closeOnConfirm: false,
       },function () {
-        logoutService.logout();
+        logoutService.logout('admin');
       });
     }
 

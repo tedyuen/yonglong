@@ -1,9 +1,3 @@
-// yonglongApp.config(['$locationProvider', function($locationProvider) {
-//   $locationProvider.html5Mode({
-//     enable:true,
-//     requireBase:false
-//   });
-// }]);
 yonglongApp.controller('orderController',['$scope','$rootScope','$cookies','$location','interfaceService','rescode',
   function ($scope,$rootScope,$cookies,$location,interfaceService,rescode) {
 
@@ -18,12 +12,13 @@ yonglongApp.controller('orderController',['$scope','$rootScope','$cookies','$loc
       var params = {
         orderId:orderId
       }
-      interfaceService.companyDetailOrder(params,function (data,headers,config) {
+      var success = function (data,headers,config) {
         console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS) {
           $scope.results = data.data;
         }
-      });
+      }
+      interfaceService.companyDetailOrder(params,success);
     }
     if($scope.orderId){
       getDetail($scope.orderId);

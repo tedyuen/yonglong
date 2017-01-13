@@ -20,18 +20,18 @@
                 <input id="checkbox-signup" type="checkbox" ng-model="admin.isRemember">
                 <label for="checkbox-signup"> 记住我的密码 </label>
               </div>
-              <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> 忘记密码</a> </div>
+              <a href="javascript:void(0)" ui-sref="forget_password({role:2})" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> 忘记密码</a> </div>
           </div>
           <div class="form-group text-center m-t-20">
             <div class="col-xs-12">
               <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">登录</button>
             </div>
           </div>
-          <div class="form-group m-b-0">
-            <div class="col-sm-12 text-center">
-              <p>没有帐号吗? 去<a href="" class="text-primary m-l-5"><b>注册</b></a></p>
-            </div>
-          </div>
+          <!--<div class="form-group m-b-0">-->
+            <!--<div class="col-sm-12 text-center">-->
+              <!--<p>没有帐号吗? 去<a href="" class="text-primary m-l-5"><b>注册</b></a></p>-->
+            <!--</div>-->
+          <!--</div>-->
         </form>
 
       </div>

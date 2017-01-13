@@ -14,7 +14,7 @@ yonglongApp.controller('adminAllReportController',['$scope','$timeout','showDate
 
     var httpList = function () {
       interfaceService.reportList($scope.queryData,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode = rescode.SUCCESS){
           $scope.flist = data.data.flist;
           $scope.list = data.data.list;
@@ -24,6 +24,7 @@ yonglongApp.controller('adminAllReportController',['$scope','$timeout','showDate
 
     $scope.queryList = function ($valid) {
       if($valid){
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 

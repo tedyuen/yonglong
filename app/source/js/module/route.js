@@ -22,6 +22,12 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       templateUrl:'template/register_user.html',
       controller:'userRegisterController'
     })
+    .state('forget_password',{//忘记密码
+      url:'/forget_password/{role}',
+      templateUrl:'template/forget_password.html',
+      controller:'forgetPasswordController'
+    })
+
 
     .state('main',{//主页
       url:'/main',
@@ -43,6 +49,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'footer': {
           templateUrl: 'template/footer.html'
+        }
+      }
+    })
+    .state('main.admin.update_password',{//修改密码
+      url:'/update_password',
+      views: {
+        'content@main': {
+          templateUrl: 'template/update_password.html',
+          controller: 'updatePasswordController'
         }
       }
     })
@@ -108,7 +123,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
           controller: 'adminNewsListController'
         }
       }
-    })
+    });
 
 
 
@@ -127,6 +142,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'footer': {
           templateUrl: 'template/footer.html'
+        }
+      }
+    })
+    .state('main.userinner.update_password',{//修改密码
+      url:'/update_password',
+      views: {
+        'content@main': {
+          templateUrl: 'template/update_password.html',
+          controller: 'updatePasswordController'
         }
       }
     })
@@ -228,7 +252,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
           controller: 'userCreateWithdrawController'
         }
       }
-    })
+    });
 
 
 
@@ -249,6 +273,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'footer': {
           templateUrl: 'template/footer.html'
+        }
+      }
+    })
+    .state('main.companyinner.update_password',{//修改密码
+      url:'/update_password',
+      views: {
+        'content@main': {
+          templateUrl: 'template/update_password.html',
+          controller: 'updatePasswordController'
         }
       }
     })
@@ -359,9 +392,6 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
           controller: 'withdrawListController'
         }
       }
-    })
+    });
 
 }]);
-
-
-

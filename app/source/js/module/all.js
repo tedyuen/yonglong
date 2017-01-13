@@ -120,8 +120,8 @@ yonglongApp.constant('URL_CONS', {
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   // serverFileUrl:'http://192.168.0.25:8080/admin/api/file',
-  serverUrl:'http://120.26.65.65:8285/adm/api/data',
-  serverFileUrl:' http://120.26.65.65:8285/adm/api/file',
+  serverUrl: 'http://120.26.65.65:8285/api/data',
+  serverFileUrl: ' http://120.26.65.65:8285/api/file',
 
   companyRegister: 'company_register',
   companyCreateOrder: 'company_create_order',
@@ -129,8 +129,8 @@ yonglongApp.constant('URL_CONS', {
   companyListMyorder: 'company_list_myorder',
   companyListGetorder: 'company_list_getorder',
   deleteOrder: 'company_delete_order',
-  companyUserinfo:'company_userinfo',
-  companyUserDetail:'company_user_detail',
+  companyUserinfo: 'company_userinfo',
+  companyUserDetail: 'company_user_detail',
   companyUpdateinfo: 'company_updateinfo',
   busUserDetail: 'bus_user_detail',
   fleetTakeOfferOrder: 'fleetTakeOfferOrder',
@@ -147,6 +147,7 @@ yonglongApp.constant('URL_CONS', {
   addRefundApply: 'addRefundApply',
   cashList: 'cashList',
   reportList: 'report_list',
+  alipay: 'alipay',
 
   companyDetailOrder: 'company_detail_order',
 
@@ -178,6 +179,8 @@ yonglongApp.constant('URL_CONS', {
   articleDelete: 'article_delete',
   articleDetail: 'article_detail',
 
+  updatePassword: 'update_password',
+  resetPassword: 'reset_password',
   sendcode: 'sendcode',
 });
 
@@ -342,6 +345,37 @@ yonglongApp.filter('orderStatusText',function () {
   }
 });
 
+yonglongApp.service('alipayService',['interfaceService','rescode',
+  function (interfaceService,rescode) {
+
+  this.alipay = function (result) {
+    console.log('alipayService');
+    interfaceService.alipay({id:result.id},function (data,headers,config) {
+      console.log("response:"+JSON.stringify(data));
+      if(data.rescode==rescode.SUCCESS){
+        if(data.data.orderAmount>0){
+          swal({
+            title: "确认付款吗?",
+            text: "您即将付款"+data.data.orderAmount+"元！",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的,去支付!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+          }, function(){
+            var $hiddenPanel = $('<div style="display:none;"></div>');
+            $hiddenPanel.html(data.data.sHtmlText);
+            $hiddenPanel.find('form').submit();
+          });
+        }
+      }
+    });
+  }
+
+}])
+
 yonglongApp.service('baseDataService',['diyData',function (diyData) {
 
   this.getOrderType = function () {
@@ -378,6 +412,14 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
     }
   }
 }]);
+
+yonglongApp.service('cookiesService',function () {
+  this.cookiesDate = function () {
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() + 60);
+    return {'expires': expireDate.toUTCString()};
+  }
+});
 
 yonglongApp.provider('countupProvider',function () {
   this.$get = function () {
@@ -662,7 +704,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     _opts.data = request;
     // _opts.params = request;
     _opts.success = function (data,headers,config,status) {
-      // loadingService.closeLoading();
+      try{
+        loadingService.closeLoading();
+      }catch (e){}
+
       if(data.rescode==rescode.ERROR_TOKEN){
         swal({
           title: "登录失效",
@@ -702,6 +747,9 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     }
   }
 
+  this.showLoading = function (str) {
+    loadingService.showLoading(str);
+  }
 
   // 创建订单
   this.companyCreateOrder = function (params,success,error) {
@@ -820,6 +868,13 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.reportList,params,success,error);
   }
 
+  // 8.1 订单查询-支付前
+  this.alipay = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.alipay,params,success,error);
+  }
+
+
+
 
   /////----- ------  以下是user接口
   // b1.1 我要接单列表
@@ -931,15 +986,29 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     }
 
 
+    // 13.1 修改密码
+    this.updatePassword = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.updatePassword,params,success,error);
+    }
+
+    // 13.2 找回密码
+    this.resetPassword = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.resetPassword,params,success,error);
+    }
+
     // 13.3 发送验证码
     this.sendcode = function (params,success,error) {
       this.doHttpMethod(URL_CONS.sendcode,params,success,error);
     }
 
 
+
+
 }]);
 
 yonglongApp.service('loadingService',['$timeout',function ($timeout) {
+
+  var timeoutFlag = undefined;
   this.showLoading = function (str) {
     var loadingText = "正在加载...";
     if(str!=undefined && str!=''){
@@ -957,7 +1026,7 @@ yonglongApp.service('loadingService',['$timeout',function ($timeout) {
         color: '#fff'
       }
     });
-    $timeout(function () {
+    timeoutFlag=$timeout(function () {
       // $.unblockUI();
       $('#own-block-text').html('超时,点击关闭等待!');
       $('.blockOverlay').attr('title','点击关闭等待').click($.unblockUI);
@@ -965,14 +1034,22 @@ yonglongApp.service('loadingService',['$timeout',function ($timeout) {
   }
   this.closeLoading = function () {
     $.unblockUI();
+    if(timeoutFlag!=undefined){
+      $timeout.cancel(timeoutFlag);
+      timeoutFlag = undefined;
+    }
   }
 }]);
 
-yonglongApp.service('logoutService',['$rootScope','$cookies',function ($rootScope,$cookies) {
-  this.logout = function () {
+yonglongApp.service('logoutService',['$rootScope','$state','$cookies',function ($rootScope,$state,$cookies) {
+  this.logout = function (role) {
     $rootScope.loginUser = undefined;
     $cookies.remove('yltUser');
-    window.location.href = 'index.html';
+    if(role){
+      $state.go('adminlogin');
+    }else{
+      window.location.href = 'index.html';
+    }
   }
 }]);
 
@@ -1106,7 +1183,7 @@ yonglongApp.controller('departCostListController',['$scope','interfaceService','
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -1151,6 +1228,7 @@ yonglongApp.controller('userAllReportController',['$scope','$timeout','showDateP
 
     $scope.queryList = function ($valid) {
       if($valid){
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -1357,7 +1435,7 @@ yonglongApp.controller('userFriendManageController',['$scope','interfaceService'
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -1466,7 +1544,7 @@ yonglongApp.controller('userHasgetOrderController',['$scope','$timeout','showDat
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -1475,7 +1553,7 @@ yonglongApp.controller('userHasgetOrderController',['$scope','$timeout','showDat
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -1651,7 +1729,7 @@ yonglongApp.controller('userHasgetOrderController2',['$scope','$timeout','showDa
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -1660,7 +1738,7 @@ yonglongApp.controller('userHasgetOrderController2',['$scope','$timeout','showDa
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -2057,13 +2135,19 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','showDat
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
       }
     }
 
+    // 分页
+    $scope.switchPage = function (page) {
+      $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpList();
+    }
 
     $scope.companyUserDetail = function (userId) {
       var param = {
@@ -2670,7 +2754,7 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService','re
     // 表单查询好友列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -2679,7 +2763,7 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService','re
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -2765,8 +2849,8 @@ yonglongApp.controller('friendManageController',['$scope','interfaceService','re
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode',
-  function ($scope,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode) {
+yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
+  function ($scope,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
@@ -2807,7 +2891,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -2816,7 +2900,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 
     // 分页
     $scope.switchPage = function (page) {
-      // console.log(page);
+      interfaceService.showLoading('正在查询');
       $scope.queryData.pageno = page;
       httpList();
     }
@@ -2934,6 +3018,10 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
       }
     }
 
+    $scope.alipay = function (result) {
+      alipayService.alipay(result);
+    }
+
     httpList();
 
   }]);
@@ -2941,8 +3029,8 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider','baseDataService','interfaceService','rescode',
-  function ($scope,showDatePickerProvider,baseDataService,interfaceService,rescode) {
+yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
+  function ($scope,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
@@ -2975,6 +3063,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -2990,7 +3079,7 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -3106,6 +3195,11 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
       }
     }
 
+
+    $scope.alipay = function (result) {
+      alipayService.alipay(result);
+    }
+
     httpList();
 
 }]);
@@ -3136,6 +3230,7 @@ yonglongApp.controller('receiveReportController',['$scope','$timeout','showDateP
 
     $scope.queryList = function ($valid) {
       if($valid){
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -3155,101 +3250,102 @@ yonglongApp.controller('receiveReportController',['$scope','$timeout','showDateP
     httpList();
 }]);
 
-yonglongApp.controller('registerCompanyController',['$scope','$state','$interval','dropifyProvider','interfaceService','rescode','validateService','toastService',
-  function ($scope,$state,$interval,dropifyProvider,interfaceService,rescode,validateService,toastService) {
+yonglongApp.controller('registerCompanyController', ['$scope', '$state', '$interval', '$cookies', 'dropifyProvider', 'interfaceService', 'rescode', 'validateService', 'toastService', 'cookiesService',
+  function($scope, $state, $interval, $cookies, dropifyProvider, interfaceService, rescode, validateService, toastService, cookiesService) {
     dropifyProvider.dropify();
-    $scope.showTerms=function () {
+    $scope.showTerms = function() {
       $('#terms').modal('show');
-    }
+    };
 
-    $scope.reg={
-      memberName:'',
-      password:'',
-      passwordconfirm:'',
-      companyName:'',
-      companyLinker:'',
-      email:'',
-      mobilePhone:'',
-      tel:'',
-      licence:'',
-      nameCard:'',
-      nameCardBack:'',
-      mobileCode:'',
-      address:''
-    }
+    $scope.reg = {
+      memberName: '',
+      password: '',
+      passwordconfirm: '',
+      companyName: '',
+      companyLinker: '',
+      email: '',
+      mobilePhone: '',
+      tel: '',
+      licence: '',
+      nameCard: '',
+      nameCardBack: '',
+      mobileCode: '',
+      address: ''
+    };
     $scope.regfile1 = {
-      name:'nameCardFile',
-      file:'',
-    }
+      name: 'nameCardFile',
+      file: '',
+    };
     $scope.regfile2 = {
-      name:'nameCardBackFile',
-      file:'',
-    }
+      name: 'nameCardBackFile',
+      file: '',
+    };
     $scope.regfile3 = {
-      name:'licenceFile',
-      file:'',
-    }
-    var files = [$scope.regfile1,$scope.regfile2,$scope.regfile3];
+      name: 'licenceFile',
+      file: '',
+    };
+    var files = [$scope.regfile1, $scope.regfile2, $scope.regfile3];
 
-    $scope.onSubmit = function($valid){
-      if($valid){
-        interfaceService.companyRegister($scope.reg,files,function (data,headers,config) {
+    $scope.onSubmit = function($valid) {
+      if ($valid) {
+        interfaceService.companyRegister($scope.reg, files, function(data, headers, config) {
           // console.log(JSON.stringify(data));
-          if(data.rescode==rescode.SUCCESS){
+          if (data.rescode == rescode.SUCCESS) {
             $state.go('main.companyinner.create_order');
-          }else if(data.rescode==rescode.AGAIN_PHONE){
+          } else if (data.rescode == rescode.AGAIN_PHONE) {
             // 手机号码被注册
-          }else if(data.rescode==rescode.EMPTY_SMS_CODE){
+          } else if (data.rescode == rescode.EMPTY_SMS_CODE) {
             // 验证码不能为空
           }
         });
-      }else{
-        console.log("$valid:"+$valid);
+      } else {
+        console.log("$valid:" + $valid);
       }
     };
 
     //发送验证码
     $scope.validCodeFlag = true;
     $scope.validCodeText = '发送验证码';
-    $scope.sendCode = function () {
-      var validMobile = validateService.mobile($scope.reg.mobilePhone,true);
-      if(validMobile.result && $scope.validCodeFlag){
+    $scope.sendCode = function() {
+      var validMobile = validateService.mobile($scope.reg.mobilePhone, true);
+      if (validMobile.result && $scope.validCodeFlag) {
         var second = 60;
         $scope.validCodeFlag = false;
         $scope.validCodeText = '正在发送...';
 
         var params = {
-          codetype:0,
-          mobilePhone:$scope.reg.mobilePhone
-        }
-        interfaceService.sendcode(params,function (data,headers,config) {
+          codetype: 0,
+          mobilePhone: $scope.reg.mobilePhone
+        };
+        interfaceService.sendcode(params, function(data, headers, config) {
           console.log(JSON.stringify(data));
 
-          if(data.rescode==rescode.SUCCESS){
+          if (data.rescode == rescode.SUCCESS) {
             toastService.sendCodeToast(true);
-            var timePromise = $interval(function () {
-              if(second<=0){
+            var timePromise = $interval(function() {
+              if (second <= 0) {
                 $interval.cancel(timePromise);
                 timePromise = undefined;
                 $scope.validCodeFlag = true;
                 $scope.validCodeText = '重新发送验证码';
-              }else{
-                $scope.validCodeText = second+'秒后重新发送';
+              } else {
+                $scope.validCodeText = second + '秒后重新发送';
                 second--;
               }
-            },1000,65);
+            }, 1000, 65);
 
-          }else{
+          } else {
             toastService.sendCodeToast(false);
             $scope.validCodeFlag = true;
             $scope.validCodeText = '发送验证码';
           }
         });
       }
-    }
+    };
 
 
-}]);
+  }
+]);
 
 /**
  * Created by tedyuen on 16-12-15.
@@ -3277,6 +3373,7 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePick
 
     $scope.queryList = function ($valid) {
       if($valid){
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -3299,65 +3396,64 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePick
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('updateInfoController',['$scope','dropifyProvider','interfaceService','rescode',
-  function ($scope,dropifyProvider,interfaceService,rescode) {
+yonglongApp.controller('updateInfoController', ['$scope', 'dropifyProvider', 'interfaceService', 'rescode',
+  function($scope, dropifyProvider, interfaceService, rescode) {
     dropifyProvider.dropify();
 
-    $scope.reg={
-      memberName:'',
-      password:'',
-      passwordconfirm:'',
-      companyName:'',
-      companyLinker:'',
-      email:'',
-      mobilePhone:'',
-      tel:'',
-      licence:'',
-      nameCard:'',
-      nameCardBack:'',
-      mobileCode:'',
-      address:''
-    }
+    $scope.reg = {
+      memberName: '',
+      password: '',
+      passwordconfirm: '',
+      companyName: '',
+      companyLinker: '',
+      email: '',
+      mobilePhone: '',
+      tel: '',
+      licence: '',
+      nameCard: '',
+      nameCardBack: '',
+      mobileCode: '',
+      address: ''
+    };
     $scope.regfile1 = {
-      name:'nameCardFile',
-      file:'',
-    }
+      name: 'nameCardFile',
+      file: '',
+    };
     $scope.regfile2 = {
-      name:'nameCardBackFile',
-      file:'',
-    }
+      name: 'nameCardBackFile',
+      file: '',
+    };
     $scope.regfile3 = {
-      name:'licenceFile',
-      file:'',
-    }
-    var files = [$scope.regfile1,$scope.regfile2,$scope.regfile3];
+      name: 'licenceFile',
+      file: '',
+    };
+    var files = [$scope.regfile1, $scope.regfile2, $scope.regfile3];
 
 
-    $scope.onSubmit = function($valid){
-      if($valid){
-        interfaceService.companyUpdateinfo($scope.reg,files,function (data,headers,config) {
+    $scope.onSubmit = function($valid) {
+      if ($valid) {
+        interfaceService.companyUpdateinfo($scope.reg, files, function(data, headers, config) {
           // console.log(JSON.stringify(data));
-          if(data.rescode==rescode.SUCCESS){
+          if (data.rescode == rescode.SUCCESS) {
             swal({
-              title:"修改成功！",
-              text:"已成功修改个人信息。",
-              type:"success",
-              confirmButtonText:"确定",
-            },function () {
-            });
+              title: "修改成功！",
+              text: "已成功修改个人信息。",
+              type: "success",
+              confirmButtonText: "确定",
+            }, function() {});
           }
         });
-      }else{
-        console.log("$valid:"+$valid);
+      } else {
+        console.log("$valid:" + $valid);
       }
     };
 
 
-    $scope.getUserInfo = function () {
-      interfaceService.companyUserinfo({},function (data,headers,config) {
+    $scope.getUserInfo = function() {
+      interfaceService.companyUserinfo({}, function(data, headers, config) {
         console.log(JSON.stringify(data));
         $scope.reg = data.data;
-      })
+      });
     };
     $scope.getUserInfo();
   }
@@ -3408,11 +3504,18 @@ yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePic
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
       if($valid){
-        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
       }
+    }
+
+    // 分页
+    $scope.switchPage = function (page) {
+      $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpList();
     }
 
 
@@ -3559,19 +3662,19 @@ yonglongApp.controller('withdrawListController',['$scope','interfaceService','re
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('withdrawManageController',['$scope','interfaceService','rescode',
-  function ($scope,interfaceService,rescode) {
+yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService', 'rescode',
+  function($scope, interfaceService, rescode) {
 
     $scope.params = {
-      bankCardNo:'',
-      bankCardOwner:'',
-      bankName:''
+      bankCardNo: '',
+      bankCardOwner: '',
+      bankName: ''
     }
 
-    var httpList = function () {
-      interfaceService.listBankCard({},function (data,headers,config) {
+    var httpList = function() {
+      interfaceService.listBankCard({}, function(data, headers, config) {
         // console.log("response:"+JSON.stringify(data));
-        if(data.rescode == rescode.SUCCESS){
+        if (data.rescode == rescode.SUCCESS) {
           $scope.results = data.data;
 
           console.log($scope.results.dataList.length);
@@ -3579,10 +3682,10 @@ yonglongApp.controller('withdrawManageController',['$scope','interfaceService','
       });
     }
 
-    $scope.del = function (result) {
+    $scope.del = function(result) {
       swal({
         title: "确定删除吗?",
-        text: "您即将删除"+result.bankCardOwner+"的账户!",
+        text: "您即将删除" + result.bankCardOwner + "的账户!",
         type: "warning",
         showCancelButton: true,
         cancelButtonText: "取消",
@@ -3591,19 +3694,19 @@ yonglongApp.controller('withdrawManageController',['$scope','interfaceService','
         closeOnConfirm: false,
         showLoaderOnConfirm: true,
         animation: "slide-from-top",
-      }, function(){
+      }, function() {
         var param = {
-          id:result.id
+          id: result.id
         }
-        interfaceService.delBankCard(param,function (data,headers,config) {
+        interfaceService.delBankCard(param, function(data, headers, config) {
           // console.log("response:"+JSON.stringify(data));
-          if(data.rescode == rescode.SUCCESS){
+          if (data.rescode == rescode.SUCCESS) {
             swal({
-              title:"删除成功成功！",
-              text:"已成功删除此提现账户。",
-              type:"success",
-              confirmButtonText:"确定",
-            },function () {
+              title: "删除成功成功！",
+              text: "已成功删除此提现账户。",
+              type: "success",
+              confirmButtonText: "确定",
+            }, function() {
               httpList();
             });
           }
@@ -3611,16 +3714,16 @@ yonglongApp.controller('withdrawManageController',['$scope','interfaceService','
       });
     }
 
-    $scope.showAddBankCard = function () {
+    $scope.showAddBankCard = function() {
       $('#add-bank-card').modal('show');
     }
 
     //添加提现帐号
-    $scope.onSubmit = function ($valid) {
-      if($valid){
-        interfaceService.addBankCard($scope.params,function (data,headers,config) {
+    $scope.onSubmit = function($valid) {
+      if ($valid) {
+        interfaceService.addBankCard($scope.params, function(data, headers, config) {
           // console.log("response:"+JSON.stringify(data));
-          if(data.rescode == rescode.SUCCESS){
+          if (data.rescode == rescode.SUCCESS) {
             swal({
               title: "创建成功",
               text: "您已成功创建提现帐号!",
@@ -3628,20 +3731,21 @@ yonglongApp.controller('withdrawManageController',['$scope','interfaceService','
               confirmButtonText: "完成",
               closeOnConfirm: true,
 
-            },function () {
+            }, function() {
               $('#add-bank-card').modal('hide');
               httpList();
             })
           }
         });
 
-      }else{
+      } else {
 
       }
     }
 
     httpList();
-}]);
+  }
+]);
 
 /**
  * Created by tedyuen on 16-12-15.
@@ -3659,7 +3763,7 @@ yonglongApp.controller('adminAllReportController',['$scope','$timeout','showDate
 
     var httpList = function () {
       interfaceService.reportList($scope.queryData,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode = rescode.SUCCESS){
           $scope.flist = data.data.flist;
           $scope.list = data.data.list;
@@ -3669,6 +3773,7 @@ yonglongApp.controller('adminAllReportController',['$scope','$timeout','showDate
 
     $scope.queryList = function ($valid) {
       if($valid){
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -3707,6 +3812,7 @@ yonglongApp.controller('adminCompanyListController',['$scope','showDatePickerPro
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -3723,6 +3829,7 @@ yonglongApp.controller('adminCompanyListController',['$scope','showDatePickerPro
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -3910,8 +4017,8 @@ yonglongApp.controller('adminEditNewsController',['$scope','$stateParams','$time
 
   }]);
 
-yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies','$state','interfaceService','rescode',
-  function ($scope,$rootScope,$cookies,$state,interfaceService,rescode) {
+yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies','$state','interfaceService','rescode','cookiesService',
+  function ($scope,$rootScope,$cookies,$state,interfaceService,rescode,cookiesService) {
 
 
     var initAdminForm = function () {
@@ -3968,15 +4075,15 @@ yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies',
         if(data.rescode == rescode.SUCCESS){
           $rootScope.loginUser = data.data;
 
-          $cookies.put('yltAdminMName',$scope.admin.memberName);
+          $cookies.put('yltAdminMName',$scope.admin.memberName,cookiesService.cookiesDate());
           if($scope.admin.isRemember){
-            $cookies.put('yltAdminIsReme','true');
-            $cookies.put('yltAdminPass',$scope.admin.password);
+            $cookies.put('yltAdminIsReme','true',cookiesService.cookiesDate());
+            $cookies.put('yltAdminPass',$scope.admin.password,cookiesService.cookiesDate());
           }else{
-            $cookies.put('yltAdminIsReme','false');
+            $cookies.put('yltAdminIsReme','false',cookiesService.cookiesDate());
             $cookies.remove('yltAdminPass');
           }
-          $cookies.putObject('yltUser',$rootScope.loginUser);
+          $cookies.putObject('yltUser',$rootScope.loginUser,cookiesService.cookiesDate());
           $state.go('main.admin.order_list');
         }else{
           doSwal(data.rescode);
@@ -4109,6 +4216,7 @@ yonglongApp.controller('adminOrderListController',['$scope','showDatePickerProvi
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -4125,6 +4233,7 @@ yonglongApp.controller('adminOrderListController',['$scope','showDatePickerProvi
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -4262,7 +4371,7 @@ yonglongApp.controller('adminRoleController',['$rootScope','$scope','$cookies','
         confirmButtonText: "是的,注销!",
         closeOnConfirm: false,
       },function () {
-        logoutService.logout();
+        logoutService.logout('admin');
       });
     }
 
@@ -4288,6 +4397,7 @@ yonglongApp.controller('adminUserListController',['$scope','showDatePickerProvid
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -4304,6 +4414,7 @@ yonglongApp.controller('adminUserListController',['$scope','showDatePickerProvid
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -4448,6 +4559,7 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
     $scope.switchPage = function (page) {
       // console.log(page);
       $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
       httpList();
     }
 
@@ -4464,7 +4576,7 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
     $scope.queryList = function ($valid) {
       if($valid){
         // console.log("request:"+JSON.stringify($scope.queryData));
-        loadingService.showLoading('正在查询');
+        interfaceService.showLoading('正在查询');
         httpList();
       }else{
 
@@ -4573,6 +4685,102 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
 
   }]);
 
+yonglongApp.controller('forgetPasswordController',['$scope','$state','$stateParams','$interval','interfaceService','rescode','validateService','toastService',
+  function ($scope,$state,$stateParams,$interval,interfaceService,rescode,validateService,toastService) {
+
+    switch ($stateParams.role){
+      case '0':
+        $scope.roleText = '发货方';
+        break;
+      case '1':
+        $scope.roleText = '承运方';
+        break;
+      case '2':
+        $scope.roleText = '管理员';
+        break;
+
+    }
+
+    $scope.params = {
+      role:$stateParams.role,
+      mobileCode:'',
+      mobilePhone:undefined,
+      newPassword:''
+    }
+
+    $scope.onResetPassword = function ($valid) {
+      if($valid){
+        interfaceService.resetPassword($scope.params,function (data,headers,config) {
+          // console.log(JSON.stringify(data));
+          if(data.rescode==rescode.SUCCESS){
+            swal({
+              title:"密码重置成功！",
+              text:"新密码已通过短信发送至您的注册手机。",
+              type:"success",
+              showCancelButton: true,
+              cancelButtonText: "确定",
+              confirmButtonText:"前往登录",
+            },function () {
+              console.log("$stateParams.role: "+$stateParams.role);
+              switch($stateParams.role){
+                case '0'://company
+                case '1'://user
+                  window.location.href = 'index.html';
+                  break;
+                case '2':
+                  console.log('go!!');
+                  $state.go('adminlogin');
+                  break;//admin
+              }
+            });
+          }else{
+
+          }
+        });
+      }
+    }
+
+    //发送验证码
+    $scope.validCodeFlag = true;
+    $scope.validCodeText = '发送验证码';
+    $scope.sendCode = function () {
+      var validMobile = validateService.mobile($scope.params.mobilePhone,true);
+      if(validMobile.result && $scope.validCodeFlag){
+        var second = 60;
+        $scope.validCodeFlag = false;
+        $scope.validCodeText = '正在发送...';
+
+        var params = {
+          codetype:1,
+          mobilePhone:$scope.params.mobilePhone
+        }
+        interfaceService.sendcode(params,function (data,headers,config) {
+          // console.log(JSON.stringify(data));
+          if(data.rescode==rescode.SUCCESS){
+            toastService.sendCodeToast(true);
+            var timePromise = $interval(function () {
+              if(second<=0){
+                $interval.cancel(timePromise);
+                timePromise = undefined;
+                $scope.validCodeFlag = true;
+                $scope.validCodeText = '重新发送验证码';
+              }else{
+                $scope.validCodeText = second+'秒后重新发送';
+                second--;
+              }
+            },1000,65);
+
+          }else{
+            toastService.sendCodeToast(false);
+            $scope.validCodeFlag = true;
+            $scope.validCodeText = '发送验证码';
+          }
+        });
+      }
+    }
+
+}]);
+
 yonglongApp.controller('mainController',['$rootScope','$scope','$cookies','$timeout',function ($rootScope,$scope,$cookies,$timeout) {
   $rootScope.$on('$stateChangeStart',
     function(event, toState, toParams, fromState, fromParams){
@@ -4585,6 +4793,102 @@ yonglongApp.controller('mainController',['$rootScope','$scope','$cookies','$time
     uiState.ready()
   },50);
 }]);
+
+yonglongApp.controller('updatePasswordController', ['$rootScope', '$scope', '$interval', 'interfaceService', 'rescode', 'toastService',
+  function($rootScope, $scope, $interval, interfaceService, rescode, toastService) {
+
+    $scope.reg = {
+      mobileCode: '',
+      newPassword: '',
+      repassword: '',
+    };
+
+    $scope.valid = {
+      repass: true
+    };
+
+
+    $scope.checkPassword = function() {
+      $scope.valid.repass = $scope.reg.newPassword == $scope.reg.repassword;
+    };
+
+    $scope.onSubmit = function($valid) {
+      if ($valid) {
+        if (!$scope.valid.repass) {
+          swal('重复密码有误', '两次输入的密码需要一致!', 'error');
+          return;
+        }
+        interfaceService.updatePassword($scope.reg, function(data, headers, config) {
+          if (data.rescode == rescode.SUCCESS) {
+            swal('修改成功', '修改密码成功!', 'success');
+            $scope.reg = {
+              mobileCode: '',
+              newPassword: '',
+              repassword: '',
+            };
+          } else {
+            swal('修改密码出错', '修改密码出错，请重新修改!', 'error');
+            $scope.reg.mobileCode = '';
+          }
+        });
+      } else {
+        swal('提交内容不能为空', '表单内红框部分的内容不能为空!', 'error');
+      }
+    };
+
+    //发送验证码
+    $scope.validCodeFlag = true;
+    $scope.validCodeText = '发送验证码';
+    $scope.sendCode = function() {
+      if ($rootScope.loginUser) {
+        if ($rootScope.loginUser.mobilePhone) {
+          var mobilePhone = $rootScope.loginUser.mobilePhone;
+          mobilePhone = mobilePhone.substring(0, 3) + '****' + mobilePhone.substring(8, 11);
+          swal({
+            title: "发送验证码?",
+            text: "即将往手机号为" + mobilePhone + "的手机发送一条验证码短信!",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的,发送!",
+          }, function() {
+            var second = 60;
+            $scope.validCodeFlag = false;
+            $scope.validCodeText = '正在发送...';
+            var params = {
+              codetype: 2,
+              mobilePhone: mobilePhone
+            };
+            interfaceService.sendcode(params, function(data, headers, config) {
+              // console.log(JSON.stringify(data));
+              if (data.rescode == rescode.SUCCESS) {
+                toastService.sendCodeToast(true);
+                var timePromise = $interval(function() {
+                  if (second <= 0) {
+                    $interval.cancel(timePromise);
+                    timePromise = undefined;
+                    $scope.validCodeFlag = true;
+                    $scope.validCodeText = '重新发送验证码';
+                  } else {
+                    $scope.validCodeText = second + '秒后重新发送';
+                    second--;
+                  }
+                }, 1000, 65);
+
+              } else {
+                toastService.sendCodeToast(false);
+                $scope.validCodeFlag = true;
+                $scope.validCodeText = '发送验证码';
+              }
+            });
+          });
+        }
+      }
+    };
+
+  }
+]);
 
 yonglongApp.directive('creditRank',function () {
   return{
@@ -4718,6 +5022,12 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       templateUrl:'template/register_user.html',
       controller:'userRegisterController'
     })
+    .state('forget_password',{//忘记密码
+      url:'/forget_password/{role}',
+      templateUrl:'template/forget_password.html',
+      controller:'forgetPasswordController'
+    })
+
 
     .state('main',{//主页
       url:'/main',
@@ -4739,6 +5049,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'footer': {
           templateUrl: 'template/footer.html'
+        }
+      }
+    })
+    .state('main.admin.update_password',{//修改密码
+      url:'/update_password',
+      views: {
+        'content@main': {
+          templateUrl: 'template/update_password.html',
+          controller: 'updatePasswordController'
         }
       }
     })
@@ -4804,7 +5123,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
           controller: 'adminNewsListController'
         }
       }
-    })
+    });
 
 
 
@@ -4823,6 +5142,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'footer': {
           templateUrl: 'template/footer.html'
+        }
+      }
+    })
+    .state('main.userinner.update_password',{//修改密码
+      url:'/update_password',
+      views: {
+        'content@main': {
+          templateUrl: 'template/update_password.html',
+          controller: 'updatePasswordController'
         }
       }
     })
@@ -4924,7 +5252,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
           controller: 'userCreateWithdrawController'
         }
       }
-    })
+    });
 
 
 
@@ -4945,6 +5273,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'footer': {
           templateUrl: 'template/footer.html'
+        }
+      }
+    })
+    .state('main.companyinner.update_password',{//修改密码
+      url:'/update_password',
+      views: {
+        'content@main': {
+          templateUrl: 'template/update_password.html',
+          controller: 'updatePasswordController'
         }
       }
     })
@@ -5055,9 +5392,6 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
           controller: 'withdrawListController'
         }
       }
-    })
+    });
 
 }]);
-
-
-
