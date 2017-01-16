@@ -95,11 +95,6 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
       });
     }
 
-    // 指定车辆
-    $scope.selectedOid = function (orderId) {
-
-    }
-
 
     $scope.cancelOrder = function (orderId) {
       swal({
@@ -175,5 +170,10 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
     }
 
     httpList();
+
+    // 指定车辆
+    $scope.selectedOid = function (orderId) {
+
+    }
 
   }]);
