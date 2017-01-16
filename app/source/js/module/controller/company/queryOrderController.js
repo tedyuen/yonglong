@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
-  function ($scope,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
+yonglongApp.controller('queryOrderController',['$scope','$state','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
+  function ($scope,$state,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
@@ -138,6 +138,12 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     $scope.detail = function (id) {
       $scope.detailOrderId = id;
       $('#order-detail').modal('show');
+    }
+
+    $scope.editOrder = function (id) {
+      if(id){
+        $state.go('main.companyinner.edit_order',{orderId:id});
+      }
     }
 
     $scope.printDetail = function () {

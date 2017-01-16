@@ -8,18 +8,18 @@ yonglongApp.directive('extraFee',['$compile',function($compile){
     },
     templateUrl: 'template/directive/extra_fee.html',
     controller: function($scope){
-      $scope.resultList = [];
-      console.log($scope.initStr);
-      var strArray = $scope.initStr.split(';');
-      for(var n in strArray){
-        $scope.resultList.push({
-          feeName:strArray[n],
-          feeValue:0,
-          id:0,
-          sort:0,
-          isInit:true
-        });
-      }
+      // $scope.resultList = [];
+      // console.log($scope.initStr);
+      // var strArray = $scope.initStr.split(';');
+      // for(var n in strArray){
+      //   $scope.resultList.push({
+      //     feeName:strArray[n],
+      //     feeValue:0,
+      //     id:0,
+      //     sort:0,
+      //     isInit:true
+      //   });
+      // }
 
       $scope.addExtra = function(){
         swal({

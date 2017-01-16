@@ -145,6 +145,9 @@
                     <button type="button" class="btn btn-primary btn-xs"
                             ng-click="detail(result.id)">详情</button>
                     <button type="button" class="btn btn-primary btn-xs"
+                            ng-click="editOrder(result.id)">修改订单</button>
+
+                    <button type="button" class="btn btn-primary btn-xs"
                             ng-if="result.orderStatus=='9'" ng-click="alipay(result)">付款</button>
                     <button type="button" class="btn btn-danger btn-xs"
                             ng-if="result.orderStatus=='1' && result.payStatus=='0'" ng-click="delete(result.id)">删除订单</button>

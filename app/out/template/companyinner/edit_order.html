@@ -1,0 +1,292 @@
+<!--<link href="../../../source/css/node/bootstrap.min.css" rel="stylesheet">-->
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">修改订单</h4>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="">订单管理</a></li>
+          <li class="active">修改订单</li>
+        </ol>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <form ng-submit="onSubmit(theForm.$valid)" novalidate="novalidate" name="theForm">
+          <div class="white-box">
+            <div class="row">
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.shippingName.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">船名行次</span>
+                    <input type="text" class="form-control" name="shippingName" ng-model="orderDetail.shippingName" required>
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.shippingName.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.shippingName.$valid">船名行次不能为空</span>
+                  </div><!-- 表单验证错误,form-group标签中添加has-error -->
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.shippingDate.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">装箱日期</span>
+                    <input type="text" class="form-control mydatepicker" name="shippingDate" placeholder="yyyy年mm月dd日" ng-model="orderDetail.shippingDate" required>
+                    <span class="input-group-addon"><i class="icon-calender"></i></span> </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.shippingDate.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.shippingDate.$valid">装箱日期不能为空</span>
+                  </div>
+                </div>
+              </div>
+
+              <!--<div>-->
+              <!--<baidu-map options="mapOptions" ak="gd0GyxGUxSCoAbmdyQBhyhrZ" offline="offlineOpts" style="width: 500px; height: 500px;display: block;" on-map-loaded="mapLoaded(map)"></baidu-map>-->
+              <!--</div>-->
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.originPort.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">起始地</span>
+                    <input type="text" class="form-control" id="startaddress" name="originPort" ng-model="orderDetail.originPort" required>
+                    <!--<span class="input-group-btn">-->
+                    <!--<button type="button" class="btn waves-effect waves-light btn-primary" alt="default">选择地址</button>-->
+                    <!--</span>-->
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.originPort.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.originPort.$valid">起始地不能为空</span>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.loadingPort.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">装货地</span>
+                    <input type="text" class="form-control" id="loadaddress" name="loadingPort" ng-model="orderDetail.loadingPort" required>
+                    <!--<span class="input-group-btn">-->
+                    <!--<button type="button" class="btn waves-effect waves-light btn-primary" alt="default">选择地址</button>-->
+                    <!--</span>-->
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.loadingPort.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.loadingPort.$valid">装货地不能为空</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.returnPort.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">还箱地</span>
+                    <input type="text" class="form-control" id="returnaddress" name="returnPort" ng-model="orderDetail.returnPort" required>
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.returnPort.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.returnPort.$valid">还箱地不能为空</span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.transitPort.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">中转港/卸港</span>
+                    <input type="text" class="form-control" id="transitport" name="transitPort" ng-model="orderDetail.transitPort" required>
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.transitPort.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.transitPort.$valid">中转港/卸港不能为空</span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.destPort.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">目的港/交货地</span>
+                    <input type="text" class="form-control" id="targetport" name="destPort" ng-model="orderDetail.destPort" required>
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.destPort.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.destPort.$valid">目的港/交货地不能为空</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.orderType.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">类别</span>
+                    <select class="form-control" ng-model="orderDetail.orderType" name="orderType" ng-options="o.id as o.name for o in orderType" required>
+                    </select>
+                  </div>
+                  <div class="help-block with-errors">&nbsp;</div>
+                </div>
+              </div>
+
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.containerVType.$valid||!theForm.containerSType.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">箱型</span>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <select class="form-control" ng-model="orderDetail.containerVType" name="containerVType" ng-options="c.id as c.name for c in containerVType" required>
+
+                        </select>
+                      </div>
+                      <div class="col-sm-6">
+                        <select class="form-control" ng-model="orderDetail.containerSType" name="containerSType" ng-options="c.id as c.name for c in containerSType" required>
+
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="help-block with-errors">&nbsp;</div>
+                </div>
+              </div>
+
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.containerVol.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">箱量</span>
+                    <input type="number" class="form-control" name="containerVol" ng-model="orderDetail.containerVol" required>
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.referenceShippingFee.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.referenceShippingFee.$valid">请填写数字并不能为空</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.grossWeight.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">货重</span>
+                    <input type="number" class="form-control" name="grossWeight" ng-model="orderDetail.grossWeight" required>
+                    <span class="input-group-addon">KG</span>
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.referenceShippingFee.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.referenceShippingFee.$valid">请填写数字并不能为空</span>
+                  </div>
+                </div>
+              </div>
+
+              <!--<div class="clearfix visible-md-block"></div>-->
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">备注</span>
+                    <input type="text" class="form-control" ng-model="orderDetail.note">
+                  </div>
+                  <div class="help-block with-errors">&nbsp;</div>
+                </div>
+              </div>
+
+              <!--<div class="clearfix visible-lg-block"></div>-->
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.shippingFee.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">运费</span>
+                    <input type="number" class="form-control" name="shippingFee" ng-model="orderDetail.shippingFee" required>
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="!theForm.shippingFee.$valid">请填写数字并不能为空</span>
+                    <br ng-if="!theForm.shippingFee.$valid">
+                    <span style="color:#3d4eff;font-size: 11px;">
+                      &nbsp;注：该运费视作不包含提箱费，如有提箱费，请在额外费用中输入金额
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.referenceShippingFee.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">参考运价</span>
+                    <input type="number" class="form-control" name="referenceShippingFee" ng-model="orderDetail.referenceShippingFee" required>
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.referenceShippingFee.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.referenceShippingFee.$valid">请填写数字并不能为空</span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.shippingSn.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">提单号</span>
+                    <input type="text" class="form-control" name="shippingSn" ng-model="orderDetail.shippingSn" required>
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.shippingSn.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.shippingSn.$valid">提单号不能为空</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h4>额外费用</h4>
+              </div>
+            </div>
+
+            <extra-fee result-list="orderDetail.extrafeeList">
+
+            </extra-fee>
+
+            <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" class="btn waves-effect waves-light m-r-10">
+              <span ng-if="theForm.$invalid">请先完成表单</span>
+              <span ng-if="theForm.$valid">修改订单</span>
+            </button>
+            <button type="button" ng-click="reset()" class="btn waves-effect waves-light btn-success">重置</button>
+          </div>
+        </form>
+        <!--<pre>{{theForm | json}}</pre>-->
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+
+  <div id="table-preview" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog order-detail">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel">确认订单信息</h4>
+        </div>
+        <div class="modal-body">
+          <div orderdetail></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-info waves-effect text-left" data-dismiss="modal">创建订单</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+
+</div>

@@ -15,9 +15,9 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
       returnPort:'',
       transitPort:'',
       destPort:'',
-      orderType:'0',
-      containerVType:'0',
-      containerSType:'0',
+      orderType:0,
+      containerVType:0,
+      containerSType:0,
       containerVol:0,
       grossWeight:0,
       note:'',
@@ -72,60 +72,57 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
       }
     };
 
+    $scope.reset = function (theForm) {
+      $scope.orderDetail ={
+        shippingName:'',
+        shippingDate:'',
+        originPort:'',
+        loadingPort:'',
+        returnPort:'',
+        transitPort:'',
+        destPort:'',
+        orderType:0,
+        containerVType:0,
+        containerSType:0,
+        containerVol:0,
+        grossWeight:0,
+        note:'',
+        shippingFee:0,
+        referenceShippingFee:0,
+        shippingSn:'',
+        extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
+      }
 
-    //百度地图
-  $scope.offlineOpts = {retryInterval: 5000};
-
-  var longitude = 121.506191;
-  var latitude = 31.245554;
-  $scope.mapOptions = {
-    center: {
-      longitude: longitude,
-      latitude: latitude
-    },
-    zoom: 17,
-    city: 'ShangHai',
-    markers: [{
-      longitude: longitude,
-      latitude: latitude,
-      icon: 'img/mappiont.png',
-      width: 49,
-      height: 60,
-      title: 'Where',
-      content: 'Put description here'
-    }]
-  };
-
-  $scope.mapLoaded = function(map) {
-    console.log(map);
-  };
-
-  $scope.reset = function (theForm) {
-    $scope.orderDetail ={
-      shippingName:'',
-      shippingDate:'',
-      originPort:'',
-      loadingPort:'',
-      returnPort:'',
-      transitPort:'',
-      destPort:'',
-      orderType:'0',
-      containerVType:'0',
-      containerSType:'0',
-      containerVol:0,
-      grossWeight:0,
-      note:'',
-      shippingFee:0,
-      referenceShippingFee:0,
-      shippingSn:'',
-      extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
+      theForm.$setPristine();
+      theForm.$setUntouched();
     }
 
-    theForm.$setPristine();
-    theForm.$setUntouched();
-  }
+//   //百度地图
+    // $scope.offlineOpts = {retryInterval: 5000};
+    //
+    // var longitude = 121.506191;
+    // var latitude = 31.245554;
+    // $scope.mapOptions = {
+    //   center: {
+    //     longitude: longitude,
+    //     latitude: latitude
+    //   },
+    //   zoom: 17,
+    //   city: 'ShangHai',
+    //   markers: [{
+    //     longitude: longitude,
+    //     latitude: latitude,
+    //     icon: 'img/mappiont.png',
+    //     width: 49,
+    //     height: 60,
+    //     title: 'Where',
+    //     content: 'Put description here'
+    //   }]
+    // };
 
-
+    // $scope.mapLoaded = function(map) {
+    //   console.log(map);
+    // };
   // $timeout(function() {
   //   $scope.mapOptions.center.longitude = 121.500885;
   //   $scope.mapOptions.center.latitude = 31.190032;

@@ -67,37 +67,37 @@ yonglongApp.value('diyData',
   {
     uapply: [{name: '审核通过', id: '0'}, {name: '未审核', id: '1'}],
     ufriend: [{name: '进口', id: '0'}, {name: '出口', id: '1'}],
-    orderType: [{name: '进口', id: '0'}, {name: '出口', id: '1'}, {name: '拖柜进洋山', id: '2'}],
-    boxType: [{name: 'GP', id: '0', v: 'GP'}
-      , {name: 'HC', id: '1', v: 'HC'}, {name: 'OT(开顶箱)', id: '2', v: 'OT'}, {
+    orderType: [{name: '进口', id: 0}, {name: '出口', id: 1}, {name: '拖柜进洋山', id: 2}],
+    boxType: [{name: 'GP', id: 0, v: 'GP'}
+      , {name: 'HC', id: 1, v: 'HC'}, {name: 'OT(开顶箱)', id: 2, v: 'OT'}, {
         name: 'HT(挂衣箱)',
-        id: '3', v: 'HT'
-      }, {name: 'RF(冷冻箱)', id: '4', v: 'RF'}, {name: 'RH（l冷冻高箱）', id: '5', v: 'RH'}, {
+        id: 3, v: 'HT'
+      }, {name: 'RF(冷冻箱)', id: 4, v: 'RF'}, {name: 'RH（l冷冻高箱）', id: 5, v: 'RH'}, {
         name: 'TK（油罐箱）',
-        id: '6',
+        id: 6,
         v: 'TK'
       }, {
         name: 'FR（框架箱）',
-        id: '7', v: 'FR'
+        id: 7, v: 'FR'
       }
     ],
-    boxTypeN: [{name: '不限', id: '-1', v: '不限'},{name: 'GP', id: '0', v: 'GP'}
-      , {name: 'HC', id: '1', v: 'HC'}, {name: 'OT(开顶箱)', id: '2', v: 'OT'}, {
+    boxTypeN: [{name: '不限', id: -1, v: '不限'},{name: 'GP', id: 0, v: 'GP'}
+      , {name: 'HC', id: 1, v: 'HC'}, {name: 'OT(开顶箱)', id: 2, v: 'OT'}, {
         name: 'HT(挂衣箱)',
-        id: '3', v: 'HT'
-      }, {name: 'RF(冷冻箱)', id: '4', v: 'RF'}, {name: 'RH（l冷冻高箱）', id: '5', v: 'RH'}, {
+        id: 3, v: 'HT'
+      }, {name: 'RF(冷冻箱)', id: 4, v: 'RF'}, {name: 'RH（l冷冻高箱）', id: 5, v: 'RH'}, {
         name: 'TK（油罐箱）',
-        id: '6',
+        id: 6,
         v: 'TK'
       }, {
         name: 'FR（框架箱）',
-        id: '7', v: 'FR'
+        id: 7, v: 'FR'
       }
     ],
     //boxVol: [{name: '20', id: '0'}, {name: '40', id: '1'}, {name: '45', id: '2'}]
-    boxVol: [{name: '20', id: '0', show: '短板车'}, {name: '40', id: '1', show: '12.6米'}],
-    boxVolN: [{name: '不限', id: '-1', show: '不限'},{name: '20', id: '0', show: '短板车'}, {name: '40', id: '1', show: '12.6米'}],
-    orderTypeN: [{name: '不限', id: '-1'},{name: '进口', id: '0'}, {name: '出口', id: '1'}, {name: '拖柜进洋山', id: '2'}],
+    boxVol: [{name: '20', id: 0, show: '短板车'}, {name: '40', id: 1, show: '12.6米'}],
+    boxVolN: [{name: '不限', id: -1, show: '不限'},{name: '20', id: 0, show: '短板车'}, {name: '40', id: 1, show: '12.6米'}],
+    orderTypeN: [{name: '不限', id: -1},{name: '进口', id: 0}, {name: '出口', id: 1}, {name: '拖柜进洋山', id: 2}],
 
   }
 );
@@ -154,6 +154,7 @@ yonglongApp.constant('URL_CONS', {
   reportList: 'report_list',
   alipay: 'alipay',
 
+  companyUpdateOrder: 'company_update_order',
   companyDetailOrder: 'company_detail_order',
 
   // 以下是user接口
@@ -775,6 +776,11 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.companyDetailOrder = function (params,success,error) {
     this.doHttpMethod(URL_CONS.companyDetailOrder,params,success,error);
   }
+  // 1.4 修改订单
+  this.companyUpdateOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyUpdateOrder,params,success,error);
+  }
+
 
   // 1.5 订单删除
   this.deleteOrder = function (params,success,error) {
@@ -2430,9 +2436,9 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
       returnPort:'',
       transitPort:'',
       destPort:'',
-      orderType:'0',
-      containerVType:'0',
-      containerSType:'0',
+      orderType:0,
+      containerVType:0,
+      containerSType:0,
       containerVol:0,
       grossWeight:0,
       note:'',
@@ -2487,60 +2493,57 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
       }
     };
 
+    $scope.reset = function (theForm) {
+      $scope.orderDetail ={
+        shippingName:'',
+        shippingDate:'',
+        originPort:'',
+        loadingPort:'',
+        returnPort:'',
+        transitPort:'',
+        destPort:'',
+        orderType:0,
+        containerVType:0,
+        containerSType:0,
+        containerVol:0,
+        grossWeight:0,
+        note:'',
+        shippingFee:0,
+        referenceShippingFee:0,
+        shippingSn:'',
+        extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
+      }
 
-    //百度地图
-  $scope.offlineOpts = {retryInterval: 5000};
-
-  var longitude = 121.506191;
-  var latitude = 31.245554;
-  $scope.mapOptions = {
-    center: {
-      longitude: longitude,
-      latitude: latitude
-    },
-    zoom: 17,
-    city: 'ShangHai',
-    markers: [{
-      longitude: longitude,
-      latitude: latitude,
-      icon: 'img/mappiont.png',
-      width: 49,
-      height: 60,
-      title: 'Where',
-      content: 'Put description here'
-    }]
-  };
-
-  $scope.mapLoaded = function(map) {
-    console.log(map);
-  };
-
-  $scope.reset = function (theForm) {
-    $scope.orderDetail ={
-      shippingName:'',
-      shippingDate:'',
-      originPort:'',
-      loadingPort:'',
-      returnPort:'',
-      transitPort:'',
-      destPort:'',
-      orderType:'0',
-      containerVType:'0',
-      containerSType:'0',
-      containerVol:0,
-      grossWeight:0,
-      note:'',
-      shippingFee:0,
-      referenceShippingFee:0,
-      shippingSn:'',
-      extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
+      theForm.$setPristine();
+      theForm.$setUntouched();
     }
 
-    theForm.$setPristine();
-    theForm.$setUntouched();
-  }
+//   //百度地图
+    // $scope.offlineOpts = {retryInterval: 5000};
+    //
+    // var longitude = 121.506191;
+    // var latitude = 31.245554;
+    // $scope.mapOptions = {
+    //   center: {
+    //     longitude: longitude,
+    //     latitude: latitude
+    //   },
+    //   zoom: 17,
+    //   city: 'ShangHai',
+    //   markers: [{
+    //     longitude: longitude,
+    //     latitude: latitude,
+    //     icon: 'img/mappiont.png',
+    //     width: 49,
+    //     height: 60,
+    //     title: 'Where',
+    //     content: 'Put description here'
+    //   }]
+    // };
 
-
+    // $scope.mapLoaded = function(map) {
+    //   console.log(map);
+    // };
   // $timeout(function() {
   //   $scope.mapOptions.center.longitude = 121.500885;
   //   $scope.mapOptions.center.latitude = 31.190032;
@@ -2719,6 +2722,103 @@ yonglongApp.controller('createWithdrawController',['$scope','$timeout','$state',
 
     getListBankCard();
 }]);
+
+yonglongApp.controller('editOrderController',['$scope','$stateParams','$state','showDatePickerProvider','URL_CONS','baseDataService','interfaceService','rescode',
+  function ($scope,$stateParams,$state,showDatePickerProvider,URL_CONS,baseDataService,interfaceService,rescode) {
+
+    showDatePickerProvider.showDatePicker();
+    $scope.orderType = baseDataService.getOrderType();
+    $scope.containerVType = baseDataService.getBoxVol();
+    $scope.containerSType = baseDataService.getBoxType();
+
+    $scope.orderDetail = {
+      id:$stateParams.orderId,
+      shippingName:'',
+      shippingDate:'',
+      originPort:'',
+      loadingPort:'',
+      returnPort:'',
+      transitPort:'',
+      destPort:'',
+      orderType:0,
+      containerVType:0,
+      containerSType:0,
+      containerVol:0,
+      grossWeight:0,
+      note:'',
+      shippingFee:0,
+      referenceShippingFee:0,
+      shippingSn:'',
+      extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
+    }
+
+    var httpList = function () {
+      console.log('==> '+$stateParams.orderId);
+      if($stateParams.orderId){
+        interfaceService.companyDetailOrder({orderId:$stateParams.orderId},function (data,headers,config) {
+          console.log("response:"+JSON.stringify(data));
+          if(data.rescode==rescode.SUCCESS) {
+            $scope.orderDetail = data.data;
+            $scope.orderDetail.shippingDate = data.data.shippingDateStr;
+
+          }
+        });
+      }
+    }
+
+    // 表单查询订单列表
+    $scope.reset = function () {
+      interfaceService.showLoading('正在重置');
+      httpList();
+    }
+
+    //提交表单
+    $scope.onSubmit = function($valid){
+      if($valid){
+        swal({
+          title: "确定修改订单吗?",
+          text: "您即将修改此订单!",
+          type: "warning",
+          showCancelButton: true,
+          cancelButtonText: "取消",
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "是的,修改!",
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true,
+          animation: "slide-from-top",
+        }, function(){
+          console.log('$scope.orderDetail:  '+$scope.orderDetail);
+          interfaceService.companyUpdateOrder($scope.orderDetail,function (data,headers,config) {
+            console.log(JSON.stringify(data));
+            if(data.rescode==rescode.SUCCESS){
+              swal({
+                title:"修改成功！",
+                text:"已成功修改订单。",
+                type:"success",
+                showCancelButton: true,
+                cancelButtonText: "确定",
+                confirmButtonText:"订单查询",
+              },function () {
+                $state.go('main.companyinner.query_order');
+              });
+            }else{
+              swal({
+                title:"修改失败！",
+                text:"请重新执行此操作。",
+                type:"error",
+                confirmButtonText:"确定"
+              });
+            }
+          });
+        });
+      }else{
+        // console.log("$valid:"+$valid);
+      }
+    };
+
+    httpList();
+
+}])
 
 /**
  * Created by tedyuen on 16-12-15.
@@ -3045,8 +3145,8 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
-  function ($scope,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
+yonglongApp.controller('queryOrderController',['$scope','$state','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
+  function ($scope,$state,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
@@ -3182,6 +3282,12 @@ yonglongApp.controller('queryOrderController',['$scope','showDatePickerProvider'
     $scope.detail = function (id) {
       $scope.detailOrderId = id;
       $('#order-detail').modal('show');
+    }
+
+    $scope.editOrder = function (id) {
+      if(id){
+        $state.go('main.companyinner.edit_order',{orderId:id});
+      }
     }
 
     $scope.printDetail = function () {
@@ -4930,18 +5036,18 @@ yonglongApp.directive('extraFee',['$compile',function($compile){
     },
     templateUrl: 'template/directive/extra_fee.html',
     controller: function($scope){
-      $scope.resultList = [];
-      console.log($scope.initStr);
-      var strArray = $scope.initStr.split(';');
-      for(var n in strArray){
-        $scope.resultList.push({
-          feeName:strArray[n],
-          feeValue:0,
-          id:0,
-          sort:0,
-          isInit:true
-        });
-      }
+      // $scope.resultList = [];
+      // console.log($scope.initStr);
+      // var strArray = $scope.initStr.split(';');
+      // for(var n in strArray){
+      //   $scope.resultList.push({
+      //     feeName:strArray[n],
+      //     feeValue:0,
+      //     id:0,
+      //     sort:0,
+      //     isInit:true
+      //   });
+      // }
 
       $scope.addExtra = function(){
         swal({
@@ -5393,6 +5499,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         'content@main': {
           templateUrl: 'template/companyinner/create_order.html',
           controller: 'createOrderController'
+        }
+      }
+    })
+    .state('main.companyinner.edit_order',{//修改订单
+      url:'/edit_order/{orderId}',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/edit_order.html',
+          controller: 'editOrderController'
         }
       }
     })
