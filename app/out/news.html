@@ -42,7 +42,10 @@
           <div class="bottom-line"></div>
         </li>
         <li>
-          <a href="#"><img src="images/index/user.png" ng-click="mySelfClick()" ng-show="loginUser"/>&nbsp;{{loginUser.memberName}}</a>
+          <a href="#" ng-click="mySelfClick()">
+            <img src="images/index/user.png" class=""/>
+            <span ng-show="loginUser">&nbsp;{{loginUser.memberName}}</span>
+          </a>
           <!--<div class="bottom-line"></div>-->
         </li>
       </ul>

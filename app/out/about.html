@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head lang="zh">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
   <![endif]-->
 
 </head>
-<body id="about">
+<body id="about" ng-controller="newsController">
 
 <!--<nav class="navbar navbar-fixed-top" role="navigation">-->
 <nav class="navbar navbar-top" role="navigation" style="z-index: 10;">
@@ -42,8 +42,10 @@
           <div class="bottom-line" style="left: 0;"></div>
         </li>
         <li>
-          <a href="#"><img src="images/index/user.png" class=""/></a>
-          <!--<div class="bottom-line"></div>-->
+          <a href="#" ng-click="mySelfClick()">
+            <img src="images/index/user.png" class=""/>
+            <span ng-show="loginUser">&nbsp;{{loginUser.memberName}}</span>
+          </a>
         </li>
       </ul>
     </div>
