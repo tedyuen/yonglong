@@ -2137,6 +2137,8 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','showDat
 
     var httpList = function () {
       interfaceService.userListGetorder($scope.queryData,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+
         if(data.rescode == rescode.SUCCESS){
           $scope.results = data.data;
         }
