@@ -33,7 +33,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 
     var httpList = function () {
       interfaceService.companyListMyorder($scope.queryData,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $scope.results = data.data;
         }
@@ -85,7 +85,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
         userId:userId
       }
       interfaceService.companyUserDetail(param,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS){
           $scope.busUserDetailResult = data.data;
           $scope.busUserDetailResult.resultType = 1;
@@ -171,9 +171,59 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 
     httpList();
 
-    // 指定车辆
-    $scope.selectedOid = function (orderId) {
+    $scope.companyListFriend = function (orderId) {
+      $scope.dispatchCarParams={
+        dispatchFee:undefined,
+        fid:'',
+        offerOrderMoney:undefined,
+        orderId:orderId
+      }
+      $scope.myFriendsIdArray = [];
+      // $scope.dispatchCarParams.orderId = orderId;
 
+      var friendStatus = {
+        status:1
+      };
+      interfaceService.companyListFriend(friendStatus,function (data,headers,config) {
+        console.log('--->'+JSON.stringify(data));
+        if(data.rescode == rescode.SUCCESS){
+          $scope.friendList = data.data;
+          for(var i=0;i<$scope.friendList.pageData.length;i++){
+            $scope.myFriendsIdArray.push($scope.friendList.pageData[i]);
+          }
+          console.log('获取好友列表'+$scope.friendList.pageData.length);
+          //
+          $('#dispatch-car').modal('show')
+        }
+      });
     }
+
+      // 指定车辆
+    $scope.selectedOid = function () {
+      console.log('指定车辆==>  '+JSON.stringify($scope.dispatchCarParams));
+      swal({
+          title: "确认指派吗？",
+          text: "此订单即将指派车辆!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "是的,确定指派!",
+          cancelButtonText: "取消",
+          closeOnConfirm: false
+        },
+        function(){
+          interfaceService.fleetDispatchOrder($scope.dispatchCarParams,function (data,headers,config) {
+            console.log('--->'+JSON.stringify(data));
+            if(data.rescode == rescode.SUCCESS){
+              swal("成功!", "指派成功", "success");
+              $('#dispatch-car').modal('hide');
+            }else {
+              swal("失败!", data.resdesc , "warning");
+            }
+          });
+        });
+    }
+
+
 
   }]);

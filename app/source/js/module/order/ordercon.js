@@ -405,6 +405,13 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.cancelOrder,params,success,error);
   }
 
+  // 3.4 指派车辆
+  this.fleetDispatchOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.fleetDispatchOrder,params,success,error);
+  }
+
+
+
   // 4.1好友分页列表
   this.companyListFriend = function (params,success,error) {
     this.doHttpMethod(URL_CONS.companyListFriend,params,success,error);
@@ -632,6 +639,7 @@ yonglongApp.constant('URL_CONS', {
   busUserDetail: 'bus_user_detail',
   fleetTakeOfferOrder: 'fleetTakeOfferOrder',
   cancelOrder: 'userCancelOfferOrder',
+  fleetDispatchOrder: 'fleetDispatchOrder',
   companyListFriend: 'company_list_friend',
   companyListBusowners: 'company_list_busowners',
   companyAddFriend: 'company_add_friend',
