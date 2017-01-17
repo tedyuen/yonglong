@@ -294,6 +294,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.companyinner.edit_order',{//修改订单
+      url:'/edit_order/{orderId}',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/edit_order.html',
+          controller: 'editOrderController'
+        }
+      }
+    })
     .state('main.companyinner.query_order',{//订单查询
       url:'/query_order',
       views: {

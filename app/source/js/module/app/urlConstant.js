@@ -38,6 +38,7 @@ yonglongApp.constant('URL_CONS', {
   reportList: 'report_list',
   alipay: 'alipay',
 
+  companyUpdateOrder: 'company_update_order',
   companyDetailOrder: 'company_detail_order',
 
   // 以下是user接口

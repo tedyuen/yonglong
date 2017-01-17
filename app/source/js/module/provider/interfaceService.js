@@ -93,6 +93,11 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.companyDetailOrder = function (params,success,error) {
     this.doHttpMethod(URL_CONS.companyDetailOrder,params,success,error);
   }
+  // 1.4 修改订单
+  this.companyUpdateOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyUpdateOrder,params,success,error);
+  }
+
 
   // 1.5 订单删除
   this.deleteOrder = function (params,success,error) {

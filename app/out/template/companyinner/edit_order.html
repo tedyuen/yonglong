@@ -3,12 +3,12 @@
   <div class="container-fluid">
     <div class="row bg-title">
       <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">创建订单</h4>
+        <h4 class="page-title">修改订单</h4>
       </div>
       <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
           <li><a href="">订单管理</a></li>
-          <li class="active">创建订单</li>
+          <li class="active">修改订单</li>
         </ol>
       </div>
       <!-- /.col-lg-12 -->
@@ -29,7 +29,7 @@
                   <div class="help-block with-errors">
                     <span ng-if="theForm.shippingName.$valid">&nbsp;</span>
                     <span ng-if="!theForm.shippingName.$valid">船名行次不能为空</span>
-                    </div><!-- 表单验证错误,form-group标签中添加has-error -->
+                  </div><!-- 表单验证错误,form-group标签中添加has-error -->
                 </div>
               </div>
 
@@ -47,7 +47,7 @@
               </div>
 
               <!--<div>-->
-                <!--<baidu-map options="mapOptions" ak="gd0GyxGUxSCoAbmdyQBhyhrZ" offline="offlineOpts" style="width: 500px; height: 500px;display: block;" on-map-loaded="mapLoaded(map)"></baidu-map>-->
+              <!--<baidu-map options="mapOptions" ak="gd0GyxGUxSCoAbmdyQBhyhrZ" offline="offlineOpts" style="width: 500px; height: 500px;display: block;" on-map-loaded="mapLoaded(map)"></baidu-map>-->
               <!--</div>-->
               <div class="col-md-6 col-lg-4 col-sm-12">
                 <div class="form-group" ng-class="{'has-error':!theForm.originPort.$valid}">
@@ -55,8 +55,8 @@
                     <span class="input-group-addon">起始地</span>
                     <input type="text" class="form-control" id="startaddress" name="originPort" ng-model="orderDetail.originPort" required>
                     <!--<span class="input-group-btn">-->
-                      <!--<button type="button" class="btn waves-effect waves-light btn-primary" alt="default">选择地址</button>-->
-                      <!--</span>-->
+                    <!--<button type="button" class="btn waves-effect waves-light btn-primary" alt="default">选择地址</button>-->
+                    <!--</span>-->
                   </div>
                   <div class="help-block with-errors">
                     <span ng-if="theForm.originPort.$valid">&nbsp;</span>
@@ -73,8 +73,8 @@
                     <span class="input-group-addon">装货地</span>
                     <input type="text" class="form-control" id="loadaddress" name="loadingPort" ng-model="orderDetail.loadingPort" required>
                     <!--<span class="input-group-btn">-->
-                      <!--<button type="button" class="btn waves-effect waves-light btn-primary" alt="default">选择地址</button>-->
-                      <!--</span>-->
+                    <!--<button type="button" class="btn waves-effect waves-light btn-primary" alt="default">选择地址</button>-->
+                    <!--</span>-->
                   </div>
                   <div class="help-block with-errors">
                     <span ng-if="theForm.loadingPort.$valid">&nbsp;</span>
@@ -251,21 +251,19 @@
               </div>
             </div>
 
-            <extra-fee init-str="initStr"
-                       result-list="orderDetail.extrafeeList">
+            <extra-fee result-list="orderDetail.extrafeeList">
 
             </extra-fee>
 
             <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" class="btn waves-effect waves-light m-r-10">
               <span ng-if="theForm.$invalid">请先完成表单</span>
-              <span ng-if="theForm.$valid">创建订单</span>
+              <span ng-if="theForm.$valid">修改订单</span>
             </button>
-            <button type="button" ng-click="reset(theForm)" class="btn waves-effect waves-light btn-success">清空表单</button>
+            <button type="button" ng-click="reset()" class="btn waves-effect waves-light btn-success">重置</button>
           </div>
         </form>
         <!--<pre>{{theForm | json}}</pre>-->
       </div>
-
     </div>
     <!-- /.row -->
   </div>

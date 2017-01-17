@@ -111,35 +111,45 @@
 
       <div class="col-sm-12" ng-show="results.totalPages!=null && results.totalPages!=0">
         <div class="white-box">
-          <div class="row">
+          <div class="row table-responsive">
             <table class="table color-table primary-table table-hover table-bordered">
               <thead>
               <tr>
-                <th>装箱日期</th>
-                <th>发货人</th>
-                <th>评级</th>
-                <th>装货地</th>
-                <th>还箱地</th>
-                <th>箱型箱量</th>
-                <th>重量</th>
-                <th>费用</th>
-                <th>订单状态</th>
-                <th>操作</th>
+                <th><nobr>装箱日期</nobr></th>
+                <th><nobr>发货人</nobr></th>
+                <!--<th>评级</th>-->
+                <th><nobr>装货地</nobr></th>
+                <th><nobr>还箱地</nobr></th>
+                <th><nobr>箱型箱量</nobr></th>
+                <th><nobr>重量</nobr></th>
+                <th><nobr>费用</nobr></th>
+                <th><nobr>订单状态</nobr></th>
+                <th><nobr>最长付款时间</nobr></th>
+                <th><nobr>最短付款时间</nobr></th>
+                <th><nobr>平均付款时间</nobr></th>
+                <th><nobr>当前付款率</nobr></th>
+                <th><nobr>退单率</nobr></th>
+                <th><nobr>操作</nobr></th>
               </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="result in results.pageData">
-                  <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}</td>
-                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</td>
-                  <td><div credit-rank="" for-star="{{result.orderCreditRank}}"></div></td>
-                  <td>{{result.loadingPort}}</td>
-                  <td>{{result.returnPort}}</td>
-                  <td>{{result.containerVType}}</td>
-                  <td>{{result.grossWeight}}</td>
-                  <td>{{result.shippingFee}}</td>
+                  <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}</nobr></td>
+                  <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</nobr></td>
+                  <!--<td><div credit-rank="" for-star="{{result.orderCreditRank}}"></div></td>-->
+                  <td><nobr>{{result.loadingPort}}</nobr></td>
+                  <td><nobr>{{result.returnPort}}</nobr></td>
+                  <td><nobr>{{result.containerSType|boxType}}/{{result.containerVType|boxVol}}</nobr></td>
+                  <td><nobr>{{result.grossWeight}}</nobr></td>
+                  <td><nobr>{{result.shippingFee}}</nobr></td>
                   <td ng-if="result.payStatus==1">完成</td>
                   <td ng-if="result.payStatus!=1">{{result.orderStatus | orderStatusText}}</td>
-                  <td>
+                  <td><nobr>{{result.maxTime}}</nobr></td>
+                  <td><nobr>{{result.minTime}}</nobr></td>
+                  <td><nobr>{{result.avgTime}}</nobr></td>
+                  <td><nobr>{{result.payRate}}</nobr></td>
+                  <td><nobr>{{result.cancelRate}}</nobr></td>
+                  <td><nobr>
                     <button type="button" class="btn btn-primary btn-xs"
                             ng-click="detail(result.id)">详情</button>
                     <button type="button" class="btn btn-primary btn-xs"
@@ -155,7 +165,7 @@
 
                     <button type="button" class="btn btn-success btn-xs"
                             ng-if="result.orderStatus!='1' && result.busMemberType==0" ng-click="companyUserDetail(result.id)">承运方详情</button>
-
+                  </nobr>
                   </td>
                 </tr>
               </tbody>

@@ -8,24 +8,23 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
     $scope.containerVType = baseDataService.getBoxVol();
     $scope.containerSType = baseDataService.getBoxType();
     $scope.orderDetail ={
-      shippingName:'辽宁号',
-      shippingDate:'2016-12-31',
-      originPort:'洋山深水港',
-      loadingPort:'大连港',
-      returnPort:'天津港',
-      transitPort:'外高桥港',
-      destPort:'珠海港',
-      orderType:'0',
-      containerVType:'0',
-      containerSType:'0',
-      containerVol:200,
-      grossWeight:500,
+      shippingName:'',
+      shippingDate:'',
+      originPort:'',
+      loadingPort:'',
+      returnPort:'',
+      transitPort:'',
+      destPort:'',
+      orderType:0,
+      containerVType:0,
+      containerSType:0,
+      containerVol:0,
+      grossWeight:0,
       note:'',
-      shippingFee:'34',
-      extraFee:'245',
-      referenceShippingFee:'34',
-      shippingSn:'AXJIE8737492J',
-      extrafeeList:[]
+      shippingFee:0,
+      referenceShippingFee:0,
+      shippingSn:'',
+      extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
     }
 
     $scope.initStr = '上下车费;待时费;动卫检;坏污箱移箱费;预进港;落箱费';
@@ -46,7 +45,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
           animation: "slide-from-top",
         }, function(){
           interfaceService.companyCreateOrder($scope.orderDetail,function (data,headers,config) {
-            // console.log(JSON.stringify(data));
+            console.log(JSON.stringify(data));
             if(data.rescode==rescode.SUCCESS){
               swal({
                 title:"创建成功！",
@@ -73,65 +72,70 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
       }
     };
 
+    $scope.reset = function (theForm) {
+      $scope.orderDetail ={
+        shippingName:'',
+        shippingDate:'',
+        originPort:'',
+        loadingPort:'',
+        returnPort:'',
+        transitPort:'',
+        destPort:'',
+        orderType:0,
+        containerVType:0,
+        containerSType:0,
+        containerVol:0,
+        grossWeight:0,
+        note:'',
+        shippingFee:0,
+        referenceShippingFee:0,
+        shippingSn:'',
+        extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
+      }
 
-    //百度地图
-  $scope.offlineOpts = {retryInterval: 5000};
-
-  var longitude = 121.506191;
-  var latitude = 31.245554;
-  $scope.mapOptions = {
-    center: {
-      longitude: longitude,
-      latitude: latitude
-    },
-    zoom: 17,
-    city: 'ShangHai',
-    markers: [{
-      longitude: longitude,
-      latitude: latitude,
-      icon: 'img/mappiont.png',
-      width: 49,
-      height: 60,
-      title: 'Where',
-      content: 'Put description here'
-    }]
-  };
-
-  $scope.mapLoaded = function(map) {
-    console.log(map);
-  };
-
-  $scope.reset = function (theForm) {
-    $scope.orderDetail ={
-      shippingName:'',
-      shippingDate:'',
-      originPort:'',
-      loadingPort:'',
-      returnPort:'',
-      transitPort:'',
-      destPort:'',
-      orderType:'0',
-      containerVType:'0',
-      containerSType:'0',
-      containerVol:0,
-      grossWeight:0,
-      note:'',
-      shippingFee:'',
-      extraFee:'',
-      referenceShippingFee:'',
-      shippingSn:''
+      theForm.$setPristine();
+      theForm.$setUntouched();
     }
 
-    theForm.$setPristine();
-    theForm.$setUntouched();
-  }
+//   //百度地图
+    // $scope.offlineOpts = {retryInterval: 5000};
+    //
+    // var longitude = 121.506191;
+    // var latitude = 31.245554;
+    // $scope.mapOptions = {
+    //   center: {
+    //     longitude: longitude,
+    //     latitude: latitude
+    //   },
+    //   zoom: 17,
+    //   city: 'ShangHai',
+    //   markers: [{
+    //     longitude: longitude,
+    //     latitude: latitude,
+    //     icon: 'img/mappiont.png',
+    //     width: 49,
+    //     height: 60,
+    //     title: 'Where',
+    //     content: 'Put description here'
+    //   }]
+    // };
 
-
+    // $scope.mapLoaded = function(map) {
+    //   console.log(map);
+    // };
   // $timeout(function() {
   //   $scope.mapOptions.center.longitude = 121.500885;
   //   $scope.mapOptions.center.latitude = 31.190032;
   //   $scope.mapOptions.markers[0].longitude = 121.500885;
   //   $scope.mapOptions.markers[0].latitude = 31.190032;
   // }, 5000);
+
+  $scope.$watch('orderDetail.shippingDate',function () {
+    console.log('====>!!  '+$scope.orderDetail.shippingDate);
+
+  });
+
+
+
 
 }]);
