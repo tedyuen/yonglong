@@ -23,6 +23,7 @@ yonglongApp.constant('URL_CONS', {
   busUserDetail: 'bus_user_detail',
   fleetTakeOfferOrder: 'fleetTakeOfferOrder',
   cancelOrder: 'userCancelOfferOrder',
+  fleetDispatchOrder: 'fleetDispatchOrder',
   companyListFriend: 'company_list_friend',
   companyListBusowners: 'company_list_busowners',
   companyAddFriend: 'company_add_friend',
