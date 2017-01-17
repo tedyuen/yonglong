@@ -11,18 +11,74 @@
   <link href="css/print.min.css" rel="stylesheet">
 
 </head>
-<body style="padding: 0px;margin: 0px;" ng-controller="orderController">
+<body ng-controller="orderController">
   <div id="table">
-    <div id="background">
+    <div id="background" class="Noprint">
       <img src="images/table.jpg" width="1118px" >
     </div>
     <div id="result-data">
+      <!-- 船名行次 -->
+      <div id="shipping-name" ng-bind="results.shippingName" class="shipping-name data-div"></div>
+      <!-- 装港 -->
+      <div id="loading-port" ng-bind="results.loadingPort" class="loading-port data-div"></div>
+      <!-- 卸港 -->
+      <div id="transit-port" ng-bind="results.transitPort" class="transit-port data-div"></div>
+      <!-- 交货地 -->
+      <div id="dest-port" ng-bind="results.destPort" class="dest-port data-div"></div>
+      <!-- 箱号 -->
+      <div id="container-no" ng-bind="results.containerNo" class="container-no data-div"></div>
+      <!-- 封号 -->
+      <div id="seal-no" ng-bind="results.sealNo" class="seal-no data-div"></div>
+      <!-- 提单号 -->
+      <div id="shipping-sn" ng-bind="results.shippingSn" class="shipping-sn data-div"></div>
+      <!-- 件数 -->
+      <div id="items" ng-bind="results.items" class="items data-div"></div>
+      <!-- 毛重 -->
+      <div id="net-weight" ng-bind="results.netWeight" class="net-weight data-div"></div>
+      <!-- 尺码描述 -->
+      <div id="size-desc" ng-bind="results.sizeDesc" class="size-desc data-div"></div>
+      <!-- 货名 -->
+      <div id="goods-desc" ng-bind="results.goodsDesc" class="goods-desc data-div"></div>
+      <!-- 唛头 -->
+      <div id="mark" ng-bind="results.mark" class="mark data-div"></div>
 
+      <!-- 箱型/箱类ISO标准代码 -->
+      <div class="vtype-stype data-div">
+        <span class="ngbind" ng-bind="results.containerVType|boxVol"></span>*
+        <span class="ngbind" ng-bind="results.containerSType|boxType"></span>
+      </div>
+      <!-- 装箱人名称/地址 -->
+      <div class="goodm-loadport data-div">
+        <span class="ngbind" ng-bind="results.goodsMemberName"></span>/
+        <span class="ngbind" ng-bind="results.loadingPort"></span>
+      </div>
+      <!-- 电话号码 -->
+      <div id="goods-member-mobile" ng-bind="results.goodsMemberMobile" class="goods-member-mobile data-div"></div>
+      <!-- 装箱日期 -->
+      <div id="shipping-date-str" ng-bind="results.shippingDateStr" class="shipping-date-str data-div"></div>
+      <!-- 备注 -->
+      <div id="note" ng-bind="results.note" class="note data-div"></div>
+    </div>
+  </div>
+  <div class="container Noprint">
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+        运费&nbsp;:&nbsp;
+        <span class="ngbind" ng-bind="results.shippingFee"></span>
+      </div>
+      <div class="col-md-3 m-t-20">
+        额外费用:
+        <ul class="list-group">
+          <li ng-repeat="result in results.extrafeeList" class="list-group-item">
+            {{result.feeName}}&nbsp;:&nbsp;{{result.feeValue}}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 
 
   <script src="js/ordercon.min.js"></script>
-
 </body>
 </html>

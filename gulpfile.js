@@ -114,6 +114,7 @@ gulp.task('orderJs',function(){
 });
 
 var printCssArr = [
+  // './app/source/css/node/bootstrap.min.css',
   './app/source/sass/print/css/*.css',
 ];
 

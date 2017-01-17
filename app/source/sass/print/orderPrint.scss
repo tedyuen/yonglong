@@ -1,4 +1,16 @@
-
+body{
+  padding: 0px;margin: 0px;
+  color:blue;
+  font-size: 15px;
+  font-weight: 900;
+}
+.m-t-20{
+  margin-top: 20px;
+}
+.container{
+  margin-left: 20px;
+  padding-left: 20px;
+}
 #table{
   width:1120px;
   height:792px;
@@ -16,13 +28,93 @@
     width:1120px;
     height:792px;
 
-    color:blue;
-    font-size: 13px;
+    .data-div{
+      position: absolute;
 
-
-
-
+    }
+    .shipping-name{
+      left:70px;
+      top:164px;
+    }
+    .loading-port{
+      left:310px;
+      top:170px;
+    }
+    .transit-port{
+      left:450px;
+      top:170px;
+    }
+    .dest-port{
+      left:550px;
+      top:170px;
+    }
+    .container-no{
+      left:70px;
+      top:235px;
+    }
+    .seal-no{
+      left:70px;
+      top:305px;
+    }
+    .shipping-sn{
+      left:300px;
+      top:355px;
+    }
+    .items{
+      left:475px;
+      top:386px;
+    }
+    .net-weight{
+      left:580px;
+      top:386px;
+    }
+    .size-desc{
+      left:675px;
+      top:386px;
+    }
+    .goods-desc{
+      left:745px;
+      top:386px;
+      width:205px;
+      text-align: center;
+    }
+    .mark{
+      left:955px;
+      top:386px;
+      width:140px;
+      text-align: center;
+    }
+    .vtype-stype{
+      left:60px;
+      top:465px;
+      width:140px;
+      text-align: center;
+    }
+    .goodm-loadport{
+      left:20px;
+      top:540px;
+      width:250px;
+      text-align: center;
+    }
+    .goods-member-mobile{
+      left:100px;
+      top:600px;
+      width:150px;
+      text-align: center;
+    }
+    .shipping-date-str{
+      left:25px;
+      top:660px;
+      width:250px;
+      text-align: center;
+    }
+    .note{
+      left:750px;
+      top:660px;
+      width:330px;
+    }
   }
+
 }
 
 
