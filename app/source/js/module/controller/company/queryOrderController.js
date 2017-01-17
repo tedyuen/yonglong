@@ -148,7 +148,7 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
 
     $scope.printDetail = function () {
       if($scope.detailOrderId){
-        var link = 'table.html#!?id='+$scope.detailOrderId;
+        var link = 'table_print.html#!?id='+$scope.detailOrderId;
         window.open(link);
       }
     }

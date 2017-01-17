@@ -1,0 +1,14 @@
+#table {
+  width: 1120px;
+  height: 792px; }
+  #table #background {
+    position: absolute;
+    left: 10px;
+    top: 0px; }
+  #table #result-data {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 1120px;
+    height: 792px;
+    background: rgba(100, 100, 100, 0.7); }
