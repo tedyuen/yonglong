@@ -43,6 +43,7 @@ var jsArr = [
 
 var orderJsArr = [
   './app/source/js/module/order/order.js',
+  './app/source/js/module/utils/jquery.jqprint.js',
   './app/source/js/module/provider/httpService.js',
   './app/source/js/module/provider/sessionService.js',
   './app/source/js/module/provider/loadingService.js',
@@ -112,6 +113,37 @@ gulp.task('orderJs',function(){
     .pipe(gulp.dest('./app/out/js'));
 });
 
+var printCssArr = [
+  './app/source/sass/print/css/*.css',
+];
+
+// print news about css
+gulp.task('printconcatcss',['nodeModule','printsass'],function(){
+  return gulp.src(printCssArr)    //- 需要处理的css文件，放到一个字符串数组里
+    .pipe(concat('print.min.css'))
+    .pipe(gulp.dest('./app/source/css'));
+});
+gulp.task('printdelCss',function(){
+  del([
+    './app/source/sass/print/css/*.*'
+  ]);
+});
+//--del
+gulp.task('printsass',['printdelCss'], function () {
+  return gulp.src('./app/source/sass/print/*.scss')
+    .pipe(sass.sync().on('error', sass.logError))
+    .pipe(gulp.dest('./app/source/sass/print/css'));
+  gulp.run('printconcatcss');
+  gulp.run('minify-css');
+});
+
+// sass
+
+gulp.task('printcss',['printconcatcss'], function() {
+  return gulp.src('./app/source/css/print.min.css')
+    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(gulp.dest('./app/out/css'));
+});
 
 
 
@@ -150,7 +182,7 @@ gulp.task('nodeModule',function(){
 
 });
 
-gulp.task('default',['js','css','orderJs','indexJs','newsJs','indexcss']);
+gulp.task('default',['js','css','orderJs','indexJs','newsJs','indexcss','printcss']);
 
 
 var indexCssArr = [

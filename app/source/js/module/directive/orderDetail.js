@@ -11,7 +11,7 @@ yonglongApp.directive('orderdetail',function () {
       $scope.$watch('orderId',function () {
         console.log("===>  orderId:"+$scope.orderId);
         $('#od-frame').html(
-          '<iframe src="table.html#!?id='+$scope.orderId+'" frameborder="0" width="100%" height="500%" style="height:1050px;"></iframe>'
+          '<iframe src="table_print.html#!?id='+$scope.orderId+'" frameborder="0" width="100%" height="500%" style="height:1050px;"></iframe>'
         );
       },true);
     }

@@ -91,9 +91,9 @@
                   <button type="button" class="btn btn-primary btn-xs"
                           ng-if="result.status==0" ng-click="auditSysRefund(result.id)">通过审核</button>
                   <button type="button" class="btn btn-success btn-xs"
-                          ng-if="result.role!='1'" ng-click="busUserDetail(result.memberId)">查看用户详情</button>
+                          ng-if="result.role!='0'" ng-click="busUserDetail(result.memberId)">查看用户详情</button>
                   <button type="button" class="btn btn-success btn-xs"
-                          ng-if="result.role!='0'" ng-click="companyUserDetail(result.memberId)">查看用户详情</button>
+                          ng-if="result.role!='1'" ng-click="companyUserDetail(result.memberId)">查看用户详情</button>
 
                   <button type="button" class="btn btn-success btn-xs"
                           ng-click="gb(result.memberId,result.role,result.bankCardOwner)">查看用户账户状态</button>
