@@ -108,35 +108,35 @@
               <div class="col-md-4 col-lg-3 col-sm-12">
                 <div class="form-group">
                   <label for="id1">身份证</label>
-                  <input type="file" id="id1" class="dropify" data-max-file-size="2M"  ng-files-model="regfile5.file"/>
+                  <input type="file" id="id1" class="dropify" data-max-file-size="2M" data-default-file="{{reg.nameCard}}" ng-files-model="regfile5.file"/>
                 </div>
               </div>
 
               <div class="col-md-4 col-lg-3 col-sm-12">
                 <div class="form-group">
                   <label for="drivelicense">驾照</label>
-                  <input type="file" id="drivelicense" class="dropify" data-max-file-size="2M" ng-files-model="regfile1.file" />
+                  <input type="file" id="drivelicense" class="dropify" data-max-file-size="2M" data-default-file="{{reg.drivingLicence}}" ng-files-model="regfile1.file" />
                 </div>
               </div>
 
               <div class="col-md-4 col-lg-3 col-sm-12">
                 <div class="form-group">
                   <label for="drivinglicense">行驶证</label>
-                  <input type="file" id="drivinglicense" class="dropify" data-max-file-size="2M" ng-files-model="regfile2.file" />
+                  <input type="file" id="drivinglicense" class="dropify" data-max-file-size="2M" data-default-file="{{reg.roadLicence}}" ng-files-model="regfile2.file" />
                 </div>
               </div>
 
               <div class="col-md-4 col-lg-3 col-sm-12">
                 <div class="form-group">
                   <label for="drivelicense2">行驶证2</label>
-                  <input type="file" id="drivelicense2" class="dropify" data-max-file-size="2M" ng-files-model="regfile3.file" />
+                  <input type="file" id="drivelicense2" class="dropify" data-max-file-size="2M" data-default-file="{{reg.roadLicenceAttach}}" ng-files-model="regfile3.file" />
                 </div>
               </div>
 
               <div class="col-md-4 col-lg-3 col-sm-12">
                 <div class="form-group">
                   <label for="carphoto">车辆照(带车牌)</label>
-                  <input type="file" id="carphoto" class="dropify" data-max-file-size="2M" ng-files-model="regfile4.file" />
+                  <input type="file" id="carphoto" class="dropify" data-max-file-size="2M" data-default-file="{{reg.carPic}}" ng-files-model="regfile4.file" />
                 </div>
               </div>
 

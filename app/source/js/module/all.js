@@ -2030,9 +2030,9 @@ yonglongApp.controller('userRoleController',['$rootScope','$scope','$cookies','l
     }
   }]);
 
-yonglongApp.controller('userUpdateInfoController',['$scope','$state','dropifyProvider','interfaceService','rescode','baseDataService',
-  function ($scope,$state,dropifyProvider,interfaceService,rescode,baseDataService) {
-    dropifyProvider.dropify();
+yonglongApp.controller('userUpdateInfoController',['$scope','$state','$timeout','dropifyProvider','interfaceService','rescode','baseDataService',
+  function ($scope,$state,$timeout,dropifyProvider,interfaceService,rescode,baseDataService) {
+    // dropifyProvider.dropify();
     $scope.showTerms=function () {
       $('#terms').modal('show');
     }
@@ -2045,6 +2045,7 @@ yonglongApp.controller('userUpdateInfoController',['$scope','$state','dropifyPro
       passwordconfirm:'',
       companyName:'',
       companyLinker:'',
+      drivingLicence:'',
       email:'',
       mobilePhone:'',
       tel:'',
@@ -2057,23 +2058,23 @@ yonglongApp.controller('userUpdateInfoController',['$scope','$state','dropifyPro
       busContainer:null,
     }
     $scope.regfile1 = {
-      name:'drivingLicence',
+      name:'drivingLicenceFile',
       file:'',
     }
     $scope.regfile2 = {
-      name:'roadLicence',
+      name:'roadLicenceFile',
       file:'',
     }
     $scope.regfile3 = {
-      name:'roadLicenceAttach',
+      name:'roadLicenceAttachFile',
       file:'',
     }
     $scope.regfile4 = {
-      name:'carPic',
+      name:'carPicFile',
       file:'',
     }
     $scope.regfile5 = {
-      name:'nameCard',
+      name:'nameCardFile',
       file:'',
     }
 
@@ -2103,6 +2104,9 @@ yonglongApp.controller('userUpdateInfoController',['$scope','$state','dropifyPro
       interfaceService.userUserinfo({},function (data,headers,config) {
         console.log(JSON.stringify(data));
         $scope.reg = data.data;
+        $timeout(function () {
+          dropifyProvider.dropify();
+        },10);
       })
     };
     $scope.getUserInfo();
@@ -3579,9 +3583,9 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePick
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('updateInfoController', ['$scope', 'dropifyProvider', 'interfaceService', 'rescode',
-  function($scope, dropifyProvider, interfaceService, rescode) {
-    dropifyProvider.dropify();
+yonglongApp.controller('updateInfoController', ['$scope','$timeout', 'dropifyProvider', 'interfaceService', 'rescode',
+  function($scope,$timeout, dropifyProvider, interfaceService, rescode) {
+    // dropifyProvider.dropify();
 
     $scope.reg = {
       memberName: '',
@@ -3592,7 +3596,7 @@ yonglongApp.controller('updateInfoController', ['$scope', 'dropifyProvider', 'in
       email: '',
       mobilePhone: '',
       tel: '',
-      licence: '',
+      license: '',
       nameCard: '',
       nameCardBack: '',
       mobileCode: '',
@@ -3636,6 +3640,9 @@ yonglongApp.controller('updateInfoController', ['$scope', 'dropifyProvider', 'in
       interfaceService.companyUserinfo({}, function(data, headers, config) {
         console.log(JSON.stringify(data));
         $scope.reg = data.data;
+        $timeout(function () {
+          dropifyProvider.dropify();
+        },10);
       });
     };
     $scope.getUserInfo();

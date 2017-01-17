@@ -1,9 +1,9 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('updateInfoController', ['$scope', 'dropifyProvider', 'interfaceService', 'rescode',
-  function($scope, dropifyProvider, interfaceService, rescode) {
-    dropifyProvider.dropify();
+yonglongApp.controller('updateInfoController', ['$scope','$timeout', 'dropifyProvider', 'interfaceService', 'rescode',
+  function($scope,$timeout, dropifyProvider, interfaceService, rescode) {
+    // dropifyProvider.dropify();
 
     $scope.reg = {
       memberName: '',
@@ -14,7 +14,7 @@ yonglongApp.controller('updateInfoController', ['$scope', 'dropifyProvider', 'in
       email: '',
       mobilePhone: '',
       tel: '',
-      licence: '',
+      license: '',
       nameCard: '',
       nameCardBack: '',
       mobileCode: '',
@@ -58,6 +58,9 @@ yonglongApp.controller('updateInfoController', ['$scope', 'dropifyProvider', 'in
       interfaceService.companyUserinfo({}, function(data, headers, config) {
         console.log(JSON.stringify(data));
         $scope.reg = data.data;
+        $timeout(function () {
+          dropifyProvider.dropify();
+        },10);
       });
     };
     $scope.getUserInfo();
