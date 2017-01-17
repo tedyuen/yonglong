@@ -3146,6 +3146,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
     httpList();
 
     $scope.companyListFriend = function (orderId) {
+      console.log('请求好友列表');
       $scope.dispatchCarParams={
         dispatchFee:undefined,
         fid:'',
