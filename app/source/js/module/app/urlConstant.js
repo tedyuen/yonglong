@@ -45,6 +45,8 @@ yonglongApp.constant('URL_CONS', {
   cashList: 'cashList',
   reportList: 'report_list',
   alipay: 'alipay',
+  alipayDispatchOrder: 'alipayDispatchOrder',
+  alipayDispatch: 'alipayDispatch',
 
   companyUpdateOrder: 'company_update_order',
   companyDetailOrder: 'company_detail_order',

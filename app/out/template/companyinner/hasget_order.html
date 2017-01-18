@@ -112,7 +112,7 @@
 
       <div class="col-sm-12" ng-show="results.totalPages!=null && results.totalPages!=0">
         <div class="white-box">
-          <div class="row">
+          <div class="row table-responsive">
             <table class="table color-table primary-table table-hover table-bordered">
               <thead>
               <tr>
@@ -131,7 +131,7 @@
               </thead>
               <tbody>
               <tr ng-repeat="result in results.pageData">
-                <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}</td>
+                <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}</nobr></td>
                 <td><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</td>
                 <td><div credit-rank="" for-star="{{result.orderCreditRank}}"></div></td>
                 <td>{{result.loadingPort}}</td>
@@ -146,7 +146,7 @@
                   <button type="button" class="btn btn-primary btn-xs"
                           ng-click="detail(result.id)">详情</button>
                   <button type="button" class="btn btn-primary btn-xs"
-                          ng-if="result.orderStatus=='9'" ng-click="alipay(result)">付款</button>
+                          ng-if="result.orderStatus!='1' && result.offerOrderStatus =='0'" ng-click="alipay(result)">付款</button>
 
                   <button type="button" class="btn btn-success btn-xs"
                           ng-if="result.shippingStatus==1001" ng-click="companyListFriend(result.id)">指定车辆</button>

@@ -33,7 +33,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 
     var httpList = function () {
       interfaceService.companyListMyorder($scope.queryData,function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $scope.results = data.data;
         }
@@ -165,8 +165,9 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
       }
     }
 
+    // 派单费用支付
     $scope.alipay = function (result) {
-      alipayService.alipay(result);
+      alipayService.alipayDispatchOrder(result);
     }
 
     httpList();
@@ -214,10 +215,17 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
         },
         function(){
           interfaceService.fleetDispatchOrder($scope.dispatchCarParams,function (data,headers,config) {
-            console.log('--->'+JSON.stringify(data));
+            // console.log('--->'+JSON.stringify(data));
             if(data.rescode == rescode.SUCCESS){
-              swal("成功!", "指派成功", "success");
-              $('#dispatch-car').modal('hide');
+              swal({
+                title:"指派成功！",
+                text:"指派车辆成功。",
+                type:"success",
+                confirmButtonText:"确定"
+              },function () {
+                alipayService.alipayDispatch(data.data.id,httpList);
+                $('#dispatch-car').modal('hide');
+              });
             }else {
               swal("失败!", data.resdesc , "warning");
             }
