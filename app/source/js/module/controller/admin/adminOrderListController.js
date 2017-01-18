@@ -139,7 +139,7 @@ yonglongApp.controller('adminOrderListController',['$scope','showDatePickerProvi
 
     $scope.printDetail = function () {
       if($scope.detailOrderId){
-        var link = 'table.html#!?id='+$scope.detailOrderId;
+        var link = 'table_print.html#!?id='+$scope.detailOrderId;
         window.open(link);
       }
     }

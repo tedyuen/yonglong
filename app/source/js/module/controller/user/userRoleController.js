@@ -1,5 +1,5 @@
-yonglongApp.controller('userRoleController',['$rootScope','$scope','$cookies','logoutService',
-  function ($rootScope,$scope,$cookies,logoutService) {
+yonglongApp.controller('userRoleController',['$rootScope','$scope','$state','$cookies','logoutService',
+  function ($rootScope,$scope,$state,$cookies,logoutService) {
     $rootScope.loginUser = $cookies.getObject('yltUser');
     if($rootScope.loginUser==undefined || $rootScope.loginUser && $rootScope.loginUser.role!='user'){
       console.log('没有user权限');
@@ -19,5 +19,9 @@ yonglongApp.controller('userRoleController',['$rootScope','$scope','$cookies','l
       },function () {
         logoutService.logout();
       });
+    }
+
+    $scope.statego = function (str) {
+      $state.go(str);
     }
   }]);

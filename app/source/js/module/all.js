@@ -1679,7 +1679,7 @@ yonglongApp.controller('userHasgetOrderController',['$scope','$timeout','showDat
 
     $scope.printDetail = function () {
       if($scope.detailOrderId){
-        var link = 'table.html#!?id='+$scope.detailOrderId;
+        var link = 'table_print.html#!?id='+$scope.detailOrderId;
         window.open(link);
       }
     }
@@ -1869,7 +1869,7 @@ yonglongApp.controller('userHasgetOrderController2',['$scope','$timeout','showDa
 
     $scope.printDetail = function () {
       if($scope.detailOrderId){
-        var link = 'table.html#!?id='+$scope.detailOrderId;
+        var link = 'table_print.html#!?id='+$scope.detailOrderId;
         window.open(link);
       }
     }
@@ -2006,8 +2006,8 @@ yonglongApp.controller('userRegisterController',['$scope','$state','dropifyProvi
 
   }]);
 
-yonglongApp.controller('userRoleController',['$rootScope','$scope','$cookies','logoutService',
-  function ($rootScope,$scope,$cookies,logoutService) {
+yonglongApp.controller('userRoleController',['$rootScope','$scope','$state','$cookies','logoutService',
+  function ($rootScope,$scope,$state,$cookies,logoutService) {
     $rootScope.loginUser = $cookies.getObject('yltUser');
     if($rootScope.loginUser==undefined || $rootScope.loginUser && $rootScope.loginUser.role!='user'){
       console.log('没有user权限');
@@ -2027,6 +2027,10 @@ yonglongApp.controller('userRoleController',['$rootScope','$scope','$cookies','l
       },function () {
         logoutService.logout();
       });
+    }
+
+    $scope.statego = function (str) {
+      $state.go(str);
     }
   }]);
 
@@ -2236,7 +2240,7 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','showDat
 
     $scope.printDetail = function () {
       if($scope.detailOrderId){
-        var link = 'table.html#!?id='+$scope.detailOrderId;
+        var link = 'table_print.html#!?id='+$scope.detailOrderId;
         window.open(link);
       }
     }
@@ -3120,7 +3124,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 
     $scope.printDetail = function () {
       if($scope.detailOrderId){
-        var link = 'table.html#!?id='+$scope.detailOrderId;
+        var link = 'table_print.html#!?id='+$scope.detailOrderId;
         window.open(link);
       }
     }
@@ -3786,7 +3790,7 @@ yonglongApp.controller('wannerOrderController',['$scope','$timeout','showDatePic
 
     $scope.printDetail = function () {
       if($scope.detailOrderId){
-        var link = 'table.html#!?id='+$scope.detailOrderId;
+        var link = 'table_print.html#!?id='+$scope.detailOrderId;
         window.open(link);
       }
     }
@@ -4517,7 +4521,7 @@ yonglongApp.controller('adminOrderListController',['$scope','showDatePickerProvi
 
     $scope.printDetail = function () {
       if($scope.detailOrderId){
-        var link = 'table.html#!?id='+$scope.detailOrderId;
+        var link = 'table_print.html#!?id='+$scope.detailOrderId;
         window.open(link);
       }
     }
