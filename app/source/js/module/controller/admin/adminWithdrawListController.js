@@ -140,6 +140,13 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
       }
     }
 
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+
     httpList();
 
   }]);

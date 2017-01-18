@@ -59,6 +59,7 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   }
 
 
+
   this.doHttpMethod = function (method,params,success,error,files) {
     var sub = {
       method:method,
@@ -335,7 +336,6 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.sendcode = function (params,success,error) {
       this.doHttpMethod(URL_CONS.sendcode,params,success,error);
     }
-
 
 
 

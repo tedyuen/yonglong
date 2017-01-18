@@ -122,8 +122,16 @@ yonglongApp.constant('URL_CONS', {
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   // serverFileUrl:'http://192.168.0.25:8080/admin/api/file',
+  server: 'http://120.26.65.65:8285/',
   serverUrl: 'http://120.26.65.65:8285/api/data',
-  serverFileUrl: ' http://120.26.65.65:8285/api/file',
+  serverFileUrl: 'http://120.26.65.65:8285/api/file',
+
+  // // exportCompanyUser: 'http://120.26.65.65:8285/execl/exportCompanyUser.do',
+  // exportCompanyUser: 'http://192.168.0.124:8080/adm/execl/exportCompanyUser.do',
+  // exportBusUser: this.server+'execl/exportBusUser.do',
+  // exportReport: this.server+'execl/exportReport.do',
+  // exportRefund: this.server+'execl/exportRefund.do',
+
   // serverUrl: 'http://www.56elutong.com/api/data',
   // serverFileUrl: ' http://www.56elutong.com/api/file',
 
@@ -743,6 +751,7 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   }
 
 
+
   this.doHttpMethod = function (method,params,success,error,files) {
     var sub = {
       method:method,
@@ -1022,7 +1031,6 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 
 
 
-
 }]);
 
 yonglongApp.service('loadingService',['$timeout',function ($timeout) {
@@ -1224,10 +1232,12 @@ yonglongApp.controller('departCostListController',['$scope','interfaceService','
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('userAllReportController',['$scope','$timeout','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('userAllReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
-
+    if(sessionService.getSession() != undefined){
+      $('#formToken').val(sessionService.getSession().token);
+    }
     $scope.queryData = {
       startTime:'',
       endTime:'',
@@ -1262,6 +1272,19 @@ yonglongApp.controller('userAllReportController',['$scope','$timeout','showDateP
         sender:'',
       }
     }
+
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+    $scope.$watch('queryData.sender',function () {
+      $('#formSender').val($scope.queryData.sender);
+    });
+    $scope.$watch('queryData.acter',function () {
+      $('#formActer').val($scope.queryData.acter);
+    });
 
     httpList();
   }]);
@@ -3398,10 +3421,12 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('receiveReportController',['$scope','$timeout','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('receiveReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
-
+    if(sessionService.getSession() != undefined){
+      $('#formToken').val(sessionService.getSession().token);
+    }
     $scope.queryData = {
       startTime:'',
       endTime:'',
@@ -3437,6 +3462,18 @@ yonglongApp.controller('receiveReportController',['$scope','$timeout','showDateP
       }
     }
 
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+    $scope.$watch('queryData.sender',function () {
+      $('#formSender').val($scope.queryData.sender);
+    });
+    $scope.$watch('queryData.acter',function () {
+      $('#formActer').val($scope.queryData.acter);
+    });
 
     httpList();
 }]);
@@ -3541,10 +3578,12 @@ yonglongApp.controller('registerCompanyController', ['$scope', '$state', '$inter
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('sendReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
-
+    if(sessionService.getSession() != undefined){
+      $('#formToken').val(sessionService.getSession().token);
+    }
     $scope.queryData = {
       startTime:'',
       endTime:'',
@@ -3580,6 +3619,18 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePick
       }
     }
 
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+    $scope.$watch('queryData.sender',function () {
+      $('#formSender').val($scope.queryData.sender);
+    });
+    $scope.$watch('queryData.acter',function () {
+      $('#formActer').val($scope.queryData.acter);
+    });
 
     httpList();
 }]);
@@ -3947,10 +3998,12 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('adminAllReportController',['$scope','$timeout','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('adminAllReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
-
+    if(sessionService.getSession() != undefined){
+      $('#formToken').val(sessionService.getSession().token);
+    }
     $scope.queryData = {
       startTime:'',
       endTime:'',
@@ -3985,6 +4038,20 @@ yonglongApp.controller('adminAllReportController',['$scope','$timeout','showDate
         sender:'',
       }
     }
+
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+    $scope.$watch('queryData.sender',function () {
+      $('#formSender').val($scope.queryData.sender);
+    });
+    $scope.$watch('queryData.acter',function () {
+      $('#formActer').val($scope.queryData.acter);
+    });
+
 
     httpList();
   }]);
@@ -4146,6 +4213,14 @@ yonglongApp.controller('adminCompanyListController',['$scope','showDatePickerPro
         pagesize:20
       }
     }
+
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+
 
     httpList();
 
@@ -4732,6 +4807,13 @@ yonglongApp.controller('adminUserListController',['$scope','showDatePickerProvid
       }
     }
 
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+
     httpList();
 
   }]);
@@ -4877,6 +4959,13 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
         pagesize:20
       }
     }
+
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
 
     httpList();
 

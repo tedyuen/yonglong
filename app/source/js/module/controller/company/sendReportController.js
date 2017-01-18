@@ -1,10 +1,12 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('sendReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
-
+    if(sessionService.getSession() != undefined){
+      $('#formToken').val(sessionService.getSession().token);
+    }
     $scope.queryData = {
       startTime:'',
       endTime:'',
@@ -40,6 +42,18 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','showDatePick
       }
     }
 
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+    $scope.$watch('queryData.sender',function () {
+      $('#formSender').val($scope.queryData.sender);
+    });
+    $scope.$watch('queryData.acter',function () {
+      $('#formActer').val($scope.queryData.acter);
+    });
 
     httpList();
 }]);

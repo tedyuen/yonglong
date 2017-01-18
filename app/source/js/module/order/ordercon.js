@@ -454,6 +454,7 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   }
 
 
+
   this.doHttpMethod = function (method,params,success,error,files) {
     var sub = {
       method:method,
@@ -733,7 +734,6 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 
 
 
-
 }]);
 
 yonglongApp.constant('rescode', {
@@ -756,8 +756,16 @@ yonglongApp.constant('URL_CONS', {
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   // serverUrl:'http://192.168.0.25:8080/admin/api/data',
   // serverFileUrl:'http://192.168.0.25:8080/admin/api/file',
+  server: 'http://120.26.65.65:8285/',
   serverUrl: 'http://120.26.65.65:8285/api/data',
-  serverFileUrl: ' http://120.26.65.65:8285/api/file',
+  serverFileUrl: 'http://120.26.65.65:8285/api/file',
+
+  // // exportCompanyUser: 'http://120.26.65.65:8285/execl/exportCompanyUser.do',
+  // exportCompanyUser: 'http://192.168.0.124:8080/adm/execl/exportCompanyUser.do',
+  // exportBusUser: this.server+'execl/exportBusUser.do',
+  // exportReport: this.server+'execl/exportReport.do',
+  // exportRefund: this.server+'execl/exportRefund.do',
+
   // serverUrl: 'http://www.56elutong.com/api/data',
   // serverFileUrl: ' http://www.56elutong.com/api/file',
 

@@ -65,6 +65,15 @@
       <div class="col-sm-12" ng-show="results.totalPages!=null && results.totalPages!=0">
         <div class="white-box">
           <div class="row">
+            <div>
+              <form action="http://120.26.65.65:8285/execl/exportCompanyUser.do" name="excelForm" method="post">
+                <input id="formStartTime" type="hidden" name="startTime">
+                <input id="formEndTime" type="hidden" name="endTime">
+                <button type="submit" class="btn btn-default waves-effect waves-light">导出Excel</button>
+              </form>
+            </div>
+          </div>
+          <div class="row m-t-20">
             <table class="table color-table primary-table table-hover table-bordered">
               <thead>
               <tr>
