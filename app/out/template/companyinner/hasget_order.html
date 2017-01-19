@@ -282,7 +282,7 @@
 
           </div>
 
-          <div class="table-responsive">
+          <div class="table-responsive" ng-if="myFriendsIdArray.length!=0">
             <table class="table table-striped">
               <thead>
               <tr>
@@ -292,7 +292,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr ng-repeat="result in friendList.pageData">
+              <tr ng-repeat="result in myFriendsIdArray">
                 <td>
                   <div class="radio radio-info" ng-show="!result.disabled">
                     <input type="radio" name="radio" id="radio1{{result.id}}" ng-value="result.id" ng-model="dispatchCarParams.fid">
