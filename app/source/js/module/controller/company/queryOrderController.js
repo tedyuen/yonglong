@@ -4,10 +4,17 @@
 yonglongApp.controller('queryOrderController',['$scope','$state','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
   function ($scope,$state,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
     showDatePickerProvider.showDatePicker();
+    //
+    // $('.tablist a').click(function (e) {
+    //   e.preventDefault();
+    //   $(this).tab('show');
+    // })
+
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
     $scope.containerSType = baseDataService.getBoxTypeN();
     $scope.queryData = {
+      orderStatus:-1,
       goodsMemberId: 67,
       startTime:'',
       endTime:'',
@@ -29,6 +36,13 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
       currPageNum : 1,
       totalPages : 0,
       pageSize : $scope.queryData.pagesize
+    }
+
+    $scope.clickTab = function (index) {
+      $scope.queryData.pageno = 1;
+      $scope.queryData.orderStatus = index;
+      interfaceService.showLoading('正在查询');
+      httpList();
     }
 
     // 分页
