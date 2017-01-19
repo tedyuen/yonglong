@@ -200,21 +200,27 @@
               <!--<div class="clearfix visible-lg-block"></div>-->
 
               <div class="col-md-6 col-lg-4 col-sm-12">
-                <div class="form-group" ng-class="{'has-error':!theForm.shippingFee.$valid}">
+                <div class="form-group" ng-class="{'has-error':!theForm.items.$valid}">
                   <div class="input-group">
-                    <span class="input-group-addon">运费</span>
-                    <input type="number" class="form-control" name="shippingFee" ng-model="orderDetail.shippingFee" required>
+                    <span class="input-group-addon">件数</span>
+                    <input type="number" class="form-control" name="items" ng-model="orderDetail.items" required>
                   </div>
                   <div class="help-block with-errors">
-                    <span ng-if="!theForm.shippingFee.$valid">请填写数字并不能为空</span>
-                    <br ng-if="!theForm.shippingFee.$valid">
-                    <span style="color:#3d4eff;font-size: 11px;">
-                      &nbsp;注：该运费视作不包含提箱费，如有提箱费，请在额外费用中输入金额
-                    </span>
+                    <span ng-if="theForm.referenceShippingFee.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.referenceShippingFee.$valid">请填写数字并不能为空</span>
                   </div>
                 </div>
               </div>
 
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">包装内容</span>
+                    <input type="text" class="form-control" ng-model="orderDetail.goodsPackage">
+                  </div>
+                  <div class="help-block with-errors">&nbsp;</div>
+                </div>
+              </div>
 
               <div class="col-md-6 col-lg-4 col-sm-12">
                 <div class="form-group" ng-class="{'has-error':!theForm.referenceShippingFee.$valid}">
@@ -229,6 +235,21 @@
                 </div>
               </div>
 
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.shippingFee.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">运费</span>
+                    <input type="number" class="form-control" name="shippingFee" ng-model="orderDetail.shippingFee" required>
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="!theForm.shippingFee.$valid">请填写数字并不能为空</span>
+                    <br ng-if="!theForm.shippingFee.$valid">
+                    <span style="color:#3d4eff;font-size: 11px;">
+                      &nbsp;注：该运费视作不包含提箱费，如有提箱费，请在额外费用中输入金额
+                    </span>
+                  </div>
+                </div>
+              </div>
 
               <div class="col-md-6 col-lg-4 col-sm-12">
                 <div class="form-group" ng-class="{'has-error':!theForm.shippingSn.$valid}">
