@@ -1,12 +1,11 @@
-yonglongApp.controller('userRegisterController',['$scope','$state','dropifyProvider','interfaceService','rescode','baseDataService','validateService','toastService',
-  function ($scope,$state,dropifyProvider,interfaceService,rescode,baseDataService,validateService,toastService) {
+yonglongApp.controller('userRegisterController',['$scope','$state','$cookies','dropifyProvider','interfaceService','rescode','baseDataService','validateService','toastService','cookiesService',
+  function ($scope,$state,$cookies,dropifyProvider,interfaceService,rescode,baseDataService,validateService,toastService,cookiesService) {
     dropifyProvider.dropify();
     $scope.showTerms=function () {
       $('#terms').modal('show');
     }
 
     $scope.containerVType = baseDataService.getBoxVol();
-
 
 
     $scope.reg={
@@ -24,7 +23,7 @@ yonglongApp.controller('userRegisterController',['$scope','$state','dropifyProvi
       mobileCode:'',
       address:'',
       carNumber:'',
-      busContainer:null,
+      busContainer:0,
     }
     $scope.regfile1 = {
       name:'drivingLicence',
@@ -47,6 +46,15 @@ yonglongApp.controller('userRegisterController',['$scope','$state','dropifyProvi
       file:'',
     }
 
+    $scope.valid = {
+      repass:true,
+      checkbox:false
+    }
+    // 判断重复密码
+    $scope.checkPassword = function () {
+      $scope.valid.repass = $scope.reg.password == $scope.reg.passwordconfirm;
+    }
+
     var files = [$scope.regfile5,$scope.regfile1,$scope.regfile2,$scope.regfile3,$scope.regfile4];
 
     $scope.onSubmit = function($valid){
@@ -54,11 +62,15 @@ yonglongApp.controller('userRegisterController',['$scope','$state','dropifyProvi
         interfaceService.userRegister($scope.reg,files,function (data,headers,config) {
           console.log(JSON.stringify(data));
           if(data.rescode==rescode.SUCCESS){
+            $scope.loginUser = data.data;
+            $cookies.putObject('yltUser', $scope.loginUser, cookiesService.cookiesDate());
             $state.go('main.userinner.wanner_order');
-          }else if(data.rescode==rescode.AGAIN_PHONE){
-            // 手机号码被注册
-          }else if(data.rescode==rescode.EMPTY_SMS_CODE){
-            // 验证码不能为空
+          }else if (data.rescode == rescode.AGAIN_PHONE) {
+            swal('错误','手机号码被注册','error');
+          } else if (data.rescode == rescode.WRONG_PHONE) {
+            swal('错误','手机号格式不正确','error');
+          } else if (data.rescode == rescode.WRONG_CODE) {
+            swal('错误','验证码错误','error');
           }
         });
       }else{
