@@ -118,7 +118,7 @@
               <tr>
                 <th>装箱日期</th>
                 <th>发货人</th>
-                <th>评级</th>
+                <!--<th>评级</th>-->
                 <th>装货地</th>
                 <th>还箱地</th>
                 <th>箱型箱量</th>
@@ -133,7 +133,7 @@
               <tr ng-repeat="result in results.pageData">
                 <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}</td>
                 <td><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</td>
-                <td><div credit-rank="" for-star="{{result.orderCreditRank}}"></div></td>
+                <!--<td><div credit-rank="" for-star="{{result.orderCreditRank}}"></div></td>-->
                 <td>{{result.loadingPort}}</td>
                 <td>{{result.returnPort}}</td>
                 <td>{{result.containerSType|boxType}}/{{result.containerVType|boxVol}}</td>
