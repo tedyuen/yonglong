@@ -98,20 +98,19 @@
         </form>
       </div>
 
-      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+      <div class="col-sm-12" >
         <div class="white-box">
-          <div class="row">
-            <div class="alert alert-warning alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              暂无数据
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-sm-12" ng-show="results.totalPages!=null && results.totalPages!=0">
-        <div class="white-box">
           <div class="row">
+            <!-- Nav tabs -->
+            <ul class="nav customtab nav-tabs" role="tablist">
+              <li role="presentation" class="active" ng-click="clickTab(-1)"><a href="" role="tab" data-toggle="tab" aria-expanded="true">全部</a></li>
+              <li role="presentation" class="" ng-click="clickTab(0)"><a href="" role="tab" data-toggle="tab" aria-expanded="false">已保存</a></li>
+              <li role="presentation" class="" ng-click="clickTab(1)"><a href="" role="tab" data-toggle="tab" aria-expanded="false">已发布</a></li>
+              <li role="presentation" class="" ng-click="clickTab(2)"><a href="" role="tab" data-toggle="tab" aria-expanded="false">已指派</a></li>
+            </ul>
+          </div>
+          <div class="row m-t-20" ng-show="results.totalPages!=null && results.totalPages!=0">
             <table class="table color-table primary-table table-hover table-bordered">
               <thead>
                 <tr>
@@ -168,6 +167,17 @@
                         switch-page="switchPage">
             </pagination>
 
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+        <div class="white-box">
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
           </div>
         </div>
       </div>
