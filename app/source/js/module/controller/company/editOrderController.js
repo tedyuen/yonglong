@@ -24,6 +24,8 @@ yonglongApp.controller('editOrderController',['$scope','$stateParams','$state','
       shippingFee:0,
       referenceShippingFee:0,
       shippingSn:'',
+      items:0,
+      goodsPackage:'',
       extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
     }
 
