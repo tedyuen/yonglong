@@ -60,6 +60,10 @@ yonglongApp.controller('registerCompanyController', ['$scope', '$state', '$inter
             swal('错误','手机号格式不正确','error');
           } else if (data.rescode == rescode.WRONG_CODE) {
             swal('错误','验证码错误','error');
+          } else if (data.rescode == rescode.AGAIN_USERNAME) {
+            swal('错误','用户名已被注册','error');
+          } else if (data.rescode == rescode.AGAIN_EMAIL) {
+            swal('错误','邮箱已被注册','error');
           }
         });
       } else {
