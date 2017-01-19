@@ -32,7 +32,11 @@
       <!-- 提单号 -->
       <div id="shipping-sn" ng-bind="results.shippingSn" class="shipping-sn data-div"></div>
       <!-- 件数 -->
-      <div id="items" ng-bind="results.items" class="items data-div"></div>
+      <div id="items" class="items data-div">
+        <span ng-bind="results.items"></span>
+        <span ng-if="results.goodsPackage!=''">&nbsp;/&nbsp;</span>
+        <span ng-bind="results.goodsPackage"></span>
+      </div>
       <!-- 毛重 -->
       <div id="net-weight" ng-bind="results.netWeight" class="net-weight data-div"></div>
       <!-- 尺码描述 -->
