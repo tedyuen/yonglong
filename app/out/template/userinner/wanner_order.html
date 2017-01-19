@@ -117,8 +117,8 @@
               <tr>
                 <th>装箱日期</th>
                 <th>发货人</th>
-                <th>评级</th>
-                <th>退单率</th>
+                <!--<th>评级</th>-->
+                <!--<th>退单率</th>-->
                 <th>装货地</th>
                 <th>还箱地</th>
                 <th>箱型箱量</th>
@@ -131,12 +131,23 @@
               <tbody>
               <tr ng-repeat="result in results.pageData">
                 <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}</td>
-                <td><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</td>
-                <td><div credit-rank="" for-star="{{result.rank}}"></div></td>
-                <td>{{result.cancelRate}}</td>
+                <td>
+                  <span class="mytooltip tooltip-effect-1">
+                      <span class="tooltip-item2">
+                        <i class="fa fa-male"></i> {{result.goodsMemberName}}
+                      </span>
+                      <span class="tooltip-content4 clearfix">
+                        <span class="tooltip-text2">
+                          退单率:&nbsp;{{result.cancelRate|emptyText}}
+                        </span>
+                      </span>
+                    </span>
+                  <!--<i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</td>-->
+                <!--<td><div credit-rank="" for-star="{{result.rank}}"></div></td>-->
+                <!--<td>{{result.cancelRate}}</td>-->
                 <td>{{result.loadingPort}}</td>
                 <td>{{result.returnPort}}</td>
-                <td>{{result.containerVType}}</td>
+                <td>{{result.containerSType|boxType}}/{{result.containerVType|boxVol}}</td>
                 <td>{{result.grossWeight}}</td>
                 <td>{{result.shippingFee}}</td>
                 <td ng-if="result.payStatus==1">完成</td>

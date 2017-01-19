@@ -9,6 +9,8 @@ yonglongApp.constant('rescode', {
 
   WRONG_PHONE:'201011',//参数 mobile 格式不正确，mobile手机号格式不正确
   WRONG_CODE:'201010',//验证码错误
+  AGAIN_USERNAME:'201006',//用户名已被注册
+  AGAIN_EMAIL:'201005',//邮箱已被注册
 
 
   HAS_BANK:'301008',//已经绑定过银行卡，换卡请先解绑
