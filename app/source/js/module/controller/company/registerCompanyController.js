@@ -52,6 +52,7 @@ yonglongApp.controller('registerCompanyController', ['$scope', '$state', '$inter
           console.log(JSON.stringify(data));
           if (data.rescode == rescode.SUCCESS) {
             $scope.loginUser = data.data;
+            $cookies.put('yltComMName', $scope.reg.memberName, cookiesService.cookiesDate());
             $cookies.putObject('yltUser', $scope.loginUser, cookiesService.cookiesDate());
             $state.go('main.companyinner.create_order');
           } else if (data.rescode == rescode.AGAIN_PHONE) {

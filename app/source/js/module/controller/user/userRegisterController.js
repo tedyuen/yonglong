@@ -63,6 +63,7 @@ yonglongApp.controller('userRegisterController',['$scope','$state','$cookies','d
           console.log(JSON.stringify(data));
           if(data.rescode==rescode.SUCCESS){
             $scope.loginUser = data.data;
+            $cookies.put('yltUserMName', $scope.reg.memberName, cookiesService.cookiesDate());
             $cookies.putObject('yltUser', $scope.loginUser, cookiesService.cookiesDate());
             $state.go('main.userinner.wanner_order');
           }else if (data.rescode == rescode.AGAIN_PHONE) {
