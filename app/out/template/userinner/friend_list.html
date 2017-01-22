@@ -1,0 +1,191 @@
+<!-- 外接订单 -->
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">外发订单</h4>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="">月度报表</a></li>
+          <li class="active">外发订单</li>
+        </ol>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <form ng-submit="queryList(theForm.$valid)" novalidate="novalidate" name="theForm">
+          <div class="white-box">
+            <div class="row">
+
+              <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">开始日期</span>
+                    <input type="text" class="form-control mydatepicker" placeholder="yyyy-mm-dd" ng-model="queryData.startTime">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+              <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">结束日期</span>
+                    <input type="text" class="form-control mydatepicker" placeholder="yyyy-mm-dd" ng-model="queryData.endTime">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+              <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">发货人</span>
+                    <input type="text" class="form-control" ng-model="queryData.sender">
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+              <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">接单人</span>
+                    <input type="text" class="form-control" ng-model="queryData.acter">
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">查询</button>
+            <button type="button" ng-click="reset()" class="btn waves-effect waves-light btn-success">清空表单</button>
+
+          </div>
+        </form>
+      </div>
+
+      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+        <div class="white-box">
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12">
+        <div class="white-box">
+          <div class="row">
+            <div>
+              <form action="http://120.26.65.65:8285/execl/exportReport.do" name="excelForm" method="post">
+                <input id="formStartTime" type="hidden" name="startTime">
+                <input id="formEndTime" type="hidden" name="endTime">
+                <input id="formActer" type="hidden" name="acter">
+                <input id="formSender" type="hidden" name="sender">
+                <input id="formToken" type="hidden" name="token">
+                <input type="hidden" name="owner" value="false">
+
+                <button type="submit" class="btn btn-default waves-effect waves-light">导出Excel</button>
+              </form>
+            </div>
+          </div>
+          <div class="row m-t-20">
+            <!--<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">导出报表(xlsx)</button>-->
+
+            <div ng-show="results.totalPages!=null && results.totalPages!=0">
+              <div class="table-responsive m-t-15">
+                <table class="table color-table primary-table table-hover table-bordered">
+                  <thead>
+                  <tr>
+                    <th><nobr>日期</nobr></th>
+                    <th><nobr>客户编号</nobr></th>
+                    <th><nobr>箱型箱量</nobr></th>
+                    <th><nobr>船名行次</nobr></th>
+                    <th><nobr>提单号</nobr></th>
+                    <th><nobr>提箱点</nobr></th>
+                    <th><nobr>提箱费</nobr></th>
+                    <th><nobr>做箱门点</nobr></th>
+                    <th><nobr>还箱点</nobr></th>
+                    <th><nobr>运费</nobr></th>
+                    <th><nobr>发货人</nobr></th>
+                    <th><nobr>承运人</nobr></th>
+                    <th><nobr>出车费</nobr></th>
+                    <th><nobr>租车费</nobr></th>
+                    <th><nobr>打单费</nobr></th>
+                    <th><nobr>外发运费</nobr></th>
+                    <th><nobr>外发洋山</nobr></th>
+                    <th><nobr>落箱费</nobr></th>
+                    <th><nobr>动卫费</nobr></th>
+                    <th><nobr>坏污箱费</nobr></th>
+                    <th><nobr>改单</nobr></th>
+                    <th><nobr>备注</nobr></th>
+                    <th><nobr>合计</nobr></th>
+                    <th><nobr>应付运费</nobr></th>
+                    <th><nobr>毛利</nobr></th>
+                    <th><nobr>订单金额</nobr></th>
+                    <th><nobr>订单结算状态</nobr></th>
+                    <th><nobr>发车费</nobr></th>
+                    <th><nobr>发车费结算状态</nobr></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="result in results.pageData">
+                    <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.createTimeStr}}</nobr></td>
+                    <td><nobr>{{result.busMemberId}}</nobr></td>
+                    <td><nobr>{{result.containerVType | boxVol}}{{result.containerSType | boxType}}*1</nobr></td>
+                    <td><nobr>{{result.shippingName}}</nobr></td>
+                    <td><nobr>{{result.shippingSn}}</nobr></td>
+                    <td><nobr>{{result.loadingPort}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.returnPort}}</nobr></td>
+                    <td><nobr>{{result.shippingFee | moneyText}}</nobr></td>
+                    <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</nobr></td>
+                    <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.busMemberName}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.orderType | orderType}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.note}}</nobr></td>
+                    <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
+                    <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.offerOrderMoney}}</nobr></td>
+                    <td><nobr>{{result.payStatus | payStatusText}}</nobr></td>
+                    <td><nobr>{{result.moneyPaid}}</nobr></td>
+                    <td><nobr>{{result.payStatus | payStatusText}}</nobr></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pagination page-size="results.pageSize"
+                          total-pages="results.totalPages"
+                          curr-page="results.currPageNum"
+                          show-count="100"
+                          switch-page="switchPage">
+              </pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+  </div>
+</div>
+
+

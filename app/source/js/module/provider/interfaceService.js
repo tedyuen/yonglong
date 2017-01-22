@@ -358,4 +358,16 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 
 
 
+    // 报表
+    // 2 外发订单(承运方/管理员)
+    this.reportFriendList = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.reportFriendList,params,success,error);
+    }
+    // 2 外接订单(承运方/管理员)
+    this.reportOrderList = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.reportOrderList,params,success,error);
+    }
+
+
+
 }]);

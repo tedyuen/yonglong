@@ -83,4 +83,8 @@ yonglongApp.constant('URL_CONS', {
   updatePassword: 'update_password',
   resetPassword: 'reset_password',
   sendcode: 'sendcode',
+
+
+  reportFriendList: 'report_friend_list',
+  reportOrderList: 'report_order_list',
 });

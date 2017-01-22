@@ -181,15 +181,25 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
-    .state('main.userinner.all_report',{//月度报表
-      url:'/all_report',
+    .state('main.userinner.friend_list',{//月度报表-外发订单
+      url:'/friend_list',
       views: {
         'content@main': {
-          templateUrl: 'template/userinner/all_report.html',
-          controller: 'userAllReportController'
+          templateUrl: 'template/userinner/friend_list.html',
+          controller: 'userFriendListReportController'
         }
       }
     })
+    .state('main.userinner.order_list',{//月度报表-外接订单
+      url:'/order_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/userinner/order_list.html',
+          controller: 'userOrderListReportController'
+        }
+      }
+    })
+
     .state('main.userinner.friend_manage',{//好友管理
       url:'/friend_manage',
       views: {
