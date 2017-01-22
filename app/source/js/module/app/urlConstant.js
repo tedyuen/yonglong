@@ -23,6 +23,7 @@ yonglongApp.constant('URL_CONS', {
   companyCreateOrder: 'company_create_order',
   companyOrderList: 'company_list_order',
   companyListMyorder: 'company_list_myorder',
+  companyPublishOrder: 'company_publish_order',
   companyListGetorder: 'company_list_getorder',
   deleteOrder: 'company_delete_order',
   companyUserinfo: 'company_userinfo',

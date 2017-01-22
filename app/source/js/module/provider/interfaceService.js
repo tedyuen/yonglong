@@ -113,6 +113,15 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.companyListMyorder,params,success,error);
   }
 
+  // 1.8 订单发布或取消发布
+  this.companyPublishOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.companyPublishOrder,params,success,error);
+  }
+
+
+
+
+
   // 2.1 注册
   this.companyRegister = function (params,files,success,error) {
     this.doHttpMethod(URL_CONS.companyRegister,params,success,error,files);

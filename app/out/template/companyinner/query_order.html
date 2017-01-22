@@ -165,9 +165,9 @@
                     <button type="button" class="btn btn-success btn-xs"
                             ng-if="result.orderStatus!='1' && result.busMemberType==1" ng-click="busUserDetail(result.busMemberId,0)">承运方详情</button>
                     <button type="button" class="btn btn-success btn-xs"
-                            ng-if="result.orderStatus!='1' && result.busMemberType==0 && result.shippingStatus!=1002" ng-click="companyUserDetail(result.busMemberId)">接单方详情</button>
+                            ng-if="result.orderStatus!='1' && result.orderStatus!='0' && result.busMemberType==0 && result.shippingStatus!=1002" ng-click="companyUserDetail(result.busMemberId)">接单方详情</button>
                     <button type="button" class="btn btn-success btn-xs"
-                            ng-if="result.orderStatus!='1' && result.busMemberType==0 && result.shippingStatus==1002" ng-click="busUserDetail(result.id,1)">接单方详情</button>
+                            ng-if="result.orderStatus!='1' && result.orderStatus!='0' && result.busMemberType==0 && result.shippingStatus==1002" ng-click="busUserDetail(result.id,1)">接单方详情</button>
                   </td>
                 </tr>
               </tbody>

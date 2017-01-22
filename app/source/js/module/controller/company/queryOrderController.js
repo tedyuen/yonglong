@@ -195,7 +195,50 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
 
     // 发布／取消发布
     $scope.publishOrder = function (orderId,orderStatus) {
+      var title = '确认发布吗?';
+      var text = '此订单即将发布?';
+      var confirmText = '是的,确定发布';
+      var reTitle = '发布成功';
+      var reText = '此订单发布成功';
+      if(orderStatus==0){
+        title = '确认取消发布吗';
+        text = '此订单即将取消发布';
+        confirmText = '是的,取消发布';
+        reTitle = '取消发布成功';
+        reText = '此订单已经取消发布';
+      }
 
+      swal({
+          title: title,
+          text: text,
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: confirmText,
+          cancelButtonText: "取消",
+          closeOnConfirm: false
+        },
+        function(){
+          var params = {
+            orderId:orderId,
+            orderStatus:orderStatus
+          }
+          interfaceService.companyPublishOrder(params,function (data,headers,config) {
+            console.log('--->'+JSON.stringify(data));
+            if(data.rescode == rescode.SUCCESS){
+              swal({
+                title:reTitle,
+                text:reText,
+                type:"success",
+                confirmButtonText:"确定"
+              },function () {
+                httpList();
+              });
+            }else {
+              swal("失败!", data.resdesc , "warning");
+            }
+          });
+        });
     }
 
     // 制定车辆
@@ -236,7 +279,7 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
 
     // 指定车辆
     $scope.selectedOid = function () {
-      console.log('指定车辆==>  '+JSON.stringify($scope.dispatchCarParams));
+      // console.log('指定车辆==>  '+JSON.stringify($scope.dispatchCarParams));
       swal({
           title: "确认指派吗？",
           text: "此订单即将指派车辆!",
