@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('userWannerOrderController',['$scope','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode',
-  function ($scope,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode) {
+yonglongApp.controller('userWannerOrderController',['$scope','$timeout','$interval','showDatePickerProvider','baseDataService','interfaceService','rescode',
+  function ($scope,$timeout,$interval,showDatePickerProvider,baseDataService,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
@@ -32,12 +32,15 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','showDat
       pageSize : $scope.queryData.pagesize
     }
 
-    var httpList = function () {
+    var httpList = function (callback) {
       interfaceService.userListGetorder($scope.queryData,function (data,headers,config) {
         console.log("response:"+JSON.stringify(data));
 
         if(data.rescode == rescode.SUCCESS){
           $scope.results = data.data;
+        }
+        if(callback){
+          callback();
         }
       });
     }
@@ -146,6 +149,21 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','showDat
       }
     }
 
-    httpList();
+    $scope.countUp = 20;
+    var timePromise = function () {
+      $scope.countUp = 20;
+      var tempInterval = $interval(function() {
+        if ($scope.countUp <= 0) {
+          $interval.cancel(tempInterval);
+          tempInterval = undefined;
+          interfaceService.showLoading('自动查询');
+          httpList(timePromise);
+        } else {
+          $scope.countUp--;
+        }
+      }, 1000);
+    }
+
+    httpList(timePromise);
 
   }]);
