@@ -2583,6 +2583,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
       shippingSn:'',
       items:0,
       goodsPackage:'',
+      orderStatus:0,
       extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
     }
 
@@ -2591,41 +2592,82 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
     //提交表单
     $scope.onSubmit = function($valid){
       if($valid){
-        swal({
-          title: "确定创建订单吗?",
-          text: "您即将创建一份新的订单!",
-          type: "warning",
-          showCancelButton: true,
-          cancelButtonText: "取消",
-          confirmButtonColor: "#DD6B55",
-          confirmButtonText: "是的,创建!",
-          closeOnConfirm: false,
-          showLoaderOnConfirm: true,
-          animation: "slide-from-top",
-        }, function(){
-          interfaceService.companyCreateOrder($scope.orderDetail,function (data,headers,config) {
-            console.log(JSON.stringify(data));
-            if(data.rescode==rescode.SUCCESS){
-              swal({
-                title:"创建成功！",
-                text:"已成功创建订单。",
-                type:"success",
-                showCancelButton: true,
-                cancelButtonText: "继续创建",
-                confirmButtonText:"订单查询",
-              },function () {
-                $state.go('main.companyinner.query_order');
-              });
-            }else{
-              swal({
-                title:"创建失败！",
-                text:"请重新执行此操作。",
-                type:"error",
-                confirmButtonText:"确定"
-              });
-            }
+        if ($scope.orderDetail.orderStatus==1){
+          swal({
+            title: "确定创建订单吗?",
+            text: "您即将创建一份新的订单!",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的,创建!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+            animation: "slide-from-top",
+          }, function(){
+            interfaceService.companyCreateOrder($scope.orderDetail,function (data,headers,config) {
+              console.log(JSON.stringify(data));
+              if(data.rescode==rescode.SUCCESS){
+                swal({
+                  title:"创建成功！",
+                  text:"已成功创建订单。",
+                  type:"success",
+                  showCancelButton: true,
+                  cancelButtonText: "继续创建",
+                  confirmButtonText:"订单查询",
+                },function () {
+                  $state.go('main.companyinner.query_order');
+                });
+                $scope.reset($valid);
+              }else{
+                swal({
+                  title:"创建失败！",
+                  text:"请重新执行此操作。",
+                  type:"error",
+                  confirmButtonText:"确定"
+                });
+              }
+            });
           });
-        });
+        }else if ($scope.orderDetail.orderStatus == 0){
+          swal({
+            title: "确定保存订单吗?",
+            text: "您即将保存一份新的订单!",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的,保存!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+            animation: "slide-from-top",
+          }, function(){
+            interfaceService.companyCreateOrder($scope.orderDetail,function (data,headers,config) {
+              console.log(JSON.stringify(data));
+              if(data.rescode==rescode.SUCCESS){
+                swal({
+                  title:"保存成功！",
+                  text:"已成功保存订单。",
+                  type:"success",
+                  showCancelButton: true,
+                  cancelButtonText: "继续创建",
+                  confirmButtonText:"订单查询",
+                },function () {
+                  $state.go('main.companyinner.query_order');
+                });
+                $scope.reset($valid);
+              }else{
+                swal({
+                  title:"保存失败！",
+                  text:"请重新执行此操作。",
+                  type:"error",
+                  confirmButtonText:"确定"
+                });
+              }
+            });
+          });
+        }
+
       }else{
         // console.log("$valid:"+$valid);
       }
@@ -2651,6 +2693,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
         shippingSn:'',
         items:0,
         goodsPackage:'',
+        orderStatus:0,
         extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
       }
 
