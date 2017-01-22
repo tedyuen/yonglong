@@ -25,17 +25,17 @@ yonglongApp.controller('userCreateWithdrawController',['$scope','$timeout','$sta
 
     var getCashList = function () {
       interfaceService.cashList({},function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $scope.cashList = data.data.listCash;
-          $scope.listCashDispatch = data.data.dataDispatch;
+          $scope.listCashDispatch = data.data.listCashDispatch;
 
         }
       });
     }
     var getListBankCard = function () {
       interfaceService.listBankCard({},function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $scope.listBankCards = data.data;
         }

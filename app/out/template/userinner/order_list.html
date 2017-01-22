@@ -86,7 +86,7 @@
         <div class="white-box">
           <div class="row">
             <div>
-              <form action="http://120.26.65.65:8285/execl/exportReport.do" name="excelForm" method="post">
+              <form action="http://120.26.65.65:8285/execl/exportReportOfOrder.do" name="excelForm" method="post">
                 <input id="formStartTime" type="hidden" name="startTime">
                 <input id="formEndTime" type="hidden" name="endTime">
                 <input id="formActer" type="hidden" name="acter">
@@ -102,6 +102,7 @@
             <!--<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">导出报表(xlsx)</button>-->
 
             <div ng-show="results.totalPages!=null && results.totalPages!=0">
+              <h3 class="m-t-15">外接订单</h3>
               <div class="table-responsive m-t-15">
                 <table class="table color-table primary-table table-hover table-bordered">
                   <thead>

@@ -102,7 +102,7 @@
             <!--<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">导出报表(xlsx)</button>-->
 
             <div ng-show="results.totalPages!=null && results.totalPages!=0">
-              <h3 class="m-t-15">外发订单</h3>
+              <h3 class="m-t-15">外发订单（接单方为私营车主）</h3>
               <div class="table-responsive m-t-15">
                 <table class="table color-table primary-table table-hover table-bordered">
                   <thead>
@@ -140,7 +140,7 @@
                   </thead>
                   <tbody>
                   <tr ng-repeat="result in results.pageData">
-                    <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.createTimeStr}}</nobr></td>
+                    <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.f_create_time_str}}</nobr></td>
                     <td><nobr>{{result.busMemberId}}</nobr></td>
                     <td><nobr>{{result.containerVType | boxVol}}{{result.containerSType | boxType}}*1</nobr></td>
                     <td><nobr>{{result.shippingName}}</nobr></td>
@@ -151,7 +151,7 @@
                     <td><nobr>{{result.returnPort}}</nobr></td>
                     <td><nobr>{{result.shippingFee | moneyText}}</nobr></td>
                     <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</nobr></td>
-                    <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.busMemberName}}</nobr></td>
+                    <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.f_bus_member_name}}</nobr></td>
                     <td><nobr> -- </nobr></td>
                     <td><nobr> -- </nobr></td>
                     <td><nobr> -- </nobr></td>
@@ -165,10 +165,10 @@
                     <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
                     <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
                     <td><nobr> -- </nobr></td>
-                    <td><nobr>{{result.offerOrderMoney}}</nobr></td>
-                    <td><nobr>{{result.payStatus | payStatusText}}</nobr></td>
-                    <td><nobr>{{result.moneyPaid}}</nobr></td>
-                    <td><nobr>{{result.payStatus | payStatusText}}</nobr></td>
+                    <td><nobr>{{result.f_offer_order_money}}</nobr></td>
+                    <td><nobr>{{result.f_pay_status | payStatusText}}</nobr></td>
+                    <td><nobr>{{result.f_money_paid}}</nobr></td>
+                    <td><nobr>{{result.f_pay_status | payStatusText}}</nobr></td>
                   </tr>
                   </tbody>
                 </table>

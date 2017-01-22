@@ -1420,17 +1420,17 @@ yonglongApp.controller('userCreateWithdrawController',['$scope','$timeout','$sta
 
     var getCashList = function () {
       interfaceService.cashList({},function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $scope.cashList = data.data.listCash;
-          $scope.listCashDispatch = data.data.dataDispatch;
+          $scope.listCashDispatch = data.data.listCashDispatch;
 
         }
       });
     }
     var getListBankCard = function () {
       interfaceService.listBankCard({},function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $scope.listBankCards = data.data;
         }
@@ -3911,14 +3911,24 @@ yonglongApp.controller('receiveReportController',['$scope','$timeout','sessionSe
       endTime:'',
       owner:false,
       sender:'',
+      pageno:1,
+      pagesize:10,
     }
 
+    $scope.results={
+      currPageNum : 1,
+      totalPages : 0,
+      pageSize : $scope.queryData.pagesize
+    }
+
+
     var httpList = function () {
-      interfaceService.reportList($scope.queryData,function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+      interfaceService.reportOrderList($scope.queryData,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode = rescode.SUCCESS){
-          $scope.flist = data.data.flist;
-          $scope.list = data.data.list;
+          if(data.data){
+            $scope.results = data.data;
+          }
         }
       });
     }
@@ -3932,12 +3942,23 @@ yonglongApp.controller('receiveReportController',['$scope','$timeout','sessionSe
       }
     }
 
+    // 分页
+    $scope.switchPage = function (page) {
+      // console.log(page);
+      $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpList();
+    }
+
     $scope.reset = function () {
       $scope.queryData = {
         startTime:'',
         endTime:'',
         owner:false,
         sender:'',
+        acter:'',
+        pageno:1,
+        pagesize:10,
       }
     }
 
@@ -4080,6 +4101,168 @@ yonglongApp.controller('registerCompanyController', ['$scope', '$state', '$inter
 /**
  * Created by tedyuen on 16-12-15.
  */
+yonglongApp.controller('reportFriendController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+    showDatePickerProvider.showDatePicker();
+    if(sessionService.getSession() != undefined){
+      $('#formToken').val(sessionService.getSession().token);
+    }
+    $scope.queryData = {
+      startTime:'',
+      endTime:'',
+      owner:true,
+      sender:'',
+      acter:'',
+      pageno:1,
+      pagesize:10,
+    }
+
+    $scope.results={
+      currPageNum : 1,
+      totalPages : 0,
+      pageSize : $scope.queryData.pagesize
+    }
+
+    var httpList = function () {
+      interfaceService.reportFriendList($scope.queryData,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode = rescode.SUCCESS){
+          if(data.data){
+            $scope.results = data.data;
+          }
+        }
+      });
+    }
+
+    $scope.queryList = function ($valid) {
+      if($valid){
+        interfaceService.showLoading('正在查询');
+        httpList();
+      }else{
+
+      }
+    }
+
+    // 分页
+    $scope.switchPage = function (page) {
+      // console.log(page);
+      $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpList();
+    }
+
+    $scope.reset = function () {
+      $scope.queryData = {
+        startTime:'',
+        endTime:'',
+        owner:false,
+        sender:'',
+        acter:'',
+        pageno:1,
+        pagesize:10,
+      }
+    }
+
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+    $scope.$watch('queryData.sender',function () {
+      $('#formSender').val($scope.queryData.sender);
+    });
+    $scope.$watch('queryData.acter',function () {
+      $('#formActer').val($scope.queryData.acter);
+    });
+
+    httpList();
+  }]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.controller('reportOrderController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+    showDatePickerProvider.showDatePicker();
+    if(sessionService.getSession() != undefined){
+      $('#formToken').val(sessionService.getSession().token);
+    }
+    $scope.queryData = {
+      startTime:'',
+      endTime:'',
+      owner:true,
+      sender:'',
+      acter:'',
+      pageno:1,
+      pagesize:10,
+    }
+
+    $scope.results={
+      currPageNum : 1,
+      totalPages : 0,
+      pageSize : $scope.queryData.pagesize
+    }
+
+    var httpList = function () {
+      interfaceService.reportOrderList($scope.queryData,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode = rescode.SUCCESS){
+          if(data.data){
+            $scope.results = data.data;
+          }
+        }
+      });
+    }
+
+    $scope.queryList = function ($valid) {
+      if($valid){
+        interfaceService.showLoading('正在查询');
+        httpList();
+      }else{
+
+      }
+    }
+
+    // 分页
+    $scope.switchPage = function (page) {
+      // console.log(page);
+      $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpList();
+    }
+
+    $scope.reset = function () {
+      $scope.queryData = {
+        startTime:'',
+        endTime:'',
+        owner:false,
+        sender:'',
+        acter:'',
+        pageno:1,
+        pagesize:10,
+      }
+    }
+
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+    $scope.$watch('queryData.sender',function () {
+      $('#formSender').val($scope.queryData.sender);
+    });
+    $scope.$watch('queryData.acter',function () {
+      $('#formActer').val($scope.queryData.acter);
+    });
+
+    httpList();
+  }]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
 yonglongApp.controller('sendReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
   function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
@@ -4091,6 +4274,9 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','sessionServi
       endTime:'',
       owner:true,
       sender:'',
+      acter:'',
+      pageno:1,
+      pagesize:10,
     }
 
     var httpList = function () {
@@ -4791,6 +4977,87 @@ yonglongApp.controller('adminEditNewsController',['$scope','$stateParams','$time
 
   }]);
 
+/**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.controller('adminFriendListReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+    showDatePickerProvider.showDatePicker();
+    if(sessionService.getSession() != undefined){
+      $('#formToken').val(sessionService.getSession().token);
+    }
+    $scope.queryData = {
+      startTime:'',
+      endTime:'',
+      owner:false,
+      sender:'',
+      acter:'',
+      pageno:1,
+      pagesize:10,
+    }
+
+    $scope.results={
+      currPageNum : 1,
+      totalPages : 0,
+      pageSize : $scope.queryData.pagesize
+    }
+
+    var httpList = function () {
+      interfaceService.reportFriendList($scope.queryData,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode = rescode.SUCCESS){
+          if(data.data){
+            $scope.results = data.data;
+          }
+        }
+      });
+    }
+
+    $scope.queryList = function ($valid) {
+      if($valid){
+        interfaceService.showLoading('正在查询');
+        httpList();
+      }else{
+
+      }
+    }
+
+    // 分页
+    $scope.switchPage = function (page) {
+      // console.log(page);
+      $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpList();
+    }
+
+    $scope.reset = function () {
+      $scope.queryData = {
+        startTime:'',
+        endTime:'',
+        owner:false,
+        sender:'',
+        acter:'',
+        pageno:1,
+        pagesize:10,
+      }
+    }
+
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+    $scope.$watch('queryData.sender',function () {
+      $('#formSender').val($scope.queryData.sender);
+    });
+    $scope.$watch('queryData.acter',function () {
+      $('#formActer').val($scope.queryData.acter);
+    });
+
+    httpList();
+  }]);
+
 yonglongApp.controller('adminLoginController',['$scope','$rootScope','$cookies','$state','interfaceService','rescode','cookiesService',
   function ($scope,$rootScope,$cookies,$state,interfaceService,rescode,cookiesService) {
 
@@ -5124,6 +5391,87 @@ yonglongApp.controller('adminOrderListController',['$scope','showDatePickerProvi
 
     httpList();
 
+  }]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.controller('adminOrderListReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+    showDatePickerProvider.showDatePicker();
+    if(sessionService.getSession() != undefined){
+      $('#formToken').val(sessionService.getSession().token);
+    }
+    $scope.queryData = {
+      startTime:'',
+      endTime:'',
+      owner:false,
+      sender:'',
+      acter:'',
+      pageno:1,
+      pagesize:10,
+    }
+
+    $scope.results={
+      currPageNum : 1,
+      totalPages : 0,
+      pageSize : $scope.queryData.pagesize
+    }
+
+    var httpList = function () {
+      interfaceService.reportOrderList($scope.queryData,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode = rescode.SUCCESS){
+          if(data.data){
+            $scope.results = data.data;
+          }
+        }
+      });
+    }
+
+    $scope.queryList = function ($valid) {
+      if($valid){
+        interfaceService.showLoading('正在查询');
+        httpList();
+      }else{
+
+      }
+    }
+
+    // 分页
+    $scope.switchPage = function (page) {
+      // console.log(page);
+      $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpList();
+    }
+
+    $scope.reset = function () {
+      $scope.queryData = {
+        startTime:'',
+        endTime:'',
+        owner:false,
+        sender:'',
+        acter:'',
+        pageno:1,
+        pagesize:10,
+      }
+    }
+
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+    $scope.$watch('queryData.sender',function () {
+      $('#formSender').val($scope.queryData.sender);
+    });
+    $scope.$watch('queryData.acter',function () {
+      $('#formActer').val($scope.queryData.acter);
+    });
+
+    httpList();
   }]);
 
 yonglongApp.controller('adminRoleController',['$rootScope','$scope','$cookies','$state','logoutService',
@@ -5968,12 +6316,21 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
-    .state('main.admin.all_report',{//报表
-      url:'/all_report',
+    .state('main.admin.friend_list',{//月度报表-外发订单
+      url:'/friend_list',
       views: {
         'content@main': {
-          templateUrl: 'template/admin/all_report.html',
-          controller: 'adminAllReportController'
+          templateUrl: 'template/admin/friend_list.html',
+          controller: 'adminFriendListReportController'
+        }
+      }
+    })
+    .state('main.admin.order_report_list',{//月度报表-外接订单
+      url:'/order_report_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/order_report_list.html',
+          controller: 'adminOrderListReportController'
         }
       }
     })
@@ -6211,16 +6568,25 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
-    .state('main.companyinner.send_report',{//外发订单
-      url:'/send_report',
+    .state('main.companyinner.report_order',{//外发订单1
+      url:'/report_order',
       views: {
         'content@main': {
-          templateUrl: 'template/companyinner/send_report.html',
-          controller: 'sendReportController'
+          templateUrl: 'template/companyinner/order_report_list.html',
+          controller: 'reportOrderController'
         }
       }
     })
-    .state('main.companyinner.receive_report',{//外发订单
+    .state('main.companyinner.report_friend',{//外发订单2
+      url:'/report_friend',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/friend_report_list.html',
+          controller: 'reportFriendController'
+        }
+      }
+    })
+    .state('main.companyinner.receive_report',{//外接订单
       url:'/receive_report',
       views: {
         'content@main': {

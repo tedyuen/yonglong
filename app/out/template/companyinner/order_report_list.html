@@ -20,7 +20,6 @@
         <form ng-submit="queryList(theForm.$valid)" novalidate="novalidate" name="theForm">
           <div class="white-box">
             <div class="row">
-
               <div class="col-md-6 col-lg-6 col-sm-12">
                 <div class="form-group">
                   <div class="input-group">
@@ -86,7 +85,7 @@
         <div class="white-box">
           <div class="row">
             <div>
-              <form action="http://120.26.65.65:8285/execl/exportReportOfFriend.do" name="excelForm" method="post">
+              <form action="http://120.26.65.65:8285/execl/exportReportOfOrder.do" name="excelForm" method="post">
                 <input id="formStartTime" type="hidden" name="startTime">
                 <input id="formEndTime" type="hidden" name="endTime">
                 <input id="formActer" type="hidden" name="acter">
@@ -100,9 +99,8 @@
           </div>
           <div class="row m-t-20">
             <!--<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">导出报表(xlsx)</button>-->
-
             <div ng-show="results.totalPages!=null && results.totalPages!=0">
-              <h3 class="m-t-15">外发订单</h3>
+              <h3 class="m-t-15">外发订单（接单方为私营车主）</h3>
               <div class="table-responsive m-t-15">
                 <table class="table color-table primary-table table-hover table-bordered">
                   <thead>
@@ -125,7 +123,7 @@
                     <th><nobr>外发运费</nobr></th>
                     <th><nobr>外发洋山</nobr></th>
                     <th><nobr>落箱费</nobr></th>
-                    <th><nobr>动卫费</nobr></th>
+                    <th><nobr>动卫检</nobr></th>
                     <th><nobr>坏污箱费</nobr></th>
                     <th><nobr>改单</nobr></th>
                     <th><nobr>备注</nobr></th>
@@ -133,9 +131,8 @@
                     <th><nobr>应付运费</nobr></th>
                     <th><nobr>毛利</nobr></th>
                     <th><nobr>订单金额</nobr></th>
-                    <th><nobr>订单结算状态</nobr></th>
-                    <th><nobr>发车费</nobr></th>
-                    <th><nobr>发车费结算状态</nobr></th>
+                    <th><nobr>订单状态</nobr></th>
+                    <th><nobr>结算状态</nobr></th>
                   </tr>
                   </thead>
                   <tbody>
@@ -165,9 +162,9 @@
                     <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
                     <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
                     <td><nobr> -- </nobr></td>
-                    <td><nobr>{{result.offerOrderMoney}}</nobr></td>
-                    <td><nobr>{{result.payStatus | payStatusText}}</nobr></td>
-                    <td><nobr>{{result.moneyPaid}}</nobr></td>
+                    <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
+                    <td ng-if="result.payStatus!=1"><nobr>{{result.orderStatus | orderStatusText}}</nobr></td>
+                    <td ng-if="result.payStatus==1"><nobr>完成</nobr></td>
                     <td><nobr>{{result.payStatus | payStatusText}}</nobr></td>
                   </tr>
                   </tbody>

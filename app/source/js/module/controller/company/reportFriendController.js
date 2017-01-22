@@ -1,7 +1,7 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('sendReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
+yonglongApp.controller('reportFriendController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
   function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
@@ -17,12 +17,19 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','sessionServi
       pagesize:10,
     }
 
+    $scope.results={
+      currPageNum : 1,
+      totalPages : 0,
+      pageSize : $scope.queryData.pagesize
+    }
+
     var httpList = function () {
-      interfaceService.reportList($scope.queryData,function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+      interfaceService.reportFriendList($scope.queryData,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode = rescode.SUCCESS){
-          $scope.flist = data.data.flist;
-          $scope.list = data.data.list;
+          if(data.data){
+            $scope.results = data.data;
+          }
         }
       });
     }
@@ -36,12 +43,23 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','sessionServi
       }
     }
 
+    // 分页
+    $scope.switchPage = function (page) {
+      // console.log(page);
+      $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpList();
+    }
+
     $scope.reset = function () {
       $scope.queryData = {
         startTime:'',
         endTime:'',
-        owner:true,
+        owner:false,
         sender:'',
+        acter:'',
+        pageno:1,
+        pagesize:10,
       }
     }
 
@@ -59,4 +77,4 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','sessionServi
     });
 
     httpList();
-}]);
+  }]);
