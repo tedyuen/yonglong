@@ -157,5 +157,32 @@ yonglongApp.controller('createWithdrawController',['$scope','$timeout','$state',
       }
     }
 
+    $scope.goodsUserDetailByFriend = function (friendId) {
+      var param = {
+        friendId:friendId
+      }
+      interfaceService.goodsUserDetailByFriend(param,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.busUserDetailResult = data.data;
+          $scope.busUserDetailResult.resultType = 1;
+          $('#bus-user-detail-modal').modal('show');
+        }
+
+      });
+    }
+
+    $scope.detail = function (id) {
+      $scope.detailOrderId = id;
+      $('#order-detail').modal('show');
+    }
+
+    $scope.printDetail = function () {
+      if($scope.detailOrderId){
+        var link = 'table_print.html#!?id='+$scope.detailOrderId;
+        window.open(link);
+      }
+    }
+
     getListBankCard();
 }]);

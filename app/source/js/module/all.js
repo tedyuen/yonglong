@@ -166,6 +166,7 @@ yonglongApp.constant('URL_CONS', {
   listRefundApply: 'listRefundApply',
   addRefundApply: 'addRefundApply',
   cashList: 'cashList',
+  goodsUserDetailByFriend: 'getGoodsUserDetailbyFriend',
   reportList: 'report_list',
   alipay: 'alipay',
   alipayDispatchOrder: 'alipayDispatchOrder',
@@ -972,7 +973,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.cashList = function (params,success,error) {
     this.doHttpMethod(URL_CONS.cashList,params,success,error);
   }
-
+  // 2.8 指派方详情
+  this.goodsUserDetailByFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.goodsUserDetailByFriend,params,success,error);
+  }
   // 6.1 订单
   this.reportList = function (params,success,error) {
     this.doHttpMethod(URL_CONS.reportList,params,success,error);
@@ -1430,7 +1434,7 @@ yonglongApp.controller('userCreateWithdrawController',['$scope','$timeout','$sta
     }
     var getListBankCard = function () {
       interfaceService.listBankCard({},function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $scope.listBankCards = data.data;
         }
@@ -1546,6 +1550,33 @@ yonglongApp.controller('userCreateWithdrawController',['$scope','$timeout','$sta
             }
           });
         });
+      }
+    }
+
+    $scope.goodsUserDetailByFriend = function (friendId) {
+      var param = {
+        friendId:friendId
+      }
+      interfaceService.goodsUserDetailByFriend(param,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.busUserDetailResult = data.data;
+          $scope.busUserDetailResult.resultType = 1;
+          $('#bus-user-detail-modal').modal('show');
+        }
+
+      });
+    }
+
+    $scope.detail = function (id) {
+      $scope.detailOrderId = id;
+      $('#order-detail').modal('show');
+    }
+
+    $scope.printDetail = function () {
+      if($scope.detailOrderId){
+        var link = 'table_print.html#!?id='+$scope.detailOrderId;
+        window.open(link);
       }
     }
 
@@ -3088,6 +3119,33 @@ yonglongApp.controller('createWithdrawController',['$scope','$timeout','$state',
             }
           });
         });
+      }
+    }
+
+    $scope.goodsUserDetailByFriend = function (friendId) {
+      var param = {
+        friendId:friendId
+      }
+      interfaceService.goodsUserDetailByFriend(param,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.busUserDetailResult = data.data;
+          $scope.busUserDetailResult.resultType = 1;
+          $('#bus-user-detail-modal').modal('show');
+        }
+
+      });
+    }
+
+    $scope.detail = function (id) {
+      $scope.detailOrderId = id;
+      $('#order-detail').modal('show');
+    }
+
+    $scope.printDetail = function () {
+      if($scope.detailOrderId){
+        var link = 'table_print.html#!?id='+$scope.detailOrderId;
+        window.open(link);
       }
     }
 

@@ -602,7 +602,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.cashList = function (params,success,error) {
     this.doHttpMethod(URL_CONS.cashList,params,success,error);
   }
-
+  // 2.8 指派方详情
+  this.goodsUserDetailByFriend = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.goodsUserDetailByFriend,params,success,error);
+  }
   // 6.1 订单
   this.reportList = function (params,success,error) {
     this.doHttpMethod(URL_CONS.reportList,params,success,error);
@@ -753,6 +756,18 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 
 
 
+    // 报表
+    // 2 外发订单(承运方/管理员)
+    this.reportFriendList = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.reportFriendList,params,success,error);
+    }
+    // 2 外接订单(承运方/管理员)
+    this.reportOrderList = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.reportOrderList,params,success,error);
+    }
+
+
+
 }]);
 
 yonglongApp.constant('rescode', {
@@ -819,6 +834,7 @@ yonglongApp.constant('URL_CONS', {
   listRefundApply: 'listRefundApply',
   addRefundApply: 'addRefundApply',
   cashList: 'cashList',
+  goodsUserDetailByFriend: 'getGoodsUserDetailbyFriend',
   reportList: 'report_list',
   alipay: 'alipay',
   alipayDispatchOrder: 'alipayDispatchOrder',
@@ -858,6 +874,10 @@ yonglongApp.constant('URL_CONS', {
   updatePassword: 'update_password',
   resetPassword: 'reset_password',
   sendcode: 'sendcode',
+
+
+  reportFriendList: 'report_friend_list',
+  reportOrderList: 'report_order_list',
 });
 
 yonglongApp.value('diyData',
