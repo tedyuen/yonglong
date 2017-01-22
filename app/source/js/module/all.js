@@ -72,7 +72,7 @@ yonglongApp.value('diyData',
       , {name: 'HC', id: 1, v: 'HC'}, {name: 'OT(开顶箱)', id: 2, v: 'OT'}, {
         name: 'HT(挂衣箱)',
         id: 3, v: 'HT'
-      }, {name: 'RF(冷冻箱)', id: 4, v: 'RF'}, {name: 'RH（l冷冻高箱）', id: 5, v: 'RH'}, {
+      }, {name: 'RF(冷冻箱)', id: 4, v: 'RF'}, {name: 'RH（冷冻高箱）', id: 5, v: 'RH'}, {
         name: 'TK（油罐箱）',
         id: 6,
         v: 'TK'
@@ -85,7 +85,7 @@ yonglongApp.value('diyData',
       , {name: 'HC', id: 1, v: 'HC'}, {name: 'OT(开顶箱)', id: 2, v: 'OT'}, {
         name: 'HT(挂衣箱)',
         id: 3, v: 'HT'
-      }, {name: 'RF(冷冻箱)', id: 4, v: 'RF'}, {name: 'RH（l冷冻高箱）', id: 5, v: 'RH'}, {
+      }, {name: 'RF(冷冻箱)', id: 4, v: 'RF'}, {name: 'RH（冷冻高箱）', id: 5, v: 'RH'}, {
         name: 'TK（油罐箱）',
         id: 6,
         v: 'TK'
@@ -95,8 +95,8 @@ yonglongApp.value('diyData',
       }
     ],
     //boxVol: [{name: '20', id: '0'}, {name: '40', id: '1'}, {name: '45', id: '2'}]
-    boxVol: [{name: '20', id: 0, show: '短板车'}, {name: '40', id: 1, show: '12.6米'}],
-    boxVolN: [{name: '不限', id: -1, show: '不限'},{name: '20', id: 0, show: '短板车'}, {name: '40', id: 1, show: '12.6米'}],
+    boxVol: [{name: '20', id: 0, show: '短板车'}, {name: '40', id: 1, show: '12.6米'}, {name: '45', id: 2, show: '12.6米'}],
+    boxVolN: [{name: '不限', id: -1, show: '不限'},{name: '20', id: 0, show: '短板车'}, {name: '40', id: 1, show: '12.6米'},{name: '45', id: 2, show: '12.6米'}],
     orderTypeN: [{name: '不限', id: -1},{name: '进口', id: 0}, {name: '出口', id: 1}, {name: '拖柜进洋山', id: 2}],
 
   }
@@ -2575,7 +2575,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
       orderType:0,
       containerVType:0,
       containerSType:0,
-      containerVol:0,
+      containerVol:1,
       grossWeight:0,
       note:'',
       shippingFee:0,
@@ -2643,7 +2643,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
         orderType:0,
         containerVType:0,
         containerSType:0,
-        containerVol:0,
+        containerVol:1,
         grossWeight:0,
         note:'',
         shippingFee:0,
@@ -3407,7 +3407,7 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
 
     var httpList = function () {
       interfaceService.companyOrderList($scope.queryData,function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS) {
           $scope.results = data.data;
         }
@@ -3542,6 +3542,81 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
 
     $scope.alipay = function (result) {
       alipayService.alipay(result);
+    }
+
+
+    // 发布／取消发布
+    $scope.publishOrder = function (orderId,orderStatus) {
+
+    }
+
+    // 制定车辆
+    $scope.companyListFriend = function (orderId) {
+      console.log('请求好友列表');
+      $scope.dispatchCarParams={
+        dispatchFee:undefined,
+        fid:'',
+        offerOrderMoney:undefined,
+        orderId:orderId
+      }
+      $scope.myFriendsIdArray = [];
+      // $scope.dispatchCarParams.orderId = orderId;
+
+      var friendStatus = {
+        status:1
+      };
+      interfaceService.companyListFriend(friendStatus,function (data,headers,config) {
+        console.log('--->'+JSON.stringify(data));
+        if(data.rescode == rescode.SUCCESS){
+          if (data.data){
+            $scope.friendList = data.data;
+            if ($scope.friendList.pageData != null){
+              for(var i=0;i<$scope.friendList.pageData.length;i++){
+                $scope.myFriendsIdArray.push($scope.friendList.pageData[i]);
+              }
+              console.log('获取好友列表'+$scope.friendList.pageData.length);
+              $('#dispatch-car').modal('show')
+            }
+          }else {
+            swal("请先添加至少一位好友!")
+          }
+        }else {
+          swal("请求失败!", data.resdesc, "warning")
+        }
+      });
+    }
+
+    // 指定车辆
+    $scope.selectedOid = function () {
+      console.log('指定车辆==>  '+JSON.stringify($scope.dispatchCarParams));
+      swal({
+          title: "确认指派吗？",
+          text: "此订单即将指派车辆!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "是的,确定指派!",
+          cancelButtonText: "取消",
+          closeOnConfirm: false
+        },
+        function(){
+          interfaceService.fleetDispatchOrder($scope.dispatchCarParams,function (data,headers,config) {
+            // console.log('--->'+JSON.stringify(data));
+            if(data.rescode == rescode.SUCCESS){
+              swal({
+                title:"指派成功！",
+                text:"指派车辆成功。",
+                type:"success",
+                confirmButtonText:"确定"
+              },function () {
+                alipayService.alipayDispatch(data.data.id,httpList);
+                $('#dispatch-car').modal('hide');
+              });
+            }else {
+              swal("失败!", data.resdesc , "warning");
+            }
+          });
+        });
     }
 
     httpList();

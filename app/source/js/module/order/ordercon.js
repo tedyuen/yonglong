@@ -859,7 +859,7 @@ yonglongApp.value('diyData',
       , {name: 'HC', id: 1, v: 'HC'}, {name: 'OT(开顶箱)', id: 2, v: 'OT'}, {
         name: 'HT(挂衣箱)',
         id: 3, v: 'HT'
-      }, {name: 'RF(冷冻箱)', id: 4, v: 'RF'}, {name: 'RH（l冷冻高箱）', id: 5, v: 'RH'}, {
+      }, {name: 'RF(冷冻箱)', id: 4, v: 'RF'}, {name: 'RH（冷冻高箱）', id: 5, v: 'RH'}, {
         name: 'TK（油罐箱）',
         id: 6,
         v: 'TK'
@@ -872,7 +872,7 @@ yonglongApp.value('diyData',
       , {name: 'HC', id: 1, v: 'HC'}, {name: 'OT(开顶箱)', id: 2, v: 'OT'}, {
         name: 'HT(挂衣箱)',
         id: 3, v: 'HT'
-      }, {name: 'RF(冷冻箱)', id: 4, v: 'RF'}, {name: 'RH（l冷冻高箱）', id: 5, v: 'RH'}, {
+      }, {name: 'RF(冷冻箱)', id: 4, v: 'RF'}, {name: 'RH（冷冻高箱）', id: 5, v: 'RH'}, {
         name: 'TK（油罐箱）',
         id: 6,
         v: 'TK'
@@ -882,8 +882,8 @@ yonglongApp.value('diyData',
       }
     ],
     //boxVol: [{name: '20', id: '0'}, {name: '40', id: '1'}, {name: '45', id: '2'}]
-    boxVol: [{name: '20', id: 0, show: '短板车'}, {name: '40', id: 1, show: '12.6米'}],
-    boxVolN: [{name: '不限', id: -1, show: '不限'},{name: '20', id: 0, show: '短板车'}, {name: '40', id: 1, show: '12.6米'}],
+    boxVol: [{name: '20', id: 0, show: '短板车'}, {name: '40', id: 1, show: '12.6米'}, {name: '45', id: 2, show: '12.6米'}],
+    boxVolN: [{name: '不限', id: -1, show: '不限'},{name: '20', id: 0, show: '短板车'}, {name: '40', id: 1, show: '12.6米'},{name: '45', id: 2, show: '12.6米'}],
     orderTypeN: [{name: '不限', id: -1},{name: '进口', id: 0}, {name: '出口', id: 1}, {name: '拖柜进洋山', id: 2}],
 
   }

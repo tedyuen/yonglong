@@ -17,7 +17,7 @@
     <div class="row">
       <div class="col-sm-12">
 
-        <form ng-submit="queryList(theForm.$valid)" novalidate="novalidate" name="theForm">
+        <form ng-submit="queryList(theeForm.$valid)" novalidate="novalidate" name="theeForm">
           <div class="white-box">
             <div class="row">
               <div class="col-md-6 col-lg-4 col-sm-12">
@@ -111,6 +111,7 @@
             </ul>
           </div>
           <div class="row m-t-20" ng-show="results.totalPages!=null && results.totalPages!=0">
+
             <table class="table color-table primary-table table-hover table-bordered">
               <thead>
                 <tr>
@@ -145,6 +146,17 @@
                             ng-click="detail(result.id)">详情</button>
                     <button type="button" class="btn btn-primary btn-xs"
                             ng-click="editOrder(result.id)">修改订单</button>
+
+                    <button type="button" class="btn btn-primary btn-xs"
+                            ng-if="result.orderStatus=='0'" ng-click="publishOrder(result.id,1)">发布</button>
+                    <button type="button" class="btn btn-primary btn-xs"
+                            ng-if="result.orderStatus=='1'" ng-click="publishOrder(result.id,0)">取消发布</button>
+
+                    <button type="button" class="btn btn-primary btn-xs"
+                            ng-if="(result.orderStatus=='0' || (result.orderStatus==1 && result.busMemberId==0))" ng-click="companyListFriend(result.id)">指定车辆</button>
+                    <button type="button" class="btn btn-primary btn-xs"
+                            ng-if="result.shippingStatus==1002 && result.orderStatus!='9' && result.payStatus!=1" ng-click="companyListFriend(result.id)">重新指定车辆</button>
+
 
                     <button type="button" class="btn btn-primary btn-xs"
                             ng-if="result.orderStatus=='9'" ng-click="alipay(result)">付款</button>
@@ -258,5 +270,75 @@
     <!-- /.modal-dialog -->
   </div>
 
+
+  <div class="modal fade" id="dispatch-car" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel1">指定车辆</h4>
+        </div>
+        <form ng-submit="selectedOid()" novalidate="novalidate" name="theForm">
+          <div class="modal-body">
+            <div class="form-group" ng-class="{'has-error':!theForm.dispatchFee.$valid}">
+              <div class="input-group">
+                <span class="input-group-addon">提箱费</span>
+                <input type="number" class="form-control" name="dispatchFee" ng-model="dispatchCarParams.dispatchFee" required>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':!theForm.offerOrderMoney.$valid}">
+              <div class="input-group">
+                <span class="input-group-addon">指派价格</span>
+                <input type="number" class="form-control" name="offerOrderMoney" ng-model="dispatchCarParams.offerOrderMoney" required>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="table-responsive" ng-if="myFriendsIdArray.length!=0">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>状态</th>
+                <th>姓名</th>
+                <th>电话</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="result in myFriendsIdArray">
+                <td>
+                  <div class="radio radio-info" ng-show="!result.disabled">
+                    <input type="radio" name="radio" id="radio1{{result.id}}" ng-value="result.id" ng-model="dispatchCarParams.fid">
+                    <label for="radio1{{result.id}}">选择</label>
+                  </div>
+                </td>
+                <td>
+                  <div style="display:block;margin-top:10px;margin-bottom:10px">
+                    <span class="text-muted"><i class="fa fa-clock-o"></i> {{result.busMemberName}}</span>
+                  </div>
+                </td>
+                <td>
+                  <div style="display:block;margin-top:10px;margin-bottom:10px">
+                    {{result.busMemberMobile}}
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':(theForm.$valid && dispatchCarParams.fid!=''),'btn-danger':(theForm.$invalid || dispatchCarParams.fid=='')}" class="btn waves-effect waves-light m-r-10">
+              <span ng-if="theForm.$invalid">请填写完整信息</span>
+              <span ng-if="theForm.$valid && dispatchCarParams.fid==''">请选择车主</span>
+              <span ng-if="theForm.$valid && dispatchCarParams.fid!=''">确认指派</span>
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
 
 </div>
