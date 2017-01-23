@@ -32,8 +32,12 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
 
     $scope.initStr = '上下车费;待时费;动卫检;坏污箱移箱费;预进港;落箱费';
 
+    $scope.switchOrderStatus = function (orderStatus) {
+      // $scope.orderDetail.orderStatus = orderStatus;
+    }
     //提交表单
-    $scope.onSubmit = function($valid){
+    $scope.onSubmit = function($valid,form){
+      console.log('--->'+$valid);
       if($valid){
         if ($scope.orderDetail.orderStatus==1){
           swal({
@@ -61,7 +65,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
                 },function () {
                   $state.go('main.companyinner.query_order');
                 });
-                $scope.reset($valid);
+                $scope.reset(form);
               }else{
                 swal({
                   title:"创建失败！",
@@ -98,7 +102,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
                 },function () {
                   $state.go('main.companyinner.query_order');
                 });
-                $scope.reset($valid);
+                $scope.reset(form);
               }else{
                 swal({
                   title:"保存失败！",
