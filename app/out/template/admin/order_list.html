@@ -135,7 +135,7 @@
                   <td><div credit-rank="" for-star="{{result.orderCreditRank}}"></div></td>
                   <td>{{result.loadingPort}}</td>
                   <td>{{result.returnPort}}</td>
-                  <td>{{result.containerVType}}</td>
+                  <td>{{result.containerSType|boxType}}/{{result.containerVType|boxVol}}</td>
                   <td>{{result.grossWeight}}</td>
                   <td>{{result.shippingFee}}</td>
                   <td ng-if="result.payStatus==1">完成</td>

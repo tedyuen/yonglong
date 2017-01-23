@@ -136,6 +136,7 @@ yonglongApp.constant('URL_CONS', {
 
   // serverUrl: 'http://www.56elutong.com/api/data',
   // serverFileUrl: 'http://www.56elutong.com/api/file',
+  // exportReport : 'http://www.56elutong.com/execl/exportReport.do',
   // exportReportOfOrder : 'http://www.56elutong.com/execl/exportReportOfOrder.do',
   // exportReportOfFriend : 'http://www.56elutong.com/execl/exportReportOfFriend.do',
 
