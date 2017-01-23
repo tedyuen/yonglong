@@ -2476,8 +2476,8 @@ yonglongApp.controller('userUpdateInfoController',['$scope','$state','$timeout',
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('userWannerOrderController',['$scope','$timeout','$interval','showDatePickerProvider','baseDataService','interfaceService','rescode',
-  function ($scope,$timeout,$interval,showDatePickerProvider,baseDataService,interfaceService,rescode) {
+yonglongApp.controller('userWannerOrderController',['$scope','$timeout','$interval','$location','showDatePickerProvider','baseDataService','interfaceService','rescode',
+  function ($scope,$timeout,$interval,$location,showDatePickerProvider,baseDataService,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
@@ -2628,6 +2628,11 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','$interv
     var timePromise = function () {
       $scope.countUp = 20;
       var tempInterval = $interval(function() {
+        console.log($location.url());
+        if($location.url()!='/main/userinner/wanner_order'){
+          $interval.cancel(tempInterval);
+          tempInterval = undefined;
+        }
         if ($scope.countUp <= 0) {
           $interval.cancel(tempInterval);
           tempInterval = undefined;
@@ -4543,8 +4548,8 @@ yonglongApp.controller('updateInfoController', ['$scope','$timeout', 'dropifyPro
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('wannerOrderController',['$scope','$timeout','$interval','showDatePickerProvider','baseDataService','interfaceService','rescode',
-  function ($scope,$timeout,$interval,showDatePickerProvider,baseDataService,interfaceService,rescode) {
+yonglongApp.controller('wannerOrderController',['$scope','$timeout','$interval','$location','showDatePickerProvider','baseDataService','interfaceService','rescode',
+  function ($scope,$timeout,$interval,$location,showDatePickerProvider,baseDataService,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
@@ -4710,6 +4715,10 @@ yonglongApp.controller('wannerOrderController',['$scope','$timeout','$interval',
     var timePromise = function () {
       $scope.countUp = 20;
       var tempInterval = $interval(function() {
+        if($location.url()!='/main/companyinner/wanner_order'){
+          $interval.cancel(tempInterval);
+          tempInterval = undefined;
+        }
         if ($scope.countUp <= 0) {
           $interval.cancel(tempInterval);
           tempInterval = undefined;
