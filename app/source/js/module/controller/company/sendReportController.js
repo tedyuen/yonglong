@@ -1,11 +1,15 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('sendReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('sendReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode','URL_CONS','dateService',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode,URL_CONS,dateService) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
       $('#formToken').val(sessionService.getSession().token);
+    }
+    document.getElementById("reportForm").action= URL_CONS.exportReport;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
     $scope.queryData = {
       startTime:'',
@@ -58,5 +62,12 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','sessionServi
       $('#formActer').val($scope.queryData.acter);
     });
 
+    var getCurrentDate = function () {
+      $scope.queryData.startTime = dateService.getLastMonthDate();
+      $scope.queryData.endTime = dateService.getCurrentDate();
+    }
+
+    getCurrentDate();
     httpList();
-}]);
+
+  }]);

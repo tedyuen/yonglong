@@ -8,6 +8,7 @@ yonglongApp.constant('URL_CONS', {
 
   serverUrl: 'http://120.26.65.65:8285/api/data',
   serverFileUrl: 'http://120.26.65.65:8285/api/file',
+  exportReport : 'http://120.26.65.65:8285/execl/exportReport.do',
   exportReportOfOrder : 'http://120.26.65.65:8285/execl/exportReportOfOrder.do',
   exportReportOfFriend : 'http://120.26.65.65:8285/execl/exportReportOfFriend.do',
 

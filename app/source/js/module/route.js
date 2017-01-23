@@ -97,6 +97,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.admin.all_report',{//月度报表
+      url:'/all_report',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/all_report.html',
+          controller: 'adminAllReportController'
+        }
+      }
+    })
     .state('main.admin.friend_list',{//月度报表-外发订单
       url:'/friend_list',
       views: {
@@ -187,6 +196,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         'content@main': {
           templateUrl: 'template/userinner/hasget2_order.html',
           controller: 'userHasgetOrderController2'
+        }
+      }
+    })
+    .state('main.userinner.all_report',{//月度报表
+      url:'/all_report',
+      views: {
+        'content@main': {
+          templateUrl: 'template/userinner/all_report.html',
+          controller: 'userAllReportController'
         }
       }
     })
@@ -346,6 +364,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         'content@main': {
           templateUrl: 'template/companyinner/hasget_order.html',
           controller: 'hasgetOrderController'
+        }
+      }
+    })
+    .state('main.companyinner.all_report',{//外发订单合并
+      url:'/all_report',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/send_report.html',
+          controller: 'sendReportController'
         }
       }
     })

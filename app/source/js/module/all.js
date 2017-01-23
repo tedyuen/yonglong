@@ -130,6 +130,7 @@ yonglongApp.constant('URL_CONS', {
 
   serverUrl: 'http://120.26.65.65:8285/api/data',
   serverFileUrl: 'http://120.26.65.65:8285/api/file',
+  exportReport : 'http://120.26.65.65:8285/execl/exportReport.do',
   exportReportOfOrder : 'http://120.26.65.65:8285/execl/exportReportOfOrder.do',
   exportReportOfFriend : 'http://120.26.65.65:8285/execl/exportReportOfFriend.do',
 
@@ -519,6 +520,25 @@ yonglongApp.provider('countupProvider',function () {
       }
     }
   }
+});
+
+yonglongApp.service('dateService',function () {
+
+  this.getCurrentDate = function () {
+    var myDate = new Date();
+    var month = myDate.getMonth()+1;
+    // console.log(myDate.getFullYear()+"-"+month+"-"+myDate.getDate());
+    return myDate.getFullYear()+"-"+month+"-"+myDate.getDate();
+  }
+
+  this.getLastMonthDate = function () {
+    var myDate = new Date();
+    myDate.setMonth(myDate.getMonth()-1);
+    var month = myDate.getMonth()+1;
+    // console.log(myDate.getFullYear()+"-"+month+"-"+myDate.getDate());
+    return myDate.getFullYear()+"-"+month+"-"+myDate.getDate();
+  }
+
 });
 
 /**
@@ -1337,11 +1357,15 @@ yonglongApp.controller('departCostListController',['$scope','interfaceService','
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('userAllReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('userAllReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode','URL_CONS','dateService',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode,URL_CONS,dateService) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
       $('#formToken').val(sessionService.getSession().token);
+    }
+    document.getElementById("reportForm").action= URL_CONS.exportReport;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
     $scope.queryData = {
       startTime:'',
@@ -1391,7 +1415,14 @@ yonglongApp.controller('userAllReportController',['$scope','$timeout','sessionSe
       $('#formActer').val($scope.queryData.acter);
     });
 
+    var getCurrentDate = function () {
+      $scope.queryData.startTime = dateService.getLastMonthDate();
+      $scope.queryData.endTime = dateService.getCurrentDate();
+    }
+
+    getCurrentDate();
     httpList();
+
   }]);
 
 yonglongApp.controller('userCreateWithdrawController',['$scope','$timeout','$state','interfaceService','showDatePickerProvider','rescode',
@@ -4434,11 +4465,15 @@ yonglongApp.controller('reportOrderController',['$scope','$timeout','sessionServ
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('sendReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('sendReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode','URL_CONS','dateService',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode,URL_CONS,dateService) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
       $('#formToken').val(sessionService.getSession().token);
+    }
+    document.getElementById("reportForm").action= URL_CONS.exportReport;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
     $scope.queryData = {
       startTime:'',
@@ -4491,8 +4526,15 @@ yonglongApp.controller('sendReportController',['$scope','$timeout','sessionServi
       $('#formActer').val($scope.queryData.acter);
     });
 
+    var getCurrentDate = function () {
+      $scope.queryData.startTime = dateService.getLastMonthDate();
+      $scope.queryData.endTime = dateService.getCurrentDate();
+    }
+
+    getCurrentDate();
     httpList();
-}]);
+
+  }]);
 
 /**
  * Created by tedyuen on 16-12-15.
@@ -4880,11 +4922,15 @@ yonglongApp.controller('withdrawManageController', ['$scope', 'interfaceService'
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('adminAllReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('adminAllReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode','URL_CONS','dateService',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode,URL_CONS,dateService) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
       $('#formToken').val(sessionService.getSession().token);
+    }
+    document.getElementById("reportForm").action= URL_CONS.exportReport;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
     $scope.queryData = {
       startTime:'',
@@ -4935,7 +4981,14 @@ yonglongApp.controller('adminAllReportController',['$scope','$timeout','sessionS
     });
 
 
+    var getCurrentDate = function () {
+      $scope.queryData.startTime = dateService.getLastMonthDate();
+      $scope.queryData.endTime = dateService.getCurrentDate();
+    }
+
+    getCurrentDate();
     httpList();
+
   }]);
 
 yonglongApp.controller('adminCompanyListController',['$scope','showDatePickerProvider','interfaceService','rescode',
@@ -6518,6 +6571,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.admin.all_report',{//月度报表
+      url:'/all_report',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/all_report.html',
+          controller: 'adminAllReportController'
+        }
+      }
+    })
     .state('main.admin.friend_list',{//月度报表-外发订单
       url:'/friend_list',
       views: {
@@ -6608,6 +6670,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         'content@main': {
           templateUrl: 'template/userinner/hasget2_order.html',
           controller: 'userHasgetOrderController2'
+        }
+      }
+    })
+    .state('main.userinner.all_report',{//月度报表
+      url:'/all_report',
+      views: {
+        'content@main': {
+          templateUrl: 'template/userinner/all_report.html',
+          controller: 'userAllReportController'
         }
       }
     })
@@ -6767,6 +6838,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         'content@main': {
           templateUrl: 'template/companyinner/hasget_order.html',
           controller: 'hasgetOrderController'
+        }
+      }
+    })
+    .state('main.companyinner.all_report',{//外发订单合并
+      url:'/all_report',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/send_report.html',
+          controller: 'sendReportController'
         }
       }
     })
