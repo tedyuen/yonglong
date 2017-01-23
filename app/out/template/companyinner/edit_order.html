@@ -24,7 +24,7 @@
                 <div class="form-group" ng-class="{'has-error':!theForm.shippingName.$valid}">
                   <div class="input-group">
                     <span class="input-group-addon">船名行次</span>
-                    <input type="text" class="form-control" name="shippingName" ng-model="orderDetail.shippingName" required>
+                    <input type="text" class="form-control" name="shippingName" ng-model="orderDetail.shippingName">
                   </div>
                   <div class="help-block with-errors">
                     <span ng-if="theForm.shippingName.$valid">&nbsp;</span>
@@ -53,7 +53,7 @@
                 <div class="form-group" ng-class="{'has-error':!theForm.originPort.$valid}">
                   <div class="input-group">
                     <span class="input-group-addon">起始地</span>
-                    <input type="text" class="form-control" id="startaddress" name="originPort" ng-model="orderDetail.originPort" required>
+                    <input type="text" class="form-control" id="startaddress" name="originPort" ng-model="orderDetail.originPort">
                     <!--<span class="input-group-btn">-->
                     <!--<button type="button" class="btn waves-effect waves-light btn-primary" alt="default">选择地址</button>-->
                     <!--</span>-->
@@ -101,7 +101,7 @@
                 <div class="form-group" ng-class="{'has-error':!theForm.transitPort.$valid}">
                   <div class="input-group">
                     <span class="input-group-addon">中转港/卸港</span>
-                    <input type="text" class="form-control" id="transitport" name="transitPort" ng-model="orderDetail.transitPort" required>
+                    <input type="text" class="form-control" id="transitport" name="transitPort" ng-model="orderDetail.transitPort">
                   </div>
                   <div class="help-block with-errors">
                     <span ng-if="theForm.transitPort.$valid">&nbsp;</span>
@@ -115,7 +115,7 @@
                 <div class="form-group" ng-class="{'has-error':!theForm.destPort.$valid}">
                   <div class="input-group">
                     <span class="input-group-addon">目的港/交货地</span>
-                    <input type="text" class="form-control" id="targetport" name="destPort" ng-model="orderDetail.destPort" required>
+                    <input type="text" class="form-control" id="targetport" name="destPort" ng-model="orderDetail.destPort">
                   </div>
                   <div class="help-block with-errors">
                     <span ng-if="theForm.destPort.$valid">&nbsp;</span>
@@ -201,11 +201,11 @@
                 <div class="form-group" ng-class="{'has-error':!theForm.items.$valid}">
                   <div class="input-group">
                     <span class="input-group-addon">件数</span>
-                    <input type="number" class="form-control" name="items" ng-model="orderDetail.items" required>
+                    <input type="number" class="form-control" name="items" ng-model="orderDetail.items">
                   </div>
                   <div class="help-block with-errors">
                     <span ng-if="theForm.referenceShippingFee.$valid">&nbsp;</span>
-                    <span ng-if="!theForm.referenceShippingFee.$valid">请填写数字并不能为空</span>
+                    <span ng-if="!theForm.referenceShippingFee.$valid">请填写数字</span>
                   </div>
                 </div>
               </div>
@@ -226,11 +226,11 @@
                 <div class="form-group" ng-class="{'has-error':!theForm.referenceShippingFee.$valid}">
                   <div class="input-group">
                     <span class="input-group-addon">参考运价</span>
-                    <input type="number" class="form-control" name="referenceShippingFee" ng-model="orderDetail.referenceShippingFee" required>
+                    <input type="number" class="form-control" name="referenceShippingFee" ng-model="orderDetail.referenceShippingFee" >
                   </div>
                   <div class="help-block with-errors">
                     <span ng-if="theForm.referenceShippingFee.$valid">&nbsp;</span>
-                    <span ng-if="!theForm.referenceShippingFee.$valid">请填写数字并不能为空</span>
+                    <span ng-if="!theForm.referenceShippingFee.$valid">请填写数字</span>
                   </div>
                 </div>
               </div>
@@ -240,7 +240,7 @@
                 <div class="form-group" ng-class="{'has-error':!theForm.shippingSn.$valid}">
                   <div class="input-group">
                     <span class="input-group-addon">提单号</span>
-                    <input type="text" class="form-control" name="shippingSn" ng-model="orderDetail.shippingSn" required>
+                    <input type="text" class="form-control" name="shippingSn" ng-model="orderDetail.shippingSn">
                   </div>
                   <div class="help-block with-errors">
                     <span ng-if="theForm.shippingSn.$valid">&nbsp;</span>
