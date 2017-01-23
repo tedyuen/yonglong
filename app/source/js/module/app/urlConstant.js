@@ -23,6 +23,7 @@ yonglongApp.constant('URL_CONS', {
   companyCreateOrder: 'company_create_order',
   companyOrderList: 'company_list_order',
   companyListMyorder: 'company_list_myorder',
+  companyPublishOrder: 'company_publish_order',
   companyListGetorder: 'company_list_getorder',
   deleteOrder: 'company_delete_order',
   companyUserinfo: 'company_userinfo',
@@ -43,6 +44,7 @@ yonglongApp.constant('URL_CONS', {
   listRefundApply: 'listRefundApply',
   addRefundApply: 'addRefundApply',
   cashList: 'cashList',
+  goodsUserDetailByFriend: 'getGoodsUserDetailbyFriend',
   reportList: 'report_list',
   alipay: 'alipay',
   alipayDispatchOrder: 'alipayDispatchOrder',
@@ -82,4 +84,8 @@ yonglongApp.constant('URL_CONS', {
   updatePassword: 'update_password',
   resetPassword: 'reset_password',
   sendcode: 'sendcode',
+
+
+  reportFriendList: 'report_friend_list',
+  reportOrderList: 'report_order_list',
 });

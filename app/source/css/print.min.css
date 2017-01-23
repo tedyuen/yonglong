@@ -49,8 +49,10 @@ body {
       left: 300px;
       top: 355px; }
     #table #result-data .items {
-      left: 475px;
-      top: 386px; }
+      left: 435px;
+      top: 386px;
+      width: 100px;
+      text-align: center; }
     #table #result-data .net-weight {
       left: 580px;
       top: 386px; }

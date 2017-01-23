@@ -74,36 +74,47 @@ yonglongApp.controller('userHasgetOrderController',['$scope','$timeout','showDat
       swal({
         title: "确认送到吗?",
         text: "您即将确认送到此订单!",
-        type: "warning",
+        type: "input",
         showCancelButton: true,
         cancelButtonText: "取消",
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "是的,确认!",
         closeOnConfirm: false,
-        showLoaderOnConfirm: true
-      }, function(){
-        var tempData = {
-          orderId:orderId
-        }
-        interfaceService.userOverOfferOrder(tempData,function (data,headers,config) {
-          if(data.rescode==rescode.SUCCESS){
-            swal({
-              title:"确认成功！",
-              text:"此订单已确认送到。",
-              type:"success",
-              confirmButtonText:"确定"
-            },function () {
-              httpList();
-            });
-          }else{
-            swal({
-              title:"确认失败！",
-              text:"请重新执行此操作。",
-              type:"error",
-              confirmButtonText:"确定"
-            });
+        showLoaderOnConfirm: true,
+        inputPlaceholder: "请输入箱号"
+      }, function(inputValue){
+        if (inputValue === false){
+
+        }else if (inputValue === "") {
+          swal.showInputError("请输入箱号!");
+          // swal('错误','额外费用名称不能为空！','error');
+          // return false
+        }else{
+          var tempData = {
+            orderId:orderId,
+            containerNo:inputValue
           }
-        });
+          interfaceService.userOverOfferOrder(tempData,function (data,headers,config) {
+            if(data.rescode==rescode.SUCCESS){
+              swal({
+                title:"确认成功！",
+                text:"此订单已确认送到。",
+                type:"success",
+                confirmButtonText:"确定"
+              },function () {
+                httpList();
+              });
+            }else{
+              swal({
+                title:"确认失败！",
+                text:"请重新执行此操作。",
+                type:"error",
+                confirmButtonText:"确定"
+              });
+            }
+          });
+        }
+
 
       });
     }

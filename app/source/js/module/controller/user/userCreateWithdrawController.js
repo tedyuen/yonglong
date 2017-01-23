@@ -25,10 +25,10 @@ yonglongApp.controller('userCreateWithdrawController',['$scope','$timeout','$sta
 
     var getCashList = function () {
       interfaceService.cashList({},function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $scope.cashList = data.data.listCash;
-          $scope.listCashDispatch = data.data.dataDispatch;
+          $scope.listCashDispatch = data.data.listCashDispatch;
 
         }
       });
@@ -151,6 +151,33 @@ yonglongApp.controller('userCreateWithdrawController',['$scope','$timeout','$sta
             }
           });
         });
+      }
+    }
+
+    $scope.goodsUserDetailByFriend = function (friendId) {
+      var param = {
+        friendId:friendId
+      }
+      interfaceService.goodsUserDetailByFriend(param,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.busUserDetailResult = data.data;
+          $scope.busUserDetailResult.resultType = 1;
+          $('#bus-user-detail-modal').modal('show');
+        }
+
+      });
+    }
+
+    $scope.detail = function (id) {
+      $scope.detailOrderId = id;
+      $('#order-detail').modal('show');
+    }
+
+    $scope.printDetail = function () {
+      if($scope.detailOrderId){
+        var link = 'table_print.html#!?id='+$scope.detailOrderId;
+        window.open(link);
       }
     }
 

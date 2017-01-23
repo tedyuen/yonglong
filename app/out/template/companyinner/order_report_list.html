@@ -3,12 +3,12 @@
   <div class="container-fluid">
     <div class="row bg-title">
       <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">外接订单</h4>
+        <h4 class="page-title">外发订单</h4>
       </div>
       <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
           <li><a href="">月度报表</a></li>
-          <li class="active">外接订单</li>
+          <li class="active">外发订单</li>
         </ol>
       </div>
       <!-- /.col-lg-12 -->
@@ -20,7 +20,6 @@
         <form ng-submit="queryList(theForm.$valid)" novalidate="novalidate" name="theForm">
           <div class="white-box">
             <div class="row">
-
               <div class="col-md-6 col-lg-6 col-sm-12">
                 <div class="form-group">
                   <div class="input-group">
@@ -100,9 +99,8 @@
           </div>
           <div class="row m-t-20">
             <!--<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">导出报表(xlsx)</button>-->
-
             <div ng-show="results.totalPages!=null && results.totalPages!=0">
-              <h3 class="m-t-15">外接订单</h3>
+              <h3 class="m-t-15">外发订单（接单方为私营车主）</h3>
               <div class="table-responsive m-t-15">
                 <table class="table color-table primary-table table-hover table-bordered">
                   <thead>
@@ -179,7 +177,6 @@
                           switch-page="switchPage">
               </pagination>
             </div>
-
           </div>
         </div>
       </div>
@@ -188,3 +185,5 @@
     </div>
   </div>
 </div>
+
+

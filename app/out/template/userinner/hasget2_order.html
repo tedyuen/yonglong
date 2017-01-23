@@ -146,7 +146,7 @@
                   <button type="button" class="btn btn-primary btn-xs"
                           ng-click="detail(result.id)">详情</button>
                   <button type="button" class="btn btn-primary btn-xs"
-                          ng-if="result.orderStatus=='101'" ng-click="over(result.id)">确认送到</button>
+                          ng-if="result.orderStatus=='2' || result.orderStatus=='4'" ng-click="over(result.id)">确认送到</button>
                   <button type="button" class="btn btn-primary btn-xs"
                           ng-if="result.orderStatus=='2' && result.payStatus!=1" ng-click="cancelOrder(result.id)">取消订单</button>
 

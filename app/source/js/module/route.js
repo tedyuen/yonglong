@@ -97,12 +97,21 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
-    .state('main.admin.all_report',{//报表
-      url:'/all_report',
+    .state('main.admin.friend_list',{//月度报表-外发订单
+      url:'/friend_list',
       views: {
         'content@main': {
-          templateUrl: 'template/admin/all_report.html',
-          controller: 'adminAllReportController'
+          templateUrl: 'template/admin/friend_list.html',
+          controller: 'adminFriendListReportController'
+        }
+      }
+    })
+    .state('main.admin.order_report_list',{//月度报表-外接订单
+      url:'/order_report_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/admin/order_report_list.html',
+          controller: 'adminOrderListReportController'
         }
       }
     })
@@ -181,15 +190,25 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
-    .state('main.userinner.all_report',{//月度报表
-      url:'/all_report',
+    .state('main.userinner.friend_list',{//月度报表-外发订单
+      url:'/friend_list',
       views: {
         'content@main': {
-          templateUrl: 'template/userinner/all_report.html',
-          controller: 'userAllReportController'
+          templateUrl: 'template/userinner/friend_list.html',
+          controller: 'userFriendListReportController'
         }
       }
     })
+    .state('main.userinner.order_list',{//月度报表-外接订单
+      url:'/order_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/userinner/order_list.html',
+          controller: 'userOrderListReportController'
+        }
+      }
+    })
+
     .state('main.userinner.friend_manage',{//好友管理
       url:'/friend_manage',
       views: {
@@ -330,16 +349,25 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
-    .state('main.companyinner.send_report',{//外发订单
-      url:'/send_report',
+    .state('main.companyinner.report_order',{//外发订单1
+      url:'/report_order',
       views: {
         'content@main': {
-          templateUrl: 'template/companyinner/send_report.html',
-          controller: 'sendReportController'
+          templateUrl: 'template/companyinner/order_report_list.html',
+          controller: 'reportOrderController'
         }
       }
     })
-    .state('main.companyinner.receive_report',{//外发订单
+    .state('main.companyinner.report_friend',{//外发订单2
+      url:'/report_friend',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/friend_report_list.html',
+          controller: 'reportFriendController'
+        }
+      }
+    })
+    .state('main.companyinner.receive_report',{//外接订单
       url:'/receive_report',
       views: {
         'content@main': {
