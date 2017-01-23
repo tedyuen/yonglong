@@ -474,7 +474,6 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.companyCreateOrder = function (params,success,error) {
     var sub = {
       method:URL_CONS.companyCreateOrder,
-      orderStatus:1,
       orderCreditRank:5
     };
     this.doHttp(URL_CONS.serverUrl,sub,params,success,error);
