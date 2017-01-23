@@ -17,7 +17,7 @@
     <!-- /.row -->
     <div class="row">
       <div class="col-sm-12">
-        <form ng-submit="onSubmit(theForm.$valid)" novalidate="novalidate" name="theForm">
+        <form ng-submit="onSubmit(theForm.$valid,theForm)" novalidate="novalidate" name="theForm">
           <div class="white-box">
             <div class="row">
               <div class="col-md-6 col-lg-4 col-sm-12">
@@ -277,11 +277,11 @@
 
             </extra-fee>
 
-            <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" model="orderDetail.orderStatus==1" class="btn waves-effect waves-light m-r-10">
+            <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" ng-click="switchOrderStatus(1)" class="btn waves-effect waves-light m-r-10">
               <span ng-if="theForm.$invalid">完成表单后发布</span>
               <span ng-if="theForm.$valid">发布订单</span>
             </button>
-            <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" model="orderDetail.orderStatus==0" class="btn waves-effect waves-light m-r-10">
+            <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" ng-click="switchOrderStatus(0)" class="btn waves-effect waves-light m-r-10">
               <span ng-if="theForm.$invalid">完成表单后保存</span>
               <span ng-if="theForm.$valid">保存订单</span>
             </button>
