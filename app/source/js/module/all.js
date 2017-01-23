@@ -839,7 +839,6 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.companyCreateOrder = function (params,success,error) {
     var sub = {
       method:URL_CONS.companyCreateOrder,
-      orderStatus:1,
       orderCreditRank:5
     };
     this.doHttp(URL_CONS.serverUrl,sub,params,success,error);
@@ -2589,8 +2588,12 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
 
     $scope.initStr = '上下车费;待时费;动卫检;坏污箱移箱费;预进港;落箱费';
 
+    $scope.switchOrderStatus = function (orderStatus) {
+      // $scope.orderDetail.orderStatus = orderStatus;
+    }
     //提交表单
-    $scope.onSubmit = function($valid){
+    $scope.onSubmit = function($valid,form){
+      console.log('--->'+$valid);
       if($valid){
         if ($scope.orderDetail.orderStatus==1){
           swal({
@@ -2618,7 +2621,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
                 },function () {
                   $state.go('main.companyinner.query_order');
                 });
-                $scope.reset($valid);
+                $scope.reset(form);
               }else{
                 swal({
                   title:"创建失败！",
@@ -2655,7 +2658,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
                 },function () {
                   $state.go('main.companyinner.query_order');
                 });
-                $scope.reset($valid);
+                $scope.reset(form);
               }else{
                 swal({
                   title:"保存失败！",
