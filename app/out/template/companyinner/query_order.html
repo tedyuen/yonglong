@@ -153,10 +153,12 @@
                             ng-if="result.orderStatus=='1'" ng-click="publishOrder(result.id,0)">取消发布</button>
 
                     <button type="button" class="btn btn-primary btn-xs"
-                            ng-if="(result.orderStatus=='0' || (result.orderStatus==1 && result.busMemberId==0))" ng-click="companyListFriend(result.id)">指定车辆</button>
+                            ng-if="(result.orderStatus==0 || (result.orderStatus==1 && result.busMemberId==0))" ng-click="companyListFriend(result.id)">指定车辆</button>
                     <button type="button" class="btn btn-primary btn-xs"
                             ng-if="result.shippingStatus==1002 && result.orderStatus!='9' && result.payStatus!=1" ng-click="companyListFriend(result.id)">重新指定车辆</button>
 
+                    <button type="button" class="btn btn-primary btn-xs"
+                            ng-if="result.orderStatus==2 || result.orderStatus==4" ng-click="over(result.id)">确认送到</button>
 
                     <button type="button" class="btn btn-primary btn-xs"
                             ng-if="result.orderStatus=='9'" ng-click="alipay(result)">付款</button>
