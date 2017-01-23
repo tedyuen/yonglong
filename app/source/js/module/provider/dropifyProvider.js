@@ -11,12 +11,14 @@ yonglongApp.provider('dropifyProvider',function () {
             default: '拖拽图片或点击添加',
             replace: '拖拽图片或点击替换',
             remove:  '删除',
-            error: {
-              'fileSize': '文件不能大于{{ value }}',
-              'imageFormat': '文件格式不正确'
-            }
+          },
+          error: {
+            'fileSize': '文件不能大于{{ value }}',
+            'imageFormat': '文件格式不正确',
+            'fileExtension':'文件类型不正确，请提交{{ value }}格式的文件',
           }
         });
+
 
         // drEvent.on('dropify.beforeClear', function(event, element){
         //   return confirm("确定要删除 \"" + element.file.name + "\" 吗?");
