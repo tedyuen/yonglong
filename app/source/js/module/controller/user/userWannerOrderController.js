@@ -106,7 +106,7 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','$interv
           }else{
             swal({
               title:"接单失败！",
-              text:"请重新执行此操作。",
+              text:data.resdesc,
               type:"error",
               confirmButtonText:"确定"
             });

@@ -128,17 +128,17 @@ yonglongApp.constant('URL_CONS', {
   // server: 'http://www.56elutong.com/',
   // server: 'http://120.26.65.65:8285/',
 
-  serverUrl: 'http://120.26.65.65:8285/api/data',
-  serverFileUrl: 'http://120.26.65.65:8285/api/file',
-  exportReport : 'http://120.26.65.65:8285/execl/exportReport.do',
-  exportReportOfOrder : 'http://120.26.65.65:8285/execl/exportReportOfOrder.do',
-  exportReportOfFriend : 'http://120.26.65.65:8285/execl/exportReportOfFriend.do',
+  // serverUrl: 'http://120.26.65.65:8285/api/data',
+  // serverFileUrl: 'http://120.26.65.65:8285/api/file',
+  // exportReport : 'http://120.26.65.65:8285/execl/exportReport.do',
+  // exportReportOfOrder : 'http://120.26.65.65:8285/execl/exportReportOfOrder.do',
+  // exportReportOfFriend : 'http://120.26.65.65:8285/execl/exportReportOfFriend.do',
 
-  // serverUrl: 'http://www.56elutong.com/api/data',
-  // serverFileUrl: 'http://www.56elutong.com/api/file',
-  // exportReport : 'http://www.56elutong.com/execl/exportReport.do',
-  // exportReportOfOrder : 'http://www.56elutong.com/execl/exportReportOfOrder.do',
-  // exportReportOfFriend : 'http://www.56elutong.com/execl/exportReportOfFriend.do',
+  serverUrl: 'http://www.56elutong.com/api/data',
+  serverFileUrl: 'http://www.56elutong.com/api/file',
+  exportReport : 'http://www.56elutong.com/execl/exportReport.do',
+  exportReportOfOrder : 'http://www.56elutong.com/execl/exportReportOfOrder.do',
+  exportReportOfFriend : 'http://www.56elutong.com/execl/exportReportOfFriend.do',
 
 
   companyRegister: 'company_register',
@@ -2621,7 +2621,7 @@ yonglongApp.controller('userWannerOrderController',['$scope','$timeout','$interv
           }else{
             swal({
               title:"接单失败！",
-              text:"请重新执行此操作。",
+              text:data.resdesc,
               type:"error",
               confirmButtonText:"确定"
             });
