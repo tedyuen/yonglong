@@ -1,11 +1,15 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('userFriendListReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('userFriendListReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode','URL_CONS',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode,URL_CONS) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
       $('#formToken').val(sessionService.getSession().token);
+    }
+    document.getElementById("reportForm").action= URL_CONS.exportReportOfFriend;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
     $scope.queryData = {
       startTime:'',

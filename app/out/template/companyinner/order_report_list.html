@@ -85,7 +85,7 @@
         <div class="white-box">
           <div class="row">
             <div>
-              <form action="http://120.26.65.65:8285/execl/exportReportOfOrder.do" name="excelForm" method="post">
+              <form id="reportForm"  name="excelForm" method="post">
                 <input id="formStartTime" type="hidden" name="startTime">
                 <input id="formEndTime" type="hidden" name="endTime">
                 <input id="formActer" type="hidden" name="acter">
@@ -93,7 +93,7 @@
                 <input id="formToken" type="hidden" name="token">
                 <input type="hidden" name="owner" value="true">
 
-                <button type="submit" class="btn btn-default waves-effect waves-light">导出Excel</button>
+                <button type="button" class="btn btn-default waves-effect waves-light" ng-click="reportExport()">导出Excel</button>
               </form>
             </div>
           </div>

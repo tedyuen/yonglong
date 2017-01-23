@@ -124,21 +124,19 @@ yonglongApp.constant('rescode', {
  * Created by tedyuen on 16-12-17.
  */
 yonglongApp.constant('URL_CONS', {
-  // serverUrl:'http://192.168.0.25:8080/admin/api/data',
-  // serverUrl:'http://192.168.0.25:8080/admin/api/data',
-  // serverFileUrl:'http://192.168.0.25:8080/admin/api/file',
-  server: 'http://120.26.65.65:8285/',
+
+  // server: 'http://www.56elutong.com/',
+  // server: 'http://120.26.65.65:8285/',
+
   serverUrl: 'http://120.26.65.65:8285/api/data',
   serverFileUrl: 'http://120.26.65.65:8285/api/file',
-
-  // // exportCompanyUser: 'http://120.26.65.65:8285/execl/exportCompanyUser.do',
-  // exportCompanyUser: 'http://192.168.0.124:8080/adm/execl/exportCompanyUser.do',
-  // exportBusUser: this.server+'execl/exportBusUser.do',
-  // exportReport: this.server+'execl/exportReport.do',
-  // exportRefund: this.server+'execl/exportRefund.do',
+  exportReportOfOrder : 'http://120.26.65.65:8285/execl/exportReportOfOrder.do',
+  exportReportOfFriend : 'http://120.26.65.65:8285/execl/exportReportOfFriend.do',
 
   // serverUrl: 'http://www.56elutong.com/api/data',
-  // serverFileUrl: ' http://www.56elutong.com/api/file',
+  // serverFileUrl: 'http://www.56elutong.com/api/file',
+  // exportReportOfOrder : 'http://www.56elutong.com/execl/exportReportOfOrder.do',
+  // exportReportOfFriend : 'http://www.56elutong.com/execl/exportReportOfFriend.do',
 
 
   companyRegister: 'company_register',
@@ -1585,11 +1583,15 @@ yonglongApp.controller('userCreateWithdrawController',['$scope','$timeout','$sta
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('userFriendListReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('userFriendListReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode','URL_CONS',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode,URL_CONS) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
       $('#formToken').val(sessionService.getSession().token);
+    }
+    document.getElementById("reportForm").action= URL_CONS.exportReportOfFriend;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
     $scope.queryData = {
       startTime:'',
@@ -2157,11 +2159,15 @@ yonglongApp.controller('userHasgetOrderController2',['$scope','$timeout','showDa
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('userOrderListReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('userOrderListReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode','URL_CONS',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode,URL_CONS) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
       $('#formToken').val(sessionService.getSession().token);
+    }
+    document.getElementById("reportForm").action= URL_CONS.exportReportOfOrder;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
     $scope.queryData = {
       startTime:'',
@@ -4053,11 +4059,15 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('receiveReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('receiveReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode','URL_CONS',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode,URL_CONS) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
       $('#formToken').val(sessionService.getSession().token);
+    }
+    document.getElementById("reportForm").action= URL_CONS.exportReportOfOrder;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
     $scope.queryData = {
       startTime:'',
@@ -4254,11 +4264,15 @@ yonglongApp.controller('registerCompanyController', ['$scope', '$state', '$inter
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('reportFriendController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('reportFriendController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode','URL_CONS',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode,URL_CONS) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
       $('#formToken').val(sessionService.getSession().token);
+    }
+    document.getElementById("reportForm").action= URL_CONS.exportReportOfFriend;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
     $scope.queryData = {
       startTime:'',
@@ -4335,11 +4349,15 @@ yonglongApp.controller('reportFriendController',['$scope','$timeout','sessionSer
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('reportOrderController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('reportOrderController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode','URL_CONS',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode,URL_CONS) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
       $('#formToken').val(sessionService.getSession().token);
+    }
+    document.getElementById("reportForm").action= URL_CONS.exportReportOfOrder;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
     $scope.queryData = {
       startTime:'',
@@ -5156,11 +5174,15 @@ yonglongApp.controller('adminEditNewsController',['$scope','$stateParams','$time
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('adminFriendListReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('adminFriendListReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode','URL_CONS',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode,URL_CONS) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
       $('#formToken').val(sessionService.getSession().token);
+    }
+    document.getElementById("reportForm").action= URL_CONS.exportReportOfFriend;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
     $scope.queryData = {
       startTime:'',
@@ -5572,11 +5594,15 @@ yonglongApp.controller('adminOrderListController',['$scope','showDatePickerProvi
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('adminOrderListReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode',
-  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode) {
+yonglongApp.controller('adminOrderListReportController',['$scope','$timeout','sessionService','showDatePickerProvider','interfaceService','rescode','URL_CONS',
+  function ($scope,$timeout,sessionService,showDatePickerProvider,interfaceService,rescode,URL_CONS) {
     showDatePickerProvider.showDatePicker();
     if(sessionService.getSession() != undefined){
       $('#formToken').val(sessionService.getSession().token);
+    }
+    document.getElementById("reportForm").action= URL_CONS.exportReportOfOrder;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
     $scope.queryData = {
       startTime:'',

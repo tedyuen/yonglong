@@ -791,21 +791,19 @@ yonglongApp.constant('rescode', {
  * Created by tedyuen on 16-12-17.
  */
 yonglongApp.constant('URL_CONS', {
-  // serverUrl:'http://192.168.0.25:8080/admin/api/data',
-  // serverUrl:'http://192.168.0.25:8080/admin/api/data',
-  // serverFileUrl:'http://192.168.0.25:8080/admin/api/file',
-  server: 'http://120.26.65.65:8285/',
+
+  // server: 'http://www.56elutong.com/',
+  // server: 'http://120.26.65.65:8285/',
+
   serverUrl: 'http://120.26.65.65:8285/api/data',
   serverFileUrl: 'http://120.26.65.65:8285/api/file',
-
-  // // exportCompanyUser: 'http://120.26.65.65:8285/execl/exportCompanyUser.do',
-  // exportCompanyUser: 'http://192.168.0.124:8080/adm/execl/exportCompanyUser.do',
-  // exportBusUser: this.server+'execl/exportBusUser.do',
-  // exportReport: this.server+'execl/exportReport.do',
-  // exportRefund: this.server+'execl/exportRefund.do',
+  exportReportOfOrder : 'http://120.26.65.65:8285/execl/exportReportOfOrder.do',
+  exportReportOfFriend : 'http://120.26.65.65:8285/execl/exportReportOfFriend.do',
 
   // serverUrl: 'http://www.56elutong.com/api/data',
-  // serverFileUrl: ' http://www.56elutong.com/api/file',
+  // serverFileUrl: 'http://www.56elutong.com/api/file',
+  // exportReportOfOrder : 'http://www.56elutong.com/execl/exportReportOfOrder.do',
+  // exportReportOfFriend : 'http://www.56elutong.com/execl/exportReportOfFriend.do',
 
 
   companyRegister: 'company_register',
