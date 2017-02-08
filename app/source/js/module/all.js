@@ -5253,23 +5253,7 @@ yonglongApp.controller('adminCompanyListController',['$scope','showDatePickerPro
         userId:userId
       }
       interfaceService.companyUserDetail(param,function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
-        if(data.rescode==rescode.SUCCESS){
-          $scope.busUserDetailResult = data.data;
-          $scope.busUserDetailResult.resultType = 1;
-          $('#bus-user-detail-modal').modal('show');
-        }
-
-      });
-    }
-
-
-    $scope.companyUserDetail = function (userId) {
-      var param = {
-        userId:userId
-      }
-      interfaceService.companyUserDetail(param,function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS){
           $scope.busUserDetailResult = data.data;
           $scope.busUserDetailResult.resultType = 1;
@@ -6074,7 +6058,7 @@ yonglongApp.controller('adminUserListController',['$scope','showDatePickerProvid
       }
 
       interfaceService.busUserDetail(param,function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS){
           $scope.busUserDetailResult = data.data;
           $scope.busUserDetailResult.resultType = 0;

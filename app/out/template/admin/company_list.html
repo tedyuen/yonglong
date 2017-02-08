@@ -156,6 +156,22 @@
                 <td>联系地址</td>
                 <td>{{busUserDetailResult.address | emptyText}}</td>
               </tr>
+              <tr>
+                <td>电子邮箱</td>
+                <td>{{busUserDetailResult.email | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>营业执照</td>
+                <td><img class="img-responsive" ng-src="{{busUserDetailResult.license}}"></td>
+              </tr><tr>
+                <td>身份证(正面)</td>
+                <td><img class="img-responsive" ng-src="{{busUserDetailResult.nameCard}}"></td>
+              </tr>
+              <tr>
+                <td>身份证(反面)</td>
+                <td><img class="img-responsive" ng-src="{{busUserDetailResult.nameCardBack}}"></td>
+              </tr>
+
             </table>
           </div>
         </div>

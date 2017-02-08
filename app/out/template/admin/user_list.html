@@ -156,6 +156,34 @@
                 <td>联系地址</td>
                 <td>{{busUserDetailResult.address | emptyText}}</td>
               </tr>
+              <tr>
+                <td>电子邮箱</td>
+                <td>{{busUserDetailResult.email | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>车重</td>
+                <td>{{busUserDetailResult.weight}}</td>
+              </tr>
+              <tr>
+                <td>容量</td>
+                <td>{{busUserDetailResult.busContainer}}</td>
+              </tr>
+              <tr>
+                <td>身份证</td>
+                <td><img class="img-responsive" ng-src="{{busUserDetailResult.nameCard}}"></td>
+              </tr>
+              <tr>
+                <td>驾驶证</td>
+                <td><img class="img-responsive" ng-src="{{busUserDetailResult.drivingLicence}}"></td>
+              </tr>
+              <tr>
+                <td>行驶证</td>
+                <td><img class="img-responsive" ng-src="{{busUserDetailResult.roadLicence}}"></td>
+              </tr>
+              <tr>
+                <td>车辆照片</td>
+                <td><img class="img-responsive" ng-src="{{busUserDetailResult.carPic}}"></td>
+              </tr>
             </table>
           </div>
         </div>
