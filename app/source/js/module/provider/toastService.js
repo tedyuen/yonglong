@@ -24,17 +24,25 @@ yonglongApp.service('toastService',function () {
   }
 
   //验证码发送
-  this.sendCodeToast = function (flag) {
+  this.sendCodeToast = function (flag,str) {
     if(flag){
       this.toastSuccess({
         heading: '发送成功',
         text: '验证码发送成功,请查看您的短信收件箱，输入有效验证码，并完成表单。',
       })
     }else{
-      this.toastWarning({
-        heading: '发送失败',
-        text: '验证码发送失败,请查看您的网络设置并重试。',
-      });
+      if(str){
+        this.toastWarning({
+          heading: '发送失败',
+          text: str,
+        });
+      }else{
+        this.toastWarning({
+          heading: '发送失败',
+          text: '验证码发送失败,请查看您的网络设置并重试。',
+        });
+      }
+
     }
   }
 
