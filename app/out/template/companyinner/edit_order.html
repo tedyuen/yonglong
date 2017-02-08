@@ -265,6 +265,32 @@
                 </div>
               </div>
 
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.orderLinkName.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">装箱单联系人</span>
+                    <input type="text" class="form-control" name="orderLinkName" ng-model="orderDetail.orderLinkName">
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.orderLinkName.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.orderLinkName.$valid">装箱单联系人不能为空</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.orderLinkMobile.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">装箱单联系电话</span>
+                    <input type="text" class="form-control" name="orderLinkMobile" ng-model="orderDetail.orderLinkMobile">
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.orderLinkMobile.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.orderLinkMobile.$valid">装箱单联系电话不能为空</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             <div class="row">
