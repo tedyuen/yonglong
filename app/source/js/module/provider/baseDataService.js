@@ -24,6 +24,13 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
     return diyData.boxTypeN;
   }
 
+  this.getReportTypeN1 = function () {
+    return diyData.reportTypeN1;
+  }
+  this.getReportTypeN2 = function () {
+    return diyData.reportTypeN2;
+  }
+
 
 
   this.getPayStatusText = function (value) {

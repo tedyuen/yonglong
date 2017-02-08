@@ -15,7 +15,7 @@ yonglongApp.controller('adminRoleController',['$rootScope','$scope','$cookies','
         cancelButtonText: "取消",
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "是的,注销!",
-        closeOnConfirm: false,
+        closeOnConfirm: true,
       },function () {
         logoutService.logout('admin');
       });

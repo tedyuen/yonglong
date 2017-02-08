@@ -43,7 +43,7 @@
                 <div class="help-block with-errors"></div>
               </div>
 
-              <div class="col-md-6 col-lg-6 col-sm-12">
+              <div class="col-md-4 col-lg-4 col-sm-12">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">发货人</span>
@@ -53,11 +53,22 @@
                 <div class="help-block with-errors"></div>
               </div>
 
-              <div class="col-md-6 col-lg-6 col-sm-12">
+              <div class="col-md-4 col-lg-4 col-sm-12">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">接单人</span>
                     <input type="text" class="form-control" ng-model="queryData.acter">
+                  </div>
+                </div>
+                <div class="help-block with-errors"></div>
+              </div>
+
+              <div class="col-md-4 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">报表类型</span>
+                    <select class="form-control" ng-model="reportType" ng-options="o.id as o.name for o in reportTypeN" required>
+                    </select>
                   </div>
                 </div>
                 <div class="help-block with-errors"></div>
@@ -71,7 +82,8 @@
         </form>
       </div>
 
-      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+      <div class="col-sm-12" ng-show="reportType==0 && (results.totalPages==null || (results.totalPages!=null && results.totalPages==0)) ||
+      reportType==1 && (results2.totalPages==null || (results2.totalPages!=null && results2.totalPages==0))">
         <div class="white-box">
           <div class="row">
             <div class="alert alert-warning alert-dismissable">
@@ -82,7 +94,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12">
+      <div class="col-sm-12" ng-show="reportType==0 && results.totalPages!=null && results.totalPages!=0">
         <div class="white-box">
           <div class="row">
             <div>
@@ -184,6 +196,107 @@
         </div>
       </div>
       <!-- /.row -->
+
+
+      <div class="col-sm-12" ng-show="reportType==1 && results2.totalPages!=null && results2.totalPages!=0">
+        <div class="white-box">
+          <div class="row">
+            <div>
+              <form id="reportForm2" name="excelForm" method="post">
+                <input id="formStartTime2" type="hidden" name="startTime">
+                <input id="formEndTime2" type="hidden" name="endTime">
+                <input id="formActer2" type="hidden" name="acter">
+                <input id="formSender2" type="hidden" name="sender">
+                <input id="formToken2" type="hidden" name="token">
+                <input type="hidden" name="owner" value="false">
+
+                <button type="button" class="btn btn-default waves-effect waves-light" ng-click="reportExport2()">导出Excel</button>
+              </form>
+            </div>
+          </div>
+          <div class="row m-t-20">
+            <!--<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">导出报表(xlsx)</button>-->
+            <div ng-show="results2.totalPages!=null && results2.totalPages!=0">
+              <h3 class="m-t-15">外接订单</h3>
+              <div class="table-responsive m-t-15">
+                <table class="table color-table primary-table table-hover table-bordered">
+                  <thead>
+                  <tr>
+                    <th><nobr>日期</nobr></th>
+                    <th><nobr>客户编号</nobr></th>
+                    <th><nobr>箱型箱量</nobr></th>
+                    <th><nobr>船名行次</nobr></th>
+                    <th><nobr>提单号</nobr></th>
+                    <th><nobr>提箱点</nobr></th>
+                    <th><nobr>提箱费</nobr></th>
+                    <th><nobr>做箱门点</nobr></th>
+                    <th><nobr>还箱点</nobr></th>
+                    <th><nobr>运费</nobr></th>
+                    <th><nobr>发货人</nobr></th>
+                    <th><nobr>承运人</nobr></th>
+                    <th><nobr>出车费</nobr></th>
+                    <th><nobr>租车费</nobr></th>
+                    <th><nobr>打单费</nobr></th>
+                    <th><nobr>外发运费</nobr></th>
+                    <th><nobr>外发洋山</nobr></th>
+                    <th><nobr>落箱费</nobr></th>
+                    <th><nobr>动卫检</nobr></th>
+                    <th><nobr>坏污箱费</nobr></th>
+                    <th><nobr>改单</nobr></th>
+                    <th><nobr>备注</nobr></th>
+                    <th><nobr>合计</nobr></th>
+                    <th><nobr>应付运费</nobr></th>
+                    <th><nobr>毛利</nobr></th>
+                    <th><nobr>订单金额</nobr></th>
+                    <th><nobr>订单状态</nobr></th>
+                    <th><nobr>结算状态</nobr></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="result in results2.pageData">
+                    <td><nobr><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.createTimeStr}}</nobr></td>
+                    <td><nobr>{{result.busMemberId}}</nobr></td>
+                    <td><nobr>{{result.containerVType | boxVol}}{{result.containerSType | boxType}}*1</nobr></td>
+                    <td><nobr>{{result.shippingName}}</nobr></td>
+                    <td><nobr>{{result.shippingSn}}</nobr></td>
+                    <td><nobr>{{result.loadingPort}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.returnPort}}</nobr></td>
+                    <td><nobr>{{result.shippingFee | moneyText}}</nobr></td>
+                    <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</nobr></td>
+                    <td><nobr><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.busMemberName}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.orderType | orderType}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.note}}</nobr></td>
+                    <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
+                    <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
+                    <td><nobr> -- </nobr></td>
+                    <td><nobr>{{result.shippingFee+result.extraFee}}</nobr></td>
+                    <td ng-if="result.payStatus!=1"><nobr>{{result.orderStatus | orderStatusText}}</nobr></td>
+                    <td ng-if="result.payStatus==1"><nobr>完成</nobr></td>
+                    <td><nobr>{{result.payStatus | payStatusText}}</nobr></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pagination page-size="results2.pageSize"
+                          total-pages="results2.totalPages"
+                          curr-page="results2.currPageNum"
+                          show-count="100"
+                          switch-page="switchPage">
+              </pagination>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
