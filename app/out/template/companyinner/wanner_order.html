@@ -137,7 +137,7 @@
                 <tr ng-repeat="result in results.pageData">
                   <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}</td>
                   <td>
-                    <span class="mytooltip tooltip-effect-1">
+                    <nobr><span class="mytooltip tooltip-effect-1">
                       <span class="tooltip-item2">
                         <i class="fa fa-male"></i> {{result.goodsMemberName}}
                       </span>
@@ -150,8 +150,8 @@
                           退单率:&nbsp;{{result.cancelRate|emptyText}}<br>
                         </span>
                       </span>
-                    </span>
-                  </a></td>
+                    </span></nobr>
+                  </td>
                   <!--<td><div credit-rank="" for-star="{{result.orderCreditRank}}"></div></td>-->
                   <td>{{result.loadingPort}}</td>
                   <td>{{result.returnPort}}</td>
