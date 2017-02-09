@@ -58,6 +58,8 @@
                 <th>创建日期</th>
                 <th>发货人</th>
                 <th>费用</th>
+                <th>订单号</th>
+                <th>提单号</th>
                 <th>操作</th>
               </tr>
               </thead>
@@ -66,21 +68,27 @@
                 <td>
                   <div class="checkbox checkbox-success">
                     <input id="cashList{{result.id}}" type="checkbox" ng-checked="isSelected(result)" ng-click="updateCashListCBSelect($event,result)">
-                    <label for="cashList{{result.id}}">选择订单</label>
+                    <label for="cashList{{result.id}}"></label>
                   </div>
                 </td>
                 <td>
-                  <div style="display:block;margin-top:10px;margin-bottom:10px">
+                  <div class="radio-center-div">
                     <i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}
                   </div>
                 </td>
-                <td><div style="display:block;margin-top:10px;margin-bottom:10px">
+                <td><div class="radio-center-div">
                   <i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}
                 </div></td>
-                <td><div style="display:block;margin-top:10px;margin-bottom:10px">
+                <td><div class="radio-center-div">
                   {{result.moneyPaid | moneyText}}
                 </div></td>
-                <td><div style="display:block;margin-top:10px;margin-bottom:10px">
+                <td><div class="radio-center-div">
+                  {{result.orderSn  | emptyText}}
+                </div></td>
+                <td><div class="radio-center-div">
+                  {{result.shippingSn | emptyText}}
+                </div></td>
+                <td><div class="radio-center-div">
                   <button type="button" class="btn btn-primary btn-xs"
                           ng-click="detail(result.id)">详情</button>
                   <button type="button" class="btn btn-info btn-xs" ng-click="companyUserDetail(result.goodsMemberId)">发货方详情</button>
@@ -99,6 +107,8 @@
                 <th>创建日期</th>
                 <th>发车费</th>
                 <th>订单费用</th>
+                <th>订单号</th>
+                <th>提单号</th>
                 <th>操作</th>
               </tr>
               </thead>
@@ -107,22 +117,27 @@
                 <td>
                   <div class="checkbox checkbox-success">
                     <input id="listCashDispatch{{result.id}}" type="checkbox" ng-checked="isDispatchSelected(result)" ng-click="updateCashListDispatchCBSelect($event,result)">
-                    <label for="listCashDispatch{{result.id}}">选择订单</label>
+                    <label for="listCashDispatch{{result.id}}"></label>
                   </div>
                 </td>
                 <td>
-                  <div style="display:block;margin-top:10px;margin-bottom:10px">
+                  <div class="radio-center-div">
                     <i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.createTimeStr}}
                   </div>
                 </td>
-                <td><div style="display:block;margin-top:10px;margin-bottom:10px">
-                  <i class="fa fa-female"></i>&nbsp;&nbsp;
+                <td><div class="radio-center-div">
                   {{result.moneyPaid | moneyText}}
                 </div></td>
-                <td><div style="display:block;margin-top:10px;margin-bottom:10px">
+                <td><div class="radio-center-div">
                   {{result.offerOrderPaid | moneyText}}
                 </div></td>
-                <td><div style="display:block;margin-top:10px;margin-bottom:10px">
+                <td><div class="radio-center-div">
+                  {{result.orderSn  | emptyText}}
+                </div></td>
+                <td><div class="radio-center-div">
+                  {{result.shippingSn | emptyText}}
+                </div></td>
+                <td><div class="radio-center-div">
                   <button type="button" class="btn btn-primary btn-xs"
                           ng-click="detail(result.orderId)">详情</button>
                   <button type="button" class="btn btn-info btn-xs" ng-click="goodsUserDetailByFriend(result.friendId)">指派方详情</button>
