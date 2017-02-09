@@ -117,6 +117,7 @@
                 <tr>
                   <th>装箱日期</th>
                   <th>发货人</th>
+                  <th>承运方</th>
                   <!--<th>评级</th>-->
                   <th>装货地</th>
                   <th>还箱地</th>
@@ -131,7 +132,45 @@
               <tbody>
                 <tr ng-repeat="result in results.pageData">
                   <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}</td>
-                  <td><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</td>
+                  <td>
+                    <span class="mytooltip tooltip-effect-1">
+                      <span class="tooltip-item2">
+                        <i class="fa fa-male"></i> {{result.goodsMemberName}}
+                      </span>
+                      <span class="tooltip-content4 clearfix">
+                        <span class="tooltip-text2">
+                          最长付款时间:&nbsp;{{result.maxTime|emptyText}}<br>
+                          最短付款时间:&nbsp;{{result.minTime|emptyText}}<br>
+                          平均付款时间:&nbsp;{{result.avgTime|emptyText}}<br>
+                          当前付款率:&nbsp;{{result.payRate|emptyText}}<br>
+                          退单率:&nbsp;{{result.cancelRate|emptyText}}<br>
+                        </span>
+                      </span>
+                    </span>
+                  </td>
+
+                  <td>
+                    <span ng-if="result.memberNameRec==''">无</span>
+                    <span class="mytooltip tooltip-effect-1" ng-if="result.memberNameRec!=''">
+                      <span class="tooltip-item2">
+                        <i class="fa fa-male"></i> {{result.memberNameRec}}
+                      </span>
+                      <span class="tooltip-content4 clearfix">
+                        <span class="tooltip-text2" ng-if="result.memberTypeRec==0">
+                          最长付款时间:&nbsp;{{result.maxTimeRec|emptyText}}<br>
+                          最短付款时间:&nbsp;{{result.minTimeRec|emptyText}}<br>
+                          平均付款时间:&nbsp;{{result.avgTimeRec|emptyText}}<br>
+                          当前付款率:&nbsp;{{result.payRateRec|emptyText}}<br>
+                          退单率:&nbsp;{{result.cancelRateRec|emptyText}}<br>
+                        </span>
+                        <span class="tooltip-text2" ng-if="result.memberTypeRec==1">
+                          退单率:&nbsp;{{result.memberCancelRate|emptyText}}<br>
+                          准点率:&nbsp;{{result.memberTimeRate|emptyText}}<br>
+                        </span>
+                      </span>
+                    </span>
+                  </td>
+
                   <!--<td><div credit-rank="" for-star="{{result.orderCreditRank}}"></div></td>-->
                   <td>{{result.loadingPort}}</td>
                   <td>{{result.returnPort}}</td>

@@ -3713,6 +3713,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 
     // 表单查询订单列表
     $scope.queryList = function ($valid) {
+      console.log(""+$valid);
       if($valid){
         interfaceService.showLoading('正在查询');
         httpList();

@@ -134,16 +134,19 @@
                 <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.shippingDateStr}}</td>
                 <td>
                   <span class="mytooltip tooltip-effect-1">
-                      <span class="tooltip-item2">
-                        <i class="fa fa-male"></i> {{result.goodsMemberName}}
-                      </span>
-                      <span class="tooltip-content4 clearfix">
-                        <span class="tooltip-text2">
-                          退单率:&nbsp;{{result.cancelRate|emptyText}}
-                        </span>
+                    <span class="tooltip-item2">
+                      <i class="fa fa-male"></i> {{result.goodsMemberName}}
+                    </span>
+                    <span class="tooltip-content4 clearfix">
+                      <span class="tooltip-text2">
+                        最长付款时间:&nbsp;{{result.maxTime|emptyText}}<br>
+                        最短付款时间:&nbsp;{{result.minTime|emptyText}}<br>
+                        平均付款时间:&nbsp;{{result.avgTime|emptyText}}<br>
+                        当前付款率:&nbsp;{{result.payRate|emptyText}}<br>
+                        退单率:&nbsp;{{result.cancelRate|emptyText}}<br>
                       </span>
                     </span>
-                  <!--<i class="fa fa-male"></i>&nbsp;&nbsp;{{result.goodsMemberName}}</td>-->
+                  </span>
                 <!--<td><div credit-rank="" for-star="{{result.rank}}"></div></td>-->
                 <!--<td>{{result.cancelRate}}</td>-->
                 <td>{{result.loadingPort}}</td>
