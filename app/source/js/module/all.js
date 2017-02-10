@@ -149,6 +149,8 @@ yonglongApp.constant('URL_CONS', {
   companyOrderList: 'company_list_order',
   companyListMyorder: 'company_list_myorder',
   companyPublishOrder: 'company_publish_order',
+  createImportOrder: 'createImportOrder',
+  importOrderList: 'importOrderList',
   companyListGetorder: 'company_list_getorder',
   deleteOrder: 'company_delete_order',
   companyUserinfo: 'company_userinfo',
@@ -174,6 +176,7 @@ yonglongApp.constant('URL_CONS', {
   alipay: 'alipay',
   alipayDispatchOrder: 'alipayDispatchOrder',
   alipayDispatch: 'alipayDispatch',
+  alipayImportOrder: 'alipayImportOrder',
 
   companyUpdateOrder: 'company_update_order',
   companyDetailOrder: 'company_detail_order',
@@ -396,9 +399,12 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
             closeOnConfirm: false,
             showLoaderOnConfirm: true,
           }, function(){
-            var $hiddenPanel = $('<div style="display:none;"></div>');
+            var $hiddenPanel = $('#payForm');
             $hiddenPanel.html(data.data.sHtmlText);
             $hiddenPanel.find('form').submit();
+            // $timeout(function () {
+            //   $hiddenPanel.find('form').submit();
+            // },100);
           });
         }
       }
@@ -422,7 +428,7 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
               closeOnConfirm: false,
               showLoaderOnConfirm: true,
             }, function(){
-              var $hiddenPanel = $('<div style="display:none;"></div>');
+              var $hiddenPanel = $('#payForm');
               $hiddenPanel.html(data.data.sHtmlText);
               $hiddenPanel.find('form').submit();
             });
@@ -430,6 +436,22 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
         }
       });
     }
+
+    // 预录付款
+    this.alipayImportOrder = function (id) {
+      console.log('alipayImportOrder');
+      interfaceService.alipayImportOrder({id:id},function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          if(data.data.orderAmount>0){
+            var $hiddenPanel = $('#payForm');
+            $hiddenPanel.html(data.data.sHtmlText);
+            $hiddenPanel.find('form').submit();
+          }
+        }
+      });
+    }
+
 
     this.alipayDispatch = function (id,httpList) {
       console.log('alipayDispatchOrder');
@@ -442,10 +464,9 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
         }
         if(data.rescode==rescode.SUCCESS){
           if(data.data.orderAmount>0){
-            var $hiddenPanel = $('<div style="display:none;"></div>');
+            var $hiddenPanel = $('#payForm');
             $hiddenPanel.html(data.data.sHtmlText);
             $hiddenPanel.find('form').submit();
-
             // swal({
             //   title: "确认付款吗?",
             //   text: "您即将付款"+data.data.orderAmount+"元！",
@@ -914,6 +935,20 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.companyPublishOrder,params,success,error);
   }
 
+  //  新建预录
+  this.createImportOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.createImportOrder,params,success,error);
+  }
+
+  // 预录列表
+  this.importOrderList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.importOrderList,params,success,error);
+  }
+
+
+
+
+
 
 
 
@@ -1024,6 +1059,12 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.alipayDispatch = function (params,success,error) {
     this.doHttpMethod(URL_CONS.alipayDispatch,params,success,error);
   }
+
+  //  预录-派单费用支付
+  this.alipayImportOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.alipayImportOrder,params,success,error);
+  }
+
 
 
 
@@ -6500,6 +6541,307 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
 
   }]);
 
+yonglongApp.controller('prerecordController',['$scope','$state','$location','showDatePickerProvider','interfaceService','rescode','alipayService',
+  function ($scope,$state,$location,showDatePickerProvider,interfaceService,rescode,alipayService) {
+    showDatePickerProvider.showDatePicker();
+
+    var backurl = "shell.html#!/main/companyinner/prerecord";
+    if($location.url()=='/main/userinner/prerecord'){
+      backurl = "shell.html#!/main/userinner/prerecord";
+    }else if($location.url()=='/main/admin/prerecord'){
+      backurl = "shell.html#!/main/admin/prerecord";
+    }
+
+
+      $scope.orderDetail = {
+      "backurl":backurl,
+      "aftersuper": "",
+      "beforesuper": "",
+      "boxinfo": "",
+      "boxno": "",
+      "boxoperator": "",
+      "boxoperatorcode": "",
+      "callinfo": "",
+      "callman": "",
+      "callno": "",
+      "calltype": "",
+      "cargocode": "",
+      "cargodesc": "",
+      "cargono": "",
+      "customscode": "",
+      "dangerousgrade": "",
+      "dangerouslabel": "",
+      "deliverycode": "",
+      "deliveryport": "",
+      "destport": "",
+      "destportcode": "",
+      "detailaddress": "",
+      "emergencyno": "",
+      "equipmentorder": "",
+      "fileurl": "1",
+      "firstaidno": "",
+      "flashpoint": "",
+      "hignsuper": "",
+      "imdgpage": "",
+      "imono": "",
+      "impexpsign": "",
+      "inletwharf": "",
+      "items": "",
+      "leftsuper": "",
+      "licensenumber": "",
+      "loadingport": "",
+      "loadingportcode": "",
+      "marinepollution": "",
+      "mark": "",
+      "orderinfo": "",
+      "ordersn": "",
+      "packaddress": "",
+      "packagecode": "",
+      "packagetype": "",
+      "packman": "",
+      "passengerliner": "",
+      "remark": "",
+      "rightsuper": "",
+      "secdangerousgrade": "",
+      "secdangerouslabel": "",
+      "secemergencyno": "",
+      "secfirstaidno": "",
+      "secflashpoint": "",
+      "secimdgpage": "",
+      "secmarinepollution": "",
+      "secunnumber": "",
+      "shipcall": "",
+      "shipnationcode": "",
+      "shippingdate": "",
+      "shippname": "",
+      "shippno": "",
+      "shiptype": "",
+      "size": "",
+      "sizetype": "",
+      "smokebox": "",
+      "statusinfo": "",
+      "temperature": "",
+      "temperaturemax": "",
+      "temperaturemin": "",
+      "temperatureunit": "",
+      "transitport": "",
+      "transitportcode": "",
+      "unnumber": "",
+      "weight": ""
+    }
+
+    //提交表单
+    $scope.onSubmit = function($valid,form){
+      console.log('--->'+$valid);
+      console.log($scope.orderDetail.orderStatus);
+      if($valid){
+        swal({
+          title: "确定预录吗?",
+          text: "您即将预录一条信息!",
+          type: "warning",
+          showCancelButton: true,
+          cancelButtonText: "取消",
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "是的,确定!",
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true,
+          animation: "slide-from-top",
+        }, function(){
+          interfaceService.createImportOrder($scope.orderDetail,function (data,headers,config) {
+            console.log(JSON.stringify(data));
+            if(data.rescode==rescode.SUCCESS){
+              swal({
+                title:"创建成功！",
+                text:"2秒后自动跳转付款。",
+                type:"success",
+                timer:2000,
+                showConfirmButton: false
+              },function () {
+                // $state.go('main.companyinner.query_order');
+                alipayService.alipayImportOrder(data.data.id);
+              });
+              // $scope.reset(form);
+            }else{
+              swal({
+                title:"预录失败！",
+                text:data.resdesc,
+                type:"error",
+                confirmButtonText:"确定"
+              });
+            }
+          });
+        });
+
+      }else{
+        // console.log("$valid:"+$valid);
+      }
+    };
+
+    $scope.reset = function (theForm) {
+      $scope.orderDetail ={
+        "backurl":backurl,
+        "aftersuper": "",
+        "beforesuper": "",
+        "boxinfo": "",
+        "boxno": "",
+        "boxoperator": "",
+        "boxoperatorcode": "",
+        "callinfo": "",
+        "callman": "",
+        "callno": "",
+        "calltype": "",
+        "cargocode": "",
+        "cargodesc": "",
+        "cargono": "",
+        "customscode": "",
+        "dangerousgrade": "",
+        "dangerouslabel": "",
+        "deliverycode": "",
+        "deliveryport": "",
+        "destport": "",
+        "destportcode": "",
+        "detailaddress": "",
+        "emergencyno": "",
+        "equipmentorder": "",
+        "fileurl": "1",
+        "firstaidno": "",
+        "flashpoint": "",
+        "hignsuper": "",
+        "imdgpage": "",
+        "imono": "",
+        "impexpsign": "",
+        "inletwharf": "",
+        "items": "",
+        "leftsuper": "",
+        "licensenumber": "",
+        "loadingport": "",
+        "loadingportcode": "",
+        "marinepollution": "",
+        "mark": "",
+        "orderinfo": "",
+        "ordersn": "",
+        "packaddress": "",
+        "packagecode": "",
+        "packagetype": "",
+        "packman": "",
+        "passengerliner": "",
+        "remark": "",
+        "rightsuper": "",
+        "secdangerousgrade": "",
+        "secdangerouslabel": "",
+        "secemergencyno": "",
+        "secfirstaidno": "",
+        "secflashpoint": "",
+        "secimdgpage": "",
+        "secmarinepollution": "",
+        "secunnumber": "",
+        "shipcall": "",
+        "shipnationcode": "",
+        "shippingdate": "",
+        "shippname": "",
+        "shippno": "",
+        "shiptype": "",
+        "size": "",
+        "sizetype": "",
+        "smokebox": "",
+        "statusinfo": "",
+        "temperature": "",
+        "temperaturemax": "",
+        "temperaturemin": "",
+        "temperatureunit": "",
+        "transitport": "",
+        "transitportcode": "",
+        "unnumber": "",
+        "weight": ""
+      }
+
+      theForm.$setPristine();
+      theForm.$setUntouched();
+    }
+
+
+
+
+
+  }]);
+
+yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvider','interfaceService','rescode','loadingService','URL_CONS',
+  function ($scope,showDatePickerProvider,interfaceService,rescode,loadingService,URL_CONS) {
+    showDatePickerProvider.showDatePicker();
+    $scope.queryData = {
+      startTime:'',
+      endTime:'',
+      pageno:1,
+      pagesize:20
+    }
+
+    $scope.results={
+      currPageNum : 1,
+      totalPages : 0,
+      pageSize : $scope.queryData.pagesize
+    }
+
+    // 分页
+    $scope.switchPage = function (page) {
+      // console.log(page);
+      $scope.queryData.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpList();
+    }
+
+    var httpList = function () {
+      interfaceService.importOrderList($scope.queryData,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS) {
+          $scope.results = data.data;
+        }
+      });
+    }
+
+    // 表单查询订单列表
+    $scope.queryList = function ($valid) {
+      if($valid){
+        // console.log("request:"+JSON.stringify($scope.queryData));
+        interfaceService.showLoading('正在查询');
+        httpList();
+      }else{
+
+      }
+    }
+
+
+    $scope.detail = function (result) {
+      $scope.detailResult = result;
+      $('#bus-user-detail-modal').modal('show');
+    }
+
+
+    $scope.reset = function () {
+      $scope.queryData = {
+        startTime:'',
+        endTime:'',
+        pageno:1,
+        pagesize:20
+      }
+    }
+
+
+    document.getElementById("reportForm").action= URL_CONS.exportRefund;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
+    }
+
+    $scope.$watch('queryData.startTime',function () {
+      $('#formStartTime').val($scope.queryData.startTime);
+    });
+    $scope.$watch('queryData.endTime',function () {
+      $('#formEndTime').val($scope.queryData.endTime);
+    });
+
+    httpList();
+
+  }]);
+
 yonglongApp.controller('forgetPasswordController',['$scope','$state','$stateParams','$interval','interfaceService','rescode','validateService','toastService',
   function ($scope,$state,$stateParams,$interval,interfaceService,rescode,validateService,toastService) {
 
@@ -6968,6 +7310,24 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.admin.prerecord',{//我要预录
+      url:'/prerecord',
+      views: {
+        'content@main': {
+          templateUrl: 'template/common/prerecord.html',
+          controller: 'prerecordController'
+        }
+      }
+    })
+    .state('main.admin.prerecord_list',{//预录列表
+      url:'/prerecord_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/common/prerecord_list.html',
+          controller: 'prerecordListController'
+        }
+      }
+    })
     .state('main.admin.user_list',{//承运方会员列表
       url:'/user_list',
       views: {
@@ -7094,6 +7454,24 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         'content@main': {
           templateUrl: 'template/userinner/hasget2_order.html',
           controller: 'userHasgetOrderController2'
+        }
+      }
+    })
+    .state('main.userinner.prerecord',{//我要预录
+      url:'/prerecord',
+      views: {
+        'content@main': {
+          templateUrl: 'template/common/prerecord.html',
+          controller: 'prerecordController'
+        }
+      }
+    })
+    .state('main.userinner.prerecord_list',{//预录列表
+      url:'/prerecord_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/common/prerecord_list.html',
+          controller: 'prerecordListController'
         }
       }
     })
@@ -7262,6 +7640,24 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         'content@main': {
           templateUrl: 'template/companyinner/hasget_order.html',
           controller: 'hasgetOrderController'
+        }
+      }
+    })
+    .state('main.companyinner.prerecord',{//我要预录
+      url:'/prerecord',
+      views: {
+        'content@main': {
+          templateUrl: 'template/common/prerecord.html',
+          controller: 'prerecordController'
+        }
+      }
+    })
+    .state('main.companyinner.prerecord_list',{//预录列表
+      url:'/prerecord_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/common/prerecord_list.html',
+          controller: 'prerecordListController'
         }
       }
     })

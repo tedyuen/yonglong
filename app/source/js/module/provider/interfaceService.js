@@ -117,6 +117,20 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.companyPublishOrder,params,success,error);
   }
 
+  //  新建预录
+  this.createImportOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.createImportOrder,params,success,error);
+  }
+
+  // 预录列表
+  this.importOrderList = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.importOrderList,params,success,error);
+  }
+
+
+
+
+
 
 
 
@@ -227,6 +241,12 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.alipayDispatch = function (params,success,error) {
     this.doHttpMethod(URL_CONS.alipayDispatch,params,success,error);
   }
+
+  //  预录-派单费用支付
+  this.alipayImportOrder = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.alipayImportOrder,params,success,error);
+  }
+
 
 
 

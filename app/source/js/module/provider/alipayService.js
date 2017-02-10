@@ -18,9 +18,12 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
             closeOnConfirm: false,
             showLoaderOnConfirm: true,
           }, function(){
-            var $hiddenPanel = $('<div style="display:none;"></div>');
+            var $hiddenPanel = $('#payForm');
             $hiddenPanel.html(data.data.sHtmlText);
             $hiddenPanel.find('form').submit();
+            // $timeout(function () {
+            //   $hiddenPanel.find('form').submit();
+            // },100);
           });
         }
       }
@@ -44,7 +47,7 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
               closeOnConfirm: false,
               showLoaderOnConfirm: true,
             }, function(){
-              var $hiddenPanel = $('<div style="display:none;"></div>');
+              var $hiddenPanel = $('#payForm');
               $hiddenPanel.html(data.data.sHtmlText);
               $hiddenPanel.find('form').submit();
             });
@@ -52,6 +55,22 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
         }
       });
     }
+
+    // 预录付款
+    this.alipayImportOrder = function (id) {
+      console.log('alipayImportOrder');
+      interfaceService.alipayImportOrder({id:id},function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          if(data.data.orderAmount>0){
+            var $hiddenPanel = $('#payForm');
+            $hiddenPanel.html(data.data.sHtmlText);
+            $hiddenPanel.find('form').submit();
+          }
+        }
+      });
+    }
+
 
     this.alipayDispatch = function (id,httpList) {
       console.log('alipayDispatchOrder');
@@ -64,10 +83,9 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
         }
         if(data.rescode==rescode.SUCCESS){
           if(data.data.orderAmount>0){
-            var $hiddenPanel = $('<div style="display:none;"></div>');
+            var $hiddenPanel = $('#payForm');
             $hiddenPanel.html(data.data.sHtmlText);
             $hiddenPanel.find('form').submit();
-
             // swal({
             //   title: "确认付款吗?",
             //   text: "您即将付款"+data.data.orderAmount+"元！",

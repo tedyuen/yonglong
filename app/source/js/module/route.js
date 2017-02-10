@@ -70,6 +70,24 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.admin.prerecord',{//我要预录
+      url:'/prerecord',
+      views: {
+        'content@main': {
+          templateUrl: 'template/common/prerecord.html',
+          controller: 'prerecordController'
+        }
+      }
+    })
+    .state('main.admin.prerecord_list',{//预录列表
+      url:'/prerecord_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/common/prerecord_list.html',
+          controller: 'prerecordListController'
+        }
+      }
+    })
     .state('main.admin.user_list',{//承运方会员列表
       url:'/user_list',
       views: {
@@ -196,6 +214,24 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         'content@main': {
           templateUrl: 'template/userinner/hasget2_order.html',
           controller: 'userHasgetOrderController2'
+        }
+      }
+    })
+    .state('main.userinner.prerecord',{//我要预录
+      url:'/prerecord',
+      views: {
+        'content@main': {
+          templateUrl: 'template/common/prerecord.html',
+          controller: 'prerecordController'
+        }
+      }
+    })
+    .state('main.userinner.prerecord_list',{//预录列表
+      url:'/prerecord_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/common/prerecord_list.html',
+          controller: 'prerecordListController'
         }
       }
     })
@@ -364,6 +400,24 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         'content@main': {
           templateUrl: 'template/companyinner/hasget_order.html',
           controller: 'hasgetOrderController'
+        }
+      }
+    })
+    .state('main.companyinner.prerecord',{//我要预录
+      url:'/prerecord',
+      views: {
+        'content@main': {
+          templateUrl: 'template/common/prerecord.html',
+          controller: 'prerecordController'
+        }
+      }
+    })
+    .state('main.companyinner.prerecord_list',{//预录列表
+      url:'/prerecord_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/common/prerecord_list.html',
+          controller: 'prerecordListController'
         }
       }
     })

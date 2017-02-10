@@ -77,37 +77,26 @@
             <table class="table color-table primary-table table-hover table-bordered">
               <thead>
               <tr>
-                <th>日期</th>
-                <th>持卡人</th>
-                <th>开户行</th>
-                <th>卡号</th>
-                <th>会员类型</th>
-                <th>金额</th>
-                <th>状态</th>
+                <th>录入者账号</th>
+                <th>录入人</th>
+                <th>箱号</th>
+                <th>船名</th>
+                <th>航次</th>
+                <th>IMO编号</th>
                 <th>操作</th>
               </tr>
               </thead>
               <tbody>
               <tr ng-repeat="result in results.pageData">
-                <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.createTimeStr}}</td>
-                <td><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.bankCardOwner}}</td>
-                <td>{{result.bankName}}</td>
-                <td>{{result.bankCardNo}}</td>
-                <td>{{result.role|memberType}}</td>
-                <td>{{result.refundMoney}}</td>
-                <td>{{result.status|atmStatus}}</td>
+                <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.membername}}</td>
+                <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.username}}</td>
+                <td>{{result.boxno}}</td>
+                <td>{{result.shippname}}</td>
+                <td>{{result.shippno}}</td>
+                <td>{{result.imono}}</td>
                 <td>
                   <button type="button" class="btn btn-primary btn-xs"
-                          ng-if="result.status==0" ng-click="auditSysRefund(result.id)">通过审核</button>
-                  <button type="button" class="btn btn-success btn-xs"
-                          ng-if="result.role!='0'" ng-click="busUserDetail(result.memberId)">查看用户详情</button>
-                  <button type="button" class="btn btn-success btn-xs"
-                          ng-if="result.role!='1'" ng-click="companyUserDetail(result.memberId)">查看用户详情</button>
-
-                  <button type="button" class="btn btn-success btn-xs"
-                          ng-click="gb(result.memberId,result.role,result.bankCardOwner)">查看用户账户状态</button>
-
-
+                          ng-click="detail(result)">详情</button>
                 </td>
               </tr>
               </tbody>
@@ -128,5 +117,322 @@
   </div>
 
 
+  <div id="bus-user-detail-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel">会员信息</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <table class="table table-striped">
+              <tr>
+                <td>录入者账号</td>
+                <td>{{detailResult.membername | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>录入人</td>
+                <td>{{detailResult.username | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>箱信息</td>
+                <td>{{detailResult.boxinfo | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>箱号</td>
+                <td>{{detailResult.boxno | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>船名</td>
+                <td>{{detailResult.shippname | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>航次</td>
+                <td>{{detailResult.shippno | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>IMO编号</td>
+                <td>{{detailResult.imono | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>船舶呼号</td>
+                <td>{{detailResult.shipcall | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>进箱码头</td>
+                <td>{{detailResult.inletwharf | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>尺寸类型</td>
+                <td>{{detailResult.sizetype | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>箱皮重</td>
+                <td>{{detailResult.smokebox | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>状态</td>
+                <td>{{detailResult.statusinfo | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>箱经营人</td>
+                <td>{{detailResult.boxoperator | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>箱经营人代码</td>
+                <td>{{detailResult.boxoperatorcode | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>装箱日期</td>
+                <td>{{detailResult.shippingdate | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>海关代码</td>
+                <td>{{detailResult.customscode | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>装港</td>
+                <td>{{detailResult.loadingport | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>装港代码</td>
+                <td>{{detailResult.loadingportcode | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>卸港</td>
+                <td>{{detailResult.transitport | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>卸港代码</td>
+                <td>{{detailResult.transitportcode | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>目的港</td>
+                <td>{{detailResult.destport | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>目的港代码</td>
+                <td>{{detailResult.destportcode | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>冷藏温度</td>
+                <td>{{detailResult.temperature | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>温度计量单位</td>
+                <td>{{detailResult.temperatureunit | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>冷藏最低温度</td>
+                <td>{{detailResult.temperaturemin | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>冷藏最高温度</td>
+                <td>{{detailResult.temperaturemax | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>危险品等级</td>
+                <td>{{detailResult.dangerousgrade | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>联合国编号</td>
+                <td>{{detailResult.unnumber | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>危规页码</td>
+                <td>{{detailResult.imdgpage | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>闪点</td>
+                <td>{{detailResult.flashpoint | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>危险品标签</td>
+                <td>{{detailResult.dangerouslabel | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>应急措施号</td>
+                <td>{{detailResult.emergencyno | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>急救指南号</td>
+                <td>{{detailResult.firstaidno | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>海运污染</td>
+                <td>{{detailResult.marinepollution | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>前超</td>
+                <td>{{detailResult.beforesuper | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>后超</td>
+                <td>{{detailResult.aftersuper | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>右超</td>
+                <td>{{detailResult.rightsuper | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>左超</td>
+                <td>{{detailResult.leftsuper | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>超高</td>
+                <td>{{detailResult.hignsuper | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>运输方式</td>
+                <td>{{detailResult.shiptype | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>班轮</td>
+                <td>{{detailResult.passengerliner | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>船舶国籍代码</td>
+                <td>{{detailResult.shipnationcode | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>进出口标志</td>
+                <td>{{detailResult.impexpsign | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>装箱人</td>
+                <td>{{detailResult.packman | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>地址</td>
+                <td>{{detailResult.packaddress | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>车号</td>
+                <td>{{detailResult.licensenumber | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>设备交接单</td>
+                <td>{{detailResult.equipmentorder | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>装箱详细地址</td>
+                <td>{{detailResult.detailaddress | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>备注</td>
+                <td>{{detailResult.remark | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>封志信息(序号）</td>
+                <td>{{detailResult.callinfo | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>封志号</td>
+                <td>{{detailResult.callno | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>封志类型</td>
+                <td>{{detailResult.calltype | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>加封人</td>
+                <td>{{detailResult.callman | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>提单信息(序号）</td>
+                <td>{{detailResult.orderinfo | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>提单号</td>
+                <td>{{detailResult.ordersn | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>交货地代码</td>
+                <td>{{detailResult.deliverycode | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>交货地</td>
+                <td>{{detailResult.deliveryport | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>货物序号</td>
+                <td>{{detailResult.cargono | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>件数</td>
+                <td>{{detailResult.items | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>包装代码</td>
+                <td>{{detailResult.packagecode | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>包装类型</td>
+                <td>{{detailResult.packagetype | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>货重</td>
+                <td>{{detailResult.weight | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>尺码</td>
+                <td>{{detailResult.size | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>货物描述</td>
+                <td>{{detailResult.cargodesc | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>唛头</td>
+                <td>{{detailResult.mark | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>货物代码</td>
+                <td>{{detailResult.cargocode | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>危险品等级</td>
+                <td>{{detailResult.secdangerousgrade | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>联合国编号</td>
+                <td>{{detailResult.secunnumber | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>危险品页号</td>
+                <td>{{detailResult.secimdgpage | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>闪点2</td>
+                <td>{{detailResult.secflashpoint | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>危险品标签</td>
+                <td>{{detailResult.secdangerouslabel | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>应急措施号</td>
+                <td>{{detailResult.secemergencyno | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>急救指南号</td>
+                <td>{{detailResult.secfirstaidno | emptyText}}</td>
+              </tr>
+              <tr>
+                <td>海运污染</td>
+                <td>{{detailResult.secmarinepollution | emptyText}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info waves-effect text-left" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
 
 </div>
