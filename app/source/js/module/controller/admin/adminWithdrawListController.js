@@ -1,5 +1,5 @@
-yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerProvider','interfaceService','rescode','loadingService',
-  function ($scope,showDatePickerProvider,interfaceService,rescode,loadingService) {
+yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerProvider','interfaceService','rescode','loadingService','URL_CONS',
+  function ($scope,showDatePickerProvider,interfaceService,rescode,loadingService,URL_CONS) {
     showDatePickerProvider.showDatePicker();
     $scope.queryData = {
       startTime:'',
@@ -138,6 +138,12 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
         pageno:1,
         pagesize:20
       }
+    }
+
+
+    document.getElementById("reportForm").action= URL_CONS.exportRefund;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
 
     $scope.$watch('queryData.startTime',function () {

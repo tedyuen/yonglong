@@ -2,12 +2,12 @@
   <div class="container-fluid">
     <div class="row bg-title">
       <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">提现列表</h4>
+        <h4 class="page-title">预录列表</h4>
       </div>
       <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
           <li><a href="">提现管理</a></li>
-          <li class="active">提现列表</li>
+          <li class="active">预录列表</li>
         </ol>
       </div>
       <!-- /.col-lg-12 -->
@@ -69,7 +69,7 @@
               <form id="reportForm" name="excelForm" method="post">
                 <input id="formStartTime" type="hidden" name="startTime">
                 <input id="formEndTime" type="hidden" name="endTime">
-                <button type="button" class="btn btn-default waves-effect waves-light" ng-click="reportExport()">导出Excel</button>
+                <button type="button" class="btn btn-default waves-effect waves-light" ng-click="reportExport()">下载表格</button>
               </form>
             </div>
           </div>
@@ -125,115 +125,6 @@
       <!-- /.row -->
       <!--<pre>{{results|json}}</pre>-->
     </div>
-  </div>
-
-
-  <div id="bus-user-detail-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog ">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title" id="myLargeModalLabel">会员信息</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <table class="table table-striped">
-              <tr>
-                <td>注册时间</td>
-                <td>{{busUserDetailResult.regTimeStr | emptyText}}</td>
-              </tr>
-              <tr>
-                <td>公司名称</td>
-                <td>{{busUserDetailResult.companyName | emptyText}}</td>
-              </tr>
-              <tr ng-if="busUserDetailResult.resultType==0">
-                <td>车牌号</td>
-                <td>{{busUserDetailResult.carNumber | emptyText}}</td>
-              </tr>
-              <tr>
-                <td>手机号</td>
-                <td>{{busUserDetailResult.mobilePhone | emptyText}}</td>
-              </tr>
-              <tr>
-                <td>电话</td>
-                <td>{{busUserDetailResult.tel | emptyText}}</td>
-              </tr>
-              <tr>
-                <td>联系人</td>
-                <td>{{busUserDetailResult.companyLinker | emptyText}}</td>
-              </tr>
-              <tr>
-                <td>联系地址</td>
-                <td>{{busUserDetailResult.address | emptyText}}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-info waves-effect text-left" data-dismiss="modal">关闭</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-
-  <div id="account-info-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog ">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title" >账户状态</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <table class="table table-striped">
-              <tr>
-                <td>持卡人</td>
-                <td>{{accountResult.bankCardOwner}}</td>
-              </tr>
-              <tr>
-                <td>订单总额</td>
-                <td>{{accountResult.all}}</td>
-              </tr>
-              <tr>
-                <td>发货方已支付</td>
-                <td>{{accountResult.pay}}</td>
-              </tr>
-              <tr>
-                <td>提现中</td>
-                <td>{{accountResult.posing}}</td>
-              </tr>
-              <tr>
-                <td>已提现</td>
-                <td>{{accountResult.pos}}</td>
-              </tr>
-              <tr ng-if="accountResult.role=='1'">
-                <td>指派订单总额</td>
-                <td>{{accountResult.distotal}}</td>
-              </tr>
-              <tr ng-if="accountResult.role=='1'">
-                <td>提现中指派订单金额</td>
-                <td>{{accountResult.disingtotal}}</td>
-              </tr>
-              <tr ng-if="accountResult.role=='1'">
-                <td>已提现指派订单金额</td>
-                <td>{{accountResult.disdonetotal}}</td>
-              </tr>
-              <tr>
-                <td>可提现金额</td>
-                <td>{{accountResult.canpos}}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-info waves-effect text-left" data-dismiss="modal">关闭</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
   </div>
 
 

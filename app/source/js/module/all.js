@@ -134,12 +134,14 @@ yonglongApp.constant('URL_CONS', {
   exportReport : 'http://120.26.65.65:8285/execl/exportReport.do',
   exportReportOfOrder : 'http://120.26.65.65:8285/execl/exportReportOfOrder.do',
   exportReportOfFriend : 'http://120.26.65.65:8285/execl/exportReportOfFriend.do',
+  exportRefund : 'http://120.26.65.65:8285/execl/exportRefund.do',
 
   // serverUrl: 'http://www.56elutong.com/api/data',
   // serverFileUrl: 'http://www.56elutong.com/api/file',
   // exportReport : 'http://www.56elutong.com/execl/exportReport.do',
   // exportReportOfOrder : 'http://www.56elutong.com/execl/exportReportOfOrder.do',
   // exportReportOfFriend : 'http://www.56elutong.com/execl/exportReportOfFriend.do',
+  // exportRefund : 'http://www.56elutong.com/execl/exportRefund.do',
 
 
   companyRegister: 'company_register',
@@ -6339,8 +6341,8 @@ yonglongApp.controller('adminUserListController',['$scope','showDatePickerProvid
 
   }]);
 
-yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerProvider','interfaceService','rescode','loadingService',
-  function ($scope,showDatePickerProvider,interfaceService,rescode,loadingService) {
+yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerProvider','interfaceService','rescode','loadingService','URL_CONS',
+  function ($scope,showDatePickerProvider,interfaceService,rescode,loadingService,URL_CONS) {
     showDatePickerProvider.showDatePicker();
     $scope.queryData = {
       startTime:'',
@@ -6479,6 +6481,12 @@ yonglongApp.controller('adminWithdrawListController',['$scope','showDatePickerPr
         pageno:1,
         pagesize:20
       }
+    }
+
+
+    document.getElementById("reportForm").action= URL_CONS.exportRefund;
+    $scope.reportExport = function () {
+      document.getElementById("reportForm").submit();
     }
 
     $scope.$watch('queryData.startTime',function () {
