@@ -54,6 +54,7 @@ yonglongApp.constant('URL_CONS', {
   alipayDispatchOrder: 'alipayDispatchOrder',
   alipayDispatch: 'alipayDispatch',
   alipayImportOrder: 'alipayImportOrder',
+  orderConfigFee: 'orderConfigFee',
 
   companyUpdateOrder: 'company_update_order',
   companyDetailOrder: 'company_detail_order',

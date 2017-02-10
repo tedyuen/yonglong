@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('queryOrderController',['$scope','$state','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
-  function ($scope,$state,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
+yonglongApp.controller('queryOrderController',['$scope','$state','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
+  function ($scope,$state,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
     showDatePickerProvider.showDatePicker();
     //
     // $('.tablist a').click(function (e) {
@@ -13,6 +13,7 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
     $scope.containerSType = baseDataService.getBoxTypeN();
+    $scope.configFee = 0;
     $scope.queryData = {
       orderStatus:-1,
       goodsMemberId: 67,
@@ -58,6 +59,18 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
         console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS) {
           $scope.results = data.data;
+        }
+        $timeout(function () {
+          getOrderConfigFee();
+        },50);
+      });
+    }
+
+    var getOrderConfigFee = function () {
+      interfaceService.orderConfigFee({},function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS) {
+          $scope.configFee = data.data.configFee;
         }
       });
     }
@@ -189,7 +202,7 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
 
 
     $scope.alipay = function (result) {
-      alipayService.alipay(result);
+      alipayService.alipay(result,$scope.configFee);
     }
 
 
@@ -360,5 +373,6 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
     }
 
     httpList();
+
 
 }]);

@@ -336,6 +336,9 @@
                 <span class="input-group-addon">指派价格</span>
                 <input type="number" class="form-control" name="offerOrderMoney" ng-model="dispatchCarParams.offerOrderMoney" required>
               </div>
+              <div class="help-block with-errors">
+                <span style="color:red;font-size: 11px;">支付金额中包含手续费{{configFee | moneyText}}</span>
+              </div>
             </div>
 
           </div>

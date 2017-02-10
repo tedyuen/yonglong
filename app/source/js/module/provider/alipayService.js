@@ -1,7 +1,7 @@
 yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
   function ($timeout,interfaceService,rescode) {
 
-  this.alipay = function (result) {
+  this.alipay = function (result,config_fee) {
     console.log('alipayService');
     interfaceService.alipay({id:result.id},function (data,headers,config) {
       console.log("response:"+JSON.stringify(data));
@@ -9,7 +9,7 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
         if(data.data.orderAmount>0){
           swal({
             title: "确认付款吗?",
-            text: "您即将付款"+data.data.orderAmount+"元！",
+            text: "您即将付款"+data.data.orderAmount+"元！\n其中将扣除 " +config_fee +"元手续费",
             type: "warning",
             showCancelButton: true,
             cancelButtonText: "取消",
@@ -30,7 +30,7 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
     });
   }
 
-    this.alipayDispatchOrder = function (result) {
+    this.alipayDispatchOrder = function (result,config_fee) {
       console.log('alipayDispatchOrder');
       interfaceService.alipayDispatchOrder({id:result.id},function (data,headers,config) {
         console.log("response:"+JSON.stringify(data));
@@ -38,7 +38,7 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
           if(data.data.orderAmount>0){
             swal({
               title: "确认付款吗?",
-              text: "您即将付款"+data.data.orderAmount+"元！",
+              text: "您即将付款"+data.data.orderAmount+"元！\n其中将扣除 " +config_fee +"元手续费",
               type: "warning",
               showCancelButton: true,
               cancelButtonText: "取消",

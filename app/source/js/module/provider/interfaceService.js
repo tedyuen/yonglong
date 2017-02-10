@@ -247,7 +247,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.alipayImportOrder,params,success,error);
   }
 
-
+  // 获取支付手续费
+  this.orderConfigFee = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.orderConfigFee,params,success,error);
+  }
 
 
 

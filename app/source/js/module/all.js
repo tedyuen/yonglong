@@ -177,6 +177,7 @@ yonglongApp.constant('URL_CONS', {
   alipayDispatchOrder: 'alipayDispatchOrder',
   alipayDispatch: 'alipayDispatch',
   alipayImportOrder: 'alipayImportOrder',
+  orderConfigFee: 'orderConfigFee',
 
   companyUpdateOrder: 'company_update_order',
   companyDetailOrder: 'company_detail_order',
@@ -382,7 +383,7 @@ yonglongApp.filter('orderStatusText',function () {
 yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
   function ($timeout,interfaceService,rescode) {
 
-  this.alipay = function (result) {
+  this.alipay = function (result,config_fee) {
     console.log('alipayService');
     interfaceService.alipay({id:result.id},function (data,headers,config) {
       console.log("response:"+JSON.stringify(data));
@@ -390,7 +391,7 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
         if(data.data.orderAmount>0){
           swal({
             title: "确认付款吗?",
-            text: "您即将付款"+data.data.orderAmount+"元！",
+            text: "您即将付款"+data.data.orderAmount+"元！\n其中将扣除 " +config_fee +"元手续费",
             type: "warning",
             showCancelButton: true,
             cancelButtonText: "取消",
@@ -411,7 +412,7 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
     });
   }
 
-    this.alipayDispatchOrder = function (result) {
+    this.alipayDispatchOrder = function (result,config_fee) {
       console.log('alipayDispatchOrder');
       interfaceService.alipayDispatchOrder({id:result.id},function (data,headers,config) {
         console.log("response:"+JSON.stringify(data));
@@ -419,7 +420,7 @@ yonglongApp.service('alipayService',['$timeout','interfaceService','rescode',
           if(data.data.orderAmount>0){
             swal({
               title: "确认付款吗?",
-              text: "您即将付款"+data.data.orderAmount+"元！",
+              text: "您即将付款"+data.data.orderAmount+"元！\n其中将扣除 " +config_fee +"元手续费",
               type: "warning",
               showCancelButton: true,
               cancelButtonText: "取消",
@@ -1065,7 +1066,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.alipayImportOrder,params,success,error);
   }
 
-
+  // 获取支付手续费
+  this.orderConfigFee = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.orderConfigFee,params,success,error);
+  }
 
 
 
@@ -3721,6 +3725,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
     $scope.containerSType = baseDataService.getBoxTypeN();
+    $scope.configFee = 0;
 
     $scope.queryData = {
       orderSn:'',
@@ -3750,6 +3755,18 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
         console.log("response:"+JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $scope.results = data.data;
+        }
+        $timeout(function () {
+          getOrderConfigFee();
+        },50);
+      });
+    }
+
+    var getOrderConfigFee = function () {
+      interfaceService.orderConfigFee({},function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS) {
+          $scope.configFee = data.data.configFee;
         }
       });
     }
@@ -3882,7 +3899,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 
     // 派单费用支付
     $scope.alipay = function (result) {
-      alipayService.alipayDispatchOrder(result);
+      alipayService.alipayDispatchOrder(result,$scope.configFee);
     }
 
     httpList();
@@ -3962,8 +3979,8 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('queryOrderController',['$scope','$state','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
-  function ($scope,$state,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
+yonglongApp.controller('queryOrderController',['$scope','$state','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode','alipayService',
+  function ($scope,$state,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode,alipayService) {
     showDatePickerProvider.showDatePicker();
     //
     // $('.tablist a').click(function (e) {
@@ -3974,6 +3991,7 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
     $scope.containerSType = baseDataService.getBoxTypeN();
+    $scope.configFee = 0;
     $scope.queryData = {
       orderStatus:-1,
       goodsMemberId: 67,
@@ -4019,6 +4037,18 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
         console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS) {
           $scope.results = data.data;
+        }
+        $timeout(function () {
+          getOrderConfigFee();
+        },50);
+      });
+    }
+
+    var getOrderConfigFee = function () {
+      interfaceService.orderConfigFee({},function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS) {
+          $scope.configFee = data.data.configFee;
         }
       });
     }
@@ -4150,7 +4180,7 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
 
 
     $scope.alipay = function (result) {
-      alipayService.alipay(result);
+      alipayService.alipay(result,$scope.configFee);
     }
 
 
@@ -4321,6 +4351,7 @@ yonglongApp.controller('queryOrderController',['$scope','$state','showDatePicker
     }
 
     httpList();
+
 
 }]);
 

@@ -7,6 +7,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
     $scope.containerSType = baseDataService.getBoxTypeN();
+    $scope.configFee = 0;
 
     $scope.queryData = {
       orderSn:'',
@@ -36,6 +37,18 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
         console.log("response:"+JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $scope.results = data.data;
+        }
+        $timeout(function () {
+          getOrderConfigFee();
+        },50);
+      });
+    }
+
+    var getOrderConfigFee = function () {
+      interfaceService.orderConfigFee({},function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS) {
+          $scope.configFee = data.data.configFee;
         }
       });
     }
@@ -168,7 +181,7 @@ yonglongApp.controller('hasgetOrderController',['$scope','$timeout','showDatePic
 
     // 派单费用支付
     $scope.alipay = function (result) {
-      alipayService.alipayDispatchOrder(result);
+      alipayService.alipayDispatchOrder(result,$scope.configFee);
     }
 
     httpList();
