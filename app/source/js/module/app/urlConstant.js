@@ -28,6 +28,7 @@ yonglongApp.constant('URL_CONS', {
   companyPublishOrder: 'company_publish_order',
   createImportOrder: 'createImportOrder',
   importOrderList: 'importOrderList',
+  importOrderZip: 'importOrderZip',
   companyListGetorder: 'company_list_getorder',
   deleteOrder: 'company_delete_order',
   companyUserinfo: 'company_userinfo',

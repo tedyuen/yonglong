@@ -151,6 +151,7 @@ yonglongApp.constant('URL_CONS', {
   companyPublishOrder: 'company_publish_order',
   createImportOrder: 'createImportOrder',
   importOrderList: 'importOrderList',
+  importOrderZip: 'importOrderZip',
   companyListGetorder: 'company_list_getorder',
   deleteOrder: 'company_delete_order',
   companyUserinfo: 'company_userinfo',
@@ -944,6 +945,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   // 预录列表
   this.importOrderList = function (params,success,error) {
     this.doHttpMethod(URL_CONS.importOrderList,params,success,error);
+  }
+  // 导出预录列表
+  this.importOrderZip = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.importOrderZip,params,success,error);
   }
 
 
@@ -6796,8 +6801,8 @@ yonglongApp.controller('prerecordController',['$scope','$state','$location','sho
 
   }]);
 
-yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvider','interfaceService','rescode','loadingService','URL_CONS',
-  function ($scope,showDatePickerProvider,interfaceService,rescode,loadingService,URL_CONS) {
+yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvider','interfaceService','rescode','loadingService',
+  function ($scope,showDatePickerProvider,interfaceService,rescode,loadingService) {
     showDatePickerProvider.showDatePicker();
     $scope.queryData = {
       startTime:'',
@@ -6857,17 +6862,17 @@ yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvid
     }
 
 
-    document.getElementById("reportForm").action= URL_CONS.exportRefund;
     $scope.reportExport = function () {
-      document.getElementById("reportForm").submit();
+      interfaceService.importOrderZip($scope.queryData,function (data,headers,config) {
+        console.log("response:"+JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS) {
+          // $scope.results = data.data;
+          window.location.href = data.data.zipurl;
+        }
+      });
     }
 
-    $scope.$watch('queryData.startTime',function () {
-      $('#formStartTime').val($scope.queryData.startTime);
-    });
-    $scope.$watch('queryData.endTime',function () {
-      $('#formEndTime').val($scope.queryData.endTime);
-    });
+
 
     httpList();
 

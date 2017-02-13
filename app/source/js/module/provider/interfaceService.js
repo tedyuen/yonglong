@@ -126,6 +126,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.importOrderList = function (params,success,error) {
     this.doHttpMethod(URL_CONS.importOrderList,params,success,error);
   }
+  // 导出预录列表
+  this.importOrderZip = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.importOrderZip,params,success,error);
+  }
 
 
 

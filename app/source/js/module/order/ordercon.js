@@ -521,6 +521,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.importOrderList = function (params,success,error) {
     this.doHttpMethod(URL_CONS.importOrderList,params,success,error);
   }
+  // 导出预录列表
+  this.importOrderZip = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.importOrderZip,params,success,error);
+  }
 
 
 
@@ -840,6 +844,7 @@ yonglongApp.constant('URL_CONS', {
   companyPublishOrder: 'company_publish_order',
   createImportOrder: 'createImportOrder',
   importOrderList: 'importOrderList',
+  importOrderZip: 'importOrderZip',
   companyListGetorder: 'company_list_getorder',
   deleteOrder: 'company_delete_order',
   companyUserinfo: 'company_userinfo',
