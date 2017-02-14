@@ -24,7 +24,7 @@ yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvid
 
     var httpList = function () {
       interfaceService.importOrderList($scope.queryData,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS) {
           $scope.results = data.data;
         }
@@ -60,8 +60,9 @@ yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvid
 
 
     $scope.reportExport = function () {
+      interfaceService.showLoading();
       interfaceService.importOrderZip($scope.queryData,function (data,headers,config) {
-        console.log("response:"+JSON.stringify(data));
+        // console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS) {
           // $scope.results = data.data;
           window.location.href = data.data.zipurl;
