@@ -4,6 +4,10 @@ yonglongApp.controller('registerCompanyController', ['$scope', '$state', '$inter
     $scope.showTerms = function() {
       $('#terms').modal('show');
     };
+    $scope.showTerms2 = function() {
+      $('#terms2').modal('show');
+    };
+
 
     $scope.reg = {
       memberName: '',

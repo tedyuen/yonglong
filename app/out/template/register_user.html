@@ -7,7 +7,26 @@
           <h4 class="modal-title" id="myLargeModalLabel">E陆通软件许可及服务协议</h4>
         </div>
         <div class="modal-body">
-          <terms></terms>
+          <termsuser></termsuser>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success waves-effect text-left" data-dismiss="modal">同意</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+  <div id="terms2" class="modal fade terms" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel2">用户服务与订单操作协议</h4>
+        </div>
+        <div class="modal-body">
+          <terms-pay></terms-pay>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-success waves-effect text-left" data-dismiss="modal">同意</button>
@@ -159,10 +178,24 @@
 
           <div class="form-group">
             <div class="col-md-12">
-              <div class="checkbox checkbox-primary p-t-0">
-                <input id="checkbox-signup" type="checkbox" ng-model="valid.checkbox">
-                <label for="checkbox-signup"> 我同意 <a href="#" ng-click="showTerms()">E陆通软件许可及服务协议</a></label>
+
+              <div class="checkbox checkbox-primary">
+                <input id="check1" type="checkbox" ng-model="valid.checkbox" ng-hide="true">
+                <label for="check1">
+                  <a ng-click="showTerms()"> 协议一:&nbsp;E陆通软件许可及服务协议</a>
+                </label>
               </div>
+              <div class="checkbox checkbox-primary">
+                <input id="check2" type="checkbox" ng-model="valid.checkbox">
+                <label for="check2">
+                  <a ng-click="showTerms2()"> 协议二:&nbsp;用户服务与订单操作协议</a>
+                </label>
+              </div>
+              <!---->
+              <!--<div class="checkbox checkbox-primary p-t-0">-->
+                <!--<input id="checkbox-signup" type="checkbox" ng-model="valid.checkbox">-->
+                <!--<label for="checkbox-signup"> 我同意 <a ng-click="showTerms()">E陆通软件许可及服务协议</a></label>-->
+              <!--</div>-->
             </div>
           </div>
           <div class="form-group text-center m-t-20">

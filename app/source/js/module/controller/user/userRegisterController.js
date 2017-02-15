@@ -4,6 +4,9 @@ yonglongApp.controller('userRegisterController',['$scope','$state','$cookies','d
     $scope.showTerms=function () {
       $('#terms').modal('show');
     }
+    $scope.showTerms2 = function() {
+      $('#terms2').modal('show');
+    };
 
     $scope.containerVType = baseDataService.getBoxVol();
 
