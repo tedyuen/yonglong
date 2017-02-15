@@ -34,6 +34,22 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
 
     $scope.initStr = '上下车费;待时费;动卫检;坏污箱移箱费;预进港;落箱费';
 
+    $scope.valid={
+      grossWeight:false
+    }
+
+    $scope.$watch('orderDetail.grossWeight',function () {
+      if($scope.orderDetail.grossWeight>0){
+        $scope.valid.grossWeight = true;
+      }else{
+        $scope.valid.grossWeight = false;
+      }
+    });
+
+    $scope.getValid = function () {
+      return $scope.valid.grossWeight;
+    }
+
     $scope.switchOrderStatus = function (orderStatus) {
       $scope.orderDetail.orderStatus = orderStatus;
     }

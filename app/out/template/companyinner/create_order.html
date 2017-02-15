@@ -172,15 +172,15 @@
               </div>
 
               <div class="col-md-6 col-lg-4 col-sm-12">
-                <div class="form-group" ng-class="{'has-error':!theForm.grossWeight.$valid}">
+                <div class="form-group" ng-class="{'has-error':!theForm.grossWeight.$valid || !valid.grossWeight}">
                   <div class="input-group">
                     <span class="input-group-addon">货重</span>
                     <input type="number" class="form-control" name="grossWeight" ng-model="orderDetail.grossWeight" required>
                     <span class="input-group-addon">KG</span>
                   </div>
                   <div class="help-block with-errors">
-                    <span ng-if="theForm.grossWeight.$valid">&nbsp;</span>
-                    <span ng-if="theForm.grossWeight.$invalid">请填写数字并不能为空</span>
+                    <span ng-if="theForm.grossWeight.$valid && valid.grossWeight">&nbsp;</span>
+                    <span ng-if="theForm.grossWeight.$invalid || !valid.grossWeight">请填写大于0的数字并不能为空</span>
                   </div>
                 </div>
               </div>
@@ -304,13 +304,13 @@
 
             </extra-fee>
 
-            <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" ng-click="switchOrderStatus(1)" class="btn waves-effect waves-light m-r-10">
-              <span ng-if="theForm.$invalid">完成表单后发布</span>
-              <span ng-if="theForm.$valid">发布订单</span>
+            <button type="submit" ng-disabled="theForm.$invalid || !getValid()" ng-class="{'btn-primary':theForm.$valid && getValid(),'btn-danger':theForm.$invalid||!getValid()}" ng-click="switchOrderStatus(1)" class="btn waves-effect waves-light m-r-10">
+              <span ng-if="theForm.$invalid || !getValid()">完成表单后发布</span>
+              <span ng-if="theForm.$valid && getValid()">发布订单</span>
             </button>
-            <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" ng-click="switchOrderStatus(0)" class="btn waves-effect waves-light m-r-10">
-              <span ng-if="theForm.$invalid">完成表单后保存</span>
-              <span ng-if="theForm.$valid">保存订单</span>
+            <button type="submit" ng-disabled="theForm.$invalid || !getValid()" ng-class="{'btn-primary':theForm.$valid && getValid(),'btn-danger':theForm.$invalid||!getValid()}" ng-click="switchOrderStatus(0)" class="btn waves-effect waves-light m-r-10">
+              <span ng-if="theForm.$invalid || !getValid()">完成表单后保存</span>
+              <span ng-if="theForm.$valid && getValid()">保存订单</span>
             </button>
             <button type="button" ng-click="reset(theForm)" class="btn waves-effect waves-light btn-success">清空表单</button>
           </div>
