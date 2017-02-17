@@ -5,7 +5,8 @@ yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvid
       startTime:'',
       endTime:'',
       pageno:1,
-      pagesize:20
+      pagesize:20,
+      downloadstatus:-1
     }
 
     $scope.results={
@@ -59,8 +60,9 @@ yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvid
     }
 
 
-    $scope.reportExport = function () {
+    $scope.reportExport = function (downloadstatus) {
       interfaceService.showLoading();
+      $scope.queryData.downloadstatus = downloadstatus;
       interfaceService.importOrderZip($scope.queryData,function (data,headers,config) {
         // console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS) {
