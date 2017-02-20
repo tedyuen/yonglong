@@ -217,6 +217,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.userinner.edit_order',{//修改订单
+      url:'/edit_order/{orderId}',
+      views: {
+        'content@main': {
+          templateUrl: 'template/companyinner/edit_order.html',
+          controller: 'userEditOrderController'
+        }
+      }
+    })
     .state('main.userinner.prerecord',{//我要预录
       url:'/prerecord',
       views: {

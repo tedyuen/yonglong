@@ -1,4 +1,4 @@
-yonglongApp.controller('editOrderController',['$scope','$stateParams','$state','showDatePickerProvider','URL_CONS','baseDataService','interfaceService','rescode',
+yonglongApp.controller('userEditOrderController',['$scope','$stateParams','$state','showDatePickerProvider','URL_CONS','baseDataService','interfaceService','rescode',
   function ($scope,$stateParams,$state,showDatePickerProvider,URL_CONS,baseDataService,interfaceService,rescode) {
 
     showDatePickerProvider.showDatePicker();
@@ -92,9 +92,9 @@ yonglongApp.controller('editOrderController',['$scope','$stateParams','$state','
                 type:"success",
                 showCancelButton: true,
                 cancelButtonText: "确定",
-                confirmButtonText:"外发订单",
+                confirmButtonText:"已接订单",
               },function () {
-                $state.go('main.companyinner.query_order');
+                $state.go('main.userinner.hasget_order');
               });
             }else{
               swal({

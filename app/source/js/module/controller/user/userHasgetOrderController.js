@@ -1,5 +1,5 @@
-yonglongApp.controller('userHasgetOrderController',['$scope','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode',
-  function ($scope,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode) {
+yonglongApp.controller('userHasgetOrderController',['$scope','$state','$timeout','showDatePickerProvider','baseDataService','interfaceService','rescode',
+  function ($scope,$state,$timeout,showDatePickerProvider,baseDataService,interfaceService,rescode) {
     showDatePickerProvider.showDatePicker();
     $scope.orderType = baseDataService.getOrderTypeN();
     $scope.containerVType = baseDataService.getBoxVolN();
@@ -187,6 +187,12 @@ yonglongApp.controller('userHasgetOrderController',['$scope','$timeout','showDat
         busMemberName:'',
         pageno:1,
         pagesize:20,
+      }
+    }
+
+    $scope.editOrder = function (id) {
+      if(id){
+        $state.go('main.userinner.edit_order',{orderId:id});
       }
     }
 
