@@ -8,7 +8,7 @@ yonglongApp.controller('userRegisterController',['$scope','$state','$cookies','d
       $('#terms2').modal('show');
     };
 
-    $scope.containerVType = baseDataService.getBoxVol();
+    $scope.containerVType = baseDataService.getBoxVolReg();
 
 
     $scope.reg={

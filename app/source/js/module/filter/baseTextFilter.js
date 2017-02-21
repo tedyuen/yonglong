@@ -71,6 +71,18 @@ yonglongApp.filter('boxVol',function () {
     }
   }
 })
+yonglongApp.filter('boxVolReg',function () {
+  return str;
+  // return function (str) {
+  //   if(str=='0' || str==0){
+  //     return '20'
+  //   }else if(str=='1' || str==1){
+  //     return '40'
+  //   }else if(str=='2' || str==2){
+  //     return '45'
+  //   }
+  // }
+})
 
 yonglongApp.filter('boxType',['diyData',function (diyData) {
   return function(str){

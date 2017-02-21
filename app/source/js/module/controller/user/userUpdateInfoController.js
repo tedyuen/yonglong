@@ -5,7 +5,7 @@ yonglongApp.controller('userUpdateInfoController',['$scope','$state','$timeout',
       $('#terms').modal('show');
     }
 
-    $scope.containerVType = baseDataService.getBoxVol();
+    $scope.containerVType = baseDataService.getBoxVolReg();
 
     $scope.reg={
       memberName:'',

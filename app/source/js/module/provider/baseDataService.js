@@ -11,6 +11,10 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
   this.getBoxVol = function () {
     return diyData.boxVol;
   }
+  this.getBoxVolReg = function () {
+    return diyData.boxVolReg;
+  }
+
 
   this.getBoxType = function () {
     return diyData.boxType;
