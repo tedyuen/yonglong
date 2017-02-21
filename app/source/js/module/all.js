@@ -1710,6 +1710,7 @@ yonglongApp.controller('userEditOrderController',['$scope','$stateParams','$stat
     $scope.orderDetail = {
       id:$stateParams.orderId,
       shippingName:'',
+      shippingNumber:'',
       shippingDate:'',
       originPort:'',
       loadingPort:'',
@@ -2135,44 +2136,60 @@ yonglongApp.controller('userHasgetOrderController',['$scope','$state','$timeout'
         showCancelButton: true,
         cancelButtonText: "取消",
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "是的,确认!",
+        confirmButtonText: "下一步!",
         closeOnConfirm: false,
-        showLoaderOnConfirm: true,
         inputPlaceholder: "请输入箱号"
       }, function(inputValue){
         if (inputValue === false){
 
         }else if (inputValue === "") {
           swal.showInputError("请输入箱号!");
-          // swal('错误','额外费用名称不能为空！','error');
-          // return false
         }else{
-          var tempData = {
-            orderId:orderId,
-            containerNo:inputValue
-          }
-          interfaceService.userOverOfferOrder(tempData,function (data,headers,config) {
-            if(data.rescode==rescode.SUCCESS){
-              swal({
-                title:"确认成功！",
-                text:"此订单已确认送到。",
-                type:"success",
-                confirmButtonText:"确定"
-              },function () {
-                httpList();
-              });
-            }else{
-              swal({
-                title:"确认失败！",
-                text:"请重新执行此操作。",
-                type:"error",
-                confirmButtonText:"确定"
+          swal({
+            title: "确认送到吗?",
+            text: "您即将确认送到此订单!",
+            type: "input",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的，确认!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+            inputPlaceholder: "请输入封号"
+          }, function(inputValue2) {
+            if (inputValue2 === false) {
+
+            } else if (inputValue2 === "") {
+              swal.showInputError("请输入封号!");
+            } else {
+
+              var tempData = {
+                orderId:orderId,
+                containerNo:inputValue,
+                sealNo:inputValue2,
+              }
+              interfaceService.userOverOfferOrder(tempData,function (data,headers,config) {
+                if(data.rescode==rescode.SUCCESS){
+                  swal({
+                    title:"确认成功！",
+                    text:"此订单已确认送到。",
+                    type:"success",
+                    confirmButtonText:"确定"
+                  },function () {
+                    httpList();
+                  });
+                }else{
+                  swal({
+                    title:"确认失败！",
+                    text:"请重新执行此操作。",
+                    type:"error",
+                    confirmButtonText:"确定"
+                  });
+                }
               });
             }
           });
         }
-
-
       });
     }
 
@@ -2341,38 +2358,56 @@ yonglongApp.controller('userHasgetOrderController2',['$scope','$state','$timeout
         showCancelButton: true,
         cancelButtonText: "取消",
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "是的,确认!",
+        confirmButtonText: "下一步!",
         closeOnConfirm: false,
-        showLoaderOnConfirm: true,
         inputPlaceholder: "请输入箱号"
       }, function(inputValue){
         if (inputValue === false){
 
         }else if (inputValue === "") {
           swal.showInputError("请输入箱号!");
-          // swal('错误','额外费用名称不能为空！','error');
-          // return false
-        }else {
-          var tempData = {
-            orderId: orderId,
-            containerNo:inputValue
-          }
-          interfaceService.userOverOfferOrder(tempData, function (data, headers, config) {
-            if (data.rescode == rescode.SUCCESS) {
-              swal({
-                title: "确认成功！",
-                text: "此订单已确认送到。",
-                type: "success",
-                confirmButtonText: "确定"
-              }, function () {
-                httpList();
-              });
+        }else{
+          swal({
+            title: "确认送到吗?",
+            text: "您即将确认送到此订单!",
+            type: "input",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的，确认!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+            inputPlaceholder: "请输入封号"
+          }, function(inputValue2) {
+            if (inputValue2 === false) {
+
+            } else if (inputValue2 === "") {
+              swal.showInputError("请输入封号!");
             } else {
-              swal({
-                title: "确认失败！",
-                text: "请重新执行此操作。",
-                type: "error",
-                confirmButtonText: "确定"
+
+              var tempData = {
+                orderId:orderId,
+                containerNo:inputValue,
+                sealNo:inputValue2,
+              }
+              interfaceService.userOverOfferOrder(tempData,function (data,headers,config) {
+                if(data.rescode==rescode.SUCCESS){
+                  swal({
+                    title:"确认成功！",
+                    text:"此订单已确认送到。",
+                    type:"success",
+                    confirmButtonText:"确定"
+                  },function () {
+                    httpList();
+                  });
+                }else{
+                  swal({
+                    title:"确认失败！",
+                    text:"请重新执行此操作。",
+                    type:"error",
+                    confirmButtonText:"确定"
+                  });
+                }
               });
             }
           });
@@ -3251,6 +3286,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
     $scope.containerSType = baseDataService.getBoxType();
     $scope.orderDetail ={
       shippingName:'',
+      shippingNumber:'',
       shippingDate:'',
       originPort:'',
       loadingPort:'',
@@ -3384,6 +3420,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
     $scope.reset = function (theForm) {
       $scope.orderDetail ={
         shippingName:'',
+        shippingNumber:'',
         shippingDate:'',
         originPort:'',
         loadingPort:'',
@@ -3654,6 +3691,7 @@ yonglongApp.controller('editOrderController',['$scope','$stateParams','$state','
     $scope.orderDetail = {
       id:$stateParams.orderId,
       shippingName:'',
+      shippingNumber:'',
       shippingDate:'',
       originPort:'',
       loadingPort:'',
@@ -4172,44 +4210,60 @@ yonglongApp.controller('hasgetOrderController',['$scope','$state','$timeout','sh
         showCancelButton: true,
         cancelButtonText: "取消",
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "是的,确认!",
+        confirmButtonText: "下一步!",
         closeOnConfirm: false,
-        showLoaderOnConfirm: true,
         inputPlaceholder: "请输入箱号"
       }, function(inputValue){
         if (inputValue === false){
 
         }else if (inputValue === "") {
           swal.showInputError("请输入箱号!");
-          // swal('错误','额外费用名称不能为空！','error');
-          // return false
         }else{
-          var tempData = {
-            orderId:orderId,
-            containerNo:inputValue
-          }
-          interfaceService.userOverOfferOrder(tempData,function (data,headers,config) {
-            if(data.rescode==rescode.SUCCESS){
-              swal({
-                title:"确认成功！",
-                text:"此订单已确认送到。",
-                type:"success",
-                confirmButtonText:"确定"
-              },function () {
-                httpList();
-              });
-            }else{
-              swal({
-                title:"确认失败！",
-                text:"请重新执行此操作。",
-                type:"error",
-                confirmButtonText:"确定"
+          swal({
+            title: "确认送到吗?",
+            text: "您即将确认送到此订单!",
+            type: "input",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的，确认!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+            inputPlaceholder: "请输入封号"
+          }, function(inputValue2) {
+            if (inputValue2 === false) {
+
+            } else if (inputValue2 === "") {
+              swal.showInputError("请输入封号!");
+            } else {
+
+              var tempData = {
+                orderId:orderId,
+                containerNo:inputValue,
+                sealNo:inputValue2,
+              }
+              interfaceService.userOverOfferOrder(tempData,function (data,headers,config) {
+                if(data.rescode==rescode.SUCCESS){
+                  swal({
+                    title:"确认成功！",
+                    text:"此订单已确认送到。",
+                    type:"success",
+                    confirmButtonText:"确定"
+                  },function () {
+                    httpList();
+                  });
+                }else{
+                  swal({
+                    title:"确认失败！",
+                    text:"请重新执行此操作。",
+                    type:"error",
+                    confirmButtonText:"确定"
+                  });
+                }
               });
             }
           });
         }
-
-
       });
     }
 
@@ -4549,44 +4603,60 @@ yonglongApp.controller('queryOrderController',['$scope','$state','$timeout','sho
         showCancelButton: true,
         cancelButtonText: "取消",
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "是的,确认!",
+        confirmButtonText: "下一步!",
         closeOnConfirm: false,
-        showLoaderOnConfirm: true,
         inputPlaceholder: "请输入箱号"
       }, function(inputValue){
         if (inputValue === false){
 
         }else if (inputValue === "") {
           swal.showInputError("请输入箱号!");
-          // swal('错误','额外费用名称不能为空！','error');
-          // return false
         }else{
-          var tempData = {
-            orderId:orderId,
-            containerNo:inputValue
-          }
-          interfaceService.userOverOfferOrder(tempData,function (data,headers,config) {
-            if(data.rescode==rescode.SUCCESS){
-              swal({
-                title:"确认成功！",
-                text:"此订单已确认送到。",
-                type:"success",
-                confirmButtonText:"确定"
-              },function () {
-                httpList();
-              });
-            }else{
-              swal({
-                title:"确认失败！",
-                text:"请重新执行此操作。",
-                type:"error",
-                confirmButtonText:"确定"
+          swal({
+            title: "确认送到吗?",
+            text: "您即将确认送到此订单!",
+            type: "input",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的，确认!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+            inputPlaceholder: "请输入封号"
+          }, function(inputValue2) {
+            if (inputValue2 === false) {
+
+            } else if (inputValue2 === "") {
+              swal.showInputError("请输入封号!");
+            } else {
+
+              var tempData = {
+                orderId:orderId,
+                containerNo:inputValue,
+                sealNo:inputValue2,
+              }
+              interfaceService.userOverOfferOrder(tempData,function (data,headers,config) {
+                if(data.rescode==rescode.SUCCESS){
+                  swal({
+                    title:"确认成功！",
+                    text:"此订单已确认送到。",
+                    type:"success",
+                    confirmButtonText:"确定"
+                  },function () {
+                    httpList();
+                  });
+                }else{
+                  swal({
+                    title:"确认失败！",
+                    text:"请重新执行此操作。",
+                    type:"error",
+                    confirmButtonText:"确定"
+                  });
+                }
               });
             }
           });
         }
-
-
       });
     }
 

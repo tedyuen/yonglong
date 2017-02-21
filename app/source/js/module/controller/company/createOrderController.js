@@ -9,6 +9,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
     $scope.containerSType = baseDataService.getBoxType();
     $scope.orderDetail ={
       shippingName:'',
+      shippingNumber:'',
       shippingDate:'',
       originPort:'',
       loadingPort:'',
@@ -142,6 +143,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
     $scope.reset = function (theForm) {
       $scope.orderDetail ={
         shippingName:'',
+        shippingNumber:'',
         shippingDate:'',
         originPort:'',
         loadingPort:'',

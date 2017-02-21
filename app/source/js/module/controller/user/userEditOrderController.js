@@ -9,6 +9,7 @@ yonglongApp.controller('userEditOrderController',['$scope','$stateParams','$stat
     $scope.orderDetail = {
       id:$stateParams.orderId,
       shippingName:'',
+      shippingNumber:'',
       shippingDate:'',
       originPort:'',
       loadingPort:'',

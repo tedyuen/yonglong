@@ -23,13 +23,25 @@
               <div class="col-md-6 col-lg-4 col-sm-12">
                 <div class="form-group" ng-class="{'has-error':!theForm.shippingName.$valid}">
                   <div class="input-group">
-                    <span class="input-group-addon">船名行次</span>
+                    <span class="input-group-addon">船名</span>
                     <input type="text" class="form-control" name="shippingName" ng-model="orderDetail.shippingName">
                   </div>
                   <div class="help-block with-errors">
                     <span ng-if="theForm.shippingName.$valid">&nbsp;</span>
-                    <span ng-if="!theForm.shippingName.$valid">船名行次不能为空</span>
+                    <span ng-if="!theForm.shippingName.$valid">船名不能为空</span>
                   </div><!-- 表单验证错误,form-group标签中添加has-error -->
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <div class="form-group" ng-class="{'has-error':!theForm.shippingNumber.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">行次</span>
+                    <input type="text" class="form-control" name="shippingNumber" ng-model="orderDetail.shippingNumber" >
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="theForm.shippingNumber.$valid">&nbsp;</span>
+                    <span ng-if="!theForm.shippingNumber.$valid">行次不能为空</span>
+                  </div>
                 </div>
               </div>
 
