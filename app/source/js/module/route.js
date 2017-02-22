@@ -371,7 +371,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       url:'/create_order',
       views: {
         'content@main': {
-          templateUrl: 'template/companyinner/create_order.html',
+          templateUrl: 'template/companyinner/create_order_new.html',
           controller: 'createOrderController'
         }
       }

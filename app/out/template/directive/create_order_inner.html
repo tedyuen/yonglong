@@ -1,0 +1,50 @@
+<div>
+  <div class="order-inner">
+    <div class="order-inner-up">
+      <ul class="head">
+        <li class="head">提单号</li>
+        <li class="head">件数</li>
+        <li class="head">毛重</li>
+        <li class="head">尺码</li>
+      </ul>
+      <ul ng-repeat="item in resultList">
+        <li>
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon" ng-click="deleteItem(item)"><i class="fa fa-minus"></i></span>
+              <input type="text" class="form-control" name="shippingSn" ng-model="item.billNo">
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="number" class="form-control" name="items" ng-model="item.items">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="number" class="form-control" name="grossWeight" ng-model="item.grossWeight">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="sizeDesc" ng-model="item.sizeDesc">
+          </div>
+        </li>
+      </ul>
+
+
+
+    </div>
+    <div class="clearfix"></div>
+
+  </div>
+  <div class="m-t-15">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="btn waves-effect waves-light btn-warning" ng-click="addExtra()"><i class="fa fa-plus"></i>&nbsp;新增提单</div>
+        <!-- <input type="text" class="form-control" style="visibility:hidden;"> -->
+      </div>
+    </div>
+  </div>
+</div>

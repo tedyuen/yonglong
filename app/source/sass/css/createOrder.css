@@ -9,3 +9,29 @@
   display: block;
   margin-top: 10px;
   margin-bottom: 10px; }
+
+.order-inner {
+  width: 100%;
+  height: 240px;
+  overflow: auto;
+  border: 1px solid #e4e7ea; }
+  .order-inner .order-inner-up ul {
+    width: 100%;
+    padding-left: 0px; }
+    .order-inner .order-inner-up ul.head {
+      margin-top: -10px; }
+    .order-inner .order-inner-up ul li {
+      padding-top: 0px;
+      width: 25%;
+      line-height: 39px;
+      float: left;
+      list-style: none; }
+      .order-inner .order-inner-up ul li .form-group {
+        margin-bottom: 0px; }
+      .order-inner .order-inner-up ul li.head {
+        color: #555;
+        text-align: center;
+        border: 1px solid rgba(120, 130, 140, 0.21);
+        font-size: 14px;
+        font-weight: 400;
+        background-color: #eee; }

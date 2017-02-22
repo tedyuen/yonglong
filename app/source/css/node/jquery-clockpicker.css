@@ -1,0 +1,205 @@
+/*!
+ * Jquery JQClockPicker
+ * Based on: http://weareoutman.github.io/clockpicker
+ * Copyright 2016 Gustavo Real.
+ * MIT Licence
+ */
+
+.jqclockpicker-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1010;
+    display: none;
+    max-width: 276px;
+    text-align: left;
+    background-color: #fff;
+    background-clip: padding-box;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    white-space: normal;
+}
+
+.jqclockpicker-header {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+	display: table;
+	width: 100%;
+    padding: 10px 20px;
+    background: #3F51B5;
+    text-align: center;
+    color: #C5CAE9;
+	font-weight: bold;
+}
+
+.jqclockpicker-time {
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 30px;
+}
+
+.jqclockpicker-header .jqclockpicker-active {
+	color: #FFF;
+}
+
+.jqclockpicker-am-pm-block {
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 20px;
+}
+
+.jqclockpicker-clickable {
+	cursor: pointer;
+}
+
+.jqclockpicker-label-separator {
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.jqclockpicker-body,
+.jqclockpicker-footer {
+	background: #FFF;
+	padding: 15px;
+}
+
+.jqclockpicker-plate {
+	background-color: #EEE;
+	border-radius: 50%;
+	width: 200px;
+	height: 200px;
+	overflow: visible;
+	position: relative;
+	/* Disable text selection highlighting. Thanks to Hermanya */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.jqclockpicker-canvas,
+.jqclockpicker-dial {
+	width: 200px;
+	height: 200px;
+	position: absolute;
+	left: -1px;
+	top: -1px;
+}
+
+.jqclockpicker-tick {
+	font-size: 12px;
+	border-radius: 50%;
+	color: #666;
+	color: rgba(0, 0, 0, 0.87);
+	line-height: 26px;
+	text-align: center;
+	width: 26px;
+	height: 26px;
+	position: absolute;
+	cursor: pointer;
+}
+
+.jqclockpicker-minutes {
+	visibility: hidden;
+}
+
+.jqclockpicker-actions {
+    text-align: right;
+}
+
+.jqclockpicker-button {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    min-width: 70px;
+    color: #3F51B5;
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    background-image: none;
+    background: none;
+    border: none;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.jqclockpicker-tick.active,
+.jqclockpicker-tick:hover {
+	background-color: rgb(192, 229, 247);
+	background-color: rgba(0, 149, 221, .25);
+}
+
+.jqclockpicker-tick.disabled {
+    color: #ccc;
+    color: rgba(0, 0, 0, 0.16);
+    background-color: transparent;
+    cursor: not-allowed;
+}
+
+.jqclockpicker-button:hover {
+	background-image: none;
+	background-color: #ebebeb;
+}
+
+.jqclockpicker-button:focus {
+	outline: none!important;
+}
+
+.jqclockpicker-dial {
+	-webkit-transition: -webkit-transform 350ms, opacity 350ms;
+	-moz-transition: -moz-transform 350ms, opacity 350ms;
+	-ms-transition: -ms-transform 350ms, opacity 350ms;
+	-o-transition: -o-transform 350ms, opacity 350ms;
+	transition: transform 350ms, opacity 350ms;
+}
+.jqclockpicker-dial-out {
+	opacity: 0;
+}
+.jqclockpicker-hours.jqclockpicker-dial-out {
+	-webkit-transform: scale(1.2, 1.2);
+	-moz-transform: scale(1.2, 1.2);
+	-ms-transform: scale(1.2, 1.2);
+	-o-transform: scale(1.2, 1.2);
+	transform: scale(1.2, 1.2);
+}
+.jqclockpicker-minutes.jqclockpicker-dial-out {
+	-webkit-transform: scale(.8, .8);
+	-moz-transform: scale(.8, .8);
+	-ms-transform: scale(.8, .8);
+	-o-transform: scale(.8, .8);
+	transform: scale(.8, .8);
+}
+.jqclockpicker-canvas {
+	-webkit-transition: opacity 175ms;
+	-moz-transition: opacity 175ms;
+	-ms-transition: opacity 175ms;
+	-o-transition: opacity 175ms;
+	transition: opacity 175ms;
+}
+.jqclockpicker-canvas-out {
+	opacity: 0.25;
+}
+.jqclockpicker-canvas-bearing,
+.jqclockpicker-canvas-fg {
+	stroke: none;
+	fill: rgb(0, 149, 221);
+}
+.jqclockpicker-canvas-bg {
+	stroke: none;
+	fill: rgba(0, 149, 221, .25);
+}
+.jqclockpicker-canvas line {
+	stroke: rgb(0, 149, 221);
+	stroke-width: 1;
+	stroke-linecap: round;
+	/*shape-rendering: crispEdges;*/
+}

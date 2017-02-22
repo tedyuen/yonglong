@@ -7,10 +7,12 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
     $scope.orderType = baseDataService.getOrderType();
     $scope.containerVType = baseDataService.getBoxVol();
     $scope.containerSType = baseDataService.getBoxType();
-    $scope.orderDetail ={
+    $scope.orderDetail = {
       shippingName:'',
       shippingNumber:'',
       shippingDate:'',
+      containerNo:'',
+      sealNo:'',
       originPort:'',
       loadingPort:'',
       returnPort:'',
@@ -30,7 +32,21 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
       orderStatus:0,
       orderLinkName:'',
       orderLinkMobile:'',
-      extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
+      extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}],
+
+      billList:[{"billNo":"","grossWeight":0,"id":0,"items":0,"sizeDesc":""}]
+    }
+
+    var calBillList = function () {
+      for(var i=0;i<$scope.orderDetail.billList.length;i++){
+        if($scope.orderDetail.billList[i].billNo == '' &&
+          $scope.orderDetail.billList[i].sizeDesc == '' &&
+          $scope.orderDetail.billList[i].grossWeight == 0 &&
+          $scope.orderDetail.billList[i].items == 0
+        ){
+          $scope.orderDetail.billList.splice(i,1);
+        }
+      }
     }
 
     $scope.initStr = '上下车费;待时费;动卫检;坏污箱移箱费;预进港;落箱费';
@@ -48,7 +64,8 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
     });
 
     $scope.getValid = function () {
-      return $scope.valid.grossWeight;
+      // return $scope.valid.grossWeight;
+      return true;
     }
 
     $scope.switchOrderStatus = function (orderStatus) {
@@ -56,8 +73,8 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
     }
     //提交表单
     $scope.onSubmit = function($valid,form){
-      console.log('--->'+$valid);
-      console.log($scope.orderDetail.orderStatus);
+      // console.log('--->'+$valid);
+      calBillList();
       if($valid){
         if ($scope.orderDetail.orderStatus==1){
           swal({
@@ -164,7 +181,9 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
         orderStatus:0,
         orderLinkName:'',
         orderLinkMobile:'',
-        extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
+        extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}],
+        billList:[{"billNo":"","grossWeight":0,"id":0,"items":0,"sizeDesc":""}]
+
       }
 
       theForm.$setPristine();
@@ -204,10 +223,10 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
   //   $scope.mapOptions.markers[0].latitude = 31.190032;
   // }, 5000);
 
-  $scope.$watch('orderDetail.shippingDate',function () {
-    console.log('====>!!  '+$scope.orderDetail.shippingDate);
-
-  });
+  // $scope.$watch('orderDetail.shippingDate',function () {
+  //   console.log('====>!!  '+$scope.orderDetail.shippingDate);
+  //
+  // });
 
 
 

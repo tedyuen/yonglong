@@ -20,7 +20,8 @@ var cssArr = [
   './app/source/css/pixel/spinners.css',
   // './app/source/css/pixel/colors/default.css',
   './app/source/css/pixel/colors/purple.css',
-  './app/source/css/node/bootstrap-datepicker.min.css',
+  './app/source/css/node/bootstrap-datetimepicker.min.css',
+  './app/source/css/node/jquery-clockpicker.css',
   './app/source/css/node/dropify.min.css',
   './app/source/sass/css/createOrder.css'
 ];

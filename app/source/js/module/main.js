@@ -16,7 +16,13 @@ require('dropify');
 // var log = new LogUtil(true);//Set can out log.
 
 require('bootstrap-datepicker');
+// require('bootstrap-timepicker');
+// require('jquery-clockpicker');
+require('./utils/bootstrap-datetimepicker-new');
+require('./utils/bootstrap-datetimepicker.zh-CN');
+
 require('./utils/bootstrap-datepicker');
+
 // require('./utils/jquery.waypoints');
 // require('./utils/jquery.counterup.min');
 require('sweetalert');
