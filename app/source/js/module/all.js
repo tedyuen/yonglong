@@ -106,7 +106,8 @@ yonglongApp.value('diyData',
     boxVolN: [{name: '不限', id: -1, show: '不限'},{name: '20', id: 0, show: '短板车'}, {name: '40', id: 1, show: '12.6米'},{name: '45', id: 2, show: '12.6米'}],
     orderTypeN: [{name: '不限', id: -1},{name: '进口', id: 0}, {name: '出口', id: 1}, {name: '拖柜进洋山', id: 2}],
     reportTypeN1:[{name:'车主',id:0},{name:'车队',id:1}],
-    reportTypeN2:[{name:'外发订单',id:0},{name:'外接订单',id:1}]
+    reportTypeN2:[{name:'外发订单',id:0},{name:'外接订单',id:1}],
+    temperatureUnit:[{name:'C摄氏',id:'C'},{name:'F华氏',id:'F'}]
   }
 );
 
@@ -547,6 +548,9 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
     return diyData.reportTypeN2;
   }
 
+  this.getTemperatureUnit = function () {
+    return diyData.temperatureUnit;
+  }
 
 
   this.getPayStatusText = function (value) {
@@ -1745,7 +1749,9 @@ yonglongApp.controller('userEditOrderController',['$scope','$stateParams','$stat
       goodsPackage:'',
       orderLinkName:'',
       orderLinkMobile:'',
-      extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
+      extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}],
+      billList:[]
+
     }
 
     $scope.valid={
@@ -1761,7 +1767,8 @@ yonglongApp.controller('userEditOrderController',['$scope','$stateParams','$stat
     });
 
     $scope.getValid = function () {
-      return $scope.valid.grossWeight;
+      // return $scope.valid.grossWeight;
+      return true;
     }
 
     var httpList = function () {
@@ -7225,6 +7232,234 @@ yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvid
 
   }]);
 
+yonglongApp.controller('prerecordNewController',['$scope','$state','$location','showDatePickerProvider','interfaceService','rescode','alipayService','baseDataService',
+  function ($scope,$state,$location,showDatePickerProvider,interfaceService,rescode,alipayService,baseDataService) {
+    showDatePickerProvider.showDatePicker();
+
+    $scope.temperatureUnit = baseDataService.getTemperatureUnit();
+
+
+    var backurl = "shell.html#!/main/companyinner/prerecord";
+    if($location.url()=='/main/userinner/prerecord'){
+      backurl = "shell.html#!/main/userinner/prerecord";
+    }else if($location.url()=='/main/admin/prerecord'){
+      backurl = "shell.html#!/main/admin/prerecord";
+    }
+
+
+
+      $scope.orderDetail = {
+      "backurl":backurl,
+      "aftersuper": "",
+      "beforesuper": "",
+      "boxinfo": "",
+      "boxno": "",
+      "boxoperator": "",
+      "boxoperatorcode": "",
+      "callinfo": "",
+      "callman": "",
+      "callno": "",
+      "calltype": "",
+      "cargocode": "",
+      "cargodesc": "",
+      "cargono": "",
+      "customscode": "",
+      "dangerousgrade": "",
+      "dangerouslabel": "",
+      "deliverycode": "",
+      "deliveryport": "",
+      "destport": "",
+      "destportcode": "",
+      "detailaddress": "",
+      "emergencyno": "",
+      "equipmentorder": "",
+      "fileurl": "1",
+      "firstaidno": "",
+      "flashpoint": "",
+      "hignsuper": "",
+      "imdgpage": "",
+      "imono": "",
+      "impexpsign": "",
+      "inletwharf": "",
+      "items": "",
+      "leftsuper": "",
+      "licensenumber": "",
+      "loadingport": "",
+      "loadingportcode": "",
+      "marinepollution": "",
+      "mark": "",
+      "orderinfo": "",
+      "ordersn": "",
+      "packaddress": "",
+      "packagecode": "",
+      "packagetype": "",
+      "packman": "",
+      "passengerliner": "",
+      "remark": "",
+      "rightsuper": "",
+      "secdangerousgrade": "",
+      "secdangerouslabel": "",
+      "secemergencyno": "",
+      "secfirstaidno": "",
+      "secflashpoint": "",
+      "secimdgpage": "",
+      "secmarinepollution": "",
+      "secunnumber": "",
+      "shipcall": "",
+      "shipnationcode": "",
+      "shippingdate": "",
+      "shippname": "",
+      "shippno": "",
+      "shiptype": "",
+      "size": "",
+      "sizetype": "",
+      "smokebox": "",
+      "statusinfo": "",
+      "temperature": "",
+      "temperaturemax": "",
+      "temperaturemin": "",
+      "temperatureunit": "",
+      "transitport": "",
+      "transitportcode": "",
+      "unnumber": "",
+      "weight": ""
+    }
+
+    //提交表单
+    $scope.onSubmit = function($valid,form){
+      console.log('--->'+$valid);
+      console.log($scope.orderDetail.orderStatus);
+      if($valid){
+        swal({
+          title: "确定预录吗?",
+          text: "您即将预录一条信息!",
+          type: "warning",
+          showCancelButton: true,
+          cancelButtonText: "取消",
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "是的,确定!",
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true,
+          animation: "slide-from-top",
+        }, function(){
+          interfaceService.createImportOrder($scope.orderDetail,function (data,headers,config) {
+            console.log(JSON.stringify(data));
+            if(data.rescode==rescode.SUCCESS){
+              swal({
+                title:"创建成功！",
+                text:"2秒后自动跳转付款。",
+                type:"success",
+                timer:2000,
+                showConfirmButton: false
+              },function () {
+                // $state.go('main.companyinner.query_order');
+                alipayService.alipayImportOrder(data.data.id);
+              });
+              // $scope.reset(form);
+            }else{
+              swal({
+                title:"预录失败！",
+                text:data.resdesc,
+                type:"error",
+                confirmButtonText:"确定"
+              });
+            }
+          });
+        });
+
+      }else{
+        // console.log("$valid:"+$valid);
+      }
+    };
+
+    $scope.reset = function (theForm) {
+      $scope.orderDetail ={
+        "backurl":backurl,
+        "aftersuper": "",
+        "beforesuper": "",
+        "boxinfo": "",
+        "boxno": "",
+        "boxoperator": "",
+        "boxoperatorcode": "",
+        "callinfo": "",
+        "callman": "",
+        "callno": "",
+        "calltype": "",
+        "cargocode": "",
+        "cargodesc": "",
+        "cargono": "",
+        "customscode": "",
+        "dangerousgrade": "",
+        "dangerouslabel": "",
+        "deliverycode": "",
+        "deliveryport": "",
+        "destport": "",
+        "destportcode": "",
+        "detailaddress": "",
+        "emergencyno": "",
+        "equipmentorder": "",
+        "fileurl": "1",
+        "firstaidno": "",
+        "flashpoint": "",
+        "hignsuper": "",
+        "imdgpage": "",
+        "imono": "",
+        "impexpsign": "",
+        "inletwharf": "",
+        "items": "",
+        "leftsuper": "",
+        "licensenumber": "",
+        "loadingport": "",
+        "loadingportcode": "",
+        "marinepollution": "",
+        "mark": "",
+        "orderinfo": "",
+        "ordersn": "",
+        "packaddress": "",
+        "packagecode": "",
+        "packagetype": "",
+        "packman": "",
+        "passengerliner": "",
+        "remark": "",
+        "rightsuper": "",
+        "secdangerousgrade": "",
+        "secdangerouslabel": "",
+        "secemergencyno": "",
+        "secfirstaidno": "",
+        "secflashpoint": "",
+        "secimdgpage": "",
+        "secmarinepollution": "",
+        "secunnumber": "",
+        "shipcall": "",
+        "shipnationcode": "",
+        "shippingdate": "",
+        "shippname": "",
+        "shippno": "",
+        "shiptype": "",
+        "size": "",
+        "sizetype": "",
+        "smokebox": "",
+        "statusinfo": "",
+        "temperature": "",
+        "temperaturemax": "",
+        "temperaturemin": "",
+        "temperatureunit": "",
+        "transitport": "",
+        "transitportcode": "",
+        "unnumber": "",
+        "weight": ""
+      }
+
+      theForm.$setPristine();
+      theForm.$setUntouched();
+    }
+
+
+
+
+
+  }]);
+
 yonglongApp.controller('forgetPasswordController',['$scope','$state','$stateParams','$interval','interfaceService','rescode','validateService','toastService',
   function ($scope,$state,$stateParams,$interval,interfaceService,rescode,validateService,toastService) {
 
@@ -7652,6 +7887,45 @@ yonglongApp.directive('pagination',function () {
   }
 });
 
+yonglongApp.directive('prerecordInner',['$compile',function($compile){
+  return{
+    restrict: 'AE',
+    replace: true,
+    scope: {
+      resultList:'='
+    },
+    templateUrl: 'template/directive/prerecord_inner.html',
+    controller: function($scope){
+      // $scope.resultList = [];
+      // console.log($scope.initStr);
+      // var strArray = $scope.initStr.split(';');
+      // for(var n in strArray){
+      //   $scope.resultList.push({
+      //     feeName:strArray[n],
+      //     feeValue:0,
+      //     id:0,
+      //     sort:0,
+      //     isInit:true
+      //   });
+      // }
+
+      $scope.addExtra = function(){
+        // $scope.resultList.push({"billNo":"","grossWeight":0,"id":0,"items":0,"sizeDesc":""});
+      };
+
+      $scope.deleteItem = function (item) {
+        for(var i=0;i<$scope.resultList.length;i++){
+          if($scope.resultList[i].billNo==item.billNo) {
+            $scope.resultList.splice(i,1);
+            break;
+          }
+        }
+
+      }
+    }
+  }
+}]);
+
 yonglongApp.directive('terms',function () {
   return{
     restrict: 'AE',
@@ -7752,8 +8026,8 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       url:'/prerecord',
       views: {
         'content@main': {
-          templateUrl: 'template/common/prerecord.html',
-          controller: 'prerecordController'
+          templateUrl: 'template/common/prerecord_new.html',
+          controller: 'prerecordNewController'
         }
       }
     })
@@ -7899,7 +8173,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       url:'/edit_order/{orderId}',
       views: {
         'content@main': {
-          templateUrl: 'template/companyinner/edit_order.html',
+          templateUrl: 'template/companyinner/edit_order_new.html',
           controller: 'userEditOrderController'
         }
       }

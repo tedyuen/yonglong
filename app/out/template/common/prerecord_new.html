@@ -1,0 +1,413 @@
+<!--<link href="../../../source/css/node/bootstrap.min.css" rel="stylesheet">-->
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">预录</h4>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="">订单管理</a></li>
+          <li class="active">预录</li>
+        </ol>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <form ng-submit="onSubmit(theForm.$valid,theForm)" novalidate="novalidate" name="theForm" class="prerecord">
+          <div class="white-box">
+            <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" class="btn waves-effect waves-light m-r-10">
+              <span ng-if="theForm.$invalid">完成表单后预录</span>
+              <span ng-if="theForm.$valid">预录</span>
+            </button>
+            <button type="button" ng-click="" class="btn waves-effect waves-light btn-success m-r-10">补充信息</button>
+            <button type="button" ng-click="" class="btn waves-effect waves-light btn-success m-r-10">封志信息</button>
+            <button type="button" ng-click="reset(theForm)" class="btn waves-effect waves-light btn-warning">清空表单</button>
+
+            <div class="row m-t-20 bottom-10">
+              <div class="col-md-2 col-lg-2 col-sm-2">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">冷藏温度</span>
+                    <input type="text" class="form-control" name="temperature" ng-model="orderDetail.temperature" data-toggle="tooltip" role="tooltip" data-placement="right" data-original-title="输入冷藏温度之后，请在补充信息中输入最高最低温度">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 col-lg-2 col-sm-2">
+                <div class="form-group" style="text-align: center">
+                  <div class="input-group radio-frame" ng-repeat="unit in temperatureUnit">
+                    <input type="radio" name="radio" id="unit{{unit.id}}"  ng-value="unit.id" ng-model="orderDetail.temperatureunit">
+                    <label for="unit{{unit.id}}">{{unit.name}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8 col-lg-8 col-sm-8" style="text-align: center">
+                <div class="color-red">CONTAINER LOAD PLAN</div>
+                <div><span class="color-red">装箱单</span> 状态：</div>
+              </div>
+            </div>
+
+            <!-- line 2 -->
+            <div class="row">
+              <div class="col-md-4 col-lg-4 col-sm-4  title1">
+                <ul>
+                  <li class="head"><nobr>危险品等级</nobr></li>
+                  <li class="head"><nobr>危规页码</nobr></li>
+                  <li class="head"><nobr>联合国编号</nobr></li>
+                  <li class="head"><nobr>闪点</nobr></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="dangerousgrade" ng-model="orderDetail.dangerousgrade" data-toggle="tooltip" role="tooltip" data-placement="right" data-html="true" data-original-title="1、为确保危险货物顺利出运，请准确预录危险货物信息，危险品级别、联合国编号必须与海事危险品信息保持一致。<br>2、多票危险货物混拼时，集装箱危险品等级应填写所拼危险货物中的最高危险品级别。<br>3、非危险货物与危险货物混拼时，非危险货物提单项下的危险品信息为空，不要填写。">
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="imdgpage" ng-model="orderDetail.imdgpage">
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <input type="number" class="form-control" name="unnumber" ng-model="orderDetail.unnumber">
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="flashpoint" ng-model="orderDetail.flashpoint">
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-md-8 col-lg-8 col-sm-8">
+                <div class="row no-bottom">
+                  <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group" ng-class="{'has-error':!theForm.loadingport.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">装港</span>
+                        <input type="text" class="form-control" name="loadingport" ng-model="orderDetail.loadingport" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon color-green">卸港</span>
+                        <input type="text" class="form-control" name="transitport" ng-model="orderDetail.transitport" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">目的港</span>
+                        <input type="text" class="form-control" name="destport" ng-model="orderDetail.destport">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group" ng-class="{'has-error':!theForm.loadingportcode.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">装港代码</span>
+                        <input type="text" class="form-control" name="loadingportcode" ng-model="orderDetail.loadingportcode" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group" ng-class="{'has-error':!theForm.transitportcode.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">卸港代码</span>
+                        <input type="text" class="form-control" name="transitportcode" ng-model="orderDetail.transitportcode" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">目的港代码</span>
+                        <input type="text" class="form-control" name="destportcode" ng-model="orderDetail.destportcode">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!-- line 2 -->
+
+            <!-- line 3 -->
+            <div class="row m-t-10">
+              <div class="col-md-4 col-lg-3 col-sm-4">
+                <div class="row bottom-10">
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group" ng-class="{'has-error':!theForm.boxno.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">箱号</span>
+                        <input type="text" class="form-control" name="boxno" ng-model="orderDetail.boxno" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group" ng-class="{'has-error':!theForm.shippname.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">船名</span>
+                        <input type="text" class="form-control" name="shippname" ng-model="orderDetail.shippname" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon color-green">航次</span>
+                        <input type="text" class="form-control" name="shippno" ng-model="orderDetail.shippno" disabled>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12" ng-if="false">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon color-green">IMO编号</span>
+                        <input type="text" class="form-control" name="imono" ng-model="orderDetail.imono" disabled>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group" ng-class="{'has-error':!theForm.inletwharf.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">进箱码头</span>
+                        <input type="text" class="form-control" name="inletwharf" ng-model="orderDetail.inletwharf" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group" ng-class="{'has-error':!theForm.sizetype.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">尺寸类型</span>
+                        <input type="text" class="form-control" name="sizetype" ng-model="orderDetail.sizetype" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group" ng-class="{'has-error':!theForm.statusinfo.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">状态</span>
+                        <input type="text" class="form-control" name="statusinfo" ng-model="orderDetail.statusinfo" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon color-green">箱经营人</span>
+                        <input type="text" class="form-control" name="boxoperator" ng-model="orderDetail.boxoperator" disabled>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group" ng-class="{'has-error':!theForm.boxoperatorcode.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">代码</span>
+                        <input type="text" class="form-control" name="boxoperatorcode" ng-model="orderDetail.boxoperatorcode" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group" ng-class="{'has-error':!theForm.customscode.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">海关代码</span>
+                        <input type="text" class="form-control" name="customscode" ng-model="orderDetail.customscode" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group" ng-class="{'has-error':!theForm.callno.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">封志号</span>
+                        <input type="text" class="form-control" name="callno" ng-model="orderDetail.callno" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group" ng-class="{'has-error':!theForm.calltype.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">封志类型</span>
+                        <input type="text" class="form-control" name="calltype" ng-model="orderDetail.calltype" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group" ng-class="{'has-error':!theForm.callman.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">加封人</span>
+                        <input type="text" class="form-control" name="callman" ng-model="orderDetail.callman" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">运输方式</span>
+                        <input type="text" class="form-control" name="shiptype" ng-model="orderDetail.shiptype">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="col-md-8 col-lg-9 col-sm-8">
+                <prerecord-inner result-list="orderDetail.billList"></prerecord-inner>
+
+                <div class="row m-t-0">
+                  <div class="bottom1">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon color-green">总件数</span>
+                        <input type="text" class="form-control" name="allitems" ng-model="orderDetail.allitems" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bottom1">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon color-green">总货重</span>
+                        <input type="text" class="form-control" name="allweight" ng-model="orderDetail.allweight" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bottom1">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon color-green">总尺码</span>
+                        <input type="text" class="form-control" name="allsize" ng-model="orderDetail.allsize" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bottom1">
+                    <div class="form-group" ng-class="{'has-error':!theForm.smokebox.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">箱皮重</span>
+                        <input type="text" class="form-control" name="smokebox" ng-model="orderDetail.smokebox" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bottom1 last">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon color-green">总重</span>
+                        <input type="text" class="form-control" name="allweight2" ng-model="orderDetail.allweight2" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- line 3 -->
+
+            <!-- line 4 -->
+            <div class="row m-t-0">
+              <div class="bottom1">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">装箱日期</span>
+                    <input type="text" class="form-control mydatepicker" name="shippingdate" placeholder="yyyy年mm月dd日" ng-model="orderDetail.shippingdate" required>
+                  </div>
+                </div>
+              </div>
+              <div class="bottom1">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">装箱人</span>
+                    <input type="text" class="form-control" name="packman" ng-model="orderDetail.packman">
+                  </div>
+                </div>
+              </div>
+              <div class="bottom1">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon color-green">地址</span>
+                    <input type="text" class="form-control" name="packaddress" ng-model="orderDetail.packaddress" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="bottom1">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">车号</span>
+                    <input type="text" class="form-control" name="licensenumber" ng-model="orderDetail.licensenumber">
+                  </div>
+                </div>
+              </div>
+              <div class="bottom1 last">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">设备交接单</span>
+                    <input type="text" class="form-control" name="equipmentorder" ng-model="orderDetail.equipmentorder">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- line 4 -->
+
+            <!-- line 5 -->
+            <div class="row">
+              <div class="col-md-6 col-lg-6 col-sm-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">装箱详细地址</span>
+                    <input type="text" class="form-control" name="detailaddress" ng-model="orderDetail.detailaddress">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-sm-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">备注</span>
+                    <input type="text" class="form-control" name="remark" ng-model="orderDetail.remark">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- line 5 -->
+
+
+
+
+          </div>
+        </form>
+        <!--<pre>{{theForm | json}}</pre>-->
+      </div>
+
+    </div>
+    <!-- /.row -->
+  </div>
+
+
+  <div id="payForm" style="display:none;"></div>
+
+
+</div>

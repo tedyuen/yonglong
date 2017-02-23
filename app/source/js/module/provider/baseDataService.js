@@ -35,6 +35,9 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
     return diyData.reportTypeN2;
   }
 
+  this.getTemperatureUnit = function () {
+    return diyData.temperatureUnit;
+  }
 
 
   this.getPayStatusText = function (value) {

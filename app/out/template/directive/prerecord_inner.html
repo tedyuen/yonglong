@@ -1,0 +1,147 @@
+<div>
+  <div class="prerecord-inner">
+    <div class="prerecord-inner-up">
+      <ul class="head">
+        <li class="head first">提单号</li>
+        <li class="head">(交货地代码</li>
+        <li class="head">交货地)</li>
+        <li class="head">货物序号</li>
+        <li class="head">件数</li>
+        <li class="head">(包装代码</li>
+        <li class="head">包装类型)</li>
+        <li class="head">货重</li>
+        <li class="head">尺码</li>
+        <li class="head">货物描述</li>
+        <li class="head">唛头</li>
+        <li class="head">货物代码</li>
+        <li class="head">危险品等级</li>
+        <li class="head">危险品页号</li>
+        <li class="head">联合国编号</li>
+        <li class="head">闪点</li>
+        <li class="head">危险品标签</li>
+        <li class="head">应急措施号</li>
+        <li class="head">急救指南号</li>
+        <li class="head">海运污染</li>
+      </ul>
+      <ul>
+        <li class="first">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon" ng-click="deleteItem(item)"><i class="fa fa-minus"></i></span>
+              <input type="text" class="form-control" name="ordersn" ng-model="item.ordersn">
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="deliverycode" ng-model="item.deliverycode">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="deliveryport" ng-model="item.deliveryport">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="number" class="form-control" name="cargono" ng-model="item.cargono">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="number" class="form-control" name="items" ng-model="item.items">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="packagecode" ng-model="item.packagecode">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="packagetype" ng-model="item.packagetype">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="number" class="form-control" name="weight" ng-model="item.weight">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="number" class="form-control" name="size" ng-model="item.size">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="cargodesc" ng-model="item.cargodesc">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="mark" ng-model="item.mark">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="number" class="form-control" name="cargocode" ng-model="item.cargocode">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="dangerousgrade" ng-model="item.dangerousgrade">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="imdgpage" ng-model="item.imdgpage">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="number" class="form-control" name="unnumber" ng-model="item.unnumber">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="number" class="form-control" name="flashpoint" ng-model="item.flashpoint">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="dangerouslabel" ng-model="item.dangerouslabel">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="emergencyno" ng-model="item.emergencyno">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="firstaidno" ng-model="item.firstaidno">
+          </div>
+        </li>
+        <li>
+          <div class="form-group">
+            <input type="text" class="form-control" name="marinepollution" ng-model="item.marinepollution">
+          </div>
+        </li>
+
+      </ul>
+
+
+
+    </div>
+    <div class="clearfix"></div>
+
+  </div>
+  <div class="m-t-15">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="btn waves-effect waves-light btn-warning" ng-click="addExtra()"><i class="fa fa-plus"></i>&nbsp;新增提单</div>
+        <!-- <input type="text" class="form-control" style="visibility:hidden;"> -->
+      </div>
+    </div>
+  </div>
+</div>

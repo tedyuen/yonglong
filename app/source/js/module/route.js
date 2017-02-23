@@ -74,8 +74,8 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       url:'/prerecord',
       views: {
         'content@main': {
-          templateUrl: 'template/common/prerecord.html',
-          controller: 'prerecordController'
+          templateUrl: 'template/common/prerecord_new.html',
+          controller: 'prerecordNewController'
         }
       }
     })
