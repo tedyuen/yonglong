@@ -221,7 +221,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       url:'/edit_order/{orderId}',
       views: {
         'content@main': {
-          templateUrl: 'template/companyinner/edit_order.html',
+          templateUrl: 'template/companyinner/edit_order_new.html',
           controller: 'userEditOrderController'
         }
       }
@@ -380,7 +380,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       url:'/edit_order/{orderId}',
       views: {
         'content@main': {
-          templateUrl: 'template/companyinner/edit_order.html',
+          templateUrl: 'template/companyinner/edit_order_new.html',
           controller: 'editOrderController'
         }
       }

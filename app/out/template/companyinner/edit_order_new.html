@@ -1,13 +1,14 @@
+<!--<link href="../../../source/css/node/bootstrap.min.css" rel="stylesheet">-->
 <div id="page-wrapper">
   <div class="container-fluid">
     <div class="row bg-title">
       <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">创建订单</h4>
+        <h4 class="page-title">修改订单</h4>
       </div>
       <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
           <li><a href="">订单管理</a></li>
-          <li class="active">创建订单</li>
+          <li class="active">修改订单</li>
         </ol>
       </div>
       <!-- /.col-lg-12 -->
@@ -16,9 +17,10 @@
     <!-- /.row -->
     <div class="row">
       <div class="col-sm-12">
-        <form ng-submit="onSubmit(theForm.$valid,theForm)" novalidate="novalidate" name="theForm">
+        <form ng-submit="onSubmit(theForm.$valid)" novalidate="novalidate" name="theForm">
           <div class="white-box">
             <div class="row">
+
               <div class="col-md-3 col-lg-3 col-sm-3">
                 <div class="form-group" ng-class="{'has-error':!theForm.shippingName.$valid}">
                   <div class="input-group">
@@ -207,55 +209,48 @@
               </div>
             </div>
 
-
             <div class="row">
               <div class="col-md-12">
                 <h4>额外费用</h4>
               </div>
             </div>
 
-            <extra-fee init-str="initStr"
-                       result-list="orderDetail.extrafeeList">
+            <extra-fee result-list="orderDetail.extrafeeList">
 
             </extra-fee>
 
-            <button type="submit" ng-disabled="theForm.$invalid || !getValid()" ng-class="{'btn-primary':theForm.$valid && getValid(),'btn-danger':theForm.$invalid||!getValid()}" ng-click="switchOrderStatus(1)" class="btn waves-effect waves-light m-r-10">
-              <span ng-if="theForm.$invalid || !getValid()">完成表单后发布</span>
-              <span ng-if="theForm.$valid && getValid()">发布订单</span>
+            <button type="submit" ng-disabled="theForm.$invalid || !getValid()" ng-class="{'btn-primary':theForm.$valid && getValid(),'btn-danger':theForm.$invalid || !getValid()}" class="btn waves-effect waves-light m-r-10">
+              <span ng-if="theForm.$invalid || !getValid()">请先完成表单</span>
+              <span ng-if="theForm.$valid && getValid()">修改订单</span>
             </button>
-            <button type="submit" ng-disabled="theForm.$invalid || !getValid()" ng-class="{'btn-primary':theForm.$valid && getValid(),'btn-danger':theForm.$invalid||!getValid()}" ng-click="switchOrderStatus(0)" class="btn waves-effect waves-light m-r-10">
-              <span ng-if="theForm.$invalid || !getValid()">完成表单后保存</span>
-              <span ng-if="theForm.$valid && getValid()">保存订单</span>
-            </button>
-            <button type="button" ng-click="reset(theForm)" class="btn waves-effect waves-light btn-success">清空表单</button>
+            <button type="button" ng-click="reset()" class="btn waves-effect waves-light btn-success">重置</button>
           </div>
         </form>
         <!--<pre>{{theForm | json}}</pre>-->
       </div>
-
     </div>
     <!-- /.row -->
   </div>
 
-  <!--<div id="table-preview" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">-->
-    <!--<div class="modal-dialog order-detail">-->
-      <!--<div class="modal-content">-->
-        <!--<div class="modal-header">-->
-          <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
-          <!--<h4 class="modal-title" id="myLargeModalLabel">确认订单信息</h4>-->
-        <!--</div>-->
-        <!--<div class="modal-body">-->
-          <!--<div orderdetail></div>-->
-        <!--</div>-->
-        <!--<div class="modal-footer">-->
-          <!--<button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">取消</button>-->
-          <!--<button type="button" class="btn btn-info waves-effect text-left" data-dismiss="modal">创建订单</button>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--&lt;!&ndash; /.modal-content &ndash;&gt;-->
-    <!--</div>-->
-    <!--&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
-  <!--</div>-->
+  <div id="table-preview" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog order-detail">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel">确认订单信息</h4>
+        </div>
+        <div class="modal-body">
+          <div orderdetail></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-info waves-effect text-left" data-dismiss="modal">创建订单</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
 
 
 </div>

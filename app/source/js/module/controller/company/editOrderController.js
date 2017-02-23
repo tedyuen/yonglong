@@ -29,7 +29,9 @@ yonglongApp.controller('editOrderController',['$scope','$stateParams','$state','
       goodsPackage:'',
       orderLinkName:'',
       orderLinkMobile:'',
-      extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}]
+      extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}],
+      billList:[]
+
     }
 
     $scope.valid={
@@ -45,7 +47,8 @@ yonglongApp.controller('editOrderController',['$scope','$stateParams','$state','
     });
 
     $scope.getValid = function () {
-      return $scope.valid.grossWeight;
+      // return $scope.valid.grossWeight;
+      return true;
     }
 
     var httpList = function () {
