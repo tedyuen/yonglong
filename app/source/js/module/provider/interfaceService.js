@@ -131,6 +131,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.importOrderZip,params,success,error);
   }
 
+  // 船舶信息
+  this.importShiplist = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.importShiplist,params,success,error);
+  }
 
 
 

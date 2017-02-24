@@ -25,6 +25,7 @@ var cssArr = [
   // './app/source/css/node/jquery-clockpicker.css',
   './app/source/css/node/dropify.min.css',
   './app/source/css/node/jquery.typeahead.min.css',
+  './app/source/css/node/ui-bootstrap-csp.css',
   './app/source/sass/css/createOrder.css'
 ];
 

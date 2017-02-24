@@ -27,6 +27,7 @@
     "angular-baidu-map": "^2.2.0",
     "angular-cookies": "^1.6.1",
     "angular-route": "^1.6.0",
+    "angular-ui-bootstrap": "^2.5.0",
     "angular-ui-router": "^0.3.2",
     "bootstrap": "^3.3.7",
     "bootstrap-datepicker": "^1.6.4",

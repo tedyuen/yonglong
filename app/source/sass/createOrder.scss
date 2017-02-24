@@ -52,9 +52,34 @@
 
 .prerecord{
 
-  .typeahead__field {
-    input{
-      height: 38px;
+  ul {
+    &.ship-typeahead {
+      width:400px;
+      padding-left: 0px;
+      li {
+        padding-top: 0px;
+        float: left;
+        list-style: none;
+        font-size: 12px;
+
+        &.head {
+          color: #555;
+          border: 1px solid rgba(120, 130, 140, .21);
+          font-size: 14px;
+          font-weight: 400;
+          background-color: #eee;
+        }
+        &.first {
+          width: 150px;
+        }
+        &.second {
+          width: 100px;
+        }
+        &.third {
+          width: 150px;
+        }
+
+      }
     }
   }
 

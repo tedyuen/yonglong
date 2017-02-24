@@ -31,11 +31,12 @@ require('sweetalert');
 require('angular');
 require('angular-cookies');
 require('angular-ui-router');
+require('angular-ui-bootstrap');
 
 // require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
 
 // var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
-var yonglongApp = angular.module("myApp",['ui.router','ngCookies']);
+var yonglongApp = angular.module("myApp",['ui.router','ui.bootstrap','ngCookies']);
 // yonglongApp.config(['$compileProvider',function ($compileProvider) {
 //   $compileProvider.debugInfoEnabled(false);
 // }]);

@@ -31,11 +31,12 @@ require('sweetalert');
 require('angular');
 require('angular-cookies');
 require('angular-ui-router');
+require('angular-ui-bootstrap');
 
 // require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
 
 // var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
-var yonglongApp = angular.module("myApp",['ui.router','ngCookies']);
+var yonglongApp = angular.module("myApp",['ui.router','ui.bootstrap','ngCookies']);
 // yonglongApp.config(['$compileProvider',function ($compileProvider) {
 //   $compileProvider.debugInfoEnabled(false);
 // }]);
@@ -161,6 +162,7 @@ yonglongApp.constant('URL_CONS', {
   createImportOrder: 'createImportOrder',
   importOrderList: 'importOrderList',
   importOrderZip: 'importOrderZip',
+  importShiplist: 'import_shiplist',
   companyListGetorder: 'company_list_getorder',
   deleteOrder: 'company_delete_order',
   companyUserinfo: 'company_userinfo',
@@ -979,6 +981,10 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.doHttpMethod(URL_CONS.importOrderZip,params,success,error);
   }
 
+  // 船舶信息
+  this.importShiplist = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.importShiplist,params,success,error);
+  }
 
 
 
@@ -7247,18 +7253,16 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
       backurl = "shell.html#!/main/admin/prerecord";
     }
 
-
-
     $scope.orderDetail = {
       "backurl":backurl,
 
       "temperature": "",
       "temperatureunit": "C",
-      "loadingport": "",
+      "loadingport": "SHANGHAI",
       "dangerousgrade": "",
       "boxno": "",
       "shippname": "",
-      "loadingportcode": "",
+      "loadingportcode": "CNSHA",
       "transitportcode": "",
       "destport": "",
       "destportcode": "",
@@ -7338,11 +7342,11 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
 
         "temperature": "",
         "temperatureunit": "C",
-        "loadingport": "",
+        "loadingport": "SHANGHAI",
         "dangerousgrade": "",
         "boxno": "",
         "shippname": "",
-        "loadingportcode": "",
+        "loadingportcode": "CNSHA",
         "transitportcode": "",
         "destport": "",
         "destportcode": "",
@@ -7374,46 +7378,61 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
       theForm.$setUntouched();
     }
 
-    $.typeahead({
-      input: '.shippname-typeahead',
-      order: "desc",
-      source: {
-        data: [
-          "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda",
-          "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh",
-          "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia",
-          "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burma",
-          "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Central African Republic", "Chad",
-          "Chile", "China", "Colombia", "Comoros", "Congo, Democratic Republic", "Congo, Republic of the",
-          "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti",
-          "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador",
-          "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Fiji", "Finland", "France", "Gabon",
-          "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Greenland", "Grenada", "Guatemala", "Guinea",
-          "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India",
-          "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan",
-          "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kuwait", "Kyrgyzstan", "Laos",
-          "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg",
-          "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands",
-          "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Mongolia", "Morocco", "Monaco",
-          "Mozambique", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger",
-          "Nigeria", "Norway", "Oman", "Pakistan", "Panama", "Papua New Guinea", "Paraguay", "Peru",
-          "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Samoa", "San Marino",
-          "Sao Tome", "Saudi Arabia", "Senegal", "Serbia and Montenegro", "Seychelles", "Sierra Leone",
-          "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "Spain",
-          "Sri Lanka", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan",
-          "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey",
-          "Turkmenistan", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States",
-          "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
-        ]
-      },
-      callback: {
-        onInit: function (node) {
-          console.log('Typeahead Initiated on ' + node.selector);
+    var queryShipping = function () {
+      var param = {
+        shippname:$scope.orderDetail.shippname
+      }
+      interfaceService.importShiplist(param,function (data,headers,config) {
+        // console.log(JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.tshippname = data.data.dataList;
+        }else{
+
+        }
+      });
+    }
+
+
+    // 船名级联
+    var autoShippname = function ($model) {
+      if($model){
+        $scope.orderDetail.shippno = $model.shippno;
+        $scope.orderDetail.imono = $model.imono;
+        $scope.select.transitportList = $model.transitportList;
+        $scope.select.inletwharfList = $model.inletwharfList;
+      }else{
+        $scope.orderDetail.shippno = '';
+        $scope.orderDetail.imono = '';
+        $scope.orderDetail.transitportcode = '';
+        $scope.orderDetail.transitport = '';
+        $scope.orderDetail.inletwharf = '';
+        $scope.select = {
+          transitportcode:[],
+          transitportList:[],
+          inletwharfList:[]
         }
       }
-    });
+    }
 
+    $scope.onTransitportcodeChange = function () {
+      $scope.orderDetail.transitportcode = $scope.select.transitportcode.transitportcode;
+      $scope.orderDetail.transitport = $scope.select.transitportcode.transitport;
+    }
 
+    $scope.shippnameOnSelect = function ($item, $model, $label) {
+      // console.log('$item:'+$item);
+      // console.log('$model:'+$model);
+      // console.log('$label:'+$label);
+      // $scope.tmodel = $model;
+      $scope.orderDetail.shippname = $label;
+      autoShippname($model);
+    }
+
+    $scope.shippnameOnChange = function () {
+      // console.log('$onchange:');
+      queryShipping();
+      autoShippname();
+    }
 
   }]);
 
@@ -7872,6 +7891,26 @@ yonglongApp.directive('prerecordInner',['$compile',function($compile){
     }
   }
 }]);
+
+yonglongApp.directive('shouldShowHeader', ['$templateRequest', '$compile', '$parse','$filter', function($templateRequest, $compile, $parse,$filter) {
+  return {
+    scope: {
+      matchId:'@',
+    },
+    templateUrl:'template/typeahead/ship_header.html',
+    link: function(scope, element, attrs) {
+      // console.log('===>  '+scope.matchId);
+      if(scope.matchId.indexOf("-option-0") > 0 ){
+        console.log('===2> true');
+
+      }else{
+        console.log('===2> false');
+
+      }
+      scope.show = scope.matchId.indexOf("-option-0") > 0;
+    }
+  };
+}])
 
 yonglongApp.directive('terms',function () {
   return{

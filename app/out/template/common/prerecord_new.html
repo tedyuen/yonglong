@@ -99,6 +99,7 @@
                       <div class="input-group">
                         <span class="input-group-addon color-green">卸港</span>
                         <input type="text" class="form-control" name="transitport" ng-model="orderDetail.transitport" disabled>
+
                       </div>
                     </div>
                   </div>
@@ -116,6 +117,8 @@
                       <div class="input-group">
                         <span class="input-group-addon">装港代码</span>
                         <input type="text" class="form-control" name="loadingportcode" ng-model="orderDetail.loadingportcode" required>
+
+
                       </div>
                     </div>
                   </div>
@@ -124,7 +127,8 @@
                     <div class="form-group" ng-class="{'has-error':!theForm.transitportcode.$valid}">
                       <div class="input-group">
                         <span class="input-group-addon">卸港代码</span>
-                        <input type="text" class="form-control" name="transitportcode" ng-model="orderDetail.transitportcode" required>
+                        <select class="form-control" ng-model="select.transitportcode" ng-change="onTransitportcodeChange()" ng-options="o.transitportcode for o in select.transitportList">
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -160,17 +164,20 @@
                     <div class="form-group" ng-class="{'has-error':!theForm.shippname.$valid}">
                       <div class="input-group">
                         <span class="input-group-addon">船名</span>
-                        <div class="typeahead__container">
-                          <div class="typeahead__field">
-                            <span class="typeahead__query">
-                              <input type="search" autocomplete="off" class="form-control shippname-typeahead" name="shippname" ng-model="orderDetail.shippname" required data-toggle="tooltip" role="tooltip" data-placement="top" data-original-title="必填。船名至少输入2位才能检索">
-                            </span>
-                          </div>
-                        </div>
+                        <input type="text" class="form-control" ng-model="orderDetail.shippname"
+                               uib-typeahead="state as state.shippname for state in tshippname | filter:{shippname:$viewValue}"
+                               typeahead-template-url="template/typeahead/ship_list.html"
+                               typeahead-min-length="1"
+                               typeahead-show-hint="true"
+                               typeahead-on-select="shippnameOnSelect($item,$model,$label)"
+                               ng-change="shippnameOnChange()"
+                               required
+                               data-toggle="tooltip" role="tooltip" data-placement="top"
+                               data-original-title="必填。船名至少输入2位才能检索">
                       </div>
+
                     </div>
                   </div>
-
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
                       <div class="input-group">
@@ -193,7 +200,8 @@
                     <div class="form-group" ng-class="{'has-error':!theForm.inletwharf.$valid}">
                       <div class="input-group">
                         <span class="input-group-addon">进箱码头</span>
-                        <input type="text" class="form-control" name="inletwharf" ng-model="orderDetail.inletwharf" required>
+                        <select class="form-control" ng-model="orderDetail.inletwharf" ng-options="o.inletwharf as o.inletwharfname for o in select.inletwharfList">
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -405,6 +413,7 @@
 
           </div>
         </form>
+        <pre>{{tshippname|json}}</pre>
         <pre>{{orderDetail | json}}</pre>
       </div>
 

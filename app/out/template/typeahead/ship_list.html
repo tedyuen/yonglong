@@ -1,0 +1,21 @@
+<div>
+  <should-show-header match-id="{{match.id}}">
+
+  </should-show-header>
+
+  <a>
+    <ul class="ship-typeahead">
+      <li class="first" ng-bind-html="match.label | uibTypeaheadHighlight:query"></li>
+      <li class="second">{{match.model.shippno}}</li>
+      <li class="third">{{match.model.shipcall}}</li>
+    </ul>
+
+
+    <!--<span class="ship-list-shippname" ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>-->
+    <!--&lt;!&ndash;<sub>船名</sub>&ndash;&gt;-->
+    <!--<span class="ship-list-shippno">{{match.model.shippno}}</span>-->
+    <!--&lt;!&ndash;<sub>航次</sub>&ndash;&gt;-->
+    <!--<span class="ship-list-shipcall">{{match.model.shipcall}}</span>-->
+    <!--&lt;!&ndash;<sub>呼号</sub>&ndash;&gt;-->
+  </a>
+</div>

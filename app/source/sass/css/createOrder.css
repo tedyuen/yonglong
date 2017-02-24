@@ -36,8 +36,26 @@
         font-weight: 400;
         background-color: #eee; }
 
-.prerecord .typeahead__field input {
-  height: 38px; }
+.prerecord ul.ship-typeahead {
+  width: 400px;
+  padding-left: 0px; }
+  .prerecord ul.ship-typeahead li {
+    padding-top: 0px;
+    float: left;
+    list-style: none;
+    font-size: 12px; }
+    .prerecord ul.ship-typeahead li.head {
+      color: #555;
+      border: 1px solid rgba(120, 130, 140, 0.21);
+      font-size: 14px;
+      font-weight: 400;
+      background-color: #eee; }
+    .prerecord ul.ship-typeahead li.first {
+      width: 150px; }
+    .prerecord ul.ship-typeahead li.second {
+      width: 100px; }
+    .prerecord ul.ship-typeahead li.third {
+      width: 150px; }
 
 .prerecord .color-green {
   color: green; }
