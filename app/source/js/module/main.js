@@ -11,6 +11,7 @@ require('./utils/jquery.blockUI');
 // require('./utils/jquery.counterup.min');
 require('jquery-toast-plugin');
 require('dropify');
+require('jquery-typeahead');
 
 // var LogUtil = require('./utils/LogUtil');
 // var log = new LogUtil(true);//Set can out log.

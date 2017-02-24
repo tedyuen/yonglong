@@ -160,7 +160,13 @@
                     <div class="form-group" ng-class="{'has-error':!theForm.shippname.$valid}">
                       <div class="input-group">
                         <span class="input-group-addon">船名</span>
-                        <input type="text" class="form-control" name="shippname" ng-model="orderDetail.shippname" required>
+                        <div class="typeahead__container">
+                          <div class="typeahead__field">
+                            <span class="typeahead__query">
+                              <input type="search" autocomplete="off" class="form-control shippname-typeahead" name="shippname" ng-model="orderDetail.shippname" required data-toggle="tooltip" role="tooltip" data-placement="top" data-original-title="必填。船名至少输入2位才能检索">
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -278,7 +284,7 @@
               </div>
 
               <div class="col-md-8 col-lg-9 col-sm-8">
-                <prerecord-inner result-list="orderDetail.billList"></prerecord-inner>
+                <prerecord-inner bill-list="orderDetail.billList"></prerecord-inner>
 
                 <div class="row m-t-0">
                   <div class="bottom1">
@@ -399,7 +405,7 @@
 
           </div>
         </form>
-        <!--<pre>{{theForm | json}}</pre>-->
+        <pre>{{orderDetail | json}}</pre>
       </div>
 
     </div>

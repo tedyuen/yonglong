@@ -36,6 +36,9 @@
         font-weight: 400;
         background-color: #eee; }
 
+.prerecord .typeahead__field input {
+  height: 38px; }
+
 .prerecord .color-green {
   color: green; }
 
