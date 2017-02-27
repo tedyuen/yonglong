@@ -30,6 +30,8 @@ yonglongApp.constant('URL_CONS', {
   importOrderList: 'importOrderList',
   importOrderZip: 'importOrderZip',
   importShiplist: 'import_shiplist',
+  importCustomslist: 'import_customslist',
+  importOperatorlist: 'import_operatorlist',
   companyListGetorder: 'company_list_getorder',
   deleteOrder: 'company_delete_order',
   companyUserinfo: 'company_userinfo',

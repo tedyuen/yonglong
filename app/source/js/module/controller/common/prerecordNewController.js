@@ -1,10 +1,10 @@
-yonglongApp.controller('prerecordNewController',['$scope','$state','$location','showDatePickerProvider','interfaceService','rescode','alipayService','baseDataService',
-  function ($scope,$state,$location,showDatePickerProvider,interfaceService,rescode,alipayService,baseDataService) {
+yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$location','showDatePickerProvider','interfaceService','rescode','alipayService','baseDataService',
+  function ($scope,$state,$timeout,$location,showDatePickerProvider,interfaceService,rescode,alipayService,baseDataService) {
     showDatePickerProvider.showDatePicker();
 
     $scope.temperatureUnit = baseDataService.getTemperatureUnit();
-
-
+    $scope.prerecordType = baseDataService.getPrerecordType();
+    $scope.packaddressType = baseDataService.getPackaddressType();
     var backurl = "shell.html#!/main/companyinner/prerecord";
     if($location.url()=='/main/userinner/prerecord'){
       backurl = "shell.html#!/main/userinner/prerecord";
@@ -30,9 +30,9 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
       "imdgpage": "",
       "inletwharf": "",
       "sizetype": "",
-      "statusinfo": "",
+      "statusinfo": "8",
       "boxoperatorcode": "",
-      "customscode": "",
+      "customscode": "2200",
       "callno": "",
       "calltype": "",
       "callman": "",
@@ -42,6 +42,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
       "licensenumber": "",
       "smokebox": "",
       "equipmentorder": "",
+      "packaddress":"SN",
       "detailaddress": "",
       "remark": "",
 
@@ -114,7 +115,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
         "imdgpage": "",
         "inletwharf": "",
         "sizetype": "",
-        "statusinfo": "",
+        "statusinfo": "8",
         "boxoperatorcode": "",
         "customscode": "",
         "callno": "",
@@ -126,6 +127,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
         "licensenumber": "",
         "smokebox": "",
         "equipmentorder": "",
+        "packaddress":"SN",
         "detailaddress": "",
         "remark": "",
 
@@ -137,6 +139,67 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
       theForm.$setUntouched();
     }
 
+
+
+    // 箱状改变
+    $scope.statusinfoChange = function () {
+      if($scope.orderDetail.statusinfo == '4'){
+        // 箱状态为空箱，请确认
+        swal({
+          title: "确认信息",
+          text: "箱状态为空箱，请确认!",
+          type: "warning",
+          confirmButtonText: "确认"
+        });
+      }
+    }
+
+
+    // 箱经营人
+    var importOperatorlist = function () {
+      interfaceService.importOperatorlist({},function (data,headers,config) {
+        console.log(JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.operatorlist = data.data.dataList;
+        }else{
+
+        }
+        $timeout(queryCustomslist,20);
+      });
+    }
+
+
+    // 箱经营人
+
+
+    // 海关代码
+    var queryCustomslist = function () {
+      interfaceService.importCustomslist({},function (data,headers,config) {
+        // console.log(JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.customslist = data.data.customsList;
+        }else{
+
+        }
+      });
+    }
+    var autoCustoms = function ($model) {
+      if($model){
+        $scope.orderDetail.boxoperator = $model.boxoperator;
+      }else{
+        $scope.orderDetail.boxoperator = '';
+      }
+    }
+    $scope.customsOnSelect = function ($item, $model, $label) {
+      $scope.orderDetail.boxoperatorcode = $label;
+      autoCustoms($model);
+    }
+    $scope.customsOnChange = function () {
+      autoCustoms();
+    }
+
+
+    // 船名级联
     var queryShipping = function () {
       var param = {
         shippname:$scope.orderDetail.shippname
@@ -151,8 +214,6 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
       });
     }
 
-
-    // 船名级联
     var autoShippname = function ($model) {
       if($model){
         $scope.orderDetail.shippno = $model.shippno;
@@ -192,5 +253,11 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
       queryShipping();
       autoShippname();
     }
+    // 船名级联
 
+
+
+
+    // 读数据
+    importOperatorlist();
   }]);

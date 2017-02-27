@@ -171,6 +171,7 @@
                                typeahead-show-hint="true"
                                typeahead-on-select="shippnameOnSelect($item,$model,$label)"
                                ng-change="shippnameOnChange()"
+                               typeahead-select-on-blur="true"
                                required
                                data-toggle="tooltip" role="tooltip" data-placement="top"
                                data-original-title="必填。船名至少输入2位才能检索">
@@ -219,7 +220,9 @@
                     <div class="form-group" ng-class="{'has-error':!theForm.statusinfo.$valid}">
                       <div class="input-group">
                         <span class="input-group-addon">状态</span>
-                        <input type="text" class="form-control" name="statusinfo" ng-model="orderDetail.statusinfo" required>
+                        <select class="form-control" ng-model="orderDetail.statusinfo" ng-options="o.id as o.name for o in prerecordType" ng-change="statusinfoChange()">
+                        </select>
+                        <!--<input type="text" class="form-control" name="statusinfo" ng-model="orderDetail.statusinfo" required>-->
                       </div>
                     </div>
                   </div>
@@ -237,7 +240,16 @@
                     <div class="form-group" ng-class="{'has-error':!theForm.boxoperatorcode.$valid}">
                       <div class="input-group">
                         <span class="input-group-addon">代码</span>
-                        <input type="text" class="form-control" name="boxoperatorcode" ng-model="orderDetail.boxoperatorcode" required>
+                        <input type="text" class="form-control" ng-model="orderDetail.boxoperatorcode"
+                               uib-typeahead="state as state.boxoperatorcode for state in operatorlist | filter:{boxoperatorcode:$viewValue}"
+                               typeahead-template-url="template/typeahead/boxoperator_list.html"
+                               typeahead-min-length="0"
+                               typeahead-show-hint="true"
+                               typeahead-select-on-blur="true"
+                               typeahead-on-select="customsOnSelect($item,$model,$label)"
+                               ng-change="customsOnChange()"
+                               required>
+                        <!--<input type="text" class="form-control" name="boxoperatorcode" ng-model="orderDetail.boxoperatorcode" required>-->
                       </div>
                     </div>
                   </div>
@@ -246,7 +258,14 @@
                     <div class="form-group" ng-class="{'has-error':!theForm.customscode.$valid}">
                       <div class="input-group">
                         <span class="input-group-addon">海关代码</span>
-                        <input type="text" class="form-control" name="customscode" ng-model="orderDetail.customscode" required>
+                        <input type="text" class="form-control" ng-model="orderDetail.customscode"
+                               uib-typeahead="state.customscode as state.customscode for state in customslist | filter:{customscode:$viewValue}"
+                               typeahead-template-url="template/typeahead/customs_list.html"
+                               typeahead-min-length="0"
+                               typeahead-show-hint="true"
+                               typeahead-select-on-blur="true"
+                               required>
+                        <!--<input type="text" class="form-control" name="customscode" ng-model="orderDetail.customscode" required>-->
                       </div>
                     </div>
                   </div>
@@ -363,7 +382,8 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon color-green">地址</span>
-                    <input type="text" class="form-control" name="packaddress" ng-model="orderDetail.packaddress" disabled>
+                    <select class="form-control" ng-model="orderDetail.packaddress" ng-options="o.id as o.name for o in packaddressType">
+                    </select>
                   </div>
                 </div>
               </div>

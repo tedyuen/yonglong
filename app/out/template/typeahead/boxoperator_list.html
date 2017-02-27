@@ -1,0 +1,13 @@
+<div>
+  <show-boxoperator-header match-id="{{match.id}}">
+
+  </show-boxoperator-header>
+
+  <a>
+    <ul class="boxoperator-typeahead">
+      <li class="first" ng-bind-html="match.label | uibTypeaheadHighlight:query"></li>
+      <li class="second">{{match.model.boxoperator}}</li>
+    </ul>
+
+  </a>
+</div>

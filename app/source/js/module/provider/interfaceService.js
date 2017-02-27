@@ -135,6 +135,14 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   this.importShiplist = function (params,success,error) {
     this.doHttpMethod(URL_CONS.importShiplist,params,success,error);
   }
+  // 海关代码
+  this.importCustomslist = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.importCustomslist,params,success,error);
+  }
+  // 箱经营人
+  this.importOperatorlist = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.importOperatorlist,params,success,error);
+  }
 
 
 

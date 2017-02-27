@@ -36,6 +36,44 @@
         font-weight: 400;
         background-color: #eee; }
 
+.prerecord ul.boxoperator-typeahead {
+  width: 210px;
+  padding-left: 0px; }
+  .prerecord ul.boxoperator-typeahead li {
+    padding-top: 0px;
+    float: left;
+    list-style: none;
+    font-size: 12px; }
+    .prerecord ul.boxoperator-typeahead li.head {
+      color: #555;
+      border: 1px solid rgba(120, 130, 140, 0.21);
+      font-size: 14px;
+      font-weight: 400;
+      background-color: #eee; }
+    .prerecord ul.boxoperator-typeahead li.first {
+      width: 60px; }
+    .prerecord ul.boxoperator-typeahead li.second {
+      width: 150px; }
+
+.prerecord ul.customs-typeahead {
+  width: 250px;
+  padding-left: 0px; }
+  .prerecord ul.customs-typeahead li {
+    padding-top: 0px;
+    float: left;
+    list-style: none;
+    font-size: 12px; }
+    .prerecord ul.customs-typeahead li.head {
+      color: #555;
+      border: 1px solid rgba(120, 130, 140, 0.21);
+      font-size: 14px;
+      font-weight: 400;
+      background-color: #eee; }
+    .prerecord ul.customs-typeahead li.first {
+      width: 100px; }
+    .prerecord ul.customs-typeahead li.second {
+      width: 150px; }
+
 .prerecord ul.ship-typeahead {
   width: 400px;
   padding-left: 0px; }

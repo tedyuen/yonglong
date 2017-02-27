@@ -1,0 +1,13 @@
+<div>
+  <show-customs-header match-id="{{match.id}}">
+
+  </show-customs-header>
+
+  <a>
+    <ul class="customs-typeahead">
+      <li class="first" ng-bind-html="match.label | uibTypeaheadHighlight:query"></li>
+      <li class="second">{{match.model.customsname}}</li>
+    </ul>
+
+  </a>
+</div>

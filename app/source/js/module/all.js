@@ -109,7 +109,10 @@ yonglongApp.value('diyData',
     orderTypeN: [{name: '不限', id: -1},{name: '进口', id: 0}, {name: '出口', id: 1}, {name: '拖柜进洋山', id: 2}],
     reportTypeN1:[{name:'车主',id:0},{name:'车队',id:1}],
     reportTypeN2:[{name:'外发订单',id:0},{name:'外接订单',id:1}],
-    temperatureUnit:[{name:'C摄氏',id:'C'},{name:'F华氏',id:'F'}]
+    temperatureUnit:[{name:'C摄氏',id:'C'},{name:'F华氏',id:'F'}],
+    prerecordType:[{name:'4--空箱',id:'4'},{name:'7--拼箱',id:'7'},{name:'8--整箱',id:'8'}],
+    packaddressType:[{name:'SN--市内',id:'SN'},{name:'SW--市外',id:'SW'},{name:'QT--其他',id:'QT'}],
+
   }
 );
 
@@ -163,6 +166,8 @@ yonglongApp.constant('URL_CONS', {
   importOrderList: 'importOrderList',
   importOrderZip: 'importOrderZip',
   importShiplist: 'import_shiplist',
+  importCustomslist: 'import_customslist',
+  importOperatorlist: 'import_operatorlist',
   companyListGetorder: 'company_list_getorder',
   deleteOrder: 'company_delete_order',
   companyUserinfo: 'company_userinfo',
@@ -553,6 +558,13 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
 
   this.getTemperatureUnit = function () {
     return diyData.temperatureUnit;
+  }
+
+  this.getPrerecordType = function () {
+    return diyData.prerecordType;
+  }
+  this.getPackaddressType = function () {
+    return diyData.packaddressType;
   }
 
 
@@ -984,6 +996,14 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
   // 船舶信息
   this.importShiplist = function (params,success,error) {
     this.doHttpMethod(URL_CONS.importShiplist,params,success,error);
+  }
+  // 海关代码
+  this.importCustomslist = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.importCustomslist,params,success,error);
+  }
+  // 箱经营人
+  this.importOperatorlist = function (params,success,error) {
+    this.doHttpMethod(URL_CONS.importOperatorlist,params,success,error);
   }
 
 
@@ -7239,13 +7259,13 @@ yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvid
 
   }]);
 
-yonglongApp.controller('prerecordNewController',['$scope','$state','$location','showDatePickerProvider','interfaceService','rescode','alipayService','baseDataService',
-  function ($scope,$state,$location,showDatePickerProvider,interfaceService,rescode,alipayService,baseDataService) {
+yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$location','showDatePickerProvider','interfaceService','rescode','alipayService','baseDataService',
+  function ($scope,$state,$timeout,$location,showDatePickerProvider,interfaceService,rescode,alipayService,baseDataService) {
     showDatePickerProvider.showDatePicker();
 
     $scope.temperatureUnit = baseDataService.getTemperatureUnit();
-
-
+    $scope.prerecordType = baseDataService.getPrerecordType();
+    $scope.packaddressType = baseDataService.getPackaddressType();
     var backurl = "shell.html#!/main/companyinner/prerecord";
     if($location.url()=='/main/userinner/prerecord'){
       backurl = "shell.html#!/main/userinner/prerecord";
@@ -7271,9 +7291,9 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
       "imdgpage": "",
       "inletwharf": "",
       "sizetype": "",
-      "statusinfo": "",
+      "statusinfo": "8",
       "boxoperatorcode": "",
-      "customscode": "",
+      "customscode": "2200",
       "callno": "",
       "calltype": "",
       "callman": "",
@@ -7283,6 +7303,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
       "licensenumber": "",
       "smokebox": "",
       "equipmentorder": "",
+      "packaddress":"SN",
       "detailaddress": "",
       "remark": "",
 
@@ -7355,7 +7376,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
         "imdgpage": "",
         "inletwharf": "",
         "sizetype": "",
-        "statusinfo": "",
+        "statusinfo": "8",
         "boxoperatorcode": "",
         "customscode": "",
         "callno": "",
@@ -7367,6 +7388,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
         "licensenumber": "",
         "smokebox": "",
         "equipmentorder": "",
+        "packaddress":"SN",
         "detailaddress": "",
         "remark": "",
 
@@ -7378,6 +7400,67 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
       theForm.$setUntouched();
     }
 
+
+
+    // 箱状改变
+    $scope.statusinfoChange = function () {
+      if($scope.orderDetail.statusinfo == '4'){
+        // 箱状态为空箱，请确认
+        swal({
+          title: "确认信息",
+          text: "箱状态为空箱，请确认!",
+          type: "warning",
+          confirmButtonText: "确认"
+        });
+      }
+    }
+
+
+    // 箱经营人
+    var importOperatorlist = function () {
+      interfaceService.importOperatorlist({},function (data,headers,config) {
+        console.log(JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.operatorlist = data.data.dataList;
+        }else{
+
+        }
+        $timeout(queryCustomslist,20);
+      });
+    }
+
+
+    // 箱经营人
+
+
+    // 海关代码
+    var queryCustomslist = function () {
+      interfaceService.importCustomslist({},function (data,headers,config) {
+        // console.log(JSON.stringify(data));
+        if(data.rescode==rescode.SUCCESS){
+          $scope.customslist = data.data.customsList;
+        }else{
+
+        }
+      });
+    }
+    var autoCustoms = function ($model) {
+      if($model){
+        $scope.orderDetail.boxoperator = $model.boxoperator;
+      }else{
+        $scope.orderDetail.boxoperator = '';
+      }
+    }
+    $scope.customsOnSelect = function ($item, $model, $label) {
+      $scope.orderDetail.boxoperatorcode = $label;
+      autoCustoms($model);
+    }
+    $scope.customsOnChange = function () {
+      autoCustoms();
+    }
+
+
+    // 船名级联
     var queryShipping = function () {
       var param = {
         shippname:$scope.orderDetail.shippname
@@ -7392,8 +7475,6 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
       });
     }
 
-
-    // 船名级联
     var autoShippname = function ($model) {
       if($model){
         $scope.orderDetail.shippno = $model.shippno;
@@ -7433,7 +7514,13 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$location','
       queryShipping();
       autoShippname();
     }
+    // 船名级联
 
+
+
+
+    // 读数据
+    importOperatorlist();
   }]);
 
 yonglongApp.controller('forgetPasswordController',['$scope','$state','$stateParams','$interval','interfaceService','rescode','validateService','toastService',
@@ -7892,25 +7979,43 @@ yonglongApp.directive('prerecordInner',['$compile',function($compile){
   }
 }]);
 
-yonglongApp.directive('shouldShowHeader', ['$templateRequest', '$compile', '$parse','$filter', function($templateRequest, $compile, $parse,$filter) {
+yonglongApp.directive('showShipHeader', ['$templateRequest', '$compile', '$parse','$filter', function($templateRequest, $compile, $parse,$filter) {
   return {
     scope: {
       matchId:'@',
     },
     templateUrl:'template/typeahead/ship_header.html',
     link: function(scope, element, attrs) {
-      // console.log('===>  '+scope.matchId);
-      if(scope.matchId.indexOf("-option-0") > 0 ){
-        console.log('===2> true');
-
-      }else{
-        console.log('===2> false');
-
-      }
       scope.show = scope.matchId.indexOf("-option-0") > 0;
     }
   };
-}])
+}]);
+//
+yonglongApp.directive('showCustomsHeader', ['$templateRequest', '$compile', '$parse','$filter', function($templateRequest, $compile, $parse,$filter) {
+  return {
+    scope: {
+      matchId:'@',
+    },
+    templateUrl:'template/typeahead/customs_header.html',
+    link: function(scope, element, attrs) {
+      scope.show = scope.matchId.indexOf("-option-0") > 0;
+    }
+  };
+}]);
+yonglongApp.directive('showBoxoperatorHeader', ['$templateRequest', '$compile', '$parse','$filter', function($templateRequest, $compile, $parse,$filter) {
+  return {
+    scope: {
+      matchId:'@',
+    },
+    templateUrl:'template/typeahead/boxoperator_header.html',
+    link: function(scope, element, attrs) {
+      scope.show = scope.matchId.indexOf("-option-0") > 0;
+    }
+  };
+}]);
+
+
+
 
 yonglongApp.directive('terms',function () {
   return{

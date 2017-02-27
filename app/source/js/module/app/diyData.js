@@ -36,6 +36,9 @@ yonglongApp.value('diyData',
     orderTypeN: [{name: '不限', id: -1},{name: '进口', id: 0}, {name: '出口', id: 1}, {name: '拖柜进洋山', id: 2}],
     reportTypeN1:[{name:'车主',id:0},{name:'车队',id:1}],
     reportTypeN2:[{name:'外发订单',id:0},{name:'外接订单',id:1}],
-    temperatureUnit:[{name:'C摄氏',id:'C'},{name:'F华氏',id:'F'}]
+    temperatureUnit:[{name:'C摄氏',id:'C'},{name:'F华氏',id:'F'}],
+    prerecordType:[{name:'4--空箱',id:'4'},{name:'7--拼箱',id:'7'},{name:'8--整箱',id:'8'}],
+    packaddressType:[{name:'SN--市内',id:'SN'},{name:'SW--市外',id:'SW'},{name:'QT--其他',id:'QT'}],
+
   }
 );
