@@ -13,6 +13,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
     $scope.containerVType = baseDataService.getBoxVol();
     $scope.containerSType = baseDataService.getBoxType();
     $scope.marinepollutionType = baseDataService.getMarinepollutionType();
+    $scope.sizetypeData = baseDataService.getSizetypeData();
     var backurl = "shell.html#!/main/companyinner/prerecord";
     if($location.url()=='/main/userinner/prerecord'){
       backurl = "shell.html#!/main/userinner/prerecord";
@@ -38,7 +39,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "unnumber": 0,
       "imdgpage": "",
       "inletwharf": "",
-      "sizetype": "",
+      "sizetype": "22G1",
       "statusinfo": "8",
       "boxoperatorcode": "",
       "customscode": "2200",
@@ -65,8 +66,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
 
     //提交表单
     $scope.onSubmit = function($valid,form){
-      console.log('--->'+$valid);
-      console.log($scope.orderDetail.orderStatus);
+      // console.log('--->'+$valid);
+      // console.log($scope.orderDetail.orderStatus);
       if($valid){
         swal({
           title: "确定预录吗?",
@@ -81,7 +82,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
           animation: "slide-from-top",
         }, function(){
           interfaceService.createImportOrder($scope.orderDetail,function (data,headers,config) {
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
             if(data.rescode==rescode.SUCCESS){
               swal({
                 title:"创建成功！",
@@ -128,7 +129,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "unnumber": 0,
         "imdgpage": "",
         "inletwharf": "",
-        "sizetype": "",
+        "sizetype": "22G1",
         "statusinfo": "8",
         "boxoperatorcode": "",
         "customscode": "",
@@ -176,11 +177,17 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       }
     }
 
+    // 尺寸类型
+    $scope.sizetypeChange = function () {
+      // console.log("==>  "+$scope.sizetypeData[$scope.orderDetail.containerSType][$scope.orderDetail.containerVType]);
+      $scope.orderDetail.sizetype = $scope.sizetypeData[$scope.orderDetail.containerSType][$scope.orderDetail.containerVType];
+    }
+    // 尺寸类型
 
     // 箱经营人
     var importOperatorlist = function () {
       interfaceService.importOperatorlist({},function (data,headers,config) {
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS){
           $scope.operatorlist = data.data.dataList;
         }else{
@@ -189,8 +196,6 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         $timeout(queryCustomslist,20);
       });
     }
-
-
     // 箱经营人
 
 

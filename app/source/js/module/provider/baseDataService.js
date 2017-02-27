@@ -64,6 +64,9 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
     return diyData.marinepollutionType;
   }
 
+  this.getSizetypeData = function () {
+    return diyData.sizetypeData;
+  }
 
 
 

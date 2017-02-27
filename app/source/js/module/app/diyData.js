@@ -47,5 +47,16 @@ yonglongApp.value('diyData',
       {name:'TO--码头',id:'TO'}],
     shiptypeType:[{name:'无',id:'无'},{name:'1--海铁联运',id:'1'},{name:'2--公路直通',id:'2'},{name:'3--内贸',id:'3'}],
     marinepollutionType:[{name:'Y-有污染',id:'Y'},{name:'N-无污染',id:'N'}],
+    sizetypeData:
+      [
+        ['22G1','42G1','L2G1'],
+        ['25G1','45G1','L5G1'],
+        ['22U1','42U1','L2U1'],
+        ['22V1','42V1','L2V1'],
+        ['22R1','42R1','L2R1'],
+        ['25R1','45R1','L5R1'],
+        ['22T1','42T1','L2T1'],
+        ['22P1','42P1','L2P1'],
+      ]
   }
 );

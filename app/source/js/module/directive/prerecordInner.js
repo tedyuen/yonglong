@@ -33,7 +33,7 @@ yonglongApp.directive('prerecordInner',['$compile','baseDataService',function($c
       }
 
       $scope.$watch('statusInfo',function () {
-        console.log($scope.billList.length);
+        // console.log($scope.billList.length);
         if($scope.statusInfo != '7'){
           cleanItem();
         }

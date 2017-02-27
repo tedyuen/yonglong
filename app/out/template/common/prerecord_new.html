@@ -208,20 +208,19 @@
                   </div>
 
                   <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group" ng-class="{'has-error':!theForm.sizetype.$valid}">
+                    <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon">尺寸类型</span>
                         <div class="row">
                           <div class="col-sm-6">
-                            <select class="form-control" ng-model="orderDetail.containerVType" name="containerVType" ng-options="c.id as c.name for c in containerVType" required>
+                            <select class="form-control" ng-change="sizetypeChange()" ng-model="orderDetail.containerVType" name="containerVType" ng-options="c.id as c.name for c in containerVType">
                             </select>
                           </div>
                           <div class="col-sm-6">
-                            <select class="form-control" ng-model="orderDetail.containerSType" name="containerSType" ng-options="c.id as c.name for c in containerSType" required>
+                            <select class="form-control" ng-change="sizetypeChange()" ng-model="orderDetail.containerSType" name="containerSType" ng-options="c.id as c.name for c in containerSType">
                             </select>
                           </div>
                         </div>
-                        <!--<input type="text" class="form-control" name="sizetype" ng-model="orderDetail.sizetype" required>-->
                       </div>
                     </div>
                   </div>
@@ -232,7 +231,6 @@
                         <span class="input-group-addon">状态</span>
                         <select class="form-control" ng-model="orderDetail.statusinfo" ng-options="o.id as o.name for o in prerecordType" ng-change="statusinfoChange()">
                         </select>
-                        <!--<input type="text" class="form-control" name="statusinfo" ng-model="orderDetail.statusinfo" required>-->
                       </div>
                     </div>
                   </div>
@@ -259,7 +257,6 @@
                                typeahead-on-select="customsOnSelect($item,$model,$label)"
                                ng-change="customsOnChange()"
                                required>
-                        <!--<input type="text" class="form-control" name="boxoperatorcode" ng-model="orderDetail.boxoperatorcode" required>-->
                       </div>
                     </div>
                   </div>
@@ -275,7 +272,6 @@
                                typeahead-show-hint="true"
                                typeahead-select-on-blur="true"
                                required>
-                        <!--<input type="text" class="form-control" name="customscode" ng-model="orderDetail.customscode" required>-->
                       </div>
                     </div>
                   </div>
@@ -447,12 +443,8 @@
             </div>
             <!-- line 5 -->
 
-
-
-
           </div>
         </form>
-        <pre>{{tshippname|json}}</pre>
         <pre>{{orderDetail | json}}</pre>
       </div>
 
