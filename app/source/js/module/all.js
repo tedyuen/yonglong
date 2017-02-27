@@ -112,7 +112,8 @@ yonglongApp.value('diyData',
     temperatureUnit:[{name:'C摄氏',id:'C'},{name:'F华氏',id:'F'}],
     prerecordType:[{name:'4--空箱',id:'4'},{name:'7--拼箱',id:'7'},{name:'8--整箱',id:'8'}],
     packaddressType:[{name:'SN--市内',id:'SN'},{name:'SW--市外',id:'SW'},{name:'QT--其他',id:'QT'}],
-
+    passengerlinerType:[{name:'Y-班轮',id:'Y'},{name:'N-非班轮',id:'N'},{name:'H-核心班轮',id:'H'}],
+    impexpsignType:[{name:'E-出口',id:'E'},{name:'I-进口',id:'I'}],
   }
 );
 
@@ -566,6 +567,14 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
   this.getPackaddressType = function () {
     return diyData.packaddressType;
   }
+  this.getPassengerlinerType = function () {
+    return diyData.passengerlinerType;
+  }
+  this.getImpexpsignType = function () {
+    return diyData.impexpsignType;
+  }
+
+
 
 
   this.getPayStatusText = function (value) {
@@ -7266,12 +7275,15 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
     $scope.temperatureUnit = baseDataService.getTemperatureUnit();
     $scope.prerecordType = baseDataService.getPrerecordType();
     $scope.packaddressType = baseDataService.getPackaddressType();
+    $scope.passengerlinerType = baseDataService.getPassengerlinerType();
+    $scope.impexpsignType = baseDataService.getImpexpsignType();
     var backurl = "shell.html#!/main/companyinner/prerecord";
     if($location.url()=='/main/userinner/prerecord'){
       backurl = "shell.html#!/main/userinner/prerecord";
     }else if($location.url()=='/main/admin/prerecord'){
       backurl = "shell.html#!/main/admin/prerecord";
     }
+
 
     $scope.orderDetail = {
       "backurl":backurl,
@@ -7306,6 +7318,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "packaddress":"SN",
       "detailaddress": "",
       "remark": "",
+      "passengerliner":"Y",
+      "impexpsign":"E",
 
       "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":""}],
     }
@@ -7391,7 +7405,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "packaddress":"SN",
         "detailaddress": "",
         "remark": "",
-
+        "passengerliner":"Y",
+        "impexpsign":"E",
         "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":""}],
 
       }
@@ -7400,6 +7415,9 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       theForm.$setUntouched();
     }
 
+    $scope.openAdditional = function () {
+      $('#additional').modal('show');
+    }
 
 
     // 箱状改变

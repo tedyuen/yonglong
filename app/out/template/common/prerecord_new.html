@@ -23,8 +23,8 @@
               <span ng-if="theForm.$invalid">完成表单后预录</span>
               <span ng-if="theForm.$valid">预录</span>
             </button>
-            <button type="button" ng-click="" class="btn waves-effect waves-light btn-success m-r-10">补充信息</button>
-            <button type="button" ng-click="" class="btn waves-effect waves-light btn-success m-r-10">封志信息</button>
+            <button type="button" ng-click="openAdditional()" class="btn waves-effect waves-light btn-success m-r-10">补充信息</button>
+            <!--<button type="button" ng-click="" class="btn waves-effect waves-light btn-success m-r-10">封志信息</button>-->
             <button type="button" ng-click="reset(theForm)" class="btn waves-effect waves-light btn-warning">清空表单</button>
 
             <div class="row m-t-20 bottom-10">
@@ -441,6 +441,116 @@
     <!-- /.row -->
   </div>
 
+
+  <div class="modal fade" id="additional" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel1">补充信息</h4>
+        </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">箱号</span>
+                <input type="text" class="form-control" ng-model="orderDetail.boxno">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">班轮</span>
+                <select class="form-control" ng-model="orderDetail.passengerliner" ng-options="o.id as o.name for o in passengerlinerType">
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">船舶国籍代码</span>
+                <input type="text" class="form-control" ng-model="orderDetail.shipnationcode">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">进出口标志</span>
+                <select class="form-control" ng-model="orderDetail.impexpsign" ng-options="o.id as o.name for o in impexpsignType">
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">前超(cm)</span>
+                <input type="text" class="form-control" ng-model="orderDetail.beforesuper">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">后超(cm)</span>
+                <input type="text" class="form-control" ng-model="orderDetail.aftersuper">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">右超(cm)</span>
+                <input type="text" class="form-control" ng-model="orderDetail.rightsuper">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">左超(cm)</span>
+                <input type="text" class="form-control" ng-model="orderDetail.leftsuper">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">超高(cm)</span>
+                <input type="text" class="form-control" ng-model="orderDetail.hignsuper">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">冷藏最低温度</span>
+                <input type="text" class="form-control" ng-model="orderDetail.temperaturemin">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">冷藏最高温度</span>
+                <input type="text" class="form-control" ng-model="orderDetail.temperaturemax">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">危险品标签</span>
+                <input type="text" class="form-control" ng-model="orderDetail.dangerouslabel">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">应急措施号</span>
+                <input type="text" class="form-control" ng-model="orderDetail.emergencyno">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">急救指南号</span>
+                <input type="text" class="form-control" ng-model="orderDetail.firstaidno">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">海运污染</span>
+                <input type="text" class="form-control" ng-model="orderDetail.marinepollution">
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+          </div>
+
+      </div>
+    </div>
+  </div>
 
   <div id="payForm" style="display:none;"></div>
 

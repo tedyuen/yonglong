@@ -39,6 +39,7 @@ yonglongApp.value('diyData',
     temperatureUnit:[{name:'C摄氏',id:'C'},{name:'F华氏',id:'F'}],
     prerecordType:[{name:'4--空箱',id:'4'},{name:'7--拼箱',id:'7'},{name:'8--整箱',id:'8'}],
     packaddressType:[{name:'SN--市内',id:'SN'},{name:'SW--市外',id:'SW'},{name:'QT--其他',id:'QT'}],
-
+    passengerlinerType:[{name:'Y-班轮',id:'Y'},{name:'N-非班轮',id:'N'},{name:'H-核心班轮',id:'H'}],
+    impexpsignType:[{name:'E-出口',id:'E'},{name:'I-进口',id:'I'}],
   }
 );

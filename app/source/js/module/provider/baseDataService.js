@@ -45,6 +45,14 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
   this.getPackaddressType = function () {
     return diyData.packaddressType;
   }
+  this.getPassengerlinerType = function () {
+    return diyData.passengerlinerType;
+  }
+  this.getImpexpsignType = function () {
+    return diyData.impexpsignType;
+  }
+
+
 
 
   this.getPayStatusText = function (value) {

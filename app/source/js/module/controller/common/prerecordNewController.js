@@ -5,12 +5,15 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
     $scope.temperatureUnit = baseDataService.getTemperatureUnit();
     $scope.prerecordType = baseDataService.getPrerecordType();
     $scope.packaddressType = baseDataService.getPackaddressType();
+    $scope.passengerlinerType = baseDataService.getPassengerlinerType();
+    $scope.impexpsignType = baseDataService.getImpexpsignType();
     var backurl = "shell.html#!/main/companyinner/prerecord";
     if($location.url()=='/main/userinner/prerecord'){
       backurl = "shell.html#!/main/userinner/prerecord";
     }else if($location.url()=='/main/admin/prerecord'){
       backurl = "shell.html#!/main/admin/prerecord";
     }
+
 
     $scope.orderDetail = {
       "backurl":backurl,
@@ -45,6 +48,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "packaddress":"SN",
       "detailaddress": "",
       "remark": "",
+      "passengerliner":"Y",
+      "impexpsign":"E",
 
       "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":""}],
     }
@@ -130,7 +135,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "packaddress":"SN",
         "detailaddress": "",
         "remark": "",
-
+        "passengerliner":"Y",
+        "impexpsign":"E",
         "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":""}],
 
       }
@@ -139,6 +145,9 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       theForm.$setUntouched();
     }
 
+    $scope.openAdditional = function () {
+      $('#additional').modal('show');
+    }
 
 
     // 箱状改变
