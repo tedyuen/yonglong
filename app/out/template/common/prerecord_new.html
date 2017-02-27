@@ -211,7 +211,17 @@
                     <div class="form-group" ng-class="{'has-error':!theForm.sizetype.$valid}">
                       <div class="input-group">
                         <span class="input-group-addon">尺寸类型</span>
-                        <input type="text" class="form-control" name="sizetype" ng-model="orderDetail.sizetype" required>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <select class="form-control" ng-model="orderDetail.containerVType" name="containerVType" ng-options="c.id as c.name for c in containerVType" required>
+                            </select>
+                          </div>
+                          <div class="col-sm-6">
+                            <select class="form-control" ng-model="orderDetail.containerSType" name="containerSType" ng-options="c.id as c.name for c in containerSType" required>
+                            </select>
+                          </div>
+                        </div>
+                        <!--<input type="text" class="form-control" name="sizetype" ng-model="orderDetail.sizetype" required>-->
                       </div>
                     </div>
                   </div>
@@ -269,30 +279,36 @@
                       </div>
                     </div>
                   </div>
+                  <div ng-repeat="item in orderDetail.callnoList">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                      <div class="form-group" ng-class="{'has-error':!theForm.callno.$valid}">
+                        <div class="input-group">
+                          <span class="input-group-addon">封志号</span>
 
-                  <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group" ng-class="{'has-error':!theForm.callno.$valid}">
-                      <div class="input-group">
-                        <span class="input-group-addon">封志号</span>
-                        <input type="text" class="form-control" name="callno" ng-model="orderDetail.callno" required>
+                          <input type="text" class="form-control" name="callno" ng-model="item.callno" required
+                                 data-toggle="tooltip" role="tooltip" data-placement="right"
+                                 data-original-title="提示信息：如果没有封志，请输入NONE；如果超过10位，请从后往前截取10位；封志号不能输入中文；此处应输入主封志号。">
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group" ng-class="{'has-error':!theForm.calltype.$valid}">
-                      <div class="input-group">
-                        <span class="input-group-addon">封志类型</span>
-                        <input type="text" class="form-control" name="calltype" ng-model="orderDetail.calltype" required>
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon">封志类型</span>
+                          <select class="form-control" ng-model="item.calltype" ng-options="o.id as o.name for o in calltypeType">
+                          </select>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group" ng-class="{'has-error':!theForm.callman.$valid}">
-                      <div class="input-group">
-                        <span class="input-group-addon">加封人</span>
-                        <input type="text" class="form-control" name="callman" ng-model="orderDetail.callman" required>
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon">加封人</span>
+                          <select class="form-control" ng-model="item.callman" ng-options="o.id as o.name for o in callmanType">
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -301,7 +317,8 @@
                     <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon">运输方式</span>
-                        <input type="text" class="form-control" name="shiptype" ng-model="orderDetail.shiptype">
+                        <select class="form-control" ng-model="orderDetail.shiptype" ng-options="o.id as o.name for o in shiptypeType">
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -318,7 +335,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon color-green">总件数</span>
-                        <input type="text" class="form-control" name="allitems" ng-model="orderDetail.allitems" disabled>
+                        <input type="text" class="form-control" name="allitems" ng-model="orderDetail.allitems">
                       </div>
                     </div>
                   </div>
@@ -326,7 +343,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon color-green">总货重</span>
-                        <input type="text" class="form-control" name="allweight" ng-model="orderDetail.allweight" disabled>
+                        <input type="text" class="form-control" name="allweight" ng-model="orderDetail.allweight">
                       </div>
                     </div>
                   </div>
@@ -334,7 +351,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon color-green">总尺码</span>
-                        <input type="text" class="form-control" name="allsize" ng-model="orderDetail.allsize" disabled>
+                        <input type="text" class="form-control" name="allsize" ng-model="orderDetail.allsize">
                       </div>
                     </div>
                   </div>
@@ -342,7 +359,7 @@
                     <div class="form-group" ng-class="{'has-error':!theForm.smokebox.$valid}">
                       <div class="input-group">
                         <span class="input-group-addon">箱皮重</span>
-                        <input type="text" class="form-control" name="smokebox" ng-model="orderDetail.smokebox" required>
+                        <input type="number" class="form-control" name="smokebox" ng-model="orderDetail.smokebox" required>
                       </div>
                     </div>
                   </div>
@@ -350,7 +367,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon color-green">总重</span>
-                        <input type="text" class="form-control" name="allweight2" ng-model="orderDetail.allweight2" disabled>
+                        <input type="text" class="form-control" name="allweight2" ng-model="orderDetail.allweight2">
                       </div>
                     </div>
                   </div>

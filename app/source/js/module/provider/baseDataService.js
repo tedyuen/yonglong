@@ -51,6 +51,17 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
   this.getImpexpsignType = function () {
     return diyData.impexpsignType;
   }
+  this.getCalltypeType = function () {
+    return diyData.calltypeType;
+  }
+  this.getCallmanType = function () {
+    return diyData.callmanType;
+  }
+  this.getShiptypeType = function () {
+    return diyData.shiptypeType;
+  }
+
+
 
 
 

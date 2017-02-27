@@ -114,6 +114,11 @@ yonglongApp.value('diyData',
     packaddressType:[{name:'SN--市内',id:'SN'},{name:'SW--市外',id:'SW'},{name:'QT--其他',id:'QT'}],
     passengerlinerType:[{name:'Y-班轮',id:'Y'},{name:'N-非班轮',id:'N'},{name:'H-核心班轮',id:'H'}],
     impexpsignType:[{name:'E-出口',id:'E'},{name:'I-进口',id:'I'}],
+    calltypeType:[{name:'M--机械封志',id:'M'},{name:'E--电子封志',id:'E'}],
+    callmanType:[{name:'AA--拼箱人',id:'AA'},{name:'AB--未知',id:'AB'},{name:'AC--检疫',id:'AC'},
+      {name:'CA--承运人',id:'CA'},{name:'CU--海关',id:'CU'},{name:'SH--发货人',id:'SH'},
+      {name:'TO--码头',id:'TO'}],
+    shiptypeType:[{name:'无',id:'无'},{name:'1--海铁联运',id:'1'},{name:'2--公路直通',id:'2'},{name:'3--内贸',id:'3'}],
   }
 );
 
@@ -573,6 +578,17 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
   this.getImpexpsignType = function () {
     return diyData.impexpsignType;
   }
+  this.getCalltypeType = function () {
+    return diyData.calltypeType;
+  }
+  this.getCallmanType = function () {
+    return diyData.callmanType;
+  }
+  this.getShiptypeType = function () {
+    return diyData.shiptypeType;
+  }
+
+
 
 
 
@@ -7277,6 +7293,11 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
     $scope.packaddressType = baseDataService.getPackaddressType();
     $scope.passengerlinerType = baseDataService.getPassengerlinerType();
     $scope.impexpsignType = baseDataService.getImpexpsignType();
+    $scope.calltypeType = baseDataService.getCalltypeType();
+    $scope.callmanType = baseDataService.getCallmanType();
+    $scope.shiptypeType = baseDataService.getShiptypeType();
+    $scope.containerVType = baseDataService.getBoxVol();
+    $scope.containerSType = baseDataService.getBoxType();
     var backurl = "shell.html#!/main/companyinner/prerecord";
     if($location.url()=='/main/userinner/prerecord'){
       backurl = "shell.html#!/main/userinner/prerecord";
@@ -7309,7 +7330,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "callno": "",
       "calltype": "",
       "callman": "",
-      "shiptype": "",
+      "shiptype": "无",
       "shippingdate": "",
       "packman": "",
       "licensenumber": "",
@@ -7320,7 +7341,9 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "remark": "",
       "passengerliner":"Y",
       "impexpsign":"E",
-
+      "containerVType":0,
+      "containerSType":0,
+      "callnoList":[{"callman":"CA","callno":"","calltype":"M","id":0}],
       "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":""}],
     }
 
@@ -7396,7 +7419,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "callno": "",
         "calltype": "",
         "callman": "",
-        "shiptype": "",
+        "shiptype": "无",
         "shippingdate": "",
         "packman": "",
         "licensenumber": "",
@@ -7407,6 +7430,9 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "remark": "",
         "passengerliner":"Y",
         "impexpsign":"E",
+        "containerVType":0,
+        "containerSType":0,
+        "callnoList":[{"callman":"CA","callno":"","calltype":"M","id":0}],
         "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":""}],
 
       }

@@ -7,6 +7,11 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
     $scope.packaddressType = baseDataService.getPackaddressType();
     $scope.passengerlinerType = baseDataService.getPassengerlinerType();
     $scope.impexpsignType = baseDataService.getImpexpsignType();
+    $scope.calltypeType = baseDataService.getCalltypeType();
+    $scope.callmanType = baseDataService.getCallmanType();
+    $scope.shiptypeType = baseDataService.getShiptypeType();
+    $scope.containerVType = baseDataService.getBoxVol();
+    $scope.containerSType = baseDataService.getBoxType();
     var backurl = "shell.html#!/main/companyinner/prerecord";
     if($location.url()=='/main/userinner/prerecord'){
       backurl = "shell.html#!/main/userinner/prerecord";
@@ -39,7 +44,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "callno": "",
       "calltype": "",
       "callman": "",
-      "shiptype": "",
+      "shiptype": "无",
       "shippingdate": "",
       "packman": "",
       "licensenumber": "",
@@ -50,7 +55,9 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "remark": "",
       "passengerliner":"Y",
       "impexpsign":"E",
-
+      "containerVType":0,
+      "containerSType":0,
+      "callnoList":[{"callman":"CA","callno":"","calltype":"M","id":0}],
       "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":""}],
     }
 
@@ -126,7 +133,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "callno": "",
         "calltype": "",
         "callman": "",
-        "shiptype": "",
+        "shiptype": "无",
         "shippingdate": "",
         "packman": "",
         "licensenumber": "",
@@ -137,6 +144,9 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "remark": "",
         "passengerliner":"Y",
         "impexpsign":"E",
+        "containerVType":0,
+        "containerSType":0,
+        "callnoList":[{"callman":"CA","callno":"","calltype":"M","id":0}],
         "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":""}],
 
       }
