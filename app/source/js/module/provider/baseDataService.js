@@ -60,6 +60,9 @@ yonglongApp.service('baseDataService',['diyData',function (diyData) {
   this.getShiptypeType = function () {
     return diyData.shiptypeType;
   }
+  this.getMarinepollutionType = function () {
+    return diyData.marinepollutionType;
+  }
 
 
 

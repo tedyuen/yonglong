@@ -12,6 +12,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
     $scope.shiptypeType = baseDataService.getShiptypeType();
     $scope.containerVType = baseDataService.getBoxVol();
     $scope.containerSType = baseDataService.getBoxType();
+    $scope.marinepollutionType = baseDataService.getMarinepollutionType();
     var backurl = "shell.html#!/main/companyinner/prerecord";
     if($location.url()=='/main/userinner/prerecord'){
       backurl = "shell.html#!/main/userinner/prerecord";
@@ -57,8 +58,9 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "impexpsign":"E",
       "containerVType":0,
       "containerSType":0,
+      "marinepollution":"N",
       "callnoList":[{"callman":"CA","callno":"","calltype":"M","id":0}],
-      "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":""}],
+      "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}],
     }
 
     //提交表单
@@ -146,8 +148,9 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "impexpsign":"E",
         "containerVType":0,
         "containerSType":0,
+        "marinepollution":"N",
         "callnoList":[{"callman":"CA","callno":"","calltype":"M","id":0}],
-        "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":""}],
+        "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}],
 
       }
 

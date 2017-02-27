@@ -328,7 +328,9 @@
               </div>
 
               <div class="col-md-8 col-lg-9 col-sm-8">
-                <prerecord-inner bill-list="orderDetail.billList"></prerecord-inner>
+                <prerecord-inner bill-list="orderDetail.billList"
+                                 status-info="orderDetail.statusinfo"
+                ></prerecord-inner>
 
                 <div class="row m-t-0">
                   <div class="bottom1">
@@ -556,7 +558,8 @@
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon">海运污染</span>
-                <input type="text" class="form-control" ng-model="orderDetail.marinepollution">
+                <select class="form-control" ng-model="orderDetail.marinepollution" ng-options="o.id as o.name for o in marinepollutionType">
+                </select>
               </div>
             </div>
 

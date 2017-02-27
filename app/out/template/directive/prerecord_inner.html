@@ -2,17 +2,17 @@
   <div class="prerecord-inner">
     <div class="prerecord-inner-up">
       <ul class="head">
-        <li class="head first">提单号</li>
-        <li class="head">(交货地代码</li>
-        <li class="head">交货地)</li>
-        <li class="head">货物序号</li>
-        <li class="head">件数</li>
-        <li class="head">(包装代码</li>
-        <li class="head">包装类型)</li>
-        <li class="head">货重</li>
-        <li class="head">尺码</li>
-        <li class="head">货物描述</li>
-        <li class="head">唛头</li>
+        <li class="head first has-error">提单号</li>
+        <li class="head has-error">(交货地代码</li>
+        <li class="head has-error">交货地)</li>
+        <li class="head has-error">货物序号</li>
+        <li class="head has-error">件数</li>
+        <li class="head has-error">(包装代码</li>
+        <li class="head has-error">包装类型)</li>
+        <li class="head has-error">货重</li>
+        <li class="head has-error">尺码</li>
+        <li class="head has-error">货物描述</li>
+        <li class="head has-error">唛头</li>
         <li class="head">货物代码</li>
         <li class="head">危险品等级</li>
         <li class="head">危险品页号</li>
@@ -124,7 +124,9 @@
         </li>
         <li>
           <div class="form-group">
-            <input type="text" class="form-control" name="marinepollution" ng-model="item.marinepollution">
+            <select class="form-control" ng-model="item.marinepollution" ng-options="o.id as o.name for o in marinepollutionType">
+            </select>
+            <!--<input type="text" class="form-control" name="marinepollution" ng-model="item.marinepollution">-->
           </div>
         </li>
 

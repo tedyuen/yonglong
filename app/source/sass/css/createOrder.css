@@ -36,6 +36,9 @@
         font-weight: 400;
         background-color: #eee; }
 
+.color-red {
+  color: red; }
+
 .prerecord ul.boxoperator-typeahead {
   width: 210px;
   padding-left: 0px; }
@@ -97,9 +100,6 @@
 
 .prerecord .color-green {
   color: green; }
-
-.prerecord .color-red {
-  color: red; }
 
 .prerecord .radio-frame {
   float: left;
@@ -172,3 +172,7 @@
         font-size: 14px;
         font-weight: 400;
         background-color: #eee; }
+        .prerecord-inner .prerecord-inner-up ul li.head.has-error {
+          color: #a94442;
+          background-color: #f2dede;
+          border: 1px solid #a94442; }

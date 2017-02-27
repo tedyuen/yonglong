@@ -49,6 +49,9 @@
 
 }
 
+.color-red{
+  color:red;
+}
 
 .prerecord{
 
@@ -136,9 +139,7 @@
   .color-green{
     color:green;
   }
-  .color-red{
-    color:red;
-  }
+
 
   .radio-frame{
     float: left;
@@ -230,6 +231,12 @@
           font-size: 14px;
           font-weight: 400;
           background-color: #eee;
+          &.has-error{
+            color:#a94442;
+            background-color: #f2dede;
+            border: 1px solid #a94442;
+          }
+
         }
 
       }
