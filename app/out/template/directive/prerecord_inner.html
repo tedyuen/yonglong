@@ -27,7 +27,8 @@
         <li class="first">
           <div class="form-group">
             <div class="input-group">
-              <span class="input-group-addon" ng-click="deleteItem(item)"><i class="fa fa-minus"></i></span>
+              <span ng-if="billList.length>1" class="input-group-addon" ng-click="deleteItem(item)"><i class="fa fa-minus"></i></span>
+              <span ng-if="billList.length<=1" class="input-group-addon" ng-click="canNotdeleteItem()"><i class="fa fa-minus"></i></span>
               <input type="text" class="form-control" name="ordersn" ng-model="item.ordersn">
             </div>
           </div>
@@ -49,7 +50,7 @@
         </li>
         <li>
           <div class="form-group">
-            <input type="number" class="form-control" name="items" ng-model="item.items">
+            <input type="number" class="form-control" name="items" ng-model="item.items" ng-blur="numberChange()">
           </div>
         </li>
         <li>
@@ -64,12 +65,12 @@
         </li>
         <li>
           <div class="form-group">
-            <input type="number" class="form-control" name="weight" ng-model="item.weight">
+            <input type="number" class="form-control" name="weight" ng-model="item.weight" ng-blur="numberChange()">
           </div>
         </li>
         <li>
           <div class="form-group">
-            <input type="number" class="form-control" name="size" ng-model="item.size">
+            <input type="number" class="form-control" name="size" ng-model="item.size" ng-blur="numberChange()">
           </div>
         </li>
         <li>

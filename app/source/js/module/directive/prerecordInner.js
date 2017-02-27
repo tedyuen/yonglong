@@ -5,6 +5,7 @@ yonglongApp.directive('prerecordInner',['$compile','baseDataService',function($c
     scope: {
       billList:'=',
       statusInfo:'=',
+      numberChange:'='
     },
     templateUrl: 'template/directive/prerecord_inner.html',
     controller: function($scope){
@@ -20,7 +21,7 @@ yonglongApp.directive('prerecordInner',['$compile','baseDataService',function($c
           });
         }else{
           $scope.billList.push(
-            {"ordersn":"","deliverycode":"","deliveryport":"","cargono":0,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}
+            {"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":1,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}
           );
         }
       };
@@ -30,15 +31,18 @@ yonglongApp.directive('prerecordInner',['$compile','baseDataService',function($c
           $scope.billList.splice(i,1);
           i--;
         }
+        $scope.numberChange();
       }
 
       $scope.$watch('statusInfo',function () {
-        // console.log($scope.billList.length);
         if($scope.statusInfo != '7'){
           cleanItem();
         }
       })
 
+      $scope.canNotdeleteItem = function () {
+        swal('错误', '至少包含一组数据', 'error');
+      }
       $scope.deleteItem = function (item) {
         for(var i=0;i<$scope.billList.length;i++){
           if($scope.billList[i].ordersn==item.ordersn) {

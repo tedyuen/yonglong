@@ -19,9 +19,8 @@
       <div class="col-sm-12">
         <form ng-submit="onSubmit(theForm.$valid,theForm)" novalidate="novalidate" name="theForm" class="prerecord">
           <div class="white-box">
-            <button type="submit" ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}" class="btn waves-effect waves-light m-r-10">
-              <span ng-if="theForm.$invalid">完成表单后预录</span>
-              <span ng-if="theForm.$valid">预录</span>
+            <button type="submit"  class="btn waves-effect waves-light m-r-10 btn-primary">
+              预录
             </button>
             <button type="button" ng-click="openAdditional()" class="btn waves-effect waves-light btn-success m-r-10">补充信息</button>
             <!--<button type="button" ng-click="" class="btn waves-effect waves-light btn-success m-r-10">封志信息</button>-->
@@ -113,7 +112,7 @@
                   </div>
 
                   <div class="col-md-4 col-lg-4 col-sm-4">
-                    <div class="form-group" ng-class="{'has-error':!theForm.loadingportcode.$valid}">
+                    <div class="form-group has-error">
                       <div class="input-group">
                         <span class="input-group-addon">装港代码</span>
                         <input type="text" class="form-control" name="loadingportcode" ng-model="orderDetail.loadingportcode" required>
@@ -124,7 +123,7 @@
                   </div>
 
                   <div class="col-md-4 col-lg-4 col-sm-4">
-                    <div class="form-group" ng-class="{'has-error':!theForm.transitportcode.$valid}">
+                    <div class="form-group has-error">
                       <div class="input-group">
                         <span class="input-group-addon">卸港代码</span>
                         <select class="form-control" ng-model="select.transitportcode" ng-change="onTransitportcodeChange()" ng-options="o.transitportcode for o in select.transitportList">
@@ -152,7 +151,7 @@
               <div class="col-md-4 col-lg-3 col-sm-4">
                 <div class="row bottom-10">
                   <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group" ng-class="{'has-error':!theForm.boxno.$valid}">
+                    <div class="form-group has-error">
                       <div class="input-group">
                         <span class="input-group-addon">箱号</span>
                         <input type="text" class="form-control" name="boxno" ng-model="orderDetail.boxno" required>
@@ -161,7 +160,7 @@
                   </div>
 
                   <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group" ng-class="{'has-error':!theForm.shippname.$valid}">
+                    <div class="form-group has-error">
                       <div class="input-group">
                         <span class="input-group-addon">船名</span>
                         <input type="text" class="form-control" ng-model="orderDetail.shippname"
@@ -198,7 +197,7 @@
                   </div>
 
                   <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group" ng-class="{'has-error':!theForm.inletwharf.$valid}">
+                    <div class="form-group has-error">
                       <div class="input-group">
                         <span class="input-group-addon">进箱码头</span>
                         <select class="form-control" ng-model="orderDetail.inletwharf" ng-options="o.inletwharf as o.inletwharfname for o in select.inletwharfList">
@@ -208,7 +207,7 @@
                   </div>
 
                   <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group">
+                    <div class="form-group has-error">
                       <div class="input-group">
                         <span class="input-group-addon">尺寸类型</span>
                         <div class="row">
@@ -226,7 +225,7 @@
                   </div>
 
                   <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group" ng-class="{'has-error':!theForm.statusinfo.$valid}">
+                    <div class="form-group has-error">
                       <div class="input-group">
                         <span class="input-group-addon">状态</span>
                         <select class="form-control" ng-model="orderDetail.statusinfo" ng-options="o.id as o.name for o in prerecordType" ng-change="statusinfoChange()">
@@ -245,7 +244,7 @@
                   </div>
 
                   <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group" ng-class="{'has-error':!theForm.boxoperatorcode.$valid}">
+                    <div class="form-group has-error">
                       <div class="input-group">
                         <span class="input-group-addon">代码</span>
                         <input type="text" class="form-control" ng-model="orderDetail.boxoperatorcode"
@@ -262,7 +261,7 @@
                   </div>
 
                   <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group" ng-class="{'has-error':!theForm.customscode.$valid}">
+                    <div class="form-group has-error">
                       <div class="input-group">
                         <span class="input-group-addon">海关代码</span>
                         <input type="text" class="form-control" ng-model="orderDetail.customscode"
@@ -277,7 +276,7 @@
                   </div>
                   <div ng-repeat="item in orderDetail.callnoList">
                     <div class="col-md-12 col-lg-12 col-sm-12">
-                      <div class="form-group" ng-class="{'has-error':!theForm.callno.$valid}">
+                      <div class="form-group has-error">
                         <div class="input-group">
                           <span class="input-group-addon">封志号</span>
 
@@ -289,7 +288,7 @@
                     </div>
 
                     <div class="col-md-12 col-lg-12 col-sm-12">
-                      <div class="form-group">
+                      <div class="form-group has-error">
                         <div class="input-group">
                           <span class="input-group-addon">封志类型</span>
                           <select class="form-control" ng-model="item.calltype" ng-options="o.id as o.name for o in calltypeType">
@@ -299,7 +298,7 @@
                     </div>
 
                     <div class="col-md-12 col-lg-12 col-sm-12">
-                      <div class="form-group">
+                      <div class="form-group has-error">
                         <div class="input-group">
                           <span class="input-group-addon">加封人</span>
                           <select class="form-control" ng-model="item.callman" ng-options="o.id as o.name for o in callmanType">
@@ -326,6 +325,7 @@
               <div class="col-md-8 col-lg-9 col-sm-8">
                 <prerecord-inner bill-list="orderDetail.billList"
                                  status-info="orderDetail.statusinfo"
+                                 number-change="numberChange"
                 ></prerecord-inner>
 
                 <div class="row m-t-0">
@@ -354,10 +354,10 @@
                     </div>
                   </div>
                   <div class="bottom1">
-                    <div class="form-group" ng-class="{'has-error':!theForm.smokebox.$valid}">
+                    <div class="form-group has-error">
                       <div class="input-group">
                         <span class="input-group-addon">箱皮重</span>
-                        <input type="number" class="form-control" name="smokebox" ng-model="orderDetail.smokebox" required>
+                        <input type="number" class="form-control" name="smokebox" ng-model="orderDetail.smokebox" ng-blur="numberChange()" required>
                       </div>
                     </div>
                   </div>
@@ -378,7 +378,7 @@
             <!-- line 4 -->
             <div class="row m-t-0">
               <div class="bottom1">
-                <div class="form-group">
+                <div class="form-group has-error">
                   <div class="input-group">
                     <span class="input-group-addon">装箱日期</span>
                     <input type="text" class="form-control mydatepicker" name="shippingdate" placeholder="yyyy年mm月dd日" ng-model="orderDetail.shippingdate" required>
