@@ -31,6 +31,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "dangerousgrade": "",
       "boxno": "",
       "shippname": "",
+      "shipcall": "",
       "loadingportcode": "CNSHA",
       "transitportcode": "",
       "destport": "",
@@ -80,6 +81,7 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "dangerousgrade": "",
         "boxno": "",
         "shippname": "",
+        "shipcall": "",
         "loadingportcode": "CNSHA",
         "transitportcode": "",
         "destport": "",
@@ -207,11 +209,13 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       if($model){
         $scope.orderDetail.shippno = $model.shippno;
         $scope.orderDetail.imono = $model.imono;
+        $scope.orderDetail.shipcall = $model.shipcall;
         $scope.select.transitportList = $model.transitportList;
         $scope.select.inletwharfList = $model.inletwharfList;
       }else{
         $scope.orderDetail.shippno = '';
         $scope.orderDetail.imono = '';
+        $scope.orderDetail.shipcall = '';
         $scope.orderDetail.transitportcode = '';
         $scope.orderDetail.transitport = '';
         $scope.orderDetail.inletwharf = '';
