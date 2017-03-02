@@ -32,22 +32,27 @@
       <div id="container-no" ng-bind="results.containerNo" class="container-no data-div"></div>
       <!-- 封号 -->
       <div id="seal-no" ng-bind="results.sealNo" class="seal-no data-div"></div>
-      <!-- 提单号 -->
-      <div id="shipping-sn" ng-bind="results.shippingSn" class="shipping-sn data-div"></div>
-      <!-- 件数 -->
-      <div id="items" class="items data-div">
-        <span ng-bind="results.items"></span>
-        <span ng-if="results.goodsPackage!=''">&nbsp;/&nbsp;</span>
-        <span ng-bind="results.goodsPackage"></span>
-      </div>
-      <!-- 毛重 -->
-      <div id="net-weight" ng-bind="results.grossWeight" class="net-weight data-div"></div>
-      <!-- 尺码描述 -->
-      <div id="size-desc" ng-bind="results.sizeDesc" class="size-desc data-div"></div>
-      <!-- 货名 -->
-      <div id="goods-desc" ng-bind="results.goodsDesc" class="goods-desc data-div"></div>
-      <!-- 唛头 -->
-      <div id="mark" ng-bind="results.mark" class="mark data-div"></div>
+
+      <ul>
+        <li ng-repeat="bill in results.billList">
+          <!-- 提单号 -->
+          <div id="shipping-sn" ng-bind="bill.billNo" class="shipping-sn data-div"></div>
+          <!-- 件数 -->
+          <div id="items" class="items data-div">
+            <span ng-bind="bill.items"></span>
+            <!--<span ng-if="results.goodsPackage!=''">&nbsp;/&nbsp;</span>-->
+            <!--<span ng-bind="results.goodsPackage"></span>-->
+          </div>
+          <!-- 毛重 -->
+          <div id="net-weight" ng-bind="bill.netWeight" class="net-weight data-div"></div>
+          <!-- 尺码描述 -->
+          <div id="size-desc" ng-bind="bill.sizeDesc" class="size-desc data-div"></div>
+          <!-- 货名 -->
+          <div id="goods-desc" ng-bind="bill.goodsDesc" class="goods-desc data-div"></div>
+          <!-- 唛头 -->
+          <div id="mark" ng-bind="bill.mark" class="mark data-div"></div>
+        </li>
+      </ul>
 
       <!-- 箱型/箱类ISO标准代码 -->
       <div class="vtype-stype data-div">

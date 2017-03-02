@@ -56,36 +56,7 @@ body{
       left:70px;
       top:305px;
     }
-    .shipping-sn{
-      left:300px;
-      top:355px;
-    }
-    .items{
-      left:435px;
-      top:386px;
-      width:100px;
-      text-align: center;
-    }
-    .net-weight{
-      left:580px;
-      top:386px;
-    }
-    .size-desc{
-      left:675px;
-      top:386px;
-    }
-    .goods-desc{
-      left:745px;
-      top:386px;
-      width:205px;
-      text-align: center;
-    }
-    .mark{
-      left:955px;
-      top:386px;
-      width:140px;
-      text-align: center;
-    }
+
     .vtype-stype{
       left:60px;
       top:465px;
@@ -115,6 +86,51 @@ body{
       top:660px;
       width:330px;
     }
+
+    ul{
+      position: absolute;
+      padding: 0px;
+      left:296px;
+      top:300px;
+      list-style: outside;
+      li{
+        text-align: center;
+        div{
+          text-align: center;
+        }
+        .shipping-sn{
+          width:120px;
+          left:0px;
+
+        }
+        .items{
+          left:135px;
+          width:100px;
+
+        }
+        .net-weight{
+          left:240px;
+          width: 100px;
+
+        }
+        .size-desc{
+          left:340px;
+          width:100px;
+        }
+        .goods-desc{
+          left:445px;
+          width:205px;
+        }
+        .mark{
+          left:655px;
+          width:140px;
+        }
+      }
+    }
+
+
+
+
   }
 
 }
