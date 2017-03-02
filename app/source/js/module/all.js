@@ -1404,6 +1404,14 @@ yonglongApp.provider('showDatePickerProvider',function () {
           minuteStep: 10,
           pickerPosition: "top-left"
         });
+      },
+      showPrerecordDatePicker:function () {
+        jQuery('.mydatepicker').datepicker({
+          language: 'zh-CN',
+          autoclose: true,
+          format: "yyyymmdd",
+          todayHighlight: true
+        });
       }
     }
   }
@@ -7304,7 +7312,7 @@ yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvid
 
 yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$location','showDatePickerProvider','interfaceService','rescode','alipayService','baseDataService',
   function ($scope,$state,$timeout,$location,showDatePickerProvider,interfaceService,rescode,alipayService,baseDataService) {
-    showDatePickerProvider.showDatePicker();
+    showDatePickerProvider.showPrerecordDatePicker();
 
     $scope.temperatureUnit = baseDataService.getTemperatureUnit();
     $scope.prerecordType = baseDataService.getPrerecordType();
@@ -7367,6 +7375,17 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "marinepollution":"N",
       "callnoList":[{"callman":"CA","callno":"NONE","calltype":"M","id":0}],
       "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}],
+      "shipnationcode":"",
+      "beforesuper":0,
+      "aftersuper":0,
+      "rightsuper":0,
+      "leftsuper":0,
+      "hignsuper":0,
+      "temperaturemin":"",
+      "temperaturemax":"",
+      "dangerouslabel":"",
+      "emergencyno":"",
+      "firstaidno":"",
       "allitems":0,
       "allweight":0,
       "allsize":0,
@@ -7417,6 +7436,17 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "marinepollution":"N",
         "callnoList":[{"callman":"CA","callno":"NONE","calltype":"M","id":0}],
         "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}],
+        "shipnationcode":"",
+        "beforesuper":0,
+        "aftersuper":0,
+        "rightsuper":0,
+        "leftsuper":0,
+        "hignsuper":0,
+        "temperaturemin":"",
+        "temperaturemax":"",
+        "dangerouslabel":"",
+        "emergencyno":"",
+        "firstaidno":"",
         "allitems":0,
         "allweight":0,
         "allsize":0,

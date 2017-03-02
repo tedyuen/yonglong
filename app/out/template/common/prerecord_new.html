@@ -381,7 +381,7 @@
                 <div class="form-group has-error">
                   <div class="input-group">
                     <span class="input-group-addon">装箱日期</span>
-                    <input type="text" class="form-control mydatepicker" name="shippingdate" placeholder="yyyy年mm月dd日" ng-model="orderDetail.shippingdate" required>
+                    <input type="text" class="form-control mydatepicker" name="shippingdate" placeholder="yyyymmdd" ng-model="orderDetail.shippingdate" required>
                   </div>
                 </div>
               </div>
@@ -445,7 +445,7 @@
 
           </div>
         </form>
-        <pre>{{orderDetail | json}}</pre>
+        <!--<pre>{{orderDetail | json}}</pre>-->
       </div>
 
     </div>
@@ -490,31 +490,31 @@
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon">前超(cm)</span>
-                <input type="text" class="form-control" ng-model="orderDetail.beforesuper">
+                <input type="number" class="form-control" ng-model="orderDetail.beforesuper">
               </div>
             </div>
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon">后超(cm)</span>
-                <input type="text" class="form-control" ng-model="orderDetail.aftersuper">
+                <input type="number" class="form-control" ng-model="orderDetail.aftersuper">
               </div>
             </div>
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon">右超(cm)</span>
-                <input type="text" class="form-control" ng-model="orderDetail.rightsuper">
+                <input type="number" class="form-control" ng-model="orderDetail.rightsuper">
               </div>
             </div>
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon">左超(cm)</span>
-                <input type="text" class="form-control" ng-model="orderDetail.leftsuper">
+                <input type="number" class="form-control" ng-model="orderDetail.leftsuper">
               </div>
             </div>
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon">超高(cm)</span>
-                <input type="text" class="form-control" ng-model="orderDetail.hignsuper">
+                <input type="number" class="form-control" ng-model="orderDetail.hignsuper">
               </div>
             </div>
             <div class="form-group">
