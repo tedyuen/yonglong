@@ -649,6 +649,21 @@ yonglongApp.service('dateService',function () {
     // console.log(myDate.getFullYear()+"-"+month+"-"+myDate.getDate());
     return myDate.getFullYear()+"-"+month+"-"+myDate.getDate();
   }
+  this.getCurrentDate2 = function () {
+    var myDate = new Date();
+    var month = myDate.getMonth()+1;
+    // console.log(myDate.getFullYear()+"-"+month+"-"+myDate.getDate());
+    var strMonth = month;
+    var strDate = myDate.getDate();
+    if(month<10){
+      strMonth = "0"+month;
+    }
+    if(myDate.getDate()<10){
+      strDate = "0"+myDate.getDate();
+    }
+    return myDate.getFullYear()+""+strMonth+""+strDate;
+  }
+
 
   this.getLastMonthDate = function () {
     var myDate = new Date();
@@ -1702,7 +1717,7 @@ yonglongApp.controller('userCreateWithdrawController',['$scope','$timeout','$sta
       if(checked){
         $scope.cashListDispatchCheckbox.push(result);
       }else{
-        var idx = $scope.cashListCheckbox.indexOf(result);
+        var idx = $scope.cashListDispatchCheckbox.indexOf(result);
         $scope.cashListDispatchCheckbox.splice(idx,1);
       }
       updateParams();
@@ -3705,7 +3720,7 @@ yonglongApp.controller('createWithdrawController',['$scope','$timeout','$state',
       if(checked){
         $scope.cashListDispatchCheckbox.push(result);
       }else{
-        var idx = $scope.cashListCheckbox.indexOf(result);
+        var idx = $scope.cashListDispatchCheckbox.indexOf(result);
         $scope.cashListDispatchCheckbox.splice(idx,1);
       }
       updateParams();
@@ -7310,8 +7325,8 @@ yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvid
 
   }]);
 
-yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$location','showDatePickerProvider','interfaceService','rescode','alipayService','baseDataService',
-  function ($scope,$state,$timeout,$location,showDatePickerProvider,interfaceService,rescode,alipayService,baseDataService) {
+yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$location','showDatePickerProvider','interfaceService','rescode','alipayService','baseDataService','dateService',
+  function ($scope,$state,$timeout,$location,showDatePickerProvider,interfaceService,rescode,alipayService,baseDataService,dateService) {
     showDatePickerProvider.showPrerecordDatePicker();
 
     $scope.temperatureUnit = baseDataService.getTemperatureUnit();
@@ -7332,7 +7347,6 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
     }else if($location.url()=='/main/admin/prerecord'){
       backurl = "shell.html#!/main/admin/prerecord";
     }
-
 
     $scope.orderDetail = {
       "backurl":backurl,
@@ -7359,8 +7373,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "callno": "",
       "calltype": "",
       "callman": "",
-      "shiptype": "无",
-      "shippingdate": "",
+      "shiptype": "",
+      "shippingdate": dateService.getCurrentDate2(),
       "packman": "",
       "licensenumber": "",
       "smokebox": 0,
@@ -7373,8 +7387,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "containerVType":0,
       "containerSType":0,
       "marinepollution":"N",
-      "callnoList":[{"callman":"CA","callno":"NONE","calltype":"M","id":0}],
-      "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}],
+      "callnoList":[{"callman":"CA","callno":"","calltype":"M","id":0}],
+      "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":0,"packagecode":"CN","packagetype":"","weight":0,"size":0,"cargodesc":"PLUSH TOYS","mark":"NM","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}],
       "shipnationcode":"",
       "beforesuper":0,
       "aftersuper":0,
@@ -7420,8 +7434,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "callno": "",
         "calltype": "",
         "callman": "",
-        "shiptype": "无",
-        "shippingdate": "",
+        "shiptype": "",
+        "shippingdate": dateService.getCurrentDate2(),
         "packman": "",
         "licensenumber": "",
         "smokebox": 0,
@@ -7434,8 +7448,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "containerVType":0,
         "containerSType":0,
         "marinepollution":"N",
-        "callnoList":[{"callman":"CA","callno":"NONE","calltype":"M","id":0}],
-        "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}],
+        "callnoList":[{"callman":"CA","callno":"","calltype":"M","id":0}],
+        "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":0,"packagecode":"CN","packagetype":"","weight":0,"size":0,"cargodesc":"PLUSH TOYS","mark":"NM","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}],
         "shipnationcode":"",
         "beforesuper":0,
         "aftersuper":0,
@@ -7593,6 +7607,9 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         return false;
       }else if($scope.orderDetail.loadingportcode=='') {
         swal('错误', '装港代码不能为空', 'error');
+        return false;
+      }else if($scope.orderDetail.destport=='') {
+        swal('错误', '目的港不能为空', 'error');
         return false;
       }else if($scope.orderDetail.transitportcode=='') {
         swal('错误', '请选择卸港代码', 'error');
@@ -8179,7 +8196,7 @@ yonglongApp.directive('prerecordInner',['$compile','baseDataService',function($c
           });
         }else{
           $scope.billList.push(
-            {"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":1,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}
+            {"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":1,"packagecode":"CN","packagetype":"","weight":0,"size":0,"cargodesc":"PLUSH TOYS","mark":"NM","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}
           );
         }
       };

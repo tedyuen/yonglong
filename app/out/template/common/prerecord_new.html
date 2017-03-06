@@ -20,7 +20,7 @@
         <form ng-submit="onSubmit(theForm.$valid,theForm)" novalidate="novalidate" name="theForm" class="prerecord">
           <div class="white-box">
             <button type="submit"  class="btn waves-effect waves-light m-r-10 btn-primary">
-              预录
+              提交预录
             </button>
             <button type="button" ng-click="openAdditional()" class="btn waves-effect waves-light btn-success m-r-10">补充信息</button>
             <!--<button type="button" ng-click="" class="btn waves-effect waves-light btn-success m-r-10">封志信息</button>-->
@@ -84,29 +84,29 @@
 
               <div class="col-md-8 col-lg-8 col-sm-8">
                 <div class="row no-bottom">
-                  <div class="col-md-4 col-lg-4 col-sm-4">
-                    <div class="form-group" ng-class="{'has-error':!theForm.loadingport.$valid}">
-                      <div class="input-group">
-                        <span class="input-group-addon">装港</span>
-                        <input type="text" class="form-control" name="loadingport" ng-model="orderDetail.loadingport" required>
-                      </div>
-                    </div>
-                  </div>
+                  <!--<div class="col-md-4 col-lg-4 col-sm-4">-->
+                    <!--<div class="form-group" ng-class="{'has-error':!theForm.loadingport.$valid}">-->
+                      <!--<div class="input-group">-->
+                        <!--<span class="input-group-addon">装港</span>-->
+                        <!--<input type="text" class="form-control" name="loadingport" ng-model="orderDetail.loadingport" required>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
 
-                  <div class="col-md-4 col-lg-4 col-sm-4">
-                    <div class="form-group">
-                      <div class="input-group">
-                        <span class="input-group-addon color-green">卸港</span>
-                        <input type="text" class="form-control" name="transitport" ng-model="orderDetail.transitport" disabled>
+                  <!--<div class="col-md-4 col-lg-4 col-sm-4">-->
+                    <!--<div class="form-group">-->
+                      <!--<div class="input-group">-->
+                        <!--<span class="input-group-addon color-green">卸港</span>-->
+                        <!--<input type="text" class="form-control" name="transitport" ng-model="orderDetail.transitport" disabled>-->
 
-                      </div>
-                    </div>
-                  </div>
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
                   <div class="col-md-4 col-lg-4 col-sm-4">
-                    <div class="form-group">
+                    <div class="form-group has-error">
                       <div class="input-group">
                         <span class="input-group-addon">目的港</span>
-                        <input type="text" class="form-control" name="destport" ng-model="orderDetail.destport">
+                        <input type="text" class="form-control" name="destport" ng-model="orderDetail.destport" required>
                       </div>
                     </div>
                   </div>
@@ -132,14 +132,14 @@
                     </div>
                   </div>
 
-                  <div class="col-md-4 col-lg-4 col-sm-4">
-                    <div class="form-group">
-                      <div class="input-group">
-                        <span class="input-group-addon">目的港代码</span>
-                        <input type="text" class="form-control" name="destportcode" ng-model="orderDetail.destportcode">
-                      </div>
-                    </div>
-                  </div>
+                  <!--<div class="col-md-4 col-lg-4 col-sm-4">-->
+                    <!--<div class="form-group">-->
+                      <!--<div class="input-group">-->
+                        <!--<span class="input-group-addon">目的港代码</span>-->
+                        <!--<input type="text" class="form-control" name="destportcode" ng-model="orderDetail.destportcode">-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
 
                 </div>
               </div>
@@ -260,25 +260,25 @@
                     </div>
                   </div>
 
-                  <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group has-error">
-                      <div class="input-group">
-                        <span class="input-group-addon">海关代码</span>
-                        <input type="text" class="form-control" ng-model="orderDetail.customscode"
-                               uib-typeahead="state.customscode as state.customscode for state in customslist | filter:{customscode:$viewValue}"
-                               typeahead-template-url="template/typeahead/customs_list.html"
-                               typeahead-min-length="0"
-                               typeahead-show-hint="true"
-                               typeahead-select-on-blur="true"
-                               required>
-                      </div>
-                    </div>
-                  </div>
+                  <!--<div class="col-md-12 col-lg-12 col-sm-12">-->
+                    <!--<div class="form-group has-error">-->
+                      <!--<div class="input-group">-->
+                        <!--<span class="input-group-addon">海关代码</span>-->
+                        <!--<input type="text" class="form-control" ng-model="orderDetail.customscode"-->
+                               <!--uib-typeahead="state.customscode as state.customscode for state in customslist | filter:{customscode:$viewValue}"-->
+                               <!--typeahead-template-url="template/typeahead/customs_list.html"-->
+                               <!--typeahead-min-length="0"-->
+                               <!--typeahead-show-hint="true"-->
+                               <!--typeahead-select-on-blur="true"-->
+                               <!--required>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
                   <div ng-repeat="item in orderDetail.callnoList">
                     <div class="col-md-12 col-lg-12 col-sm-12">
                       <div class="form-group has-error">
                         <div class="input-group">
-                          <span class="input-group-addon">封志号</span>
+                          <span class="input-group-addon">封号</span>
 
                           <input type="text" class="form-control" name="callno" ng-model="item.callno" required
                                  data-toggle="tooltip" role="tooltip" data-placement="right"
@@ -287,36 +287,36 @@
                       </div>
                     </div>
 
-                    <div class="col-md-12 col-lg-12 col-sm-12">
-                      <div class="form-group has-error">
-                        <div class="input-group">
-                          <span class="input-group-addon">封志类型</span>
-                          <select class="form-control" ng-model="item.calltype" ng-options="o.id as o.name for o in calltypeType">
-                          </select>
-                        </div>
-                      </div>
-                    </div>
+                    <!--<div class="col-md-12 col-lg-12 col-sm-12">-->
+                      <!--<div class="form-group has-error">-->
+                        <!--<div class="input-group">-->
+                          <!--<span class="input-group-addon">封志类型</span>-->
+                          <!--<select class="form-control" ng-model="item.calltype" ng-options="o.id as o.name for o in calltypeType">-->
+                          <!--</select>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
 
-                    <div class="col-md-12 col-lg-12 col-sm-12">
-                      <div class="form-group has-error">
-                        <div class="input-group">
-                          <span class="input-group-addon">加封人</span>
-                          <select class="form-control" ng-model="item.callman" ng-options="o.id as o.name for o in callmanType">
-                          </select>
-                        </div>
-                      </div>
-                    </div>
+                    <!--<div class="col-md-12 col-lg-12 col-sm-12">-->
+                      <!--<div class="form-group has-error">-->
+                        <!--<div class="input-group">-->
+                          <!--<span class="input-group-addon">加封人</span>-->
+                          <!--<select class="form-control" ng-model="item.callman" ng-options="o.id as o.name for o in callmanType">-->
+                          <!--</select>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
                   </div>
 
-                  <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group">
-                      <div class="input-group">
-                        <span class="input-group-addon">运输方式</span>
-                        <select class="form-control" ng-model="orderDetail.shiptype" ng-options="o.id as o.name for o in shiptypeType">
-                        </select>
-                      </div>
-                    </div>
-                  </div>
+                  <!--<div class="col-md-12 col-lg-12 col-sm-12">-->
+                    <!--<div class="form-group">-->
+                      <!--<div class="input-group">-->
+                        <!--<span class="input-group-addon">运输方式</span>-->
+                        <!--<select class="form-control" ng-model="orderDetail.shiptype" ng-options="o.id as o.name for o in shiptypeType">-->
+                        <!--</select>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
 
                 </div>
 
@@ -340,7 +340,7 @@
                   <div class="bottom1">
                     <div class="form-group">
                       <div class="input-group">
-                        <span class="input-group-addon color-green">总货重</span>
+                        <span class="input-group-addon color-green">总毛重</span>
                         <input type="text" class="form-control" name="allweight" ng-model="orderDetail.allweight">
                       </div>
                     </div>
@@ -376,71 +376,71 @@
             <!-- line 3 -->
 
             <!-- line 4 -->
-            <div class="row m-t-0">
-              <div class="bottom1">
-                <div class="form-group has-error">
-                  <div class="input-group">
-                    <span class="input-group-addon">装箱日期</span>
-                    <input type="text" class="form-control mydatepicker" name="shippingdate" placeholder="yyyymmdd" ng-model="orderDetail.shippingdate" required>
-                  </div>
-                </div>
-              </div>
-              <div class="bottom1">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon">装箱人</span>
-                    <input type="text" class="form-control" name="packman" ng-model="orderDetail.packman">
-                  </div>
-                </div>
-              </div>
-              <div class="bottom1">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon color-green">地址</span>
-                    <select class="form-control" ng-model="orderDetail.packaddress" ng-options="o.id as o.name for o in packaddressType">
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="bottom1">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon">车号</span>
-                    <input type="text" class="form-control" name="licensenumber" ng-model="orderDetail.licensenumber">
-                  </div>
-                </div>
-              </div>
-              <div class="bottom1 last">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon">设备交接单</span>
-                    <input type="text" class="form-control" name="equipmentorder" ng-model="orderDetail.equipmentorder">
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!--<div class="row m-t-0">-->
+              <!--<div class="bottom1">-->
+                <!--<div class="form-group has-error">-->
+                  <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon">装箱日期</span>-->
+                    <!--<input type="text" class="form-control mydatepicker" name="shippingdate" placeholder="yyyymmdd" ng-model="orderDetail.shippingdate" required>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="bottom1">-->
+                <!--<div class="form-group">-->
+                  <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon">装箱人</span>-->
+                    <!--<input type="text" class="form-control" name="packman" ng-model="orderDetail.packman">-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="bottom1">-->
+                <!--<div class="form-group">-->
+                  <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon color-green">地址</span>-->
+                    <!--<select class="form-control" ng-model="orderDetail.packaddress" ng-options="o.id as o.name for o in packaddressType">-->
+                    <!--</select>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="bottom1">-->
+                <!--<div class="form-group">-->
+                  <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon">车号</span>-->
+                    <!--<input type="text" class="form-control" name="licensenumber" ng-model="orderDetail.licensenumber">-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="bottom1 last">-->
+                <!--<div class="form-group">-->
+                  <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon">设备交接单</span>-->
+                    <!--<input type="text" class="form-control" name="equipmentorder" ng-model="orderDetail.equipmentorder">-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
             <!-- line 4 -->
 
             <!-- line 5 -->
-            <div class="row">
-              <div class="col-md-6 col-lg-6 col-sm-6">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon">装箱详细地址</span>
-                    <input type="text" class="form-control" name="detailaddress" ng-model="orderDetail.detailaddress">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-6 col-sm-6">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon">备注</span>
-                    <input type="text" class="form-control" name="remark" ng-model="orderDetail.remark">
-                  </div>
-                </div>
-              </div>
+            <!--<div class="row">-->
+              <!--<div class="col-md-6 col-lg-6 col-sm-6">-->
+                <!--<div class="form-group">-->
+                  <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon">装箱详细地址</span>-->
+                    <!--<input type="text" class="form-control" name="detailaddress" ng-model="orderDetail.detailaddress">-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-md-6 col-lg-6 col-sm-6">-->
+                <!--<div class="form-group">-->
+                  <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon">备注</span>-->
+                    <!--<input type="text" class="form-control" name="remark" ng-model="orderDetail.remark">-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
 
-            </div>
+            <!--</div>-->
             <!-- line 5 -->
 
           </div>

@@ -21,7 +21,7 @@ yonglongApp.directive('prerecordInner',['$compile','baseDataService',function($c
           });
         }else{
           $scope.billList.push(
-            {"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":1,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}
+            {"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":1,"packagecode":"CN","packagetype":"","weight":0,"size":0,"cargodesc":"PLUSH TOYS","mark":"NM","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}
           );
         }
       };

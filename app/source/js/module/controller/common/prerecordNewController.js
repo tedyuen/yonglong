@@ -1,5 +1,5 @@
-yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$location','showDatePickerProvider','interfaceService','rescode','alipayService','baseDataService',
-  function ($scope,$state,$timeout,$location,showDatePickerProvider,interfaceService,rescode,alipayService,baseDataService) {
+yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$location','showDatePickerProvider','interfaceService','rescode','alipayService','baseDataService','dateService',
+  function ($scope,$state,$timeout,$location,showDatePickerProvider,interfaceService,rescode,alipayService,baseDataService,dateService) {
     showDatePickerProvider.showPrerecordDatePicker();
 
     $scope.temperatureUnit = baseDataService.getTemperatureUnit();
@@ -20,7 +20,6 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
     }else if($location.url()=='/main/admin/prerecord'){
       backurl = "shell.html#!/main/admin/prerecord";
     }
-
 
     $scope.orderDetail = {
       "backurl":backurl,
@@ -47,8 +46,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "callno": "",
       "calltype": "",
       "callman": "",
-      "shiptype": "无",
-      "shippingdate": "",
+      "shiptype": "",
+      "shippingdate": dateService.getCurrentDate2(),
       "packman": "",
       "licensenumber": "",
       "smokebox": 0,
@@ -61,8 +60,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
       "containerVType":0,
       "containerSType":0,
       "marinepollution":"N",
-      "callnoList":[{"callman":"CA","callno":"NONE","calltype":"M","id":0}],
-      "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}],
+      "callnoList":[{"callman":"CA","callno":"","calltype":"M","id":0}],
+      "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":0,"packagecode":"CN","packagetype":"","weight":0,"size":0,"cargodesc":"PLUSH TOYS","mark":"NM","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}],
       "shipnationcode":"",
       "beforesuper":0,
       "aftersuper":0,
@@ -108,8 +107,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "callno": "",
         "calltype": "",
         "callman": "",
-        "shiptype": "无",
-        "shippingdate": "",
+        "shiptype": "",
+        "shippingdate": dateService.getCurrentDate2(),
         "packman": "",
         "licensenumber": "",
         "smokebox": 0,
@@ -122,8 +121,8 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         "containerVType":0,
         "containerSType":0,
         "marinepollution":"N",
-        "callnoList":[{"callman":"CA","callno":"NONE","calltype":"M","id":0}],
-        "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":0,"packagecode":"","packagetype":"","weight":0,"size":0,"cargodesc":"","mark":"","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}],
+        "callnoList":[{"callman":"CA","callno":"","calltype":"M","id":0}],
+        "billList":[{"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":0,"packagecode":"CN","packagetype":"","weight":0,"size":0,"cargodesc":"PLUSH TOYS","mark":"NM","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}],
         "shipnationcode":"",
         "beforesuper":0,
         "aftersuper":0,
@@ -281,6 +280,9 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
         return false;
       }else if($scope.orderDetail.loadingportcode=='') {
         swal('错误', '装港代码不能为空', 'error');
+        return false;
+      }else if($scope.orderDetail.destport=='') {
+        swal('错误', '目的港不能为空', 'error');
         return false;
       }else if($scope.orderDetail.transitportcode=='') {
         swal('错误', '请选择卸港代码', 'error');

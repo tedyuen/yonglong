@@ -147,11 +147,11 @@
   margin-bottom: 10px; }
 
 .prerecord-inner {
-  height: 502px;
+  height: 310px;
   overflow: auto;
   border: 1px solid #e4e7ea; }
   .prerecord-inner .prerecord-inner-up ul {
-    width: 2100px;
+    width: 800px;
     padding-left: 0px; }
     .prerecord-inner .prerecord-inner-up ul.head {
       margin-top: -10px; }

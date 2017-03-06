@@ -7,21 +7,21 @@
         <li class="head has-error">交货地)</li>
         <li class="head has-error">货物序号</li>
         <li class="head has-error">件数</li>
-        <li class="head has-error">(包装代码</li>
-        <li class="head has-error">包装类型)</li>
-        <li class="head has-error">货重</li>
+        <!--<li class="head has-error">(包装代码</li>-->
+        <!--<li class="head has-error">包装类型)</li>-->
+        <li class="head has-error">毛重</li>
         <li class="head has-error">尺码</li>
-        <li class="head has-error">货物描述</li>
-        <li class="head has-error">唛头</li>
-        <li class="head">货物代码</li>
-        <li class="head">危险品等级</li>
-        <li class="head">危险品页号</li>
-        <li class="head">联合国编号</li>
-        <li class="head">闪点</li>
-        <li class="head">危险品标签</li>
-        <li class="head">应急措施号</li>
-        <li class="head">急救指南号</li>
-        <li class="head">海运污染</li>
+        <!--<li class="head has-error">货物描述</li>-->
+        <!--<li class="head has-error">唛头</li>-->
+        <!--<li class="head">货物代码</li>-->
+        <!--<li class="head">危险品等级</li>-->
+        <!--<li class="head">危险品页号</li>-->
+        <!--<li class="head">联合国编号</li>-->
+        <!--<li class="head">闪点</li>-->
+        <!--<li class="head">危险品标签</li>-->
+        <!--<li class="head">应急措施号</li>-->
+        <!--<li class="head">急救指南号</li>-->
+        <!--<li class="head">海运污染</li>-->
       </ul>
       <ul ng-repeat="item in billList">
         <li class="first">
@@ -53,16 +53,16 @@
             <input type="number" class="form-control" name="items" ng-model="item.items" ng-blur="numberChange()">
           </div>
         </li>
-        <li>
-          <div class="form-group">
-            <input type="text" class="form-control" name="packagecode" ng-model="item.packagecode">
-          </div>
-        </li>
-        <li>
-          <div class="form-group">
-            <input type="text" class="form-control" name="packagetype" ng-model="item.packagetype">
-          </div>
-        </li>
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<input type="text" class="form-control" name="packagecode" ng-model="item.packagecode">-->
+          <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<input type="text" class="form-control" name="packagetype" ng-model="item.packagetype">-->
+          <!--</div>-->
+        <!--</li>-->
         <li>
           <div class="form-group">
             <input type="number" class="form-control" name="weight" ng-model="item.weight" ng-blur="numberChange()">
@@ -73,63 +73,63 @@
             <input type="number" class="form-control" name="size" ng-model="item.size" ng-blur="numberChange()">
           </div>
         </li>
-        <li>
-          <div class="form-group">
-            <input type="text" class="form-control" name="cargodesc" ng-model="item.cargodesc">
-          </div>
-        </li>
-        <li>
-          <div class="form-group">
-            <input type="text" class="form-control" name="mark" ng-model="item.mark">
-          </div>
-        </li>
-        <li>
-          <div class="form-group">
-            <input type="number" class="form-control" name="cargocode" ng-model="item.cargocode">
-          </div>
-        </li>
-        <li>
-          <div class="form-group">
-            <input type="text" class="form-control" name="dangerousgrade" ng-model="item.dangerousgrade">
-          </div>
-        </li>
-        <li>
-          <div class="form-group">
-            <input type="text" class="form-control" name="imdgpage" ng-model="item.imdgpage">
-          </div>
-        </li>
-        <li>
-          <div class="form-group">
-            <input type="number" class="form-control" name="unnumber" ng-model="item.unnumber">
-          </div>
-        </li>
-        <li>
-          <div class="form-group">
-            <input type="number" class="form-control" name="flashpoint" ng-model="item.flashpoint">
-          </div>
-        </li>
-        <li>
-          <div class="form-group">
-            <input type="text" class="form-control" name="dangerouslabel" ng-model="item.dangerouslabel">
-          </div>
-        </li>
-        <li>
-          <div class="form-group">
-            <input type="text" class="form-control" name="emergencyno" ng-model="item.emergencyno">
-          </div>
-        </li>
-        <li>
-          <div class="form-group">
-            <input type="text" class="form-control" name="firstaidno" ng-model="item.firstaidno">
-          </div>
-        </li>
-        <li>
-          <div class="form-group">
-            <select class="form-control" ng-model="item.marinepollution" ng-options="o.id as o.name for o in marinepollutionType">
-            </select>
-            <!--<input type="text" class="form-control" name="marinepollution" ng-model="item.marinepollution">-->
-          </div>
-        </li>
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<input type="text" class="form-control" name="cargodesc" ng-model="item.cargodesc">-->
+          <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<input type="text" class="form-control" name="mark" ng-model="item.mark">-->
+          <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<input type="number" class="form-control" name="cargocode" ng-model="item.cargocode">-->
+          <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<input type="text" class="form-control" name="dangerousgrade" ng-model="item.dangerousgrade">-->
+          <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<input type="text" class="form-control" name="imdgpage" ng-model="item.imdgpage">-->
+          <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<input type="number" class="form-control" name="unnumber" ng-model="item.unnumber">-->
+          <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<input type="number" class="form-control" name="flashpoint" ng-model="item.flashpoint">-->
+          <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<input type="text" class="form-control" name="dangerouslabel" ng-model="item.dangerouslabel">-->
+          <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<input type="text" class="form-control" name="emergencyno" ng-model="item.emergencyno">-->
+          <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<input type="text" class="form-control" name="firstaidno" ng-model="item.firstaidno">-->
+          <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="form-group">-->
+            <!--<select class="form-control" ng-model="item.marinepollution" ng-options="o.id as o.name for o in marinepollutionType">-->
+            <!--</select>-->
+            <!--&lt;!&ndash;<input type="text" class="form-control" name="marinepollution" ng-model="item.marinepollution">&ndash;&gt;-->
+          <!--</div>-->
+        <!--</li>-->
 
       </ul>
 

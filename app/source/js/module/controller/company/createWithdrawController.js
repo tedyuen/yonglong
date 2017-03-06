@@ -93,7 +93,7 @@ yonglongApp.controller('createWithdrawController',['$scope','$timeout','$state',
       if(checked){
         $scope.cashListDispatchCheckbox.push(result);
       }else{
-        var idx = $scope.cashListCheckbox.indexOf(result);
+        var idx = $scope.cashListDispatchCheckbox.indexOf(result);
         $scope.cashListDispatchCheckbox.splice(idx,1);
       }
       updateParams();
