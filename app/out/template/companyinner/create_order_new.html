@@ -113,6 +113,17 @@
                     </div>
                   </div>
                   <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':!theForm.containerVol.$valid}">
+                      <div class="input-group">
+                        <span class="input-group-addon">箱量</span>
+                        <input type="number" class="form-control" name="containerVol" ng-model="orderDetail.containerVol" required>
+                      </div>
+                      <div class="help-block with-errors">
+                        <span ng-if="theForm.containerVol.$invalid">请填写数字并不能为空</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
                     <div class="form-group" ng-class="{'has-error':!theForm.loadingPort.$valid}">
                       <div class="input-group">
                         <span class="input-group-addon">装箱地</span>

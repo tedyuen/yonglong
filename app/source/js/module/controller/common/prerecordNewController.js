@@ -313,10 +313,6 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
             swal('错误', '请输入提单号', 'error');
             flag = false;
             break;
-          }else if(bill.deliverycode=='' && bill.deliveryport==''){
-            swal('错误', '交货地和交货地代码至少填入一项', 'error');
-            flag = false;
-            break;
           }else if(bill.packagecode=='' && bill.packagetype==''){
             swal('错误', '包装代码和包装类型至少填入一项', 'error');
             flag = false;
@@ -342,6 +338,12 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
             flag = false;
             break;
           }
+          bill.deliveryport = $scope.orderDetail.destport;
+          // else if(bill.deliverycode=='' && bill.deliveryport==''){
+          //   swal('错误', '交货地和交货地代码至少填入一项', 'error');
+          //   flag = false;
+          //   break;
+          // }
         }
         return flag;
       }

@@ -102,14 +102,6 @@
                       <!--</div>-->
                     <!--</div>-->
                   <!--</div>-->
-                  <div class="col-md-4 col-lg-4 col-sm-4">
-                    <div class="form-group has-error">
-                      <div class="input-group">
-                        <span class="input-group-addon">目的港</span>
-                        <input type="text" class="form-control" name="destport" ng-model="orderDetail.destport" required>
-                      </div>
-                    </div>
-                  </div>
 
                   <div class="col-md-4 col-lg-4 col-sm-4">
                     <div class="form-group has-error">
@@ -128,6 +120,14 @@
                         <span class="input-group-addon">卸港代码</span>
                         <select class="form-control" ng-model="select.transitportcode" ng-change="onTransitportcodeChange()" ng-options="o.transitportcode for o in select.transitportList">
                         </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group has-error">
+                      <div class="input-group">
+                        <span class="input-group-addon">目的港</span>
+                        <input type="text" class="form-control" name="destport" ng-model="orderDetail.destport" required>
                       </div>
                     </div>
                   </div>
@@ -150,14 +150,7 @@
             <div class="row m-t-10">
               <div class="col-md-4 col-lg-3 col-sm-4">
                 <div class="row bottom-10">
-                  <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group has-error">
-                      <div class="input-group">
-                        <span class="input-group-addon">箱号</span>
-                        <input type="text" class="form-control" name="boxno" ng-model="orderDetail.boxno" required>
-                      </div>
-                    </div>
-                  </div>
+
 
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group has-error">
@@ -204,6 +197,49 @@
                         </select>
                       </div>
                     </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group has-error">
+                      <div class="input-group">
+                        <span class="input-group-addon">箱号</span>
+                        <input type="text" class="form-control" name="boxno" ng-model="orderDetail.boxno" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div ng-repeat="item in orderDetail.callnoList">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                      <div class="form-group has-error">
+                        <div class="input-group">
+                          <span class="input-group-addon">封号</span>
+
+                          <input type="text" class="form-control" name="callno" ng-model="item.callno" required
+                                 data-toggle="tooltip" role="tooltip" data-placement="right"
+                                 data-original-title="提示信息：如果没有封志，请输入NONE；如果超过10位，请从后往前截取10位；封志号不能输入中文；此处应输入主封志号。">
+                        </div>
+                      </div>
+                    </div>
+
+                    <!--<div class="col-md-12 col-lg-12 col-sm-12">-->
+                    <!--<div class="form-group has-error">-->
+                    <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon">封志类型</span>-->
+                    <!--<select class="form-control" ng-model="item.calltype" ng-options="o.id as o.name for o in calltypeType">-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-md-12 col-lg-12 col-sm-12">-->
+                    <!--<div class="form-group has-error">-->
+                    <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon">加封人</span>-->
+                    <!--<select class="form-control" ng-model="item.callman" ng-options="o.id as o.name for o in callmanType">-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
                   </div>
 
                   <div class="col-md-12 col-lg-12 col-sm-12">
@@ -274,39 +310,7 @@
                       <!--</div>-->
                     <!--</div>-->
                   <!--</div>-->
-                  <div ng-repeat="item in orderDetail.callnoList">
-                    <div class="col-md-12 col-lg-12 col-sm-12">
-                      <div class="form-group has-error">
-                        <div class="input-group">
-                          <span class="input-group-addon">封号</span>
 
-                          <input type="text" class="form-control" name="callno" ng-model="item.callno" required
-                                 data-toggle="tooltip" role="tooltip" data-placement="right"
-                                 data-original-title="提示信息：如果没有封志，请输入NONE；如果超过10位，请从后往前截取10位；封志号不能输入中文；此处应输入主封志号。">
-                        </div>
-                      </div>
-                    </div>
-
-                    <!--<div class="col-md-12 col-lg-12 col-sm-12">-->
-                      <!--<div class="form-group has-error">-->
-                        <!--<div class="input-group">-->
-                          <!--<span class="input-group-addon">封志类型</span>-->
-                          <!--<select class="form-control" ng-model="item.calltype" ng-options="o.id as o.name for o in calltypeType">-->
-                          <!--</select>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="col-md-12 col-lg-12 col-sm-12">-->
-                      <!--<div class="form-group has-error">-->
-                        <!--<div class="input-group">-->
-                          <!--<span class="input-group-addon">加封人</span>-->
-                          <!--<select class="form-control" ng-model="item.callman" ng-options="o.id as o.name for o in callmanType">-->
-                          <!--</select>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  </div>
 
                   <!--<div class="col-md-12 col-lg-12 col-sm-12">-->
                     <!--<div class="form-group">-->

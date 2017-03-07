@@ -74,7 +74,19 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
     //提交表单
     $scope.onSubmit = function($valid,form){
       // console.log('--->'+$valid);
-      calBillList();
+      // calBillList();
+      for(var index in $scope.orderDetail.billList){
+        var temp = $scope.orderDetail.billList[index];
+        if(isNaN(temp.grossWeight) || temp.grossWeight<=0){
+          swal({
+            title:"错误！",
+            text:"毛重不能为空并且大于0",
+            type:"error",
+            confirmButtonText:"确定"
+          });
+          return;
+        }
+      }
       if($valid){
         if ($scope.orderDetail.orderStatus==1){
           swal({

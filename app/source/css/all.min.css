@@ -1181,7 +1181,7 @@ body.stop-scrolling {
 
 .order-inner {
   width: 100%;
-  height: 240px;
+  height: 330px;
   overflow: auto;
   border: 1px solid #e4e7ea; }
   .order-inner .order-inner-up ul {
@@ -1320,7 +1320,7 @@ body.stop-scrolling {
   overflow: auto;
   border: 1px solid #e4e7ea; }
   .prerecord-inner .prerecord-inner-up ul {
-    width: 800px;
+    width: 600px;
     padding-left: 0px; }
     .prerecord-inner .prerecord-inner-up ul.head {
       margin-top: -10px; }

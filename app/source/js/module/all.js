@@ -160,19 +160,19 @@ yonglongApp.constant('URL_CONS', {
   // server: 'http://www.56elutong.com/',
   // server: 'http://120.26.65.65:8285/',
 
-  serverUrl: 'http://120.26.65.65:8285/api/data',
-  serverFileUrl: 'http://120.26.65.65:8285/api/file',
-  exportReport : 'http://120.26.65.65:8285/execl/exportReport.do',
-  exportReportOfOrder : 'http://120.26.65.65:8285/execl/exportReportOfOrder.do',
-  exportReportOfFriend : 'http://120.26.65.65:8285/execl/exportReportOfFriend.do',
-  exportRefund : 'http://120.26.65.65:8285/execl/exportRefund.do',
+  // serverUrl: 'http://120.26.65.65:8285/api/data',
+  // serverFileUrl: 'http://120.26.65.65:8285/api/file',
+  // exportReport : 'http://120.26.65.65:8285/execl/exportReport.do',
+  // exportReportOfOrder : 'http://120.26.65.65:8285/execl/exportReportOfOrder.do',
+  // exportReportOfFriend : 'http://120.26.65.65:8285/execl/exportReportOfFriend.do',
+  // exportRefund : 'http://120.26.65.65:8285/execl/exportRefund.do',
 
-  // serverUrl: 'http://www.56elutong.com/api/data',
-  // serverFileUrl: 'http://www.56elutong.com/api/file',
-  // exportReport : 'http://www.56elutong.com/execl/exportReport.do',
-  // exportReportOfOrder : 'http://www.56elutong.com/execl/exportReportOfOrder.do',
-  // exportReportOfFriend : 'http://www.56elutong.com/execl/exportReportOfFriend.do',
-  // exportRefund : 'http://www.56elutong.com/execl/exportRefund.do',
+  serverUrl: 'http://www.56elutong.com/api/data',
+  serverFileUrl: 'http://www.56elutong.com/api/file',
+  exportReport : 'http://www.56elutong.com/execl/exportReport.do',
+  exportReportOfOrder : 'http://www.56elutong.com/execl/exportReportOfOrder.do',
+  exportReportOfFriend : 'http://www.56elutong.com/execl/exportReportOfFriend.do',
+  exportRefund : 'http://www.56elutong.com/execl/exportRefund.do',
 
 
   companyRegister: 'company_register',
@@ -3466,7 +3466,19 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
     //提交表单
     $scope.onSubmit = function($valid,form){
       // console.log('--->'+$valid);
-      calBillList();
+      // calBillList();
+      for(var index in $scope.orderDetail.billList){
+        var temp = $scope.orderDetail.billList[index];
+        if(isNaN(temp.grossWeight) || temp.grossWeight<=0){
+          swal({
+            title:"错误！",
+            text:"毛重不能为空并且大于0",
+            type:"error",
+            confirmButtonText:"确定"
+          });
+          return;
+        }
+      }
       if($valid){
         if ($scope.orderDetail.orderStatus==1){
           swal({
@@ -7640,10 +7652,6 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
             swal('错误', '请输入提单号', 'error');
             flag = false;
             break;
-          }else if(bill.deliverycode=='' && bill.deliveryport==''){
-            swal('错误', '交货地和交货地代码至少填入一项', 'error');
-            flag = false;
-            break;
           }else if(bill.packagecode=='' && bill.packagetype==''){
             swal('错误', '包装代码和包装类型至少填入一项', 'error');
             flag = false;
@@ -7669,6 +7677,12 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
             flag = false;
             break;
           }
+          bill.deliveryport = $scope.orderDetail.destport;
+          // else if(bill.deliverycode=='' && bill.deliveryport==''){
+          //   swal('错误', '交货地和交货地代码至少填入一项', 'error');
+          //   flag = false;
+          //   break;
+          // }
         }
         return flag;
       }
