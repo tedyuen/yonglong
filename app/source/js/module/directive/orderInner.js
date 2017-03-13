@@ -21,7 +21,7 @@ yonglongApp.directive('orderInner',['$compile',function($compile){
       // }
 
       $scope.addExtra = function(){
-        $scope.resultList.push({"billNo":"","grossWeight":0,"id":0,"items":0,"sizeDesc":""});
+        $scope.resultList.push({"billNo":"","grossWeight":0,"id":0,"items":1,"sizeDesc":""});
       };
 
       $scope.deleteItem = function (item) {

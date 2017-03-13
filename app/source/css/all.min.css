@@ -1181,7 +1181,7 @@ body.stop-scrolling {
 
 .order-inner {
   width: 100%;
-  height: 330px;
+  height: 350px;
   overflow: auto;
   border: 1px solid #e4e7ea; }
   .order-inner .order-inner-up ul {
@@ -1197,6 +1197,10 @@ body.stop-scrolling {
       list-style: none; }
       .order-inner .order-inner-up ul li .form-group {
         margin-bottom: 0px; }
+      .order-inner .order-inner-up ul li.first {
+        width: 35%; }
+      .order-inner .order-inner-up ul li.second {
+        width: 15%; }
       .order-inner .order-inner-up ul li.head {
         color: #555;
         text-align: center;
@@ -1345,3 +1349,6 @@ body.stop-scrolling {
           color: #a94442;
           background-color: #f2dede;
           border: 1px solid #a94442; }
+
+textarea {
+  width: 100%; }

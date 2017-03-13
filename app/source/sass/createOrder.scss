@@ -12,7 +12,7 @@
 
 .order-inner{
   width: 100%;
-  height: 330px;
+  height: 350px;
   overflow: auto;
   border: 1px solid #e4e7ea;
   .order-inner-up{
@@ -33,6 +33,14 @@
         .form-group{
           margin-bottom: 0px;
         }
+
+        &.first{
+          width:35%;
+        }
+        &.second{
+          width:15%;
+        }
+
 
         &.head{
           color: #555;
@@ -242,4 +250,8 @@
       }
     }
   }
+}
+
+textarea{
+  width: 100%;
 }

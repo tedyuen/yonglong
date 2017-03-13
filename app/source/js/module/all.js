@@ -3426,7 +3426,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
       orderLinkMobile:'',
       extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}],
 
-      billList:[{"billNo":"","grossWeight":0,"id":0,"items":0,"sizeDesc":""}]
+      billList:[{"billNo":"","grossWeight":0,"id":0,"items":1,"sizeDesc":""}]
     }
 
     var calBillList = function () {
@@ -3473,6 +3473,15 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
           swal({
             title:"错误！",
             text:"毛重不能为空并且大于0",
+            type:"error",
+            confirmButtonText:"确定"
+          });
+          return;
+        }
+        if(isNaN(temp.items) || temp.items<=0 || temp.items%1!=0){
+          swal({
+            title:"错误！",
+            text:"件数为大于0的整数",
             type:"error",
             confirmButtonText:"确定"
           });
@@ -3586,7 +3595,7 @@ yonglongApp.controller('createOrderController',['$scope','$timeout','$state','$c
         orderLinkName:'',
         orderLinkMobile:'',
         extrafeeList:[{"feeName":"上下车费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"待时费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"动卫检","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"坏污箱移箱费","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"预进港","feeValue":0,"id":0,"sort":0,"isInit":true},{"feeName":"落箱费","feeValue":0,"id":0,"sort":0,"isInit":true}],
-        billList:[{"billNo":"","grossWeight":0,"id":0,"items":0,"sizeDesc":""}]
+        billList:[{"billNo":"","grossWeight":0,"id":0,"items":1,"sizeDesc":""}]
 
       }
 
@@ -8121,7 +8130,7 @@ yonglongApp.directive('orderInner',['$compile',function($compile){
       // }
 
       $scope.addExtra = function(){
-        $scope.resultList.push({"billNo":"","grossWeight":0,"id":0,"items":0,"sizeDesc":""});
+        $scope.resultList.push({"billNo":"","grossWeight":0,"id":0,"items":1,"sizeDesc":""});
       };
 
       $scope.deleteItem = function (item) {
