@@ -49,6 +49,11 @@
           font-size: 14px;
           font-weight: 400;
           background-color: #eee;
+          &.has-error{
+            color:#a94442;
+            background-color: #f2dede;
+            border: 1px solid #a94442;
+          }
         }
 
       }
@@ -213,14 +218,14 @@
   border: 1px solid #e4e7ea;
   .prerecord-inner-up{
     ul{
-      width:600px;
+      width:100%;
       padding-left: 0px;
       &.head{
         margin-top: -10px;
       }
       li{
         padding-top: 0px;
-        width:100px;
+        width:17%;
         line-height: 39px;
         float:left;
         list-style: none;
@@ -229,8 +234,16 @@
           margin-bottom: 0px;
         }
         &.first{
-          width:200px;
+          width:35%;
         }
+        &.second{
+          width:13%;
+        }
+        &.third{
+          width:18%;
+        }
+
+
 
         &.head{
           color: #555;

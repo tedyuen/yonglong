@@ -20,8 +20,9 @@ yonglongApp.directive('prerecordInner',['$compile','baseDataService',function($c
             confirmButtonText: "确认"
           });
         }else{
+          var no = $scope.billList.length+1;
           $scope.billList.push(
-            {"ordersn":"","deliverycode":"","deliveryport":"","cargono":1,"items":1,"packagecode":"CN","packagetype":"","weight":0,"size":0,"cargodesc":"PLUSH TOYS","mark":"NM","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}
+            {"ordersn":"","deliverycode":"","deliveryport":"","cargono":no,"items":1,"packagecode":"CN","packagetype":"","weight":0,"size":0,"cargodesc":"PLUSH TOYS","mark":"NM","cargocode":0,"dangerousgrade":"","imdgpage":"","unnumber":0,"flashpoint":0,"dangerouslabel":"","emergencyno":"","firstaidno":"","marinepollution":"N"}
           );
         }
       };
@@ -49,6 +50,10 @@ yonglongApp.directive('prerecordInner',['$compile','baseDataService',function($c
             $scope.billList.splice(i,1);
             break;
           }
+        }
+
+        for(var i=0;i<$scope.billList.length;i++){
+          $scope.billList[i].cargono = i+1;
         }
 
       }

@@ -170,6 +170,7 @@
                         <span class="input-group-addon"><i class="icon-calender"></i></span>
                       </div>
                       <div class="help-block with-errors">
+                        <span ng-if="theForm.shippingDate.$valid">&nbsp;</span>
                         <span ng-if="!theForm.shippingDate.$valid">装箱时间不能为空</span>
                       </div>
                     </div>
@@ -194,6 +195,7 @@
                         <input type="text" class="form-control" id="returnaddress" name="returnPort" ng-model="orderDetail.returnPort" required>
                       </div>
                       <div class="help-block with-errors">
+                        <span ng-if="theForm.returnPort.$valid">&nbsp;</span>
                         <span ng-if="!theForm.returnPort.$valid">还箱地不能为空</span>
                       </div>
                     </div>

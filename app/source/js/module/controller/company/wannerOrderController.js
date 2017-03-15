@@ -164,9 +164,9 @@ yonglongApp.controller('wannerOrderController',['$scope','$timeout','$interval',
     }
 
 
-    $scope.countUp = 20;
+    $scope.countUp = 10;
     var timePromise = function () {
-      $scope.countUp = 20;
+      $scope.countUp = 10;
       var tempInterval = $interval(function() {
         if($location.url()!='/main/companyinner/wanner_order'){
           $interval.cancel(tempInterval);

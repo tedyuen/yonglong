@@ -39,6 +39,10 @@
         font-size: 14px;
         font-weight: 400;
         background-color: #eee; }
+        .order-inner .order-inner-up ul li.head.has-error {
+          color: #a94442;
+          background-color: #f2dede;
+          border: 1px solid #a94442; }
 
 .color-red {
   color: red; }
@@ -155,20 +159,24 @@
   overflow: auto;
   border: 1px solid #e4e7ea; }
   .prerecord-inner .prerecord-inner-up ul {
-    width: 600px;
+    width: 100%;
     padding-left: 0px; }
     .prerecord-inner .prerecord-inner-up ul.head {
       margin-top: -10px; }
     .prerecord-inner .prerecord-inner-up ul li {
       padding-top: 0px;
-      width: 100px;
+      width: 17%;
       line-height: 39px;
       float: left;
       list-style: none; }
       .prerecord-inner .prerecord-inner-up ul li .form-group {
         margin-bottom: 0px; }
       .prerecord-inner .prerecord-inner-up ul li.first {
-        width: 200px; }
+        width: 35%; }
+      .prerecord-inner .prerecord-inner-up ul li.second {
+        width: 13%; }
+      .prerecord-inner .prerecord-inner-up ul li.third {
+        width: 18%; }
       .prerecord-inner .prerecord-inner-up ul li.head {
         color: #555;
         text-align: center;

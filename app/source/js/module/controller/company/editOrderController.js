@@ -19,7 +19,7 @@ yonglongApp.controller('editOrderController',['$scope','$stateParams','$state','
       orderType:0,
       containerVType:0,
       containerSType:0,
-      containerVol:0,
+      containerVol:1,
       grossWeight:0,
       note:'',
       shippingFee:0,
@@ -73,6 +73,27 @@ yonglongApp.controller('editOrderController',['$scope','$stateParams','$state','
 
     //提交表单
     $scope.onSubmit = function($valid){
+      for(var index in $scope.orderDetail.billList){
+        var temp = $scope.orderDetail.billList[index];
+        if(isNaN(temp.grossWeight) || temp.grossWeight<=0){
+          swal({
+            title:"错误！",
+            text:"毛重不能为空并且大于0",
+            type:"error",
+            confirmButtonText:"确定"
+          });
+          return;
+        }
+        if(isNaN(temp.items) || temp.items<=0 || temp.items%1!=0){
+          swal({
+            title:"错误！",
+            text:"件数为大于0的整数",
+            type:"error",
+            confirmButtonText:"确定"
+          });
+          return;
+        }
+      }
       if($valid){
         swal({
           title: "确定修改订单吗?",

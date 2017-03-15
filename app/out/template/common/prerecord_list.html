@@ -64,7 +64,7 @@
 
       <div class="col-sm-12" ng-show="results.totalPages!=null && results.totalPages!=0">
         <div class="white-box">
-          <div class="row">
+          <div class="row" ng-if="loginUser.role=='admin'">
             <div>
               <button type="button" class="btn btn-default waves-effect waves-light" ng-click="reportExport(0)">下载最新</button>
               &nbsp;
@@ -81,6 +81,7 @@
                 <th>船名</th>
                 <th>航次</th>
                 <th>IMO编号</th>
+                <th>状态</th>
                 <!--<th>操作</th>-->
               </tr>
               </thead>
@@ -92,6 +93,7 @@
                 <td>{{result.shippname}}</td>
                 <td>{{result.shippno}}</td>
                 <td>{{result.imono}}</td>
+                <td>已预录</td>
                 <!--<td>-->
                   <!--<button type="button" class="btn btn-primary btn-xs"-->
                           <!--ng-click="detail(result)">详情</button>-->
