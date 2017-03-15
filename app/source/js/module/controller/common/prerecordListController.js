@@ -25,7 +25,7 @@ yonglongApp.controller('prerecordListController',['$scope','showDatePickerProvid
 
     var httpList = function () {
       interfaceService.importOrderList($scope.queryData,function (data,headers,config) {
-        // console.log("response:"+JSON.stringify(data));
+        console.log("response:"+JSON.stringify(data));
         if(data.rescode==rescode.SUCCESS) {
           $scope.results = data.data;
         }

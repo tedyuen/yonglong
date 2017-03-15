@@ -78,21 +78,23 @@
                 <th>录入者账号</th>
                 <th>录入人</th>
                 <th>箱号</th>
-                <th>船名</th>
-                <th>航次</th>
-                <th>IMO编号</th>
+                <th>录入时间</th>
+                <!--<th>船名</th>-->
+                <!--<th>航次</th>-->
+                <!--<th>IMO编号</th>-->
                 <th>状态</th>
                 <!--<th>操作</th>-->
               </tr>
               </thead>
               <tbody>
               <tr ng-repeat="result in results.pageData">
-                <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.membername}}</td>
-                <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.username}}</td>
+                <td>{{result.membername}}</td>
+                <td><i class="fa fa-male"></i>&nbsp;&nbsp;{{result.username}}</td>
                 <td>{{result.boxno}}</td>
-                <td>{{result.shippname}}</td>
-                <td>{{result.shippno}}</td>
-                <td>{{result.imono}}</td>
+                <td><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{result.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <!--<td>{{result.shippname}}</td>-->
+                <!--<td>{{result.shippno}}</td>-->
+                <!--<td>{{result.imono}}</td>-->
                 <td>已预录</td>
                 <!--<td>-->
                   <!--<button type="button" class="btn btn-primary btn-xs"-->
