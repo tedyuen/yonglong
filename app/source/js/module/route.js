@@ -12,6 +12,12 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       templateUrl:'template/login.html',
       controller:'adminLoginController'
     })
+    .state('releaselogin',{//登录页
+      url:'/releaselogin',
+      templateUrl:'template/login.html',
+      controller:'releaseLoginController'
+    })
+
     .state('register_company',{//发货方注册页
       url:'/register_company',
       templateUrl:'template/register_company.html',
@@ -34,6 +40,34 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       templateUrl:'template/main.html',
       controller:'mainController'
     });
+
+  // 放箱路由
+  $stateProvider
+    .state('main.release',{
+      url:'/release',
+      views:{
+        'nav': {
+          templateUrl: 'template/nav.html'
+        },
+        'sidebar': {
+          templateUrl: 'template/sidebar_release.html',
+          controller: 'adminRoleController'
+        },
+        'footer': {
+          templateUrl: 'template/footer.html'
+        }
+      }
+    })
+    .state('main.admin.update_password',{//修改密码
+      url:'/update_password',
+      views: {
+        'content@main': {
+          templateUrl: 'template/update_password.html',
+          controller: 'updatePasswordController'
+        }
+      }
+    })
+
 
   // 管理员路由
   $stateProvider

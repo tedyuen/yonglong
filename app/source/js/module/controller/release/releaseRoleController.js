@@ -1,9 +1,9 @@
-yonglongApp.controller('adminRoleController',['$rootScope','$scope','$cookies','$state','logoutService',
+yonglongApp.controller('releaseRoleController',['$rootScope','$scope','$cookies','$state','logoutService',
   function ($rootScope,$scope,$cookies,$state,logoutService) {
     $rootScope.loginUser = $cookies.getObject('yltUser');
-    if($rootScope.loginUser==undefined || $rootScope.loginUser && $rootScope.loginUser.role!='admin'){
-      console.log('没有admin权限');
-      $state.go('adminlogin');
+    if($rootScope.loginUser==undefined || $rootScope.loginUser && $rootScope.loginUser.role!='release'){
+      console.log('没有release权限');
+      $state.go('login');
     }
 
     $scope.logout = function () {

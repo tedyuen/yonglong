@@ -118,6 +118,7 @@
                   <th>装箱日期</th>
                   <th>发货人</th>
                   <!--<th>评级</th>-->
+                  <th>提箱地</th>
                   <th>装货地</th>
                   <th>还箱地</th>
                   <th>箱型箱量</th>
@@ -154,6 +155,7 @@
 
 
                   <!--<td><div credit-rank="" for-star="{{result.orderCreditRank}}"></div></td>-->
+                  <td>{{result.originPort|emptyText}}</td>
                   <td>{{result.loadingPort}}</td>
                   <td>{{result.returnPort}}</td>
                   <td>{{result.containerSType|boxType}}/{{result.containerVType|boxVol}}</td>
