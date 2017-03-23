@@ -3,7 +3,7 @@ yonglongApp.controller('releaseRoleController',['$rootScope','$scope','$cookies'
     $rootScope.loginUser = $cookies.getObject('yltUser');
     if($rootScope.loginUser==undefined || $rootScope.loginUser && $rootScope.loginUser.role!='release'){
       console.log('没有release权限');
-      $state.go('login');
+      $state.go('releaselogin');
     }
 
     $scope.logout = function () {
@@ -17,7 +17,7 @@ yonglongApp.controller('releaseRoleController',['$rootScope','$scope','$cookies'
         confirmButtonText: "是的,注销!",
         closeOnConfirm: true,
       },function () {
-        logoutService.logout('admin');
+        logoutService.releaseLogout('release');
       });
     }
 

@@ -7,5 +7,15 @@ yonglongApp.service('logoutService',['$rootScope','$state','$cookies',function (
     }else{
       window.location.href = 'index.html';
     }
-  }
+  };
+  this.releaseLogout = function (role) {
+    $rootScope.loginUser = undefined;
+    $cookies.remove('yltUser');
+    if(role){
+      $state.go('releaselogin');
+    }else{
+      window.location.href = 'index.html';
+    }
+  };
+
 }]);

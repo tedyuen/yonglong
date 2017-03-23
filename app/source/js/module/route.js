@@ -14,7 +14,7 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
     })
     .state('releaselogin',{//登录页
       url:'/releaselogin',
-      templateUrl:'template/login.html',
+      templateUrl:'template/release/login.html',
       controller:'releaseLoginController'
     })
 
@@ -51,19 +51,19 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         },
         'sidebar': {
           templateUrl: 'template/sidebar_release.html',
-          controller: 'adminRoleController'
+          controller: 'releaseRoleController'
         },
         'footer': {
           templateUrl: 'template/footer.html'
         }
       }
     })
-    .state('main.admin.update_password',{//修改密码
-      url:'/update_password',
+    .state('main.release.user_detail',{//用户资料管理
+      url:'/user_detail',
       views: {
         'content@main': {
-          templateUrl: 'template/update_password.html',
-          controller: 'updatePasswordController'
+          templateUrl: 'template/release/user_detail.html',
+          controller: 'releaseUserDetailController'
         }
       }
     })

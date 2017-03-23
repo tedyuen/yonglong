@@ -252,6 +252,11 @@ yonglongApp.constant('URL_CONS', {
 
   reportFriendList: 'report_friend_list',
   reportOrderList: 'report_order_list',
+
+
+  releaseUserLogin: 'releaseUserLogin',
+  releaseUserDetail: 'releaseUserDetail',
+  releaseUserUpdate: 'releaseUserUpdate',
 });
 
 /**
@@ -1331,6 +1336,26 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 
 
 
+    // 以下是放箱接口
+    // 2.放箱用户登录
+    this.releaseUserLogin = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseUserLogin,params,success,error);
+    }
+
+    // 2.进入修改用户（用户详情）
+    this.releaseUserDetail = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseUserDetail,params,success,error);
+    }
+
+    // 3.修改用户
+    this.releaseUserUpdate = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseUserUpdate,params,success,error);
+    }
+
+
+
+
+
 }]);
 
 yonglongApp.service('loadingService',['$timeout',function ($timeout) {
@@ -1377,7 +1402,17 @@ yonglongApp.service('logoutService',['$rootScope','$state','$cookies',function (
     }else{
       window.location.href = 'index.html';
     }
-  }
+  };
+  this.releaseLogout = function (role) {
+    $rootScope.loginUser = undefined;
+    $cookies.remove('yltUser');
+    if(role){
+      $state.go('releaselogin');
+    }else{
+      window.location.href = 'index.html';
+    }
+  };
+
 }]);
 
 yonglongApp.service('sessionService',['$rootScope',function ($rootScope) {
@@ -6717,7 +6752,7 @@ yonglongApp.controller('adminRoleController',['$rootScope','$scope','$cookies','
     $rootScope.loginUser = $cookies.getObject('yltUser');
     if($rootScope.loginUser==undefined || $rootScope.loginUser && $rootScope.loginUser.role!='admin'){
       console.log('没有admin权限');
-      $state.go('login');
+      $state.go('adminlogin');
     }
 
     $scope.logout = function () {
@@ -7790,6 +7825,197 @@ yonglongApp.controller('prerecordNewController',['$scope','$state','$timeout','$
     importOperatorlist();
   }]);
 
+yonglongApp.controller('releaseLoginController',['$scope','$rootScope','$cookies','$state','interfaceService','rescode','cookiesService',
+  function ($scope,$rootScope,$cookies,$state,interfaceService,rescode,cookiesService) {
+
+
+    var initAdminForm = function () {
+      var adminMName = $cookies.get('yltReleaseMName');
+      var adminIsReme = $cookies.get('yltReleaseIsReme');
+      var adminPass = $cookies.get('yltReleasePass');
+
+      console.log(adminMName);
+
+      if(adminMName==undefined){
+        adminMName = '';
+      }
+      if(adminPass==undefined){
+        adminPass = '';
+      }
+      if(adminIsReme==undefined){
+        adminIsReme = 'false';
+        adminPass = '';
+      }else{
+        if(adminIsReme=='false'){
+          adminPass = '';
+        }
+      }
+
+      $scope.admin = {
+        memberName:adminMName,
+        password:adminPass,
+        isRemember:adminIsReme=='true'
+      }
+    }
+
+    var doSwal = function (code) {
+      if(code == rescode.UNKNOW_USER){
+        swal('错误','帐号不存在','warning');
+      }else if(code == rescode.ERROR_PASSWORD){
+        swal('错误','密码不正确','warning');
+      }
+    }
+
+
+    $scope.onLoginAdmin = function ($valid) {
+      if($valid.adminMemberName.$invalid){
+        swal('错误','帐号不能为空','warning');
+        return;
+      }
+
+      if($valid.adminPassword.$invalid){
+        swal('错误','密码不能为空','warning');
+        return;
+      }
+
+      interfaceService.releaseUserLogin($scope.admin,function (data,headers,config) {
+        console.log(JSON.stringify(data));
+        if(data.rescode == rescode.SUCCESS){
+          $rootScope.loginUser = data.data;
+
+          $cookies.put('yltReleaseMName',$scope.admin.memberName,cookiesService.cookiesDate());
+          if($scope.admin.isRemember){
+            $cookies.put('yltReleaseIsReme','true',cookiesService.cookiesDate());
+            $cookies.put('yltReleasePass',$scope.admin.password,cookiesService.cookiesDate());
+          }else{
+            $cookies.put('yltReleaseIsReme','false',cookiesService.cookiesDate());
+            $cookies.remove('yltReleasePass');
+          }
+          $cookies.putObject('yltUser',$rootScope.loginUser,cookiesService.cookiesDate());
+          $state.go('main.release.user_detail');
+        }else{
+          doSwal(data.rescode);
+        }
+      });
+    }
+
+    initAdminForm();
+}]);
+
+yonglongApp.controller('releaseRoleController',['$rootScope','$scope','$cookies','$state','logoutService',
+  function ($rootScope,$scope,$cookies,$state,logoutService) {
+    $rootScope.loginUser = $cookies.getObject('yltUser');
+    if($rootScope.loginUser==undefined || $rootScope.loginUser && $rootScope.loginUser.role!='release'){
+      console.log('没有release权限');
+      $state.go('releaselogin');
+    }
+
+    $scope.logout = function () {
+      swal({
+        title: "退出登录?",
+        text: "是否要退出登录!",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "取消",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "是的,注销!",
+        closeOnConfirm: true,
+      },function () {
+        logoutService.releaseLogout('release');
+      });
+    }
+
+}]);
+
+/**
+ * Created by tedyuen on 16-12-15.
+ */
+yonglongApp.controller('releaseUserDetailController', ['$scope','$timeout','$rootScope', 'interfaceService', 'rescode',
+  function($scope,$timeout,$rootScope, interfaceService, rescode) {
+
+  $scope.salePoint = [
+    {id:1,name:'浦东'},
+    {id:2,name:'浦西'}
+  ];
+
+
+    $scope.detail = {
+      customerName: '',
+      customerNumber: '',
+      id: '',
+      linkAddress: '',
+      linkFox: '',
+      linkMobile: '',
+      linkName: '',
+      remark: '',
+      salePoint: 1,
+      userName: '',
+      userType: 0,
+    };
+
+    var initPass = function () {
+      $scope.detail.passwordOld = '';
+      $scope.detail.passwordNew = '';
+      $scope.detail.passwordConfirm = '';
+    }
+
+    var getUserInfo = function() {
+      interfaceService.releaseUserDetail({id:$rootScope.loginUser.userid}, function(data, headers, config) {
+        console.log(JSON.stringify(data));
+        $scope.detail = data.data;
+        initPass();
+      });
+    };
+
+
+    $scope.onSubmit = function($valid) {
+      if ($valid) {
+        swal({
+          title: "确定修改个人资料吗?",
+          text: "您即将修改个人资料!",
+          type: "warning",
+          showCancelButton: true,
+          cancelButtonText: "取消",
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "是的,修改!",
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true,
+        },function () {
+          interfaceService.releaseUserUpdate($scope.detail, function(data, headers, config) {
+            console.log(JSON.stringify(data));
+            if (data.rescode == rescode.SUCCESS) {
+              swal({
+                title: "修改成功！",
+                text: "已成功修改个人信息。",
+                type: "success",
+                confirmButtonText: "确定",
+              }, function() {});
+            }else{
+              swal({
+                title:'出错',
+                text:data.resdesc,
+                type:'error',
+                confirmButtonText: "确定",
+              });
+            }
+          });
+        });
+      } else {
+        console.log("$valid:" + $valid);
+      }
+    };
+
+
+
+    $scope.getUserInfo =function () {
+      getUserInfo();
+    };
+
+    getUserInfo();
+
+  }
+]);
+
 yonglongApp.controller('forgetPasswordController',['$scope','$state','$stateParams','$interval','interfaceService','rescode','validateService','toastService',
   function ($scope,$state,$stateParams,$interval,interfaceService,rescode,validateService,toastService) {
 
@@ -8356,6 +8582,12 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       templateUrl:'template/login.html',
       controller:'adminLoginController'
     })
+    .state('releaselogin',{//登录页
+      url:'/releaselogin',
+      templateUrl:'template/release/login.html',
+      controller:'releaseLoginController'
+    })
+
     .state('register_company',{//发货方注册页
       url:'/register_company',
       templateUrl:'template/register_company.html',
@@ -8378,6 +8610,34 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
       templateUrl:'template/main.html',
       controller:'mainController'
     });
+
+  // 放箱路由
+  $stateProvider
+    .state('main.release',{
+      url:'/release',
+      views:{
+        'nav': {
+          templateUrl: 'template/nav.html'
+        },
+        'sidebar': {
+          templateUrl: 'template/sidebar_release.html',
+          controller: 'releaseRoleController'
+        },
+        'footer': {
+          templateUrl: 'template/footer.html'
+        }
+      }
+    })
+    .state('main.release.user_detail',{//用户资料管理
+      url:'/user_detail',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/user_detail.html',
+          controller: 'releaseUserDetailController'
+        }
+      }
+    })
+
 
   // 管理员路由
   $stateProvider

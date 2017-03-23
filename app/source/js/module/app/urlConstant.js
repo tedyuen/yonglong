@@ -98,4 +98,9 @@ yonglongApp.constant('URL_CONS', {
 
   reportFriendList: 'report_friend_list',
   reportOrderList: 'report_order_list',
+
+
+  releaseUserLogin: 'releaseUserLogin',
+  releaseUserDetail: 'releaseUserDetail',
+  releaseUserUpdate: 'releaseUserUpdate',
 });

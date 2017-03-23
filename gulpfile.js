@@ -41,6 +41,7 @@ var jsArr = [
   './app/source/js/module/controller/company/*.js',
   './app/source/js/module/controller/admin/*.js',
   './app/source/js/module/controller/common/*.js',
+  './app/source/js/module/controller/release/*.js',
   './app/source/js/module/controller/*.js',
   './app/source/js/module/directive/*.js',
   './app/source/js/module/route.js',

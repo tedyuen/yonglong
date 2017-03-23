@@ -3,9 +3,9 @@ yonglongApp.controller('releaseLoginController',['$scope','$rootScope','$cookies
 
 
     var initAdminForm = function () {
-      var adminMName = $cookies.get('yltAdminMName');
-      var adminIsReme = $cookies.get('yltAdminIsReme');
-      var adminPass = $cookies.get('yltAdminPass');
+      var adminMName = $cookies.get('yltReleaseMName');
+      var adminIsReme = $cookies.get('yltReleaseIsReme');
+      var adminPass = $cookies.get('yltReleasePass');
 
       console.log(adminMName);
 
@@ -51,21 +51,21 @@ yonglongApp.controller('releaseLoginController',['$scope','$rootScope','$cookies
         return;
       }
 
-      interfaceService.adminLogin($scope.admin,function (data,headers,config) {
-        // console.log(JSON.stringify(data));
+      interfaceService.releaseUserLogin($scope.admin,function (data,headers,config) {
+        console.log(JSON.stringify(data));
         if(data.rescode == rescode.SUCCESS){
           $rootScope.loginUser = data.data;
 
-          $cookies.put('yltAdminMName',$scope.admin.memberName,cookiesService.cookiesDate());
+          $cookies.put('yltReleaseMName',$scope.admin.memberName,cookiesService.cookiesDate());
           if($scope.admin.isRemember){
-            $cookies.put('yltAdminIsReme','true',cookiesService.cookiesDate());
-            $cookies.put('yltAdminPass',$scope.admin.password,cookiesService.cookiesDate());
+            $cookies.put('yltReleaseIsReme','true',cookiesService.cookiesDate());
+            $cookies.put('yltReleasePass',$scope.admin.password,cookiesService.cookiesDate());
           }else{
-            $cookies.put('yltAdminIsReme','false',cookiesService.cookiesDate());
-            $cookies.remove('yltAdminPass');
+            $cookies.put('yltReleaseIsReme','false',cookiesService.cookiesDate());
+            $cookies.remove('yltReleasePass');
           }
           $cookies.putObject('yltUser',$rootScope.loginUser,cookiesService.cookiesDate());
-          $state.go('main.admin.order_list');
+          $state.go('main.release.user_detail');
         }else{
           doSwal(data.rescode);
         }

@@ -411,4 +411,24 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
 
 
 
+    // 以下是放箱接口
+    // 2.放箱用户登录
+    this.releaseUserLogin = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseUserLogin,params,success,error);
+    }
+
+    // 2.进入修改用户（用户详情）
+    this.releaseUserDetail = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseUserDetail,params,success,error);
+    }
+
+    // 3.修改用户
+    this.releaseUserUpdate = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseUserUpdate,params,success,error);
+    }
+
+
+
+
+
 }]);

@@ -1,0 +1,139 @@
+<!-- 更新资料 -->
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">用户资料管理</h4>
+      </div>
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12 col-md-10 col-lg-8">
+        <form ng-submit="onSubmit(theForm.$valid)" novalidate="novalidate" name="theForm">
+
+          <div class="white-box">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">登录名</span>
+                    <input type="text" class="form-control" ng-model="detail.userName" disabled>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">用户类型</span>
+                    <div class="radio-info form-control" style="background-color: #eee;cursor: not-allowed;">
+                      <input type="radio" name="radio" id="radio0" disabled ng-value="0" ng-model="detail.userType" class="m-r-5">
+                      <label for="radio0" class="m-r-10">用户</label>
+                      <input type="radio" name="radio" id="radio1" disabled ng-value="1" ng-model="detail.userType" class="m-r-5">
+                      <label for="radio1" class="m-r-10">操作员</label>
+                      <input type="radio" name="radio" id="radio2" disabled ng-value="2" ng-model="detail.userType" class="m-r-5">
+                      <label for="radio2">管理员</label>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">客户代码</span>
+                    <input type="text" class="form-control" ng-model="detail.customerNumber">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">客户名称</span>
+                    <input type="text" class="form-control" ng-model="detail.customerName">
+                  </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error':!val.passOld}">
+                  <div class="input-group">
+                    <span class="input-group-addon">旧密码</span>
+                    <input type="password" ng-blur="passValid()" class="form-control" ng-model="detail.passwordOld">
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="val.passOld">旧密码不能为空</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">新密码</span>
+                    <input type="password" ng-blur="passValid()" class="form-control" ng-model="detail.passwordNew">
+                  </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error':!val.passConfirm}">
+                  <div class="input-group">
+                    <span class="input-group-addon">密码确认</span>
+                    <input type="password" ng-blur="passValid()" class="form-control" ng-model="detail.passwordConfirm">
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="val.passConfirm">两次输入密码不一致</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">业务点</span>
+                    <select class="form-control" ng-model="detail.salePoint" ng-options="o.id as o.name for o in salePoint">
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">联系人</span>
+                    <input type="text" class="form-control" ng-model="detail.linkName">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">电话</span>
+                    <input type="text" class="form-control" ng-model="detail.linkMobile">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">传真</span>
+                    <input type="text" class="form-control" ng-model="detail.linkFox">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">地址</span>
+                    <input type="text" class="form-control" ng-model="detail.linkAddress">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">备注</span>
+                    <textarea rows="4" class="form-control" ng-model="detail.remark"></textarea>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+
+            <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">修改密码</button>
+            <button type="button" ng-click="getUserInfo()" class="btn btn-danger waves-effect waves-light m-r-10">取消</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.row -->
+
+
+  </div>
+</div>
