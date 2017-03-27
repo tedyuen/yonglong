@@ -65,7 +65,7 @@ yonglongApp.controller('releaseLoginController',['$scope','$rootScope','$cookies
             $cookies.remove('yltReleasePass');
           }
           $cookies.putObject('yltUser',$rootScope.loginUser,cookiesService.cookiesDate());
-          $state.go('main.release.user_detail');
+          $state.go('main.release.order_create');
         }else{
           doSwal(data.rescode);
         }

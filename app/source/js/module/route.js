@@ -76,6 +76,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.release.order_list',{//放箱列表查询接口
+      url:'/order_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/order_list.html',
+          controller: 'releaseOrderListController'
+        }
+      }
+    })
 
 
 

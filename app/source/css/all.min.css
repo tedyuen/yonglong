@@ -1360,3 +1360,6 @@ body.stop-scrolling {
 
 textarea {
   width: 100%; }
+
+.release-frame .form-group {
+  margin-bottom: 10px; }
