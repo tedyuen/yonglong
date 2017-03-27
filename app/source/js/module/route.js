@@ -67,6 +67,16 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.release.order_create',{//创建放箱信息（委托书）
+      url:'/order_create',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/order_create.html',
+          controller: 'releaseOrderCreateController'
+        }
+      }
+    })
+
 
 
   // 管理员路由

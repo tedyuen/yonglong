@@ -28,6 +28,9 @@ yonglongApp.controller('releaseUserDetailController', ['$scope','$timeout','$roo
       $scope.detail.passwordOld = '';
       $scope.detail.passwordNew = '';
       $scope.detail.passwordConfirm = '';
+      $scope.val.passOld = true;
+      $scope.val.passConfirm = true;
+      $scope.val.flag = false;
     }
 
     var getUserInfo = function() {
@@ -37,11 +40,6 @@ yonglongApp.controller('releaseUserDetailController', ['$scope','$timeout','$roo
         initPass();
       });
     };
-
-
-    var validPass = function () {
-
-    }
 
 
     $scope.onSubmit = function($valid) {

@@ -822,6 +822,13 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
       this.doHttpMethod(URL_CONS.releaseUserUpdate,params,success,error);
     }
 
+    // 2.创建放箱信息（委托书）
+    this.releaseOrderCreate = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseOrderCreate,params,success,error);
+    }
+
+
+
 
 
 
@@ -951,6 +958,7 @@ yonglongApp.constant('URL_CONS', {
   releaseUserLogin: 'releaseUserLogin',
   releaseUserDetail: 'releaseUserDetail',
   releaseUserUpdate: 'releaseUserUpdate',
+  releaseOrderCreate: 'releaseOrderCreate',
 });
 
 yonglongApp.value('diyData',

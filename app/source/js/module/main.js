@@ -17,6 +17,7 @@ require('jquery-typeahead');
 // var log = new LogUtil(true);//Set can out log.
 
 require('bootstrap-datepicker');
+// require('./utils/bootstrap-tagsinput');
 // require('bootstrap-timepicker');
 // require('jquery-clockpicker');
 require('./utils/bootstrap-datetimepicker-new');
