@@ -146,9 +146,9 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
+              <tr ng-repeat="result in results.pageData">
                 <td><nobr></nobr></td>
-                <td><nobr></nobr></td>
+                <td><nobr>{{result.customerName}}</nobr></td>
               </tr>
               </tbody>
             </table>

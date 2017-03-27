@@ -432,6 +432,12 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
       this.doHttpMethod(URL_CONS.releaseOrderCreate,params,success,error);
     }
 
+    // 5.放箱列表查询接口
+    this.releaseOrderList = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseOrderList,params,success,error);
+    }
+
+
 
 
 

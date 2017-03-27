@@ -51,9 +51,29 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
      statusAmount:-1,
    };
 
-    var httpRequest = function () {
-
+    $scope.results={
+      currPageNum : 1,
+      totalPages : 0,
+      pageSize : $scope.require.pagesize
     }
+
+    var httpRequest = function () {
+      interfaceService.releaseOrderList($scope.require, function(data, headers, config) {
+        console.log(JSON.stringify(data));
+        if (data.rescode == rescode.SUCCESS) {
+          $scope.results = data.data;
+        }else{
+          swal({
+            title:'出错',
+            text:data.resdesc,
+            type:'error',
+            confirmButtonText: "确定",
+          });
+        }
+      });
+    };
+
+    httpRequest();
 
   }
 ]);
