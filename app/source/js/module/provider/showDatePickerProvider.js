@@ -29,6 +29,14 @@ yonglongApp.provider('showDatePickerProvider',function () {
           format: "yyyymmdd",
           todayHighlight: true
         });
+      },
+      showDotDatePicker:function () {
+        jQuery('.mydatepicker').datepicker({
+          language: 'zh-CN',
+          autoclose: true,
+          format: "yyyy.mm.dd",
+          todayHighlight: true
+        });
       }
     }
   }

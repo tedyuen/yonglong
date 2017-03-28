@@ -85,6 +85,26 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
+    .state('main.release.company_create',{//创建船公司信息
+      url:'/company_create',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/company_create.html',
+          controller: 'releaseCompanyCreateController'
+        }
+      }
+    })
+    .state('main.release.company_list',{//船公司列表
+      url:'/company_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/company_list.html',
+          controller: 'releaseCompanyListController'
+        }
+      }
+    })
+
+
 
 
 

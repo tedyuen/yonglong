@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div class="row bg-title">
       <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">出口放箱查询</h4>
+        <h4 class="page-title">船公司信息列表</h4>
       </div>
     </div>
 
@@ -54,7 +54,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">客户</span>
-                    <select class="form-control" ng-model="require.customerid" ng-options="o.id as o.customerName for o in customerList"></select>
+                    <select class="form-control"></select>
                   </div>
                 </div>
               </div>
@@ -98,9 +98,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">船公司</span>
-                    <select class="form-control" ng-model="require.companyid" ng-options="o.id as o.companyName for o in companyList">
-
-                    </select>
+                    <select class="form-control"></select>
                   </div>
                 </div>
               </div>
@@ -126,7 +124,7 @@
 
             </div>
 
-            <button type="button" ng-click="refreshList()" class="btn btn-primary waves-effect waves-light m-r-10">刷新</button>
+            <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">刷新</button>
             <button type="button" class="btn btn-danger waves-effect waves-light m-r-10">打印</button>
 
           </div>
@@ -143,12 +141,7 @@
             <table class="table color-table primary-table table-hover table-bordered">
               <thead>
               <tr>
-                <th><nobr>
-                  <div class="checkbox checkbox-success m-t-0 m-b-0" style="height: 20px;">
-                    <input id="checkboxall" type="checkbox" ng-checked="isAllSelected('all')" ng-click="updateAllCheckboxSelect($event,'all')">
-                    <label for="checkboxall">全选</label>
-                  </div>
-                </nobr></th>
+                <th><nobr>已选</nobr></th>
                 <th><nobr>客户名称</nobr></th>
                 <th><nobr>业务点</nobr></th>
                 <th><nobr>船名</nobr></th>
@@ -171,12 +164,7 @@
               </thead>
               <tbody>
               <tr ng-repeat="result in results.pageData" ng-dblclick="lineDblClick(result)">
-                <td><nobr>
-                  <div class="checkbox checkbox-success m-t-0 m-b-0" style="height: 20px;text-align: center">
-                    <input id="checkbox{{result.id}}" type="checkbox" ng-checked="isSelected(result)" ng-click="updateCheckboxSelect($event,result)">
-                    <label for="checkbox{{result.id}}"></label>
-                  </div>
-                </nobr></td>
+                <td><nobr></nobr></td>
                 <!--客户名称-->
                 <td><nobr>{{result.customerName}}</nobr></td>
                 <!--业务点-->
@@ -227,154 +215,6 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="white-box">
-          <a href="" class="m-r-10">修改</a>
-          <a href="" class="m-r-10">复制到剪贴板</a>
-          <a href="" class="m-r-10">调整申请时间</a>
-          <a href="" class="m-r-10">调整船公司</a>
-          <a href="" class="m-r-10">录入服务费</a>
-          <a href="" class="m-r-10">放单中</a>
-          <a href="" class="m-r-10">已完成</a>
-          <a href="" class="m-r-10">没预配</a>
-          <a href="" class="m-r-10">处理中</a>
-          <a href="" class="m-r-10">船期早</a>
-          <a href="" class="m-r-10">已结</a>
-          <a href="" class="m-r-10">未结</a>
-        </div>
-      </div>
-    </div>
 
   </div>
-
-
-  <div class="modal fade" id="modify-order" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title" id="myLargeModalLabel">修改</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">提单号</span>
-                  <input type="text" class="form-control" ng-model="detail.billno">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">箱型箱量</span>
-                  <input type="text" class="form-control" ng-model="detail.boxdesc">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">打单费</span>
-                  <input type="number" class="form-control" ng-model="detail.amountDocument">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">服务费</span>
-                  <input type="number" class="form-control" ng-model="detail.amountService">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">垫付快件费</span>
-                  <input type="number" class="form-control" ng-model="detail.amountExpress">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">船公司</span>
-                  <select class="form-control" ng-model="detail.companyid" ng-options="o.id as o.companyName for o in companyList">
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">业务员</span>
-                  <input type="text" class="form-control" ng-model="detail.saleName">
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">业务员手机</span>
-                  <input type="text" class="form-control" ng-model="detail.saleMobile">
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">状态</span>
-                  <select class="form-control" ng-model="detail.status" ng-options="o.id as o.name for o in statusDetail">
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">费用状态</span>
-                  <select class="form-control" ng-model="detail.statusAmount" ng-options="o.id as o.name for o in statusAmountDetail">
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">完成时间</span>
-                  <input type="text" class="form-control mydatepicker" placeholder="yyyy年mm月dd日" ng-model="detail.finishTime">
-                  <span class="input-group-addon"><i class="icon-calender"></i></span> </div>
-              </div>
-            </div>
-
-            <div class="col-sm-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">备注</span>
-                  <textarea rows="3" class="form-control" ng-model="detail.remarkOperate"></textarea>
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" ng-click="orderUpdate()" class="btn btn-primary waves-effect waves-light m-r-10">保存</button>
-          <button type="button" class="btn btn-danger waves-effect waves-light" data-dismiss="modal">取消</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
 </div>

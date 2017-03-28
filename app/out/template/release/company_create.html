@@ -1,0 +1,59 @@
+<!-- 更新资料 -->
+<div id="page-wrapper" class="release-frame">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">创建船公司信息</h4>
+      </div>
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12 col-md-8 col-lg-7">
+        <form ng-submit="onSubmit(theForm.$valid)" novalidate="novalidate" name="theForm">
+
+          <div class="white-box">
+            <div class="row">
+              <div class="col-sm-12">
+
+                <div class="form-group" ng-class="{'has-error':!theForm.companyName.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">船公司名</span>
+                    <input type="text" class="form-control" ng-model="detail.companyName" name="companyName" required>
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="!theForm.companyName.$valid">船公司名不能为空</span>
+                  </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error':!theForm.companyCode.$valid}">
+                  <div class="input-group">
+                    <span class="input-group-addon">船公司代码</span>
+                    <input type="text" class="form-control" ng-model="detail.companyCode" name="companyCode" required>
+                  </div>
+                  <div class="help-block with-errors">
+                    <span ng-if="!theForm.companyCode.$valid">船公司代码不能为空</span>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+
+            <button ng-disabled="theForm.$invalid" ng-class="{'btn-primary':theForm.$valid,'btn-danger':theForm.$invalid}"
+                    type="submit" class="btn btn-primary waves-effect waves-light m-r-10">
+              <span ng-if="theForm.$valid">确认</span>
+              <span ng-if="theForm.$invalid">完整信息后创建</span>
+            </button>
+            <button type="button" ng-click="reset()" class="btn btn-danger waves-effect waves-light m-r-10">取消</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.row -->
+
+
+  </div>
+</div>
