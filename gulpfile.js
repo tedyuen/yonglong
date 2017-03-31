@@ -27,7 +27,7 @@ var cssArr = [
   './app/source/css/node/jquery.typeahead.min.css',
   './app/source/css/node/ui-bootstrap-csp.css',
   // './app/source/css/node/bootstrap-tagsinput.css',
-  './app/source/sass/css/createOrder.css'
+  './app/source/sass/css/*.css'
 ];
 
 var jsArr = [

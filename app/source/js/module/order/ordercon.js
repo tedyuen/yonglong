@@ -1103,8 +1103,6 @@ yonglongApp.filter('moneyText',function () {
   }
 })
 
-
-
 yonglongApp.filter('atmStatus',function () {
   return function (str) {
     if(str=='1'){
@@ -1215,6 +1213,62 @@ yonglongApp.filter('orderStatusText',function () {
     return _bv;
   }
 });
+
+yonglongApp.filter('releaseStatus',function () {
+  return function (str) {
+    var result = '';
+    switch (str){
+      case 0:
+        result = '新业务';
+        break;
+      case 1:
+        result = '放单中';
+        break;
+      case 2:
+        result = '已完成';
+        break;
+      case 3:
+        result = '已拒绝';
+        break;
+      case 4:
+        result = '没预配';
+        break;
+      case 5:
+        result = '处理中';
+        break;
+      case 6:
+        result = '爆仓';
+        break;
+      case 7:
+        result = '船期早';
+        break;
+    }
+    return result;
+  }
+});
+
+yonglongApp.filter('releaseStatusAmount',function () {
+  return function (str) {
+    var result = '';
+    switch (str){
+      case 0:
+        result = '初始';
+        break;
+      case 1:
+        result = '已结';
+        break;
+      case 2:
+        result = '未结';
+        break;
+    }
+    return result;
+  }
+});
+
+
+
+
+
 
 yonglongApp.controller('orderController',['$scope','$rootScope','$cookies','$location','interfaceService','rescode',
   function ($scope,$rootScope,$cookies,$location,interfaceService,rescode) {

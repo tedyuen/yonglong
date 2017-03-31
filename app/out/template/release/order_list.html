@@ -1,5 +1,5 @@
 <!-- 更新资料 -->
-<div id="page-wrapper" class="release-frame">
+<div id="page-wrapper" class="release-frame release-order-list">
   <div class="container-fluid">
     <div class="row bg-title">
       <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -140,7 +140,7 @@
         <div class="white-box">
 
           <div class="table-responsive m-t-15">
-            <table class="table color-table primary-table table-hover table-bordered">
+            <table class="table color-table primary-table table-bordered">
               <thead>
               <tr>
                 <th><nobr>
@@ -170,7 +170,8 @@
               </tr>
               </thead>
               <tbody>
-              <tr ng-repeat="result in results.pageData" ng-dblclick="lineDblClick(result)">
+              <tr ng-repeat="result in results.pageData" ng-dblclick="lineDblClick(result)"
+                ng-class="{'line-yellow':result.status!=2 && result.remark!='' && result.remarkOperate==null,'line-purple':result.status!=2 && result.remarkOperate!=null}">
                 <td><nobr>
                   <div class="checkbox checkbox-success m-t-0 m-b-0" style="height: 20px;text-align: center">
                     <input id="checkbox{{result.id}}" type="checkbox" ng-checked="isSelected(result)" ng-click="updateCheckboxSelect($event,result)">
@@ -196,9 +197,9 @@
                 <!--船公司-->
                 <td><nobr>{{result.companyName}}</nobr></td>
                 <!--状态-->
-                <td><nobr>{{result.status}}</nobr></td>
+                <td ng-class="{'line-green':result.status==2}"><nobr>{{result.status | releaseStatus}}</nobr></td>
                 <!--费用状态-->
-                <td><nobr>{{result.statusAmount}}</nobr></td>
+                <td><nobr>{{result.statusAmount | releaseStatusAmount}}</nobr></td>
                 <!--备注-->
                 <td><nobr>{{result.remark}}</nobr></td>
                 <!--操作备注-->
@@ -235,13 +236,13 @@
           <a href="" class="m-r-10">调整申请时间</a>
           <a href="" class="m-r-10">调整船公司</a>
           <a href="" class="m-r-10">录入服务费</a>
-          <a href="" class="m-r-10">放单中</a>
-          <a href="" class="m-r-10">已完成</a>
-          <a href="" class="m-r-10">没预配</a>
-          <a href="" class="m-r-10">处理中</a>
-          <a href="" class="m-r-10">船期早</a>
-          <a href="" class="m-r-10">已结</a>
-          <a href="" class="m-r-10">未结</a>
+          <!--<a href="" class="m-r-10">放单中</a>-->
+          <!--<a href="" class="m-r-10">已完成</a>-->
+          <!--<a href="" class="m-r-10">没预配</a>-->
+          <!--<a href="" class="m-r-10">处理中</a>-->
+          <!--<a href="" class="m-r-10">船期早</a>-->
+          <!--<a href="" class="m-r-10">已结</a>-->
+          <!--<a href="" class="m-r-10">未结</a>-->
         </div>
       </div>
     </div>
