@@ -33,7 +33,7 @@ require('angular');
 require('angular-cookies');
 require('angular-ui-router');
 require('angular-ui-bootstrap');
-
+var Clipboard = require('clipboard');
 // require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
 
 // var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);

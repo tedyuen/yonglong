@@ -33,6 +33,7 @@
     "bootstrap-datepicker": "^1.6.4",
     "bootstrap-datetimepicker": "0.0.7",
     "bootstrap-timepicker": "^0.5.2",
+    "clipboard": "^1.6.1",
     "dropify": "^0.2.1",
     "jquery": "^3.1.1",
     "jquery-clockpicker": "0.0.8",

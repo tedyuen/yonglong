@@ -33,7 +33,7 @@ require('angular');
 require('angular-cookies');
 require('angular-ui-router');
 require('angular-ui-bootstrap');
-
+var Clipboard = require('clipboard');
 // require('angular-baidu-map');//ZO2tPhGQIZk6M5QdHzLQPyBOGbSSGzwW
 
 // var yonglongApp = angular.module("myApp",['ui.router','baiduMap']);
@@ -8525,6 +8525,12 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
         }
       });
     }
+    $scope.switchPage = function (page) {
+      $scope.require.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpRequest();
+    }
+
 
     var httpRequest = function (callback) {
       interfaceService.releaseOrderList($scope.require, function(data, headers, config) {
@@ -8712,6 +8718,28 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
 
     releaseBoxST(function () {
       httpCompanyList(httpCustomerList);
+    });
+
+    var clipboard = new Clipboard('.clipboard');
+
+    clipboard.on('success', function(e) {
+      console.info('Action:', e.action);
+      console.info('Text:', e.text);
+      console.info('Trigger:', e.trigger);
+      e.clearSelection();
+      swal({
+        title: "复制成功！",
+        text: "已成功复制了表格数据到剪贴板。",
+        type: "success",
+        confirmButtonText: "确定",
+      }, function() {
+
+      });
+    });
+
+    clipboard.on('error', function(e) {
+      console.error('Action:', e.action);
+      console.error('Trigger:', e.trigger);
     });
   }
 ]);
