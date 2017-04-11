@@ -53,9 +53,18 @@
     <!-- /.row -->
 
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
         <div class="white-box">
-
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="white-box" ng-show="results.totalPages!=null && results.totalPages!=0">
           <div class="table-responsive">
             <table class="table color-table primary-table table-hover table-bordered">
               <thead>

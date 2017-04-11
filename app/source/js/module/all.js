@@ -262,6 +262,7 @@ yonglongApp.constant('URL_CONS', {
   releaseOrderList: 'releaseOrderList',
   releaseBoxST: 'releaseBoxST',
   releaseCompanyList: 'releaseCompanyList',
+  releaseOrderBatchUpdate: 'releaseOrderBatchUpdate',
   releaseCompanyCreate: 'releaseCompanyCreate',
   releaseCompanyUpdate: 'releaseCompanyUpdate',
   releaseCompanyDelete: 'releaseCompanyDelete',
@@ -1435,6 +1436,11 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.releaseCompanyList = function (params,success,error) {
       this.doHttpMethod(URL_CONS.releaseCompanyList,params,success,error);
     }
+    // 4.批量修改放箱
+    this.releaseOrderBatchUpdate = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseOrderBatchUpdate,params,success,error);
+    }
+
 
     // 4.创建船公司
     this.releaseCompanyCreate = function (params,success,error) {
@@ -8537,6 +8543,8 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
         console.log(JSON.stringify(data));
         if (data.rescode == rescode.SUCCESS) {
           $scope.results = data.data;
+          $scope.allCheckbox = [];
+          $scope.idCheckbox = [];
         }else{
           swal({
             title:'出错',
@@ -8570,11 +8578,14 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
           "id": 0
         }
       ];
+      $scope.companyList2 = [];
+
       interfaceService.releaseCompanyList(params, function(data, headers, config) {
         console.log(JSON.stringify(data));
         if (data.rescode == rescode.SUCCESS) {
           for(var index in data.data.pageData){
             $scope.companyList.push(data.data.pageData[index]);
+            $scope.companyList2.push(data.data.pageData[index]);
           }
         }
         if(callback){
@@ -8688,7 +8699,12 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
       var checked = checkbox.checked ;
       if(checked){
         $scope.allCheckbox.push(result);
-        $scope.idCheckbox = $scope.results.pageData.concat();
+        $scope.idCheckbox = [];
+        var tempData = $scope.results.pageData.concat();
+        for(var index in tempData){
+          $scope.idCheckbox.push(tempData[index].id);
+        }
+        // $scope.idCheckbox = $scope.results.pageData.concat();
       }else{
         var idx = $scope.allCheckbox.indexOf(result);
         $scope.allCheckbox.splice(idx,1);
@@ -8720,6 +8736,7 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
       httpCompanyList(httpCustomerList);
     });
 
+    // 复制到剪贴板
     var clipboard = new Clipboard('.clipboard');
 
     clipboard.on('success', function(e) {
@@ -8741,6 +8758,77 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
       console.error('Action:', e.action);
       console.error('Trigger:', e.trigger);
     });
+    // 复制到剪贴板
+
+    $scope.batchIndex = 1;
+    $scope.batchUpdate = function (index) {
+      if($scope.idCheckbox.length<=0){
+        swal({
+          title:'出错',
+          text:'请选择放箱数据',
+          type:'error',
+          confirmButtonText: "确定",
+        });
+        return;
+      }
+      $scope.batchIndex = index;
+      var tempIds = [];
+      for(var index in $scope.idCheckbox){
+        tempIds.push($scope.idCheckbox[index]);
+      }
+      var tempcompanyid = 0;
+      if($scope.companyList2!=undefined && $scope.companyList2!=null && $scope.companyList2.length>0){
+        tempcompanyid = $scope.companyList2[0].id;
+      }
+      $scope.batchParams = {
+        amountDocument:0,
+        amountService:0,
+        companyid:tempcompanyid,
+        applyTime:'',
+        ids:tempIds
+      }
+
+      $('#mul-modify-order').modal('show');
+
+
+    }
+
+    $scope.doBatchUpdate = function () {
+      swal({
+        title: "确定批量修改放箱信息吗?",
+        text: "您即将批量修改放箱信息!",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "取消",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "是的,修改!",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+      },function () {
+        interfaceService.releaseOrderBatchUpdate($scope.batchParams, function(data, headers, config) {
+          console.log(JSON.stringify(data));
+          if (data.rescode == rescode.SUCCESS) {
+            $timeout(httpRequest,20);
+            $('#mul-modify-order').modal('hide');
+            swal({
+              title: "修改成功！",
+              text: "已成功批量修改了放箱信息。",
+              type: "success",
+              confirmButtonText: "确定",
+            }, function() {
+
+            });
+          }else{
+            swal({
+              title:'出错',
+              text:data.resdesc,
+              type:'error',
+              confirmButtonText: "确定",
+            });
+          }
+        });
+      });
+    }
   }
 ]);
 

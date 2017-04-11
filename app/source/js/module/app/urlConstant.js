@@ -107,6 +107,7 @@ yonglongApp.constant('URL_CONS', {
   releaseOrderList: 'releaseOrderList',
   releaseBoxST: 'releaseBoxST',
   releaseCompanyList: 'releaseCompanyList',
+  releaseOrderBatchUpdate: 'releaseOrderBatchUpdate',
   releaseCompanyCreate: 'releaseCompanyCreate',
   releaseCompanyUpdate: 'releaseCompanyUpdate',
   releaseCompanyDelete: 'releaseCompanyDelete',

@@ -841,6 +841,11 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.releaseCompanyList = function (params,success,error) {
       this.doHttpMethod(URL_CONS.releaseCompanyList,params,success,error);
     }
+    // 4.批量修改放箱
+    this.releaseOrderBatchUpdate = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseOrderBatchUpdate,params,success,error);
+    }
+
 
     // 4.创建船公司
     this.releaseCompanyCreate = function (params,success,error) {
@@ -1000,6 +1005,7 @@ yonglongApp.constant('URL_CONS', {
   releaseOrderList: 'releaseOrderList',
   releaseBoxST: 'releaseBoxST',
   releaseCompanyList: 'releaseCompanyList',
+  releaseOrderBatchUpdate: 'releaseOrderBatchUpdate',
   releaseCompanyCreate: 'releaseCompanyCreate',
   releaseCompanyUpdate: 'releaseCompanyUpdate',
   releaseCompanyDelete: 'releaseCompanyDelete',

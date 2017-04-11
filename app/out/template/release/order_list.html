@@ -138,8 +138,18 @@
     <!-- /.row -->
 
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
         <div class="white-box">
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="white-box" ng-show="results.totalPages!=null && results.totalPages!=0">
 
           <div class="table-responsive">
             <table id="release-order-list" class="table color-table primary-table table-bordered">
@@ -176,7 +186,7 @@
                 ng-class="{'line-yellow':result.status!=2 && result.remark!='' && result.remarkOperate==null,'line-purple':result.status!=2 && result.remarkOperate!=null}">
                 <td><nobr>
                   <div class="checkbox checkbox-success m-t-0 m-b-0" style="height: 20px;text-align: center">
-                    <input id="checkbox{{result.id}}" type="checkbox" ng-checked="isSelected(result)" ng-click="updateCheckboxSelect($event,result)">
+                    <input id="checkbox{{result.id}}" type="checkbox" ng-checked="isSelected(result.id)" ng-click="updateCheckboxSelect($event,result.id)">
                     <label for="checkbox{{result.id}}"></label>
                   </div>
                 </nobr></td>
@@ -242,9 +252,10 @@
           </div>
           <div>
             <a href="" class="clipboard" data-clipboard-action="copy" data-clipboard-target="#release-order-list">复制到剪贴板</a>
-            <a href="" class="m-r-10">调整申请时间</a>
-            <a href="" class="m-r-10">调整船公司</a>
-            <a href="" class="m-r-10">录入服务费</a>
+            <a href="" class="m-r-10" ng-click="batchUpdate(1)">调整申请时间</a>
+            <a href="" class="m-r-10" ng-click="batchUpdate(2)">调整船公司</a>
+            <a href="" class="m-r-10" ng-click="batchUpdate(3)">录入打单费</a>
+            <a href="" class="m-r-10" ng-click="batchUpdate(4)">录入服务费</a>
           </div>
 
           <!--<a href="" class="m-r-10">放单中</a>-->
@@ -387,6 +398,65 @@
       </div>
     </div>
   </div>
+
+
+
+  <div class="modal fade" id="mul-modify-order" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">修改</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div ng-if="batchIndex==3" class="col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">录入打单费</span>
+                  <input type="number" class="form-control" ng-model="batchParams.amountDocument">
+                </div>
+              </div>
+            </div>
+
+            <div ng-if="batchIndex==4" class="col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">录入服务费</span>
+                  <input type="number" class="form-control" ng-model="batchParams.amountService">
+                </div>
+              </div>
+            </div>
+
+            <div ng-if="batchIndex==2" class="col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">调整船公司</span>
+                  <select class="form-control" ng-model="batchParams.companyid" ng-options="o.id as o.companyName for o in companyList2">
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div ng-show="batchIndex==1" class="col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">调整申请时间</span>
+                  <input type="text" class="form-control mydatepicker" placeholder="yyyy年mm月dd日" ng-model="batchParams.applyTime">
+                  <span class="input-group-addon"><i class="icon-calender"></i></span> </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" ng-click="doBatchUpdate()" class="btn btn-primary waves-effect waves-light m-r-10">修改</button>
+          <button type="button" class="btn btn-danger waves-effect waves-light" data-dismiss="modal">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
 
 </div>
