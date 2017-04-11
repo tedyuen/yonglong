@@ -141,7 +141,7 @@
       <div class="col-sm-12">
         <div class="white-box">
 
-          <div class="table-responsive m-t-15">
+          <div class="table-responsive">
             <table class="table color-table primary-table table-bordered">
               <thead>
               <tr>
@@ -233,11 +233,20 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="white-box">
-          <a href="" class="m-r-10">修改</a>
-          <a href="" class="m-r-10">复制到剪贴板</a>
-          <a href="" class="m-r-10">调整申请时间</a>
-          <a href="" class="m-r-10">调整船公司</a>
-          <a href="" class="m-r-10">录入服务费</a>
+          <div ng-if="releaseBoxSTData!=undefined">
+            小计：打单费：{{releaseBoxSTData.amountDocument | moneyText}}&nbsp;|&nbsp;
+            服务费：{{releaseBoxSTData.amountExpress | moneyText}}
+            <span ng-repeat="boxData in releaseBoxSTData.boxlist">
+              【{{releaseBoxSTData.boxdesc}}:{{releaseBoxSTData.boxnum}}】
+            </span>
+          </div>
+          <div>
+            <a href="" class="m-r-10">复制到剪贴板</a>
+            <a href="" class="m-r-10">调整申请时间</a>
+            <a href="" class="m-r-10">调整船公司</a>
+            <a href="" class="m-r-10">录入服务费</a>
+          </div>
+
           <!--<a href="" class="m-r-10">放单中</a>-->
           <!--<a href="" class="m-r-10">已完成</a>-->
           <!--<a href="" class="m-r-10">没预配</a>-->

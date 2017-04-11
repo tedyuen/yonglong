@@ -260,8 +260,11 @@ yonglongApp.constant('URL_CONS', {
   releaseUserUpdate: 'releaseUserUpdate',
   releaseOrderCreate: 'releaseOrderCreate',
   releaseOrderList: 'releaseOrderList',
+  releaseBoxST: 'releaseBoxST',
   releaseCompanyList: 'releaseCompanyList',
   releaseCompanyCreate: 'releaseCompanyCreate',
+  releaseCompanyUpdate: 'releaseCompanyUpdate',
+  releaseCompanyDelete: 'releaseCompanyDelete',
   releaseUserList: 'releaseUserList',
   releaseOrderUpdate: 'releaseOrderUpdate',
 });
@@ -1422,6 +1425,11 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.releaseOrderList = function (params,success,error) {
       this.doHttpMethod(URL_CONS.releaseOrderList,params,success,error);
     }
+    // 5.费用和箱型数量统计
+    this.releaseBoxST = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseBoxST,params,success,error);
+    }
+
 
     // 4.船公司列表接口
     this.releaseCompanyList = function (params,success,error) {
@@ -1432,6 +1440,15 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.releaseCompanyCreate = function (params,success,error) {
       this.doHttpMethod(URL_CONS.releaseCompanyCreate,params,success,error);
     }
+    // 修改船公司
+    this.releaseCompanyUpdate = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseCompanyUpdate,params,success,error);
+    }
+    this.releaseCompanyDelete = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseCompanyDelete,params,success,error);
+    }
+
+
 
     // 4.客户列表（可查所有用户列表）
     this.releaseUserList = function (params,success,error) {
@@ -7995,54 +8012,16 @@ yonglongApp.controller('releaseCompanyCreateController', ['$scope','$timeout','$
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$rootScope', 'interfaceService', 'rescode','baseDataService','showDatePickerProvider',
-  function($scope,$timeout,$rootScope, interfaceService, rescode,baseDataService,showDatePickerProvider) {
-    showDatePickerProvider.showDotDatePicker();
-
-    var loginUser = $rootScope.loginUser;
-
-
-    $scope.salePoint = [
-      {id:-1,name:'全部'},
-      {id:1,name:'浦东'},
-      {id:2,name:'浦西'}
-    ];
-
-    $scope.statusAmount = [
-      {id:-1,name:'全部'},
-      {id:0,name:'新业务'},
-      {id:1,name:'放单中'},
-      {id:2,name:'已完成'},
-      {id:3,name:'已拒绝'},
-      {id:4,name:'没预配'},
-      {id:6,name:'爆仓'},
-      {id:5,name:'处理中'},
-      {id:7,name:'船期早'},
-    ];
-
-    $scope.status = [
-      {id:-1,name:'全部'},
-      {id:1,name:'已结'},
-      {id:2,name:'未结'},
-    ];
-
+yonglongApp.controller('releaseCompanyListController', ['$scope','$timeout','$rootScope', 'interfaceService', 'rescode','baseDataService',
+  function($scope,$timeout,$rootScope, interfaceService, rescode,baseDataService) {
 
 
    $scope.require = {
-     applyEndTime:'',
-     applyStartTime:'',
-     billno:'',
-     companyid:0,
-     customerid:0,
-     finishEndTime:'',
-     finishStartTime:'',
-     orderNumber:'',
+     companyCode:'',
+     companyEngName:'',
+     companyName:'',
      pageno:1,
      pagesize:20,
-     saleName:'',
-     salePoint:-1,
-     status:-1,
-     statusAmount:-1,
    };
 
     $scope.results={
@@ -8050,6 +8029,8 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
       totalPages : 0,
       pageSize : $scope.require.pagesize
     }
+
+
 
     var httpRequest = function () {
       interfaceService.releaseOrderList($scope.require, function(data, headers, config) {
@@ -8069,13 +8050,10 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
 
     // 查询船公司列表
     var httpCompanyList = function (callback) {
-      var params = {
-        companyCode:'',
-        companyName:''
-      }
-      interfaceService.releaseCompanyList(params, function(data, headers, config) {
+      interfaceService.releaseCompanyList($scope.require, function(data, headers, config) {
         console.log(JSON.stringify(data));
         if (data.rescode == rescode.SUCCESS) {
+          $scope.results = data.data;
 
         }
         if(callback){
@@ -8084,15 +8062,154 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
       });
     }
 
-
-    $scope.lineDblClick = function (result) {
-      console.log(JSON.stringify(result));
+    $scope.switchPage = function (page) {
+      $scope.require.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpCompanyList();
     }
 
+    $scope.onSubmit = function () {
+      interfaceService.showLoading('正在查询');
+      httpCompanyList();
+    }
 
+    $scope.companyResult = {
+      companyCode:'',
+      companyEngName:'',
+      companyName:'',
+      remark:'',
+    };
 
+    $scope.createCompany = function (result) {
+      if(result!=undefined){
+        $scope.companyResult = result;
+      }else{
+        $scope.companyResult = {
+          companyCode:'',
+          companyEngName:'',
+          companyName:'',
+          remark:'',
+        };
+      }
+      $('#modify-company').modal('show');
+    }
 
-    httpCompanyList(httpRequest);
+    $scope.deleteCompany = function (id) {
+      if(id!=undefined && id>0){
+        swal({
+          title: "确定删除船公司信息吗?",
+          text: "您即将删除船公司信息!",
+          type: "warning",
+          showCancelButton: true,
+          cancelButtonText: "取消",
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "是的,删除!",
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true,
+        },function () {
+          var p = {
+            id:id
+          }
+          interfaceService.releaseCompanyDelete(p, function(data, headers, config) {
+            console.log(JSON.stringify(data));
+            if (data.rescode == rescode.SUCCESS) {
+              $('#modify-company').modal('hide');
+              swal({
+                title: "删除成功！",
+                text: "已成功删除了船公司信息。",
+                type: "success",
+                confirmButtonText: "确定",
+              }, function() {
+                interfaceService.showLoading('正在查询');
+                httpCompanyList();
+              });
+            }else{
+              swal({
+                title:'出错',
+                text:data.resdesc,
+                type:'error',
+                confirmButtonText: "确定",
+              });
+            }
+          });
+        });
+      }
+    }
+    $scope.onCompanySubmit = function ($valid) {
+      if($valid){
+        if($scope.companyResult.id!=undefined){
+          swal({
+            title: "确定修改船公司信息吗?",
+            text: "您即将修改船公司信息!",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的,修改!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+          },function () {
+            interfaceService.releaseCompanyUpdate($scope.companyResult, function(data, headers, config) {
+              console.log(JSON.stringify(data));
+              if (data.rescode == rescode.SUCCESS) {
+                $('#modify-company').modal('hide');
+                swal({
+                  title: "修改成功！",
+                  text: "已成功修改了船公司信息。",
+                  type: "success",
+                  confirmButtonText: "确定",
+                }, function() {
+
+                });
+              }else{
+                swal({
+                  title:'出错',
+                  text:data.resdesc,
+                  type:'error',
+                  confirmButtonText: "确定",
+                });
+              }
+            });
+          });
+        }else{
+          swal({
+            title: "确定创建船公司信息吗?",
+            text: "您即将创建一条船公司信息!",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的,创建!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+          },function () {
+            interfaceService.releaseCompanyCreate($scope.companyResult, function(data, headers, config) {
+              console.log(JSON.stringify(data));
+              if (data.rescode == rescode.SUCCESS) {
+                $('#modify-company').modal('hide');
+                swal({
+                  title: "创建成功！",
+                  text: "已成功创建了船公司信息。",
+                  type: "success",
+                  confirmButtonText: "确定",
+                }, function() {
+
+                });
+              }else{
+                swal({
+                  title:'出错',
+                  text:data.resdesc,
+                  type:'error',
+                  confirmButtonText: "确定",
+                });
+              }
+            });
+          });
+        }
+      }
+    }
+
+    httpCompanyList();
 
 
   }
@@ -8315,8 +8432,8 @@ yonglongApp.controller('releaseOrderCreateController', ['$scope','$timeout','$ro
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$rootScope','$interval', 'interfaceService', 'rescode','baseDataService','showDatePickerProvider',
-  function($scope,$timeout,$rootScope,$interval, interfaceService, rescode,baseDataService,showDatePickerProvider) {
+yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$rootScope','$interval','$location', 'interfaceService', 'rescode','baseDataService','showDatePickerProvider',
+  function($scope,$timeout,$rootScope,$interval,$location, interfaceService, rescode,baseDataService,showDatePickerProvider) {
     showDatePickerProvider.showDotDatePicker();
 
     var loginUser = $rootScope.loginUser;
@@ -8387,6 +8504,27 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
       totalPages : 1,
       pageSize : $scope.require.pagesize
     };
+
+    var releaseBoxST = function (callback) {
+      interfaceService.releaseBoxST({}, function(data, headers, config) {
+        console.log(JSON.stringify(data));
+        if (data.rescode == rescode.SUCCESS) {
+          if(data.data!=undefined && data.data!=null){
+            $scope.releaseBoxSTData = data.data;
+          }
+        }else{
+          swal({
+            title:'出错',
+            text:data.resdesc,
+            type:'error',
+            confirmButtonText: "确定",
+          });
+        }
+        if(callback){
+          $timeout(callback,20);
+        }
+      });
+    }
 
     var httpRequest = function (callback) {
       interfaceService.releaseOrderList($scope.require, function(data, headers, config) {
@@ -8557,6 +8695,10 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
     var timePromise = function () {
       $scope.countUp = 10;
       var tempInterval = $interval(function() {
+        if($location.url()!='/main/release/order_list'){
+          $interval.cancel(tempInterval);
+          tempInterval = undefined;
+        }
         if ($scope.countUp <= 0) {
           $interval.cancel(tempInterval);
           tempInterval = undefined;
@@ -8568,8 +8710,9 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
       }, 1000);
     }
 
-
-    httpCompanyList(httpCustomerList);
+    releaseBoxST(function () {
+      httpCompanyList(httpCustomerList);
+    });
   }
 ]);
 
