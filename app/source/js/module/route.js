@@ -407,7 +407,35 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
           controller: 'userCreateWithdrawController'
         }
       }
-    });
+    })
+    // 用户放箱
+    .state('main.userinner.com_user_detail',{//用户资料管理
+      url:'/com_user_detail',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/user/com_user_detail.html',
+          controller: 'comReleaseUserDetailController'
+        }
+      }
+    })
+    .state('main.userinner.com_order_create',{//创建放箱信息（委托书）
+      url:'/com_order_create',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/user/com_order_create.html',
+          controller: 'comReleaseOrderCreateController'
+        }
+      }
+    })
+    .state('main.userinner.com_order_list',{//放箱列表查询接口
+      url:'/com_order_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/user/com_order_list.html',
+          controller: 'comReleaseOrderListController'
+        }
+      }
+    })    // 用户放箱;
 
 
 
@@ -592,6 +620,35 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
           controller: 'withdrawListController'
         }
       }
-    });
+    })
+    // 用户放箱
+    .state('main.companyinner.com_user_detail',{//用户资料管理
+      url:'/com_user_detail',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/user/com_user_detail.html',
+          controller: 'comReleaseUserDetailController'
+        }
+      }
+    })
+    .state('main.companyinner.com_order_create',{//创建放箱信息（委托书）
+      url:'/com_order_create',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/user/com_order_create.html',
+          controller: 'comReleaseOrderCreateController'
+        }
+      }
+    })
+    .state('main.companyinner.com_order_list',{//放箱列表查询接口
+      url:'/com_order_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/user/com_order_list.html',
+          controller: 'comReleaseOrderListController'
+        }
+      }
+    })    // 用户放箱
+    ;
 
 }]);

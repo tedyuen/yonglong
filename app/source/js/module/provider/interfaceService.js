@@ -426,6 +426,11 @@ yonglongApp.service('interfaceService',['httpService','URL_CONS','sessionService
     this.releaseUserUpdate = function (params,success,error) {
       this.doHttpMethod(URL_CONS.releaseUserUpdate,params,success,error);
     }
+    // 1.创建用户
+    this.releaseUserCreate = function (params,success,error) {
+      this.doHttpMethod(URL_CONS.releaseUserCreate,params,success,error);
+    }
+
 
     // 2.创建放箱信息（委托书）
     this.releaseOrderCreate = function (params,success,error) {

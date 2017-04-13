@@ -550,7 +550,7 @@ ylIndex.controller('indexController', ['$scope', '$cookies','$timeout', 'interfa
         return;
       }
       interfaceService.companyLogin($scope.company, function(data, headers, config) {
-        // console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data));
         if (data.rescode == rescode.SUCCESS) {
           $scope.loginUser = data.data;
 
@@ -581,7 +581,7 @@ ylIndex.controller('indexController', ['$scope', '$cookies','$timeout', 'interfa
         return;
       }
       interfaceService.userLogin($scope.user, function(data, headers, config) {
-        // console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data));
         if (data.rescode == rescode.SUCCESS) {
           $scope.loginUser = data.data;
 

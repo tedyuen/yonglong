@@ -43,6 +43,7 @@ var jsArr = [
   './app/source/js/module/controller/admin/*.js',
   './app/source/js/module/controller/common/*.js',
   './app/source/js/module/controller/release/*.js',
+  './app/source/js/module/controller/release/**/*.js',
   './app/source/js/module/controller/*.js',
   './app/source/js/module/directive/*.js',
   './app/source/js/module/route.js',
@@ -60,6 +61,7 @@ var orderJsArr = [
   './app/source/js/module/app/diyData.js',
   './app/source/js/module/filter/*.js',
   './app/source/js/module/order/orderController.js',
+  './app/source/js/module/order/releaseController.js',
 ];
 // css
 gulp.task('concatcss',['nodeModule','sass'],function(){

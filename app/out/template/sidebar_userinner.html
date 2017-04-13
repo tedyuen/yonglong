@@ -84,6 +84,19 @@
           </ul>
         </li>
         <!-- 我的账户 -->
+        <!-- 放箱 -->
+        <li>
+          <a href="#" class="waves-effect active"><i data-icon="&#xe009;" class="linea-icon linea-basic fa-fw"></i> <span class="hide-menu">放箱<span class="fa arrow"></span></span></a>
+          <ul class="nav nav-second-level">
+            <li ng-if="loginUser.releaseType==1"><a href="" ui-sref="main.userinner.com_order_create">委托书</a></li>
+            <li ng-if="loginUser.releaseType==1"><a href="" ui-sref="main.userinner.com_order_list">出口放箱查询</a></li>
+            <li><a href="" ui-sref="main.userinner.com_user_detail">
+              <span ng-if="loginUser.releaseType==1">用户资料管理</span>
+              <span ng-if="loginUser.releaseType==0">放箱信息初始化</span>
+            </a></li>
+          </ul>
+        </li>
+        <!-- 放箱 -->
       </ul>
     </div>
   </div>
