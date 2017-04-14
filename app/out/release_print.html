@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>订单详情 - E陆通</title>
+  <title>阿妮放箱公司明细表</title>
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.ico">
@@ -13,19 +13,32 @@
 </head>
 <body ng-controller="releaseController">
   <div id="release">
-    <div>阿妮放箱公司明细表</div>
-    <div>
-      <span>客户名查询：云盛</span>
-      <span>查询时间&nbsp;2016.05.05&nbsp;&nbsp;到&nbsp;&nbsp;2016.05.05</span>
+    <div class="r-title">阿妮放箱公司明细表</div>
+    <div class="text-20">
+      <span>客户名查询：{{rPrint.c}}</span>
+      <span>查询时间&nbsp;{{rPrint.s}}&nbsp;&nbsp;到&nbsp;&nbsp;{{rPrint.e}}</span>
     </div>
 
-    <table>
+    <table border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td>序号</td>
-        <td>提单号</td>
-        <td>箱型</td>
-        <td>打单费</td>
-        <td>服务费</td>
+        <td class="first">序号</td>
+        <td class="second">提单号</td>
+        <td class="second">箱型</td>
+        <td class="third">打单费</td>
+        <td class="third">服务费</td>
+      </tr>
+      <tr ng-repeat="item in rPrint.d">
+        <td>{{$index+1}}</td>
+        <td class="text-left">&nbsp;{{item.b}}</td>
+        <td class="text-left">&nbsp;{{item.x}}</td>
+        <td>{{item.d}}</td>
+        <td>{{item.s}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="2" style="border-left: 0px;" class="text-left">合计</td>
+        <td>{{allD}}</td>
+        <td>{{allS}}</td>
       </tr>
     </table>
   </div>

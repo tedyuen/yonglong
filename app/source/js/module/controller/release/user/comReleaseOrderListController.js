@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('comReleaseOrderListController', ['$scope','$timeout','$rootScope','$interval','$location', 'interfaceService', 'rescode','baseDataService','showDatePickerProvider',
-  function($scope,$timeout,$rootScope,$interval,$location, interfaceService, rescode,baseDataService,showDatePickerProvider) {
+yonglongApp.controller('comReleaseOrderListController', ['$scope','$timeout','$cookies','$rootScope','$interval','$location', 'interfaceService', 'rescode','baseDataService','showDatePickerProvider','cookiesService',
+  function($scope,$timeout,$cookies,$rootScope,$interval,$location, interfaceService, rescode,baseDataService,showDatePickerProvider,cookiesService) {
     showDatePickerProvider.showDotDatePicker();
 
 
@@ -82,7 +82,7 @@ yonglongApp.controller('comReleaseOrderListController', ['$scope','$timeout','$r
 
     var httpRequest = function (callback) {
       interfaceService.releaseOrderList($scope.require, function(data, headers, config) {
-        console.log(JSON.stringify(data));
+        console.log("results:"+JSON.stringify(data));
         if (data.rescode == rescode.SUCCESS) {
           $scope.results = data.data;
           $scope.allCheckbox = [];
@@ -217,7 +217,7 @@ yonglongApp.controller('comReleaseOrderListController', ['$scope','$timeout','$r
     var timePromise = function () {
       $scope.countUp = 10;
       var tempInterval = $interval(function() {
-        if($location.url()!='/main/release/order_list'){
+        if($location.url()!='/main/companyinner/com_order_list' && $location.url()!='/main/userinner/com_order_list'){
           $interval.cancel(tempInterval);
           tempInterval = undefined;
         }
@@ -234,10 +234,39 @@ yonglongApp.controller('comReleaseOrderListController', ['$scope','$timeout','$r
 
 
     $scope.printDetail = function () {
+      var print = {
+        d:[],
+        c:'',
+        s:$scope.require.applyStartTime,
+        e:$scope.require.applyEndTime,
+      };
 
+      for(var index3 in $scope.customerList){
+        var temp3 = $scope.customerList[index3];
+        if(temp3.id==$scope.require.customerid){
+          print.c = temp3.customerName;
+          break;
+        }
+      }
 
-
-      var link = "release_print.html#!?detail={userId:1,str:'20'}";
+      for(var index1 in $scope.results.pageData){
+        var temp1 = $scope.results.pageData[index1];
+        for(var index2 in $scope.idCheckbox){
+          var temp2 = $scope.idCheckbox[index2];
+          if(temp1.id==temp2){
+            var tempPrint = {
+              b:temp1.billno,
+              x:temp1.boxdesc,
+              d:temp1.amountDocument,
+              s:temp1.amountService,
+            }
+            print.d.push(tempPrint);
+          }
+        }
+      }
+      $cookies.putObject('rPrint',print,cookiesService.cookiesDate());
+      // console.log("==> print:"+JSON.stringify(print));
+      var link = "release_print.html";
       window.open(link);
     }
 

@@ -97,3 +97,37 @@ body {
         #table #result-data ul li .mark {
           left: 655px;
           width: 140px; }
+
+#release {
+  color: blue;
+  margin-top: 40px;
+  margin-left: 20px;
+  width: 500px; }
+  #release .r-title {
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 25px; }
+  #release .text-20 {
+    font-size: 13px; }
+  #release table {
+    font-size: 16px;
+    margin-top: 5px;
+    width: 100%;
+    border-right: 1px solid blue;
+    border-bottom: 1px solid blue;
+    text-align: center; }
+    #release table tr {
+      height: 25px;
+      line-height: 25px; }
+      #release table tr td {
+        border-left: 1px solid blue;
+        border-top: 1px solid blue; }
+        #release table tr td.text-left {
+          text-align: left; }
+        #release table tr td.first {
+          width: 8%; }
+        #release table tr td.second {
+          width: 30%; }
+        #release table tr td.third {
+          width: 16%; }

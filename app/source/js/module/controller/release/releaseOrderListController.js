@@ -1,8 +1,8 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$rootScope','$interval','$location', 'interfaceService', 'rescode','baseDataService','showDatePickerProvider',
-  function($scope,$timeout,$rootScope,$interval,$location, interfaceService, rescode,baseDataService,showDatePickerProvider) {
+yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$cookies','$rootScope','$interval','$location', 'interfaceService', 'rescode','baseDataService','showDatePickerProvider','cookiesService',
+  function($scope,$timeout,$cookies,$rootScope,$interval,$location, interfaceService, rescode,baseDataService,showDatePickerProvider,cookiesService) {
     showDatePickerProvider.showDotDatePicker();
 
     var loginUser = $rootScope.loginUser;
@@ -392,5 +392,42 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$root
         });
       });
     }
-  }
+
+    $scope.printDetail = function () {
+      var print = {
+        d:[],
+        c:'',
+        s:$scope.require.applyStartTime,
+        e:$scope.require.applyEndTime,
+      };
+
+      for(var index3 in $scope.customerList){
+        var temp3 = $scope.customerList[index3];
+        if(temp3.id==$scope.require.customerid){
+          print.c = temp3.customerName;
+          break;
+        }
+      }
+
+      for(var index1 in $scope.results.pageData){
+        var temp1 = $scope.results.pageData[index1];
+        for(var index2 in $scope.idCheckbox){
+          var temp2 = $scope.idCheckbox[index2];
+          if(temp1.id==temp2){
+            var tempPrint = {
+              b:temp1.billno,
+              x:temp1.boxdesc,
+              d:temp1.amountDocument,
+              s:temp1.amountService,
+            }
+            print.d.push(tempPrint);
+          }
+        }
+      }
+      $cookies.putObject('rPrint',print,cookiesService.cookiesDate());
+      // console.log("==> print:"+JSON.stringify(print));
+      var link = "release_print.html";
+      window.open(link);
+    }
+}
 ]);
