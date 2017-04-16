@@ -1,0 +1,176 @@
+<!-- 更新资料 -->
+<div id="page-wrapper" class="release-frame">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">公告管理</h4>
+      </div>
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <form ng-submit="onSubmit(theForm.$valid)" novalidate="novalidate" name="theForm">
+
+          <div class="white-box">
+            <div class="row">
+              <div class="col-sm-12 col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">标题</span>
+                    <input type="text" class="form-control" ng-model="require.title">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">发布时间从</span>
+                    <input type="text" class="form-control mydatepicker" name="shippingDate" placeholder="yyyy年mm月dd日" ng-model="require.createStartTime">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span> </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">到</span>
+                    <input type="text" class="form-control mydatepicker" name="shippingDate" placeholder="yyyy年mm月dd日" ng-model="require.createEndTime">
+                    <span class="input-group-addon"><i class="icon-calender"></i></span> </div>
+                </div>
+              </div>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary waves-effect waves-light m-t-15 m-r-10">查找</button>
+            <button type="button" ng-click="createCompany()" class="btn btn-success waves-effect waves-light m-t-15 m-r-10">新建</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="white-box">
+          <div class="row">
+            <!-- Nav tabs -->
+            <ul class="nav customtab nav-tabs" role="tablist">
+              <li role="presentation" class="active" ng-click="clickTab(0)"><a href="" role="tab" data-toggle="tab" aria-expanded="true">显示</a></li>
+              <li role="presentation" class="" ng-click="clickTab(1)"><a href="" role="tab" data-toggle="tab" aria-expanded="false">停用</a></li>
+            </ul>
+          </div>
+          <div class="row m-t-20" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
+          </div>
+          <div class="row m-t-20" ng-show="results.totalPages!=null && results.totalPages!=0">
+            <div class="table-responsive" >
+              <table class="table color-table primary-table table-hover table-bordered">
+                <thead>
+                <tr>
+                  <th><nobr>标题</nobr></th>
+                  <th><nobr>内容</nobr></th>
+                  <th><nobr>发布人</nobr></th>
+                  <th><nobr>最后修改人</nobr></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="result in results.pageData" ng-click="createCompany(result)">
+                  <td><nobr>{{result.title | emptyText}}</nobr></td>
+                  <!--内容-->
+                  <td><nobr>{{result.content | emptyText}}</nobr></td>
+                  <!--发布人-->
+                  <td><nobr>{{result.createUserName | emptyText}}</nobr></td>
+                  <!--最后修改人-->
+                  <td><nobr>{{result.updateUserName | emptyText}}</nobr></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <pagination page-size="results.pageSize"
+                        total-pages="results.totalPages"
+                        curr-page="results.currPageNum"
+                        show-count="100"
+                        switch-page="switchPage">
+            </pagination>
+            </div>
+          </div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="modal fade" id="modify-company" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel">
+            <span ng-if="companyResult.id==undefined">创建公告</span>
+            <span ng-if="companyResult.id!=undefined">修改公告</span>
+          </h4>
+        </div>
+        <form ng-submit="onCompanySubmit(theeForm.$valid)" novalidate="novalidate" name="theeForm">
+
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-sm-9">
+              <div class="form-group" ng-class="{'has-error':!theeForm.title.$valid}">
+                <div class="input-group">
+                  <span class="input-group-addon">标题</span>
+                  <input type="text" class="form-control" name="title" ng-model="companyResult.title" required>
+                </div>
+                <div class="help-block with-errors">
+                  <span ng-if="!theeForm.title.$valid">标题不能为空</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="checkbox checkbox-success" >
+                <input id="checkboxall" type="checkbox" ng-checked="isAllSelected('all')" ng-click="updateAllCheckboxSelect($event,'all')">
+                <label for="checkboxall">停用</label>
+              </div>
+            </div>
+
+
+            <div class="col-sm-12">
+              <div class="form-group" ng-class="{'has-error':!theeForm.content.$valid}">
+                <div class="input-group">
+                  <span class="input-group-addon">内容</span>
+                  <textarea rows="3" class="form-control" name="content" ng-model="companyResult.content" required></textarea>
+                </div>
+                <div class="help-block with-errors">
+                  <span ng-if="!theeForm.content.$valid">内容不能为空</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button ng-if="theeForm.$valid" type="submit" class="btn btn-primary waves-effect waves-light m-r-10">
+            <span ng-if="companyResult.id==undefined">创建</span>
+            <span ng-if="companyResult.id!=undefined">修改</span>
+          </button>
+          <button ng-if="theeForm.$invalid" disabled class="btn btn-danger waves-effect waves-light m-r-10">
+            请先完成表单
+          </button>
+          <button ng-if="companyResult.id!=undefined" ng-click="deleteCompany(companyResult.id)" type="button" class="btn btn-danger waves-effect waves-light">删除</button>
+          <button type="button" class="btn btn-danger waves-effect waves-light" data-dismiss="modal">取消</button>
+        </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+</div>

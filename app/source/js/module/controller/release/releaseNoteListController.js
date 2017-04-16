@@ -1,14 +1,16 @@
 /**
  * Created by tedyuen on 16-12-15.
  */
-yonglongApp.controller('releaseCompanyListController', ['$scope','$timeout','$rootScope', 'interfaceService', 'rescode','baseDataService',
-  function($scope,$timeout,$rootScope, interfaceService, rescode,baseDataService) {
+yonglongApp.controller('releaseNoteListController', ['$scope','$timeout','$rootScope','showDatePickerProvider', 'interfaceService', 'rescode','baseDataService',
+  function($scope,$timeout,$rootScope,showDatePickerProvider, interfaceService, rescode,baseDataService) {
 
+    showDatePickerProvider.showDotDatePicker();
 
    $scope.require = {
-     companyCode:'',
-     companyEngName:'',
-     companyName:'',
+     title:'',
+     createEndTime:'',
+     createStartTime:'',
+     showType:0,
      pageno:1,
      pagesize:20,
    };
@@ -19,27 +21,9 @@ yonglongApp.controller('releaseCompanyListController', ['$scope','$timeout','$ro
       pageSize : $scope.require.pagesize
     }
 
-
-
-    var httpRequest = function () {
-      interfaceService.releaseOrderList($scope.require, function(data, headers, config) {
-        console.log(JSON.stringify(data));
-        if (data.rescode == rescode.SUCCESS) {
-          $scope.results = data.data;
-        }else{
-          swal({
-            title:'出错',
-            text:data.resdesc,
-            type:'error',
-            confirmButtonText: "确定",
-          });
-        }
-      });
-    };
-
     // 查询船公司列表
     var httpCompanyList = function (callback) {
-      interfaceService.releaseCompanyList($scope.require, function(data, headers, config) {
+      interfaceService.releaseNoteList($scope.require, function(data, headers, config) {
         console.log(JSON.stringify(data));
         if (data.rescode == rescode.SUCCESS) {
           $scope.results = data.data;
@@ -62,11 +46,16 @@ yonglongApp.controller('releaseCompanyListController', ['$scope','$timeout','$ro
       httpCompanyList();
     }
 
+    $scope.clickTab = function (showType) {
+      $scope.require.showType = showType;
+      interfaceService.showLoading('正在查询');
+      httpCompanyList();
+    }
+
     $scope.companyResult = {
-      companyCode:'',
-      companyEngName:'',
-      companyName:'',
-      remark:'',
+      title:'',
+      content:'',
+      showType:0,
     };
 
     $scope.createCompany = function (result) {
@@ -74,10 +63,9 @@ yonglongApp.controller('releaseCompanyListController', ['$scope','$timeout','$ro
         $scope.companyResult = result;
       }else{
         $scope.companyResult = {
-          companyCode:'',
-          companyEngName:'',
-          companyName:'',
-          remark:'',
+          title:'',
+          content:'',
+          showType:0,
         };
       }
       $('#modify-company').modal('show');
@@ -86,8 +74,8 @@ yonglongApp.controller('releaseCompanyListController', ['$scope','$timeout','$ro
     $scope.deleteCompany = function (id) {
       if(id!=undefined && id>0){
         swal({
-          title: "确定删除船公司信息吗?",
-          text: "您即将删除船公司信息!",
+          title: "确定删除公告吗?",
+          text: "您即将删除公告!",
           type: "warning",
           showCancelButton: true,
           cancelButtonText: "取消",
@@ -99,13 +87,13 @@ yonglongApp.controller('releaseCompanyListController', ['$scope','$timeout','$ro
           var p = {
             id:id
           }
-          interfaceService.releaseCompanyDelete(p, function(data, headers, config) {
+          interfaceService.releaseNoteDelete(p, function(data, headers, config) {
             console.log(JSON.stringify(data));
             if (data.rescode == rescode.SUCCESS) {
               $('#modify-company').modal('hide');
               swal({
                 title: "删除成功！",
-                text: "已成功删除了船公司信息。",
+                text: "已成功删除了公告。",
                 type: "success",
                 confirmButtonText: "确定",
               }, function() {
@@ -128,8 +116,8 @@ yonglongApp.controller('releaseCompanyListController', ['$scope','$timeout','$ro
       if($valid){
         if($scope.companyResult.id!=undefined){
           swal({
-            title: "确定修改船公司信息吗?",
-            text: "您即将修改船公司信息!",
+            title: "确定修改公告吗?",
+            text: "您即将修改公告!",
             type: "warning",
             showCancelButton: true,
             cancelButtonText: "取消",
@@ -138,14 +126,14 @@ yonglongApp.controller('releaseCompanyListController', ['$scope','$timeout','$ro
             closeOnConfirm: false,
             showLoaderOnConfirm: true,
           },function () {
-            interfaceService.releaseCompanyUpdate($scope.companyResult, function(data, headers, config) {
+            interfaceService.releaseNoteUpdate($scope.companyResult, function(data, headers, config) {
               console.log(JSON.stringify(data));
               if (data.rescode == rescode.SUCCESS) {
                 $('#modify-company').modal('hide');
                 $timeout(httpCompanyList,50);
                 swal({
                   title: "修改成功！",
-                  text: "已成功修改了船公司信息。",
+                  text: "已成功修改了公告。",
                   type: "success",
                   confirmButtonText: "确定",
                 }, function() {
@@ -163,8 +151,8 @@ yonglongApp.controller('releaseCompanyListController', ['$scope','$timeout','$ro
           });
         }else{
           swal({
-            title: "确定创建船公司信息吗?",
-            text: "您即将创建一条船公司信息!",
+            title: "确定创建公告吗?",
+            text: "您即将创建一条公告!",
             type: "warning",
             showCancelButton: true,
             cancelButtonText: "取消",
@@ -173,14 +161,14 @@ yonglongApp.controller('releaseCompanyListController', ['$scope','$timeout','$ro
             closeOnConfirm: false,
             showLoaderOnConfirm: true,
           },function () {
-            interfaceService.releaseCompanyCreate($scope.companyResult, function(data, headers, config) {
+            interfaceService.releaseNoteCreate($scope.companyResult, function(data, headers, config) {
               console.log(JSON.stringify(data));
               if (data.rescode == rescode.SUCCESS) {
                 $('#modify-company').modal('hide');
                 $timeout(httpCompanyList,50);
                 swal({
                   title: "创建成功！",
-                  text: "已成功创建了船公司信息。",
+                  text: "已成功创建了公告。",
                   type: "success",
                   confirmButtonText: "确定",
                 }, function() {
@@ -199,6 +187,23 @@ yonglongApp.controller('releaseCompanyListController', ['$scope','$timeout','$ro
         }
       }
     }
+    $scope.allCheckbox = [];
+    // 停用
+    $scope.isAllSelected = function(result){
+      return $scope.allCheckbox.indexOf(result)>=0;
+    }
+    $scope.updateAllCheckboxSelect = function ($event,result) {
+      var checkbox = $event.target ;
+      var checked = checkbox.checked ;
+      if(checked){
+        $scope.allCheckbox.push(result);
+        $scope.companyResult.showType = 1;
+      }else{
+        var idx = $scope.allCheckbox.indexOf(result);
+        $scope.allCheckbox.splice(idx,1);
+        $scope.companyResult.showType = 0;
+      }
+    };
 
     httpCompanyList();
 

@@ -103,7 +103,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
-
+    .state('main.release.note_list',{//公告管理
+      url:'/note_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/note_list.html',
+          controller: 'releaseNoteListController'
+        }
+      }
+    })
 
 
 

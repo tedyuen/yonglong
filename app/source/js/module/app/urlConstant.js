@@ -114,4 +114,8 @@ yonglongApp.constant('URL_CONS', {
   releaseCompanyDelete: 'releaseCompanyDelete',
   releaseUserList: 'releaseUserList',
   releaseOrderUpdate: 'releaseOrderUpdate',
+  releaseNoteList: 'releaseNoteList',
+  releaseNoteDelete: 'releaseNoteDelete',
+  releaseNoteUpdate: 'releaseNoteUpdate',
+  releaseNoteCreate: 'releaseNoteCreate',
 });
