@@ -271,6 +271,50 @@ yonglongApp.controller('comReleaseOrderListController', ['$scope','$timeout','$c
     }
 
 
-    httpCompanyList(httpCustomerList);
+    $scope.noteRequire = {
+      title:'',
+      createEndTime:'',
+      createStartTime:'',
+      showType:0,
+      pageno:1,
+      pagesize:1,
+    };
+    $scope.noteResult = {
+      currPageNum : 1,
+      totalPages : 1,
+      pageSize : $scope.noteRequire.pagesize
+    }
+    var httpNoteList = function(flag){
+
+      interfaceService.releaseNoteList($scope.noteRequire, function(data, headers, config) {
+        console.log(JSON.stringify(data));
+        if (data.rescode == rescode.SUCCESS) {
+          $scope.noteResult = data.data;
+          if($scope.noteResult.totalRows>0){
+            if(flag){
+              $('#note-alert').modal('show');
+            }
+          }else{
+            $('#note-alert').modal('hide');
+          }
+        }
+        if(flag){
+          $timeout(function(){
+            httpCompanyList(httpCustomerList);
+          },20);
+        }
+      });
+    }
+    $scope.nextNote = function(){
+      $scope.noteRequire.pageno++;
+      httpNoteList();
+    }
+
+    $scope.preNote = function(){
+      $scope.noteRequire.pageno--;
+      httpNoteList();
+    }
+
+    httpNoteList(true);
   }
 ]);
