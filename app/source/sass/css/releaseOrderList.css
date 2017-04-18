@@ -8,3 +8,6 @@
 .release-order-list .line-green {
   color: white;
   background-color: green; }
+
+.release-table .table tr td {
+  padding: 5px 5px; }
