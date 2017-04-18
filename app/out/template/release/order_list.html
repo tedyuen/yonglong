@@ -250,21 +250,22 @@
               【{{releaseBoxSTData.boxdesc}}:{{releaseBoxSTData.boxnum}}】
             </span>
           </div>
-          <div>
+          <div class="m-t-15">
             <a href="" class="clipboard" data-clipboard-action="copy" data-clipboard-target="#release-order-list">复制到剪贴板</a>
             <a href="" class="m-r-10" ng-click="batchUpdate(1)">调整申请时间</a>
             <a href="" class="m-r-10" ng-click="batchUpdate(2)">调整船公司</a>
             <a href="" class="m-r-10" ng-click="batchUpdate(3)">录入打单费</a>
             <a href="" class="m-r-10" ng-click="batchUpdate(4)">录入服务费</a>
+            <a href="" class="m-r-10" ng-click="batchUpdateStatus(1,1)">放单中</a>
+            <a href="" class="m-r-10" ng-click="batchUpdateStatus(1,2)">已完成</a>
+            <a href="" class="m-r-10" ng-click="batchUpdateStatus(1,4)">没预配</a>
+            <a href="" class="m-r-10" ng-click="batchUpdateStatus(1,5)">处理中</a>
+            <a href="" class="m-r-10" ng-click="batchUpdateStatus(1,7)">船期早</a>
+            <a href="" class="m-r-10" ng-click="batchUpdateStatus(2,1)">已结</a>
+            <a href="" class="m-r-10" ng-click="batchUpdateStatus(2,2)">未结</a>
           </div>
 
-          <!--<a href="" class="m-r-10">放单中</a>-->
-          <!--<a href="" class="m-r-10">已完成</a>-->
-          <!--<a href="" class="m-r-10">没预配</a>-->
-          <!--<a href="" class="m-r-10">处理中</a>-->
-          <!--<a href="" class="m-r-10">船期早</a>-->
-          <!--<a href="" class="m-r-10">已结</a>-->
-          <!--<a href="" class="m-r-10">未结</a>-->
+
         </div>
       </div>
     </div>
