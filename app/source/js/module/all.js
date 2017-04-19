@@ -8680,6 +8680,11 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$cook
 
     var loginUser = $rootScope.loginUser;
 
+    $scope.pagesizeList = [
+      {size:20,name:'20'},
+      {size:30,name:'30'},
+      {size:40,name:'40'},
+    ];
 
     $scope.salePoint = [
       {id:-1,name:'全部'},
@@ -8769,6 +8774,11 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$cook
     }
     $scope.switchPage = function (page) {
       $scope.require.pageno = page;
+      interfaceService.showLoading('正在查询');
+      httpRequest();
+    }
+    $scope.pagesizeChange = function () {
+      $scope.require.pageno = 1;
       interfaceService.showLoading('正在查询');
       httpRequest();
     }
@@ -9523,6 +9533,11 @@ yonglongApp.controller('comReleaseOrderListController', ['$scope','$timeout','$c
   function($scope,$timeout,$cookies,$rootScope,$interval,$location, interfaceService, rescode,baseDataService,showDatePickerProvider,cookiesService) {
     showDatePickerProvider.showDotDatePicker();
 
+    $scope.pagesizeList = [
+      {size:20,name:'20'},
+      {size:30,name:'30'},
+      {size:40,name:'40'},
+    ];
 
     $scope.salePoint = [
       {id:-1,name:'全部'},
@@ -9596,7 +9611,11 @@ yonglongApp.controller('comReleaseOrderListController', ['$scope','$timeout','$c
       interfaceService.showLoading('正在查询');
       httpRequest();
     }
-
+    $scope.pagesizeChange = function () {
+      $scope.require.pageno = 1;
+      interfaceService.showLoading('正在查询');
+      httpRequest();
+    }
 
     var httpRequest = function (callback) {
       interfaceService.releaseOrderList($scope.require, function(data, headers, config) {

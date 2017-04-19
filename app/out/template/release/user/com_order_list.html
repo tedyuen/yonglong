@@ -131,6 +131,17 @@
 
             <h5 class="m-t-20">自动刷新时间：{{countUp}}秒</h5>
 
+            <div class="row m-t-15">
+              <div class="col-sm-12 col-md-2">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">每页显示数量</span>
+                    <select class="form-control" ng-change="pagesizeChange()" ng-model="require.pagesize" ng-options="s.size as s.name for s in pagesizeList">
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -151,7 +162,7 @@
       <div class="col-sm-12">
         <div class="white-box" ng-show="results.totalPages!=null && results.totalPages!=0">
 
-          <div class="table-responsive">
+          <div class="release-table table-responsive">
             <table id="release-order-list" class="table color-table primary-table table-bordered">
               <thead>
               <tr>
