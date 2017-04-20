@@ -190,7 +190,8 @@ yonglongApp.controller('releaseOrderListController', ['$scope','$timeout','$cook
           }
         }
         $timeout(function () {
-          httpRequest(timePromise);
+          // httpRequest(timePromise);//这里是倒计时
+          httpRequest();
         },20);
       });
     };

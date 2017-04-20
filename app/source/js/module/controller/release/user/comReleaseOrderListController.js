@@ -168,7 +168,8 @@ yonglongApp.controller('comReleaseOrderListController', ['$scope','$timeout','$c
           }
         }
         $timeout(function () {
-          httpRequest(timePromise);
+          // httpRequest(timePromise);
+          httpRequest();
         },20);
       });
     };
