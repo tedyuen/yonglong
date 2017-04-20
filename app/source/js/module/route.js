@@ -112,7 +112,15 @@ yonglongApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvid
         }
       }
     })
-
+    .state('main.release.user_list',{//客户列表
+      url:'/user_list',
+      views: {
+        'content@main': {
+          templateUrl: 'template/release/user_list.html',
+          controller: 'releaseUserListController'
+        }
+      }
+    })
 
 
 

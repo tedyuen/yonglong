@@ -209,8 +209,13 @@ yonglongApp.filter('releaseStatusAmount',function () {
     return result;
   }
 });
-
-
-
-
-
+yonglongApp.filter('releaseSalePoint',function(){
+  return function(str){
+    switch(str){
+      case 1:
+        return '浦东';
+        case 2:
+        return '浦西';
+    }
+  }
+});

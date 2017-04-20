@@ -1,0 +1,91 @@
+<!-- 更新资料 -->
+<div id="page-wrapper" class="release-frame">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">客户列表</h4>
+      </div>
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <form ng-submit="" novalidate="novalidate" name="theForm">
+
+          <div class="white-box">
+            <div class="row">
+              <div class="col-sm-12 col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">客户名称</span>
+                    <input type="text" class="form-control" ng-model="require.customerName" ng-keyup="customerNameEnter($event)">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" ng-click="refresh()" class="btn btn-primary waves-effect waves-light m-t-15 m-r-10">查找</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+      <div class="col-sm-12" ng-show="results.totalPages==null || (results.totalPages!=null && results.totalPages==0)">
+        <div class="white-box">
+          <div class="row">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              暂无数据
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="white-box" ng-show="results.totalPages!=null && results.totalPages!=0">
+          <div class="table-responsive">
+            <table class="table color-table primary-table table-hover table-bordered">
+              <thead>
+              <tr>
+                <th><nobr>客户名称</nobr></th>
+                <th><nobr>客户代码</nobr></th>
+                <th><nobr>联系人</nobr></th>
+                <th><nobr>电话</nobr></th>
+                <th><nobr>业务点</nobr></th>
+                <th><nobr>传真</nobr></th>
+                <th><nobr>地址</nobr></th>
+                <th><nobr>备注</nobr></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="result in results.pageData" ng-click="createCompany(result)">
+                <td><nobr>{{result.customerName | emptyText}}</nobr></td>
+                <td><nobr>{{result.customerNumber | emptyText}}</nobr></td>
+                <td><nobr>{{result.linkName | emptyText}}</nobr></td>
+                <td><nobr>{{result.linkMobile | emptyText}}</nobr></td>
+                <td><nobr>{{result.salePoint | releaseSalePoint}}</nobr></td>
+                <td><nobr>{{result.linkFox | emptyText}}</nobr></td>
+                <td><nobr>{{result.linkAddress | emptyText}}</nobr></td>
+                <td><nobr>{{result.remark | emptyText}}</nobr></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <pagination page-size="results.pageSize"
+                      total-pages="results.totalPages"
+                      curr-page="results.currPageNum"
+                      show-count="100"
+                      switch-page="switchPage">
+          </pagination>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+</div>
