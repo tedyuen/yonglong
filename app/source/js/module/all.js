@@ -8615,16 +8615,16 @@ yonglongApp.controller('releaseOrderCreateController', ['$scope','$timeout','$ro
 
     $scope.calBoxDesc = function () {
       var str = '';
-      if($scope.boxnum1!=null){
+      if($scope.boxnum1!=null && $scope.boxnum1>0){
         str += $scope.boxnum1+"X"+$scope.vtype1+$scope.stype1;
       }
-      if($scope.boxnum2!=null){
+      if($scope.boxnum2!=null && $scope.boxnum2>0){
         if(str.length>0){
           str += " ";
         }
         str += $scope.boxnum2+"X"+$scope.vtype2+$scope.stype2;
       }
-      if($scope.boxnum3!=null){
+      if($scope.boxnum3!=null && $scope.boxnum3>0){
         if(str.length>0){
           str += " ";
         }
@@ -8636,7 +8636,23 @@ yonglongApp.controller('releaseOrderCreateController', ['$scope','$timeout','$ro
 
     $scope.onSubmit = function($valid) {
       if ($valid) {
-
+        if($scope.detail.boxdesc==''){
+          swal({
+            title:'错误',
+            text:'箱型箱量的数量至少输入一项',
+            type:'error',
+            confirmButtonText:'确定'
+          });
+          return;
+        }else if($scope.detail.billno==''){
+          swal({
+            title:'错误',
+            text:'提单号必填',
+            type:'error',
+            confirmButtonText:'确定'
+          });
+          return;
+        }
         swal({
           title: "确定创建委托书吗?",
           text: "您即将创建委托书!",
